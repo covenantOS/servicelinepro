@@ -63,7 +63,14 @@ export interface CaseStudy {
   slug: string;
   title: string;
   category: string;
+  industry?: string;
+  location?: string;
   result: string;
+  metrics?: {
+    primary: string;
+    secondary?: string;
+  };
+  image?: string;
 }
 
 export interface TeamMember {
