@@ -5,6 +5,7 @@ import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import ReviewsSection from '../../components/ReviewsSection.astro';
 import CTABand from '../../components/CTABand.astro';
 import Footer from '../../components/Footer.astro';
+import LeadMagnet from '../../components/LeadMagnet.astro';
 import config from '../../lib/config';
 import { renderMarkdown } from '../../lib/markdown';
 import fs from 'node:fs';
@@ -230,6 +231,28 @@ const schema = {
                 </div>
               ))}
             </div>
+          </div>
+        )}
+
+        {/* Lead Magnet */}
+        <LeadMagnet service={service.slug} variant="inline" />
+
+        {/* Case Studies for this service */}
+        {serviceCaseStudies.length > 0 && (
+          <div class="inline-case-studies">
+            <h2>Real {displayName} Results</h2>
+            <div class="inline-cases-grid">
+              {serviceCaseStudies.slice(0, 4).map(cs => (
+                <a href={`/case-studies/${cs.slug}/`} class="inline-case-card">
+                  <span class="inline-case-tag">{cs.category}</span>
+                  <h3>{cs.metrics?.primary || cs.result}</h3>
+                  <span class="inline-case-client">{cs.title}</span>
+                  {cs.metrics?.secondary && <span class="inline-case-secondary">{cs.metrics.secondary}</span>}
+                  <span class="card-link">Read Full Case Study &rarr;</span>
+                </a>
+              ))}
+            </div>
+            <a href="/case-studies/" class="see-all-link">See All {config.case_studies.length} Case Studies &rarr;</a>
           </div>
         )}
 
@@ -478,6 +501,20 @@ const schema = {
   .industry-link { display: inline-block; padding: 0.5rem 1rem; background: var(--color-gray-100); border-radius: var(--radius-sm); font-size: var(--text-sm); transition: background var(--transition-fast), color var(--transition-fast); }
   .industry-link:hover { background: var(--color-primary); color: var(--color-white); }
   .see-all-link { display: inline-block; margin-top: var(--space-md); font-size: var(--text-sm); font-weight: 600; color: var(--color-primary); }
+
+  /* Inline Case Studies */
+  .inline-case-studies { margin-top: var(--space-2xl); }
+  .inline-cases-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: var(--space-md); margin-top: var(--space-lg); }
+  .inline-case-card {
+    display: flex; flex-direction: column; padding: var(--space-lg);
+    background: var(--color-white); border: 1px solid var(--color-gray-200); border-radius: 10px;
+    text-decoration: none; color: inherit; transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .inline-case-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.1); }
+  .inline-case-tag { font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-primary); margin-bottom: var(--space-xs); }
+  .inline-case-card h3 { font-size: var(--text-lg); margin-bottom: var(--space-xs); }
+  .inline-case-client { font-size: var(--text-sm); color: var(--color-text-muted); margin-bottom: 0.25rem; }
+  .inline-case-secondary { font-size: var(--text-sm); color: var(--color-text-light); margin-bottom: var(--space-sm); }
 
   .sidebar { display: flex; flex-direction: column; gap: var(--space-lg); }
   .sidebar-card { background: var(--color-white); border: 1px solid var(--color-gray-200); border-radius: var(--radius-md); padding: var(--space-lg); position: sticky; top: var(--space-lg); }

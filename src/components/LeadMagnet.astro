@@ -1,0 +1,260 @@
+---
+import config from '../lib/config';
+
+interface Props {
+  service?: string;
+  variant?: 'inline' | 'dark' | 'sidebar';
+}
+
+const { service = '', variant = 'inline' } = Astro.props;
+
+const guides: Record<string, { title: string; subtitle: string; bullets: string[] }> = {
+  'local-seo': {
+    title: 'Free Guide: The Local SEO Playbook',
+    subtitle: 'Everything you need to rank in the Map Pack, written so you can do it yourself.',
+    bullets: [
+      'The 7 ranking factors Google actually cares about',
+      'How to audit your Google Business Profile in 15 minutes',
+      'Citation sources that move the needle (and which ones are noise)',
+      'The review velocity formula that outranks competitors',
+    ],
+  },
+  'ppc': {
+    title: 'Free Guide: Google Ads Without the Waste',
+    subtitle: 'Stop burning money on clicks that never convert.',
+    bullets: [
+      'How to structure campaigns so every dollar has a job',
+      'The negative keyword list that saves most businesses 30%+',
+      'Landing page elements that double your conversion rate',
+      'When to use broad match vs. exact match (and why it changed)',
+    ],
+  },
+  'website-design': {
+    title: 'Free Guide: Websites That Actually Convert',
+    subtitle: 'Your site gets traffic. Here is how to turn visitors into leads.',
+    bullets: [
+      'The 5-second test: what visitors decide before they scroll',
+      'Form placement that triples submissions',
+      'Speed optimizations that cost nothing but change everything',
+      'AI chat integration: when it works and when it backfires',
+    ],
+  },
+  'tv-streaming-advertising': {
+    title: 'Free Guide: TV & Streaming Ads for Local Businesses',
+    subtitle: 'How to reach your market on the biggest screen in their house.',
+    bullets: [
+      'Why local TV ads cost less than you think',
+      'Connected TV vs. linear: which one fits your budget',
+      'How Spectrum Reach first-party data targets your exact customer',
+      'Measuring TV ad ROI without guessing',
+    ],
+  },
+};
+
+const guide = guides[service] || {
+  title: 'Free Marketing Health Check',
+  subtitle: 'We will audit your online presence and show you exactly where you are losing leads.',
+  bullets: [
+    'Google Business Profile audit with specific fixes',
+    'Website speed and conversion analysis',
+    'Local ranking report for your top keywords',
+    'Competitor comparison showing gaps and opportunities',
+  ],
+};
+---
+
+{variant === 'inline' && (
+  <div class="lead-magnet">
+    <div class="lead-magnet-inner">
+      <div class="lead-magnet-content">
+        <span class="lead-magnet-badge">Free Resource</span>
+        <h3>{guide.title}</h3>
+        <p>{guide.subtitle}</p>
+        <ul class="lead-magnet-list">
+          {guide.bullets.map(b => <li>{b}</li>)}
+        </ul>
+      </div>
+      <div class="lead-magnet-cta">
+        <a href={`/contact?resource=${encodeURIComponent(guide.title)}`} class="btn btn-primary btn-lg">Get the Free Guide</a>
+        <span class="lead-magnet-note">No email required. We will send it after your strategy call.</span>
+      </div>
+    </div>
+  </div>
+)}
+
+{variant === 'dark' && (
+  <div class="lead-magnet-dark">
+    <div class="lead-magnet-dark-bg"></div>
+    <div class="lead-magnet-dark-inner">
+      <span class="lead-magnet-badge-dark">Free Resource</span>
+      <h3>{guide.title}</h3>
+      <p>{guide.subtitle}</p>
+      <ul class="lead-magnet-list-dark">
+        {guide.bullets.map(b => <li>{b}</li>)}
+      </ul>
+      <a href={`/contact?resource=${encodeURIComponent(guide.title)}`} class="btn btn-primary">Get the Free Guide</a>
+    </div>
+  </div>
+)}
+
+{variant === 'sidebar' && (
+  <div class="lead-magnet-sidebar">
+    <span class="lead-magnet-badge-sm">Free Guide</span>
+    <h4>{guide.title.replace('Free Guide: ', '')}</h4>
+    <p>{guide.subtitle}</p>
+    <a href={`/contact?resource=${encodeURIComponent(guide.title)}`} class="btn btn-primary btn-sm btn-block">Download Free</a>
+  </div>
+)}
+
+<style>
+  /* === Inline Variant === */
+  .lead-magnet {
+    margin: var(--space-2xl) 0;
+    border: 2px solid var(--color-primary);
+    border-radius: 12px;
+    overflow: hidden;
+    background: linear-gradient(135deg, rgba(192,57,43,0.03) 0%, rgba(192,57,43,0.08) 100%);
+  }
+  .lead-magnet-inner {
+    padding: var(--space-xl) var(--space-2xl);
+  }
+  .lead-magnet-badge {
+    display: inline-block;
+    font-size: 0.6rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-primary);
+    background: rgba(192,57,43,0.1);
+    padding: 0.2rem 0.6rem;
+    border-radius: 3px;
+    margin-bottom: var(--space-sm);
+  }
+  .lead-magnet h3 {
+    font-size: var(--text-xl);
+    margin-bottom: var(--space-xs);
+  }
+  .lead-magnet p {
+    color: var(--color-text-light);
+    margin-bottom: var(--space-md);
+  }
+  .lead-magnet-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--space-lg) 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-sm);
+  }
+  @media (max-width: 768px) {
+    .lead-magnet-list { grid-template-columns: 1fr; }
+  }
+  .lead-magnet-list li {
+    padding-left: 1.5rem;
+    position: relative;
+    font-size: var(--text-sm);
+    color: var(--color-text-light);
+    line-height: 1.5;
+  }
+  .lead-magnet-list li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--color-primary);
+    font-weight: 700;
+  }
+  .lead-magnet-cta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+  }
+  .lead-magnet-note {
+    font-size: 0.7rem;
+    color: var(--color-text-muted);
+  }
+
+  /* === Dark Variant === */
+  .lead-magnet-dark {
+    position: relative;
+    background: var(--color-dark);
+    border-radius: 12px;
+    overflow: hidden;
+    margin: var(--space-2xl) 0;
+  }
+  .lead-magnet-dark-bg {
+    position: absolute; inset: 0;
+    background: radial-gradient(circle at 80% 30%, rgba(192,57,43,0.15) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  .lead-magnet-dark-inner {
+    position: relative;
+    z-index: 1;
+    padding: var(--space-2xl);
+  }
+  .lead-magnet-badge-dark {
+    display: inline-block;
+    font-size: 0.6rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-primary);
+    margin-bottom: var(--space-sm);
+  }
+  .lead-magnet-dark h3 {
+    color: var(--color-white);
+    font-size: var(--text-xl);
+    margin-bottom: var(--space-xs);
+  }
+  .lead-magnet-dark p {
+    color: rgba(255,255,255,0.6);
+    margin-bottom: var(--space-md);
+  }
+  .lead-magnet-list-dark {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--space-lg) 0;
+  }
+  .lead-magnet-list-dark li {
+    padding: 0.3rem 0 0.3rem 1.5rem;
+    position: relative;
+    font-size: var(--text-sm);
+    color: rgba(255,255,255,0.5);
+  }
+  .lead-magnet-list-dark li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--color-primary);
+    font-weight: 700;
+  }
+
+  /* === Sidebar Variant === */
+  .lead-magnet-sidebar {
+    background: linear-gradient(135deg, rgba(192,57,43,0.04) 0%, rgba(192,57,43,0.08) 100%);
+    border: 1px solid rgba(192,57,43,0.15);
+    border-radius: 10px;
+    padding: var(--space-lg);
+  }
+  .lead-magnet-badge-sm {
+    display: inline-block;
+    font-size: 0.55rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-primary);
+    margin-bottom: var(--space-xs);
+  }
+  .lead-magnet-sidebar h4 {
+    font-size: var(--text-base);
+    margin-bottom: var(--space-xs);
+  }
+  .lead-magnet-sidebar p {
+    font-size: var(--text-sm);
+    color: var(--color-text-light);
+    margin-bottom: var(--space-md);
+    line-height: 1.5;
+  }
+  .btn-sm { padding: 0.5rem 1rem; font-size: var(--text-sm); }
+  .btn-block { display: block; text-align: center; width: 100%; }
+</style>
