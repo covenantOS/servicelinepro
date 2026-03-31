@@ -6,13 +6,16 @@ import CTABand from '../components/CTABand.astro';
 import Footer from '../components/Footer.astro';
 import config from '../lib/config';
 
-const pageTitle = "Case Studies";
+const pageTitle = "Case Studies & Results";
 const pageDescription = "Real results from real home service businesses. See how ServiceLine Pro delivers Map Pack rankings, Google Ads leads, and revenue growth for contractors nationwide.";
 
 const breadcrumbItems = [
   { label: 'Home', href: '/' },
-  { label: 'Case Studies' },
+  { label: 'Results' },
 ];
+
+// Group case studies by category
+const categories = [...new Set(config.case_studies.map(cs => cs.category))];
 ---
 
 <Base title={pageTitle} description={pageDescription}>
@@ -26,19 +29,83 @@ const breadcrumbItems = [
     </div>
   </section>
 
-  <section class="cases-section section">
+  <!-- HEADLINE STATS -->
+  <section class="headline-stats">
     <div class="container">
-      <div class="cases-grid">
+      <div class="stats-row">
+        <div class="headline-stat">
+          <span class="headline-stat-value">$2M+</span>
+          <span class="headline-stat-label">New Business Generated</span>
+        </div>
+        <div class="headline-stat">
+          <span class="headline-stat-value">300+</span>
+          <span class="headline-stat-label">Leads (Single Client)</span>
+        </div>
+        <div class="headline-stat">
+          <span class="headline-stat-value">2,784%</span>
+          <span class="headline-stat-label">Search Appearance Increase</span>
+        </div>
+        <div class="headline-stat">
+          <span class="headline-stat-value">1,400%</span>
+          <span class="headline-stat-label">ROI on Website Redesign</span>
+        </div>
+        <div class="headline-stat">
+          <span class="headline-stat-value">6 Days</span>
+          <span class="headline-stat-label">Rank 17.6 to 4.7</span>
+        </div>
+        <div class="headline-stat">
+          <span class="headline-stat-value">461%</span>
+          <span class="headline-stat-label">ROI on Google Ads</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CASE STUDIES BY CATEGORY -->
+  {categories.map(category => (
+    <section class="cases-category section">
+      <div class="container">
+        <span class="section-label">{category}</span>
+        <h2>{category} Results</h2>
+        <div class="cases-grid">
+          {config.case_studies.filter(cs => cs.category === category).map(cs => {
+            const review = config.reviews.find(r =>
+              r.company && cs.title.toLowerCase().includes(r.company.toLowerCase().split(' ')[0])
+            );
+            return (
+              <div class="case-card-full">
+                <div class="case-card-header">
+                  <span class="case-category-tag">{cs.category}</span>
+                  <h3 class="case-metric">{cs.result}</h3>
+                  <span class="case-client">{cs.title}</span>
+                </div>
+                {review && (
+                  <blockquote class="case-testimonial">
+                    "{review.text}"
+                    <cite>- {review.author}</cite>
+                  </blockquote>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  ))}
+
+  <!-- ALL REVIEWS -->
+  <section class="reviews-full section section-alt">
+    <div class="container">
+      <span class="section-label">Testimonials</span>
+      <h2>What Our Clients Say</h2>
+      <div class="reviews-grid">
         {config.reviews.map(review => (
-          <div class="case-card">
-            <div class="case-category">{review.company ? 'Client Results' : 'Testimonial'}</div>
-            <blockquote class="case-quote">{review.text}</blockquote>
-            <div class="case-meta">
+          <div class="review-card-full">
+            <div class="review-stars">{'★'.repeat(review.rating)}</div>
+            <blockquote class="review-text">{review.text}</blockquote>
+            <div class="review-meta">
               <strong>{review.author}</strong>
               {review.company && <span>{review.company}</span>}
-            </div>
-            <div class="case-rating">
-              {'★'.repeat(review.rating)}
             </div>
           </div>
         ))}
@@ -46,38 +113,7 @@ const breadcrumbItems = [
     </div>
   </section>
 
-  <section class="stats-section section section-dark">
-    <div class="container">
-      <h2>By the Numbers</h2>
-      <div class="stats-grid">
-        <div class="stat">
-          <div class="stat-value">$2M+</div>
-          <div class="stat-label">New Business Generated</div>
-        </div>
-        <div class="stat">
-          <div class="stat-value">300+</div>
-          <div class="stat-label">High-Value Leads (Single Client)</div>
-        </div>
-        <div class="stat">
-          <div class="stat-value">2,784%</div>
-          <div class="stat-label">Search Appearance Increase</div>
-        </div>
-        <div class="stat">
-          <div class="stat-value">1,400%</div>
-          <div class="stat-label">ROI on Website Redesign</div>
-        </div>
-        <div class="stat">
-          <div class="stat-value">6 Days</div>
-          <div class="stat-label">Rank 17.6 to 4.7</div>
-        </div>
-        <div class="stat">
-          <div class="stat-value">461%</div>
-          <div class="stat-label">ROI on Google Ads Campaign</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
+  <!-- SERVICES BEHIND RESULTS -->
   <section class="services-cta section">
     <div class="container">
       <h2>Services Behind These Results</h2>
@@ -98,26 +134,47 @@ const breadcrumbItems = [
 </Base>
 
 <style>
-  .page-hero { background: var(--color-dark); padding: var(--space-3xl) 0 var(--space-2xl); color: var(--color-white); }
-  .page-hero h1 { color: var(--color-white); font-size: var(--text-4xl); margin-bottom: var(--space-sm); }
-  .page-hero-desc { color: rgba(255,255,255,0.75); font-size: var(--text-lg); max-width: 550px; }
+  /* Headline stats band */
+  .headline-stats { background: var(--color-dark); padding: var(--space-2xl) 0; }
+  .stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: var(--space-lg); text-align: center; }
+  .headline-stat-value { display: block; font-family: var(--font-heading); font-size: var(--text-2xl); font-weight: 800; color: var(--color-primary); line-height: 1; margin-bottom: 0.25rem; }
+  .headline-stat-label { display: block; font-size: 0.7rem; color: rgba(255,255,255,0.45); }
 
-  .cases-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: var(--space-lg); }
-  .case-card { background: var(--color-white); border-left: 3px solid var(--color-primary); border-radius: 0 10px 10px 0; padding: var(--space-xl); box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
-  .case-category { font-size: var(--text-xs); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-primary); margin-bottom: var(--space-sm); }
-  .case-quote { font-size: var(--text-base); line-height: var(--leading-relaxed); color: var(--color-text); margin: 0 0 var(--space-md) 0; padding: 0; border: none; }
-  .case-meta { margin-bottom: var(--space-xs); }
-  .case-meta strong { display: block; font-size: var(--text-sm); }
-  .case-meta span { font-size: var(--text-sm); color: var(--color-text-light); }
-  .case-rating { color: #f5c518; font-size: var(--text-sm); }
+  /* Case study category sections */
+  .cases-category:nth-child(odd) { background: var(--color-white); }
+  .cases-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: var(--space-lg); margin-top: var(--space-xl); }
 
-  .section-dark { background: var(--color-dark); color: var(--color-white); }
-  .section-dark h2 { color: var(--color-white); }
-  .section-dark h2::after { background: var(--color-primary); }
-  .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: var(--space-xl); margin-top: var(--space-xl); text-align: center; }
-  .stat-value { font-size: var(--text-3xl); font-weight: 800; color: var(--color-primary); line-height: 1; margin-bottom: 0.25rem; }
-  .stat-label { font-size: var(--text-sm); color: rgba(255,255,255,0.6); }
+  .case-card-full {
+    background: var(--color-white);
+    border: 1px solid var(--color-gray-200);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .case-card-full:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(0,0,0,0.08); }
 
+  .case-card-header {
+    padding: var(--space-xl);
+    border-bottom: 1px solid var(--color-gray-100);
+    background: linear-gradient(135deg, rgba(192,57,43,0.04) 0%, transparent 100%);
+  }
+  .case-category-tag { display: inline-block; font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-primary); background: rgba(192,57,43,0.1); padding: 0.2rem 0.5rem; border-radius: 3px; margin-bottom: var(--space-sm); }
+  .case-metric { font-size: var(--text-2xl); margin-bottom: var(--space-xs); }
+  .case-client { font-size: var(--text-sm); color: var(--color-text-muted); }
+
+  .case-testimonial { padding: var(--space-lg) var(--space-xl); font-size: var(--text-sm); color: var(--color-text-light); line-height: 1.6; font-style: italic; margin: 0; border: none; }
+  .case-testimonial cite { display: block; margin-top: var(--space-sm); font-size: 0.75rem; font-style: normal; font-weight: 600; color: var(--color-text); }
+
+  /* Reviews section */
+  .section-alt { background: #fafafa; }
+  .reviews-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: var(--space-lg); margin-top: var(--space-xl); }
+  .review-card-full { background: var(--color-white); border-left: 3px solid var(--color-primary); border-radius: 0 10px 10px 0; padding: var(--space-xl); box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+  .review-stars { color: #f5c518; font-size: var(--text-sm); margin-bottom: var(--space-sm); }
+  .review-text { font-size: var(--text-base); line-height: 1.6; color: var(--color-text); margin: 0 0 var(--space-md) 0; padding: 0; border: none; }
+  .review-meta strong { display: block; font-size: var(--text-sm); }
+  .review-meta span { font-size: var(--text-sm); color: var(--color-text-light); }
+
+  /* Services CTA grid */
   .services-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: var(--space-lg); margin-top: var(--space-xl); }
   .service-link-card { display: block; padding: var(--space-lg); background: var(--color-white); border: 1px solid var(--color-gray-200); border-radius: 10px; text-decoration: none; color: inherit; transition: transform 0.15s, box-shadow 0.15s; }
   .service-link-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.1); }

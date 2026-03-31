@@ -83,6 +83,19 @@ const pricingTiers = service.pricing?.tiers || [];
 const faqQuestions = frontmatter.faq || [];
 const processSteps = frontmatter.process_steps || [];
 
+const isLocalSEO = service.slug === 'local-seo';
+const isPPC = service.slug === 'ppc';
+const isTV = service.slug === 'tv-streaming-advertising';
+
+// Find relevant case studies for this service
+const serviceCaseStudies = config.case_studies.filter(cs => {
+  const cat = cs.category.toLowerCase();
+  if (service.slug === 'local-seo') return cat.includes('seo');
+  if (service.slug === 'ppc') return cat.includes('ads') || cat.includes('ppc');
+  if (service.slug === 'website-design') return cat.includes('design') || cat.includes('website');
+  return false;
+});
+
 const schema = {
   '@context': 'https://schema.org',
   '@type': 'Service',
@@ -99,14 +112,27 @@ const schema = {
   <Header slot="header" />
 
   <section class="service-hero">
+    <div class="hero-bg-pattern"></div>
     <div class="container service-hero-inner">
       <Breadcrumbs items={breadcrumbItems} />
+      {isTV && <span class="hero-partner-badge">Spectrum Reach Partner</span>}
+      {isPPC && <span class="hero-partner-badge">$0 Agency Fee on $5K+ Spend</span>}
       <h1>{pageTitle}</h1>
       <p class="service-hero-desc">{displayDesc}</p>
       <div class="service-hero-ctas">
         <a href="/contact" class="btn btn-primary">Get Your Free Strategy Call</a>
         <a href="/pricing/" class="btn btn-outline">View Pricing</a>
       </div>
+      {serviceCaseStudies.length > 0 && (
+        <div class="hero-results-strip">
+          {serviceCaseStudies.slice(0, 3).map(cs => (
+            <div class="hero-result-chip">
+              <span class="hero-result-value">{cs.result}</span>
+              <span class="hero-result-client">{cs.title}</span>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   </section>
 
@@ -261,6 +287,68 @@ const schema = {
     </div>
   </section>
 
+  {/* Free 10-Day Boost - Local SEO only */}
+  {isLocalSEO && (
+    <section class="boost-band section-dark">
+      <div class="boost-band-pattern"></div>
+      <div class="container boost-band-grid">
+        <div class="boost-band-content">
+          <span class="boost-band-label">Limited Offer</span>
+          <h2>Free 10-Day Local SEO Boost</h2>
+          <p>We will optimize your Google Business Profile, fix your citations, and boost your local signals for 10 days. No charge. No commitment. If you see results, we talk.</p>
+          <div class="boost-band-reqs">
+            <span>Requirements:</span>
+            <ul>
+              <li>Physical Google Business Profile</li>
+              <li>15+ existing Google reviews</li>
+              <li>4.5+ star rating</li>
+              <li>Existing website</li>
+            </ul>
+          </div>
+          <a href="/contact?service=10-day-boost" class="btn btn-primary">Apply for Free Boost &rarr;</a>
+        </div>
+        <div class="boost-band-stats">
+          <div class="boost-stat">
+            <span class="boost-stat-val">+47%</span>
+            <span class="boost-stat-desc">Search Appearances</span>
+          </div>
+          <div class="boost-stat">
+            <span class="boost-stat-val">+23%</span>
+            <span class="boost-stat-desc">Discovery Searches</span>
+          </div>
+          <div class="boost-stat">
+            <span class="boost-stat-val">+15%</span>
+            <span class="boost-stat-desc">Direction Requests</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  )}
+
+  {/* Spectrum Partnership callout - PPC and TV pages */}
+  {(isPPC || isTV) && (
+    <section class="spectrum-band section">
+      <div class="container spectrum-band-inner">
+        <span class="section-label">Exclusive Partnership</span>
+        <h2>Powered by Spectrum Reach</h2>
+        <div class="spectrum-band-grid">
+          <div class="spectrum-band-stat">
+            <span class="spectrum-num">30M+</span>
+            <span>Households of First-Party Data</span>
+          </div>
+          <div class="spectrum-band-stat">
+            <span class="spectrum-num">36</span>
+            <span>States Covered</span>
+          </div>
+          <div class="spectrum-band-stat">
+            <span class="spectrum-num">$0</span>
+            <span>Agency Fee on $5K+ Spend</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  )}
+
   <CTABand heading={`Ready to Get Started with ${displayName}?`} />
   <ReviewsSection compact={true} maxReviews={3} />
   <Footer slot="footer" />
@@ -271,6 +359,22 @@ const schema = {
     background: var(--color-dark);
     padding: var(--space-3xl) 0 var(--space-2xl);
     color: var(--color-white);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg-pattern {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(circle at 20% 80%, rgba(192,57,43,0.12) 0%, transparent 45%),
+      radial-gradient(circle at 80% 20%, rgba(192,57,43,0.06) 0%, transparent 35%);
+    pointer-events: none;
+  }
+  .service-hero-inner { position: relative; z-index: 1; }
+
+  .hero-partner-badge {
+    display: inline-block; font-size: 0.65rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.08em; color: var(--color-primary); background: rgba(192,57,43,0.15);
+    padding: 0.25rem 0.75rem; border-radius: 4px; margin-bottom: var(--space-md);
   }
 
   .service-hero h1 {
@@ -281,11 +385,11 @@ const schema = {
   }
 
   .service-hero-desc {
-    color: rgba(255, 255, 255, 0.75);
+    color: rgba(255, 255, 255, 0.7);
     font-size: var(--text-lg);
     max-width: 600px;
     margin-bottom: var(--space-lg);
-    line-height: var(--leading-relaxed);
+    line-height: 1.6;
   }
 
   .service-hero-ctas {
@@ -295,9 +399,22 @@ const schema = {
   }
 
   .service-hero .btn-outline {
-    border-color: var(--color-white);
+    border-color: rgba(255,255,255,0.3);
     color: var(--color-white);
   }
+  .service-hero .btn-outline:hover {
+    background: var(--color-white);
+    color: var(--color-dark);
+    border-color: var(--color-white);
+  }
+
+  .hero-results-strip {
+    display: flex; gap: var(--space-xl); margin-top: var(--space-xl);
+    padding-top: var(--space-lg); border-top: 1px solid rgba(255,255,255,0.08);
+  }
+  .hero-result-chip { display: flex; flex-direction: column; }
+  .hero-result-value { font-family: var(--font-heading); font-size: var(--text-base); font-weight: 700; color: var(--color-primary); }
+  .hero-result-client { font-size: 0.7rem; color: rgba(255,255,255,0.4); }
 
   .content-layout {
     display: grid;
@@ -379,4 +496,31 @@ const schema = {
   .faq-item { border-bottom: 1px solid var(--color-gray-200); padding: var(--space-md) 0; }
   .faq-item summary { font-weight: 600; cursor: pointer; }
   .faq-answer { padding-top: var(--space-sm); color: var(--color-text-light); }
+
+  /* === 10-Day Boost Band === */
+  .boost-band { padding: var(--space-3xl) 0; position: relative; overflow: hidden; }
+  .boost-band-pattern { position: absolute; inset: 0; background: radial-gradient(ellipse at 70% 50%, rgba(192,57,43,0.2) 0%, transparent 60%); pointer-events: none; }
+  .boost-band-grid { display: grid; grid-template-columns: 1fr; gap: var(--space-2xl); position: relative; z-index: 1; }
+  @media (min-width: 1024px) { .boost-band-grid { grid-template-columns: 1.3fr 1fr; align-items: center; } }
+  .boost-band-label { display: inline-block; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.4); margin-bottom: var(--space-sm); }
+  .boost-band-content h2 { color: var(--color-white); margin-bottom: var(--space-md); }
+  .boost-band-content h2::after { display: none; }
+  .boost-band-content p { color: rgba(255,255,255,0.65); line-height: 1.7; margin-bottom: var(--space-lg); }
+  .boost-band-reqs { margin-bottom: var(--space-xl); }
+  .boost-band-reqs span { display: block; font-size: var(--text-sm); font-weight: 700; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: var(--space-sm); }
+  .boost-band-reqs ul { list-style: none; padding: 0; }
+  .boost-band-reqs li { padding: 0.25rem 0; padding-left: 1.25rem; position: relative; font-size: var(--text-sm); color: rgba(255,255,255,0.6); }
+  .boost-band-reqs li::before { content: ''; position: absolute; left: 0; top: 0.5rem; width: 8px; height: 8px; border-radius: 50%; background: var(--color-primary); }
+  .boost-band-stats { display: flex; flex-direction: column; gap: var(--space-lg); background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: var(--space-xl); }
+  .boost-stat { text-align: center; }
+  .boost-stat-val { display: block; font-family: var(--font-heading); font-size: var(--text-2xl); font-weight: 800; color: var(--color-primary); }
+  .boost-stat-desc { font-size: var(--text-sm); color: rgba(255,255,255,0.5); }
+
+  /* === Spectrum Band === */
+  .spectrum-band { text-align: center; }
+  .spectrum-band h2::after { margin-left: auto; margin-right: auto; }
+  .spectrum-band-grid { display: flex; justify-content: center; gap: var(--space-3xl); margin-top: var(--space-xl); flex-wrap: wrap; }
+  .spectrum-band-stat { text-align: center; }
+  .spectrum-num { display: block; font-family: var(--font-heading); font-size: var(--text-3xl); font-weight: 800; color: var(--color-dark); }
+  .spectrum-band-stat span:last-child { display: block; font-size: 0.75rem; color: var(--color-text-muted); }
 </style>

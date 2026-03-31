@@ -1,14 +1,21 @@
 ---
 import config from '../lib/config';
+
+const topCaseStudies = config.case_studies.slice(0, 3);
+const featuredAreas = config.areas.slice(0, 6);
 ---
 
 <header class="site-header" id="site-header">
   <div class="top-bar">
     <div class="container top-bar-inner">
       <div class="top-bar-left">
-        <span class="top-bar-rating">&#9733;&#9733;&#9733;&#9733;&#9733; {config.trust_signals.rating} out of 5</span>
+        <a href={`tel:${config.business.phone_raw}`} class="top-bar-phone">{config.business.phone}</a>
+        <span class="top-bar-sep">|</span>
+        <a href={`mailto:${config.business.email}`} class="top-bar-email">{config.business.email}</a>
       </div>
       <div class="top-bar-right">
+        <span class="top-bar-rating">&#9733; {config.trust_signals.rating} Rating</span>
+        <span class="top-bar-sep">|</span>
         <span class="top-bar-item">Home Service Marketing Experts</span>
       </div>
     </div>
@@ -17,54 +24,63 @@ import config from '../lib/config';
   <div class="main-header">
     <div class="container header-inner">
       <a href="/" class="logo-link">
-        <span class="logo-text"><span class="logo-service">Service</span><span class="logo-line">Line</span><span class="logo-pro">Pro</span></span>
+        <span class="logo-text">
+          <span class="logo-service">Service</span><span class="logo-line">Line</span>
+          <span class="logo-pro">Pro</span>
+        </span>
+        <span class="logo-tag">Performance Marketing</span>
       </a>
 
       <nav class="desktop-nav" aria-label="Main navigation">
+        <!-- Services Mega Menu -->
         <div class="nav-dropdown">
           <button class="nav-link dropdown-trigger" aria-expanded="false">
             Services <span class="dropdown-arrow">&#9662;</span>
           </button>
-          <div class="mega-menu">
-            <div class="mega-menu-grid">
-              {config.services.map(service => (
-                <a href={`/services/${service.slug}/`} class="mega-item">
-                  <span class="mega-item-name">{service.name}</span>
-                  <span class="mega-item-desc">{service.short_description.split('.')[0]}.</span>
-                </a>
-              ))}
+          <div class="mega-menu mega-menu-services">
+            <div class="mega-services-main">
+              <div class="mega-col">
+                <span class="mega-heading">What We Do</span>
+                {config.services.map(service => (
+                  <a href={`/services/${service.slug}/`} class="mega-service-item">
+                    <span class="mega-service-name">{service.name}</span>
+                    <span class="mega-service-desc">{service.short_description.split('.')[0]}.</span>
+                  </a>
+                ))}
+              </div>
+              <div class="mega-col mega-col-results">
+                <span class="mega-heading">Client Results</span>
+                {topCaseStudies.map(cs => (
+                  <div class="mega-result-card">
+                    <span class="mega-result-category">{cs.category}</span>
+                    <span class="mega-result-title">{cs.title}</span>
+                    <span class="mega-result-metric">{cs.result}</span>
+                  </div>
+                ))}
+                <a href="/case-studies/" class="mega-results-link">View All Case Studies &rarr;</a>
+              </div>
             </div>
             <div class="mega-menu-footer">
-              <a href="/services/" class="mega-see-all">View All Services &rarr;</a>
+              <a href="/services/" class="mega-see-all">All Services</a>
               <a href="/pricing/" class="mega-see-all">Pricing</a>
+              <a href="/contact" class="mega-cta-link">Book Strategy Call &rarr;</a>
             </div>
           </div>
         </div>
 
-        <div class="nav-dropdown">
-          <button class="nav-link dropdown-trigger" aria-expanded="false">
-            Industries <span class="dropdown-arrow">&#9662;</span>
-          </button>
-          <div class="mega-menu mega-menu-industries">
-            <div class="mega-menu-columns">
-              {config.industries.slice(0, 18).map(industry => (
-                <a href={`/industries/${industry.slug}/`} class="mega-area-link">{industry.full_name}</a>
-              ))}
-            </div>
-            <div class="mega-menu-footer">
-              <a href="/industries/" class="mega-see-all">View All {config.industries.length} Industries &rarr;</a>
-            </div>
-          </div>
-        </div>
+        <!-- Who We Work With (simple link, no mega menu) -->
+        <a href="/industries/" class="nav-link">Who We Work With</a>
 
+        <!-- Areas (compact dropdown) -->
         <div class="nav-dropdown">
           <button class="nav-link dropdown-trigger" aria-expanded="false">
             Areas <span class="dropdown-arrow">&#9662;</span>
           </button>
           <div class="mega-menu mega-menu-areas">
-            <div class="mega-menu-columns">
-              {config.areas.map(area => (
-                <a href={`/areas/${area.slug}/`} class="mega-area-link">{area.name}</a>
+            <span class="mega-heading">Service Areas</span>
+            <div class="mega-area-grid">
+              {featuredAreas.map(area => (
+                <a href={`/areas/${area.slug}/`} class="mega-area-link">{area.name}, FL</a>
               ))}
             </div>
             <div class="mega-menu-footer">
@@ -73,12 +89,13 @@ import config from '../lib/config';
           </div>
         </div>
 
+        <a href="/case-studies" class="nav-link">Results</a>
         <a href="/about" class="nav-link">About</a>
-        <a href="/contact" class="nav-link">Contact</a>
       </nav>
 
       <div class="header-ctas">
-        <a href="/contact" class="btn btn-primary btn-sm">Book Strategy Call</a>
+        <a href={`tel:${config.business.phone_raw}`} class="header-phone">{config.business.phone}</a>
+        <a href="/contact" class="btn btn-primary btn-sm">Free Strategy Call</a>
       </div>
 
       <button class="mobile-toggle" id="mobile-toggle" aria-label="Toggle menu" aria-expanded="false">
@@ -89,6 +106,7 @@ import config from '../lib/config';
     </div>
   </div>
 
+  <!-- Mobile Nav -->
   <div class="mobile-nav" id="mobile-nav" aria-hidden="true">
     <div class="mobile-nav-inner">
       <div class="mobile-nav-group">
@@ -100,29 +118,22 @@ import config from '../lib/config';
           <a href="/pricing/" class="mobile-nav-link sub">Pricing</a>
         </div>
       </div>
-      <div class="mobile-nav-group">
-        <button class="mobile-nav-heading">Industries</button>
-        <div class="mobile-nav-sub">
-          {config.industries.slice(0, 10).map(ind => (
-            <a href={`/industries/${ind.slug}/`} class="mobile-nav-link sub">{ind.full_name}</a>
-          ))}
-          <a href="/industries/" class="mobile-nav-link sub">View All &rarr;</a>
-        </div>
-      </div>
+      <a href="/industries/" class="mobile-nav-link">Who We Work With</a>
       <div class="mobile-nav-group">
         <button class="mobile-nav-heading">Areas</button>
         <div class="mobile-nav-sub">
-          {config.areas.slice(0, 8).map(area => (
+          {featuredAreas.map(area => (
             <a href={`/areas/${area.slug}/`} class="mobile-nav-link sub">{area.name}</a>
           ))}
-          <a href="/areas/" class="mobile-nav-link sub">View All &rarr;</a>
+          <a href="/areas/" class="mobile-nav-link sub accent">View All Areas &rarr;</a>
         </div>
       </div>
+      <a href="/case-studies" class="mobile-nav-link">Results</a>
       <a href="/about" class="mobile-nav-link">About</a>
       <a href="/contact" class="mobile-nav-link">Contact</a>
       <div class="mobile-nav-ctas">
         <a href={`tel:${config.business.phone_raw}`} class="btn btn-phone btn-full">Call {config.business.phone}</a>
-        <a href="/contact" class="btn btn-primary btn-full">Book Strategy Call</a>
+        <a href="/contact" class="btn btn-primary btn-full">Free Strategy Call</a>
       </div>
     </div>
   </div>
@@ -173,66 +184,108 @@ import config from '../lib/config';
 </script>
 
 <style>
-  .site-header { position: sticky; top: 0; z-index: 1000; background: var(--color-white); transition: box-shadow var(--transition-base); }
-  .site-header.scrolled { box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08); }
-
-  .top-bar { background: var(--color-dark); color: var(--color-gray-300); font-size: var(--text-xs); padding: 0.375rem 0; }
+  /* === TOP BAR === */
+  .top-bar { background: var(--color-dark); color: var(--color-gray-300); font-size: 0.75rem; padding: 0.375rem 0; }
   .top-bar-inner { display: flex; justify-content: space-between; align-items: center; }
+  .top-bar-phone, .top-bar-email { color: rgba(255,255,255,0.7); text-decoration: none; font-weight: 500; transition: color 0.15s; }
+  .top-bar-phone:hover, .top-bar-email:hover { color: var(--color-white); }
+  .top-bar-sep { color: rgba(255,255,255,0.2); margin: 0 0.5rem; }
   .top-bar-rating { color: #f5c518; font-weight: 600; }
-  .top-bar-item { display: none; color: rgba(255,255,255,0.6); }
-  @media (min-width: 768px) { .top-bar-item { display: inline; } }
+  .top-bar-item, .top-bar-email, .top-bar-sep { display: none; }
+  @media (min-width: 768px) { .top-bar-item, .top-bar-email, .top-bar-sep { display: inline; } }
+  .top-bar-left { display: flex; align-items: center; }
+  .top-bar-right { display: flex; align-items: center; }
 
+  /* === MAIN HEADER === */
+  .site-header { position: sticky; top: 0; z-index: 1000; background: var(--color-white); transition: box-shadow 0.2s ease; }
+  .site-header.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.1); }
   .main-header { border-bottom: 1px solid var(--color-gray-200); }
-  .header-inner { display: flex; align-items: center; justify-content: space-between; height: var(--header-height); gap: var(--space-lg); }
+  .header-inner { display: flex; align-items: center; justify-content: space-between; height: 72px; gap: var(--space-md); }
 
-  .logo-link { text-decoration: none; flex-shrink: 0; }
+  /* === LOGO === */
+  .logo-link { text-decoration: none; flex-shrink: 0; display: flex; flex-direction: column; }
   .logo-text { font-family: var(--font-heading); font-size: 1.5rem; font-weight: 700; line-height: 1; }
   .logo-service { color: var(--color-dark); }
   .logo-line { color: var(--color-dark); }
   .logo-pro { color: var(--color-primary); font-size: 0.6em; vertical-align: super; margin-left: 1px; }
+  .logo-tag { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--color-text-muted); margin-top: 2px; font-weight: 500; }
 
-  .desktop-nav { display: none; align-items: center; gap: var(--space-xs); }
+  /* === DESKTOP NAV === */
+  .desktop-nav { display: none; align-items: center; gap: 0.125rem; }
   @media (min-width: 1024px) { .desktop-nav { display: flex; } }
 
-  .nav-link { font-family: var(--font-heading); font-size: var(--text-sm); font-weight: 600; color: var(--color-dark); padding: 0.5rem 0.75rem; border: none; background: none; cursor: pointer; transition: color var(--transition-fast); text-decoration: none; white-space: nowrap; }
+  .nav-link { font-family: var(--font-heading); font-size: 0.8125rem; font-weight: 600; color: var(--color-dark); padding: 0.5rem 0.625rem; border: none; background: none; cursor: pointer; transition: color 0.15s; text-decoration: none; white-space: nowrap; }
   .nav-link:hover { color: var(--color-primary); }
-  .dropdown-arrow { font-size: 0.7em; margin-left: 2px; }
+  .dropdown-arrow { font-size: 0.65em; margin-left: 2px; opacity: 0.5; }
 
+  /* === HEADER CTAs === */
+  .header-ctas { display: none; align-items: center; gap: var(--space-md); flex-shrink: 0; }
+  @media (min-width: 1024px) { .header-ctas { display: flex; } }
+  .header-phone { font-family: var(--font-heading); font-size: var(--text-sm); font-weight: 700; color: var(--color-dark); text-decoration: none; transition: color 0.15s; }
+  .header-phone:hover { color: var(--color-primary); }
+
+  /* === MEGA MENU (shared) === */
   .nav-dropdown { position: relative; }
-  .mega-menu { position: absolute; top: 100%; left: 50%; transform: translateX(-50%) translateY(4px); background: var(--color-white); border: 1px solid var(--color-gray-200); border-radius: var(--radius-md); box-shadow: var(--shadow-lg); min-width: 560px; max-width: 720px; padding: var(--space-lg); opacity: 0; visibility: hidden; transition: all var(--transition-fast); z-index: 100; }
-  .nav-dropdown:hover .mega-menu, .dropdown-trigger[aria-expanded="true"] + .mega-menu { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
+  .mega-menu {
+    position: absolute; top: 100%; left: 50%; transform: translateX(-50%) translateY(8px);
+    background: var(--color-white); border: 1px solid var(--color-gray-200);
+    border-radius: 12px; box-shadow: 0 16px 48px rgba(0,0,0,0.12), 0 0 0 1px rgba(0,0,0,0.04);
+    padding: var(--space-lg); opacity: 0; visibility: hidden;
+    transition: opacity 0.2s, visibility 0.2s, transform 0.2s; z-index: 100;
+  }
+  .nav-dropdown:hover .mega-menu,
+  .dropdown-trigger[aria-expanded="true"] + .mega-menu {
+    opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0);
+  }
+  .mega-heading { display: block; font-size: 0.6875rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-text-muted); margin-bottom: var(--space-sm); padding-bottom: var(--space-xs); }
 
-  .mega-menu-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px; }
-  .mega-item { display: block; padding: 0.625rem 0.75rem; border-radius: var(--radius-sm); text-decoration: none; transition: background var(--transition-fast); }
-  .mega-item:hover { background: var(--color-gray-100); }
-  .mega-item-name { display: block; font-size: var(--text-sm); font-weight: 600; color: var(--color-dark); }
-  .mega-item:hover .mega-item-name { color: var(--color-primary); }
-  .mega-item-desc { display: block; font-size: 0.75rem; color: var(--color-text-muted); line-height: 1.3; margin-top: 2px; }
+  /* === SERVICES MEGA MENU === */
+  .mega-menu-services { min-width: 680px; max-width: 780px; padding: var(--space-xl); }
+  .mega-services-main { display: grid; grid-template-columns: 1.2fr 1fr; gap: var(--space-xl); }
+  .mega-col { display: flex; flex-direction: column; }
+  .mega-col-results { border-left: 1px solid var(--color-gray-200); padding-left: var(--space-xl); }
 
-  .mega-menu-industries { min-width: 580px; max-width: 680px; }
-  .mega-menu-areas { min-width: 400px; max-width: 520px; }
-  .mega-menu-columns { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
-  .mega-area-link { display: block; padding: 0.375rem 0.625rem; font-size: var(--text-sm); color: var(--color-text); border-radius: var(--radius-sm); transition: background var(--transition-fast), color var(--transition-fast); text-decoration: none; }
+  .mega-service-item { display: block; padding: 0.5rem 0.625rem; border-radius: 6px; text-decoration: none; transition: background 0.15s; margin-bottom: 2px; }
+  .mega-service-item:hover { background: var(--color-gray-100); }
+  .mega-service-name { display: block; font-size: var(--text-sm); font-weight: 600; color: var(--color-dark); }
+  .mega-service-item:hover .mega-service-name { color: var(--color-primary); }
+  .mega-service-desc { display: block; font-size: 0.7rem; color: var(--color-text-muted); line-height: 1.3; margin-top: 1px; }
+
+  .mega-result-card { padding: 0.5rem 0; border-bottom: 1px solid var(--color-gray-100); }
+  .mega-result-card:last-of-type { border-bottom: none; }
+  .mega-result-category { display: block; font-size: 0.625rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-primary); }
+  .mega-result-title { display: block; font-size: 0.8rem; font-weight: 600; color: var(--color-dark); margin: 1px 0; }
+  .mega-result-metric { display: block; font-size: 0.75rem; color: var(--color-text-muted); }
+  .mega-results-link { display: inline-block; margin-top: var(--space-sm); font-size: 0.75rem; font-weight: 600; color: var(--color-primary); text-decoration: none; }
+  .mega-results-link:hover { text-decoration: underline; }
+
+  /* === AREAS MEGA MENU === */
+  .mega-menu-areas { min-width: 320px; max-width: 400px; }
+  .mega-area-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+  .mega-area-link { display: block; padding: 0.375rem 0.5rem; font-size: var(--text-sm); color: var(--color-text); border-radius: 4px; transition: background 0.15s, color 0.15s; text-decoration: none; }
   .mega-area-link:hover { background: var(--color-gray-100); color: var(--color-primary); }
 
-  .mega-menu-footer { margin-top: var(--space-sm); padding-top: var(--space-sm); border-top: 1px solid var(--color-gray-200); display: flex; gap: var(--space-lg); }
-  .mega-see-all { display: inline-block; font-size: var(--text-sm); font-weight: 600; color: var(--color-primary); text-decoration: none; }
+  /* === MEGA FOOTER === */
+  .mega-menu-footer { margin-top: var(--space-md); padding-top: var(--space-sm); border-top: 1px solid var(--color-gray-200); display: flex; align-items: center; gap: var(--space-lg); }
+  .mega-see-all { font-size: 0.8rem; font-weight: 600; color: var(--color-primary); text-decoration: none; }
   .mega-see-all:hover { text-decoration: underline; }
+  .mega-cta-link { margin-left: auto; font-size: 0.8rem; font-weight: 700; color: var(--color-primary); text-decoration: none; background: rgba(192,57,43,0.08); padding: 0.375rem 0.75rem; border-radius: 6px; transition: background 0.15s; }
+  .mega-cta-link:hover { background: rgba(192,57,43,0.15); }
 
-  .header-ctas { display: none; align-items: center; gap: var(--space-sm); flex-shrink: 0; }
-  @media (min-width: 1024px) { .header-ctas { display: flex; } }
-
+  /* === MOBILE TOGGLE === */
   .mobile-toggle { display: flex; flex-direction: column; justify-content: center; gap: 5px; width: 44px; height: 44px; background: none; border: none; cursor: pointer; padding: 8px; }
   @media (min-width: 1024px) { .mobile-toggle { display: none; } }
-  .hamburger-line { display: block; width: 100%; height: 2px; background: var(--color-dark); transition: transform var(--transition-base), opacity var(--transition-base); }
+  .hamburger-line { display: block; width: 100%; height: 2px; background: var(--color-dark); transition: transform 0.25s, opacity 0.25s; }
   .mobile-toggle.active .hamburger-line:nth-child(1) { transform: translateY(7px) rotate(45deg); }
   .mobile-toggle.active .hamburger-line:nth-child(2) { opacity: 0; }
   .mobile-toggle.active .hamburger-line:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-  .mobile-nav { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: var(--color-white); z-index: 999; overflow-y: auto; padding: calc(var(--header-height) + 60px) var(--space-lg) var(--space-2xl); transform: translateX(100%); transition: transform var(--transition-base); }
+  /* === MOBILE NAV === */
+  .mobile-nav { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: var(--color-white); z-index: 999; overflow-y: auto; padding: calc(72px + 60px) var(--space-lg) var(--space-2xl); transform: translateX(100%); transition: transform 0.3s ease; }
   .mobile-nav[aria-hidden="false"] { transform: translateX(0); }
   .mobile-nav-link { display: block; padding: 0.75rem 0; font-family: var(--font-heading); font-size: var(--text-lg); font-weight: 600; color: var(--color-dark); border-bottom: 1px solid var(--color-gray-200); text-decoration: none; }
   .mobile-nav-link.sub { font-size: var(--text-base); font-weight: 500; padding-left: var(--space-lg); color: var(--color-text-light); }
+  .mobile-nav-link.accent { color: var(--color-primary); font-weight: 600; }
   .mobile-nav-heading { display: flex; justify-content: space-between; align-items: center; width: 100%; padding: 0.75rem 0; font-family: var(--font-heading); font-size: var(--text-lg); font-weight: 600; color: var(--color-dark); border: none; background: none; border-bottom: 1px solid var(--color-gray-200); cursor: pointer; }
   .mobile-nav-heading::after { content: '+'; font-size: var(--text-xl); color: var(--color-primary); }
   .mobile-nav-heading.open::after { content: '\2212'; }
@@ -240,7 +293,8 @@ import config from '../lib/config';
   .mobile-nav-sub.show { display: block; }
   .mobile-nav-ctas { display: flex; flex-direction: column; gap: var(--space-sm); margin-top: var(--space-xl); }
 
-  .mobile-sticky-bar { display: flex; position: fixed; bottom: 0; left: 0; right: 0; z-index: 998; background: var(--color-white); border-top: 1px solid var(--color-gray-200); box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.08); }
+  /* === MOBILE STICKY BAR === */
+  .mobile-sticky-bar { display: flex; position: fixed; bottom: 0; left: 0; right: 0; z-index: 998; background: var(--color-white); border-top: 1px solid var(--color-gray-200); box-shadow: 0 -2px 8px rgba(0,0,0,0.08); }
   @media (min-width: 1024px) { .mobile-sticky-bar { display: none; } }
   .mobile-sticky-btn { flex: 1; text-align: center; padding: 0.875rem; font-family: var(--font-heading); font-weight: 600; font-size: var(--text-sm); text-decoration: none; }
   .mobile-sticky-btn.call { background: var(--color-primary); color: var(--color-white); }

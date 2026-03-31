@@ -7,7 +7,7 @@ import CTABand from '../components/CTABand.astro';
 import Footer from '../components/Footer.astro';
 import config from '../lib/config';
 
-const title = "Home Service Marketing Agency | Local SEO, Google Ads & Web Design";
+const title = "Home Service Marketing Agency | Local SEO, Google Ads, Web Design & TV Advertising";
 const description = config.business.description;
 ---
 
@@ -16,50 +16,58 @@ const description = config.business.description;
 
   <!-- HERO -->
   <section class="hero">
+    <div class="hero-bg-pattern"></div>
     <div class="container hero-grid">
       <div class="hero-content">
-        <div class="hero-badges">
-          {config.trust_signals.badges.slice(0, 3).map(badge => (
-            <span class="hero-badge">{badge}</span>
-          ))}
-        </div>
-        <h1>Local SEO & Google Ads <span class="hero-accent">Built to Scale You to $10M</span></h1>
-        <p class="hero-sub">We help <strong>Home Service businesses</strong> go from $1M to $10M with Local Ranking <a href="/services/local-seo/">SEO</a> and $0 Fee <a href="/services/ppc/">Google Ads</a> Campaigns.</p>
+        <span class="hero-eyebrow">Performance Marketing for Home Services</span>
+        <h1>We Scale Home Service Businesses <span class="hero-accent">from $1M to $10M</span></h1>
+        <p class="hero-sub">Local SEO that puts you in the Map Pack. Google Ads with zero agency fees. Websites that convert. TV campaigns that build your brand. All under one roof.</p>
         <div class="hero-ctas">
-          <a href="/services/" class="btn btn-primary btn-lg">See More Services &rarr;</a>
-          <a href="/contact" class="btn btn-outline-light btn-lg">Book Strategy Call</a>
+          <a href="/contact" class="btn btn-primary btn-lg">Free Strategy Call &rarr;</a>
+          <a href="/case-studies" class="btn btn-outline-light btn-lg">See Our Results</a>
+        </div>
+        <div class="hero-proof">
+          <div class="hero-stat">
+            <span class="hero-stat-value">$2M+</span>
+            <span class="hero-stat-label">Generated for Clients</span>
+          </div>
+          <div class="hero-stat-divider"></div>
+          <div class="hero-stat">
+            <span class="hero-stat-value">4.9&#9733;</span>
+            <span class="hero-stat-label">Google Rating</span>
+          </div>
+          <div class="hero-stat-divider"></div>
+          <div class="hero-stat">
+            <span class="hero-stat-value">300+</span>
+            <span class="hero-stat-label">Leads (Single Client)</span>
+          </div>
         </div>
       </div>
       <div class="hero-form-wrap">
+        <div class="hero-form-header">
+          <h2>Get Your Free Market Analysis</h2>
+          <p>See exactly where you rank and where the opportunities are.</p>
+        </div>
         <form class="hero-form" action={config.form.action} method="POST">
-          <div class="form-row">
-            <div class="form-group">
-              <label for="name">Name <span class="req">*</span></label>
-              <input type="text" id="name" name="name" placeholder="Full Name" required />
-            </div>
-            <div class="form-group">
-              <label for="email">Email <span class="req">*</span></label>
-              <input type="email" id="email" name="email" placeholder="you@company.com" required />
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label for="phone">Phone Number <span class="req">*</span></label>
-              <input type="tel" id="phone" name="phone" placeholder="(555) 123-4567" required />
-            </div>
-            <div class="form-group">
-              <label for="website">Website</label>
-              <input type="url" id="website" name="website" placeholder="yourcompany.com" />
-            </div>
+          <div class="form-group">
+            <input type="text" name="name" placeholder="Full Name" required />
           </div>
           <div class="form-group">
-            <label for="company">Company Name <span class="req">*</span></label>
-            <input type="text" id="company" name="company" placeholder="Your Company" required />
+            <input type="email" name="email" placeholder="Email" required />
+          </div>
+          <div class="form-group">
+            <input type="tel" name="phone" placeholder="Phone Number" required />
+          </div>
+          <div class="form-group">
+            <input type="text" name="company" placeholder="Company Name" required />
+          </div>
+          <div class="form-group">
+            <input type="url" name="website" placeholder="Current Website (optional)" />
           </div>
           <div class="hp-field" aria-hidden="true">
             <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" />
           </div>
-          <button type="submit" class="btn btn-primary btn-lg btn-block">Let's Get Started</button>
+          <button type="submit" class="btn btn-primary btn-lg btn-block">Get My Free Analysis</button>
         </form>
       </div>
     </div>
@@ -67,116 +75,265 @@ const description = config.business.description;
 
   <TrustBar />
 
-  <!-- PROBLEM SECTION -->
+  <!-- PROBLEM -->
   <section class="problems section">
     <div class="container">
-      <span class="section-label">Problem</span>
-      <h2>Why Your Current Marketing Is Not Working</h2>
+      <span class="section-label">The Problem</span>
+      <h2>Why Your Marketing Isn't Working</h2>
       <div class="problems-grid">
         <div class="problem-card">
-          <div class="problem-icon">&#128683;</div>
-          <h3>Invisible to Customers</h3>
-          <p>Your competitors are booking the jobs you should have. They rank. You do not.</p>
+          <div class="problem-num">01</div>
+          <h3>Invisible on Google</h3>
+          <p>Your competitors are in the Map Pack booking the jobs you should have. You are nowhere.</p>
         </div>
         <div class="problem-card">
-          <div class="problem-icon">&#128176;</div>
-          <h3>Clicks That Never Convert</h3>
-          <p>Traffic is useless if it does not turn into booked jobs. Your agency reports impressions. You need phone calls.</p>
+          <div class="problem-num">02</div>
+          <h3>Burning Money on Ads</h3>
+          <p>Your agency charges 15-20% management fees on top of ad spend. You are paying for their overhead, not your growth.</p>
         </div>
         <div class="problem-card">
-          <div class="problem-icon">&#128200;</div>
-          <h3>Feast or Famine Lead Flow</h3>
-          <p>You cannot scale a business when leads come in waves. You need consistent, predictable volume.</p>
+          <div class="problem-num">03</div>
+          <h3>Website That Doesn't Convert</h3>
+          <p>Pretty designs that take 8 seconds to load and never convert a visitor into a phone call. Looks great. Does nothing.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- TWO WEAPONS -->
-  <section class="weapons section section-dark">
+  <!-- ALL 4 SERVICES -->
+  <section class="services-showcase section section-dark">
     <div class="container">
-      <span class="section-label section-label-light">Solution</span>
-      <h2>Two Weapons. One Mission. Fill Your Calendar.</h2>
-      <div class="weapons-grid">
-        <div class="weapon-card">
-          <div class="weapon-header">
-            <h3>Local Ranking SEO</h3>
-            <span class="weapon-badge">Rank Top 3 in 90 Days or Don't Pay</span>
+      <span class="section-label section-label-light">The Solution</span>
+      <h2>Four Services. One Mission. Fill Your Calendar.</h2>
+      <p class="section-subtitle">Every service we offer is built to generate leads for home service businesses. Nothing else.</p>
+
+      <div class="services-mega-grid">
+        <!-- LOCAL SEO -->
+        <div class="service-mega-card service-featured">
+          <div class="service-mega-badge">Most Popular</div>
+          <div class="service-mega-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
           </div>
-          <ul class="weapon-features">
-            <li><strong>Full GBP Optimization:</strong> 10 categories, 30+ services telling Google exactly what you do.</li>
-            <li><strong>Targeted Keyword Ranking:</strong> Aligning your site and GBP for high-intent local searches.</li>
-            <li><strong>Elite Authority Building:</strong> Local links and citations from Chambers of Commerce and community sponsorships.</li>
-            <li><strong>Accelerated Signal Boost:</strong> Weekly activity and geotagged photos generating local relevance 10x faster.</li>
+          <h3>Local Ranking SEO</h3>
+          <p class="service-mega-tagline">Top 3 in the Map Pack in 90 days or you don't pay.</p>
+          <ul class="service-mega-features">
+            <li>Full GBP Optimization (10 categories, 30+ services)</li>
+            <li>Citation Building and NAP Consistency</li>
+            <li>Local Authority Link Building</li>
+            <li>Geo-Grid Tracking and Reporting</li>
           </ul>
-          <div class="weapon-pricing">
-            <div class="weapon-price-row">
-              <span>Neighborhood</span><span>$1,800/mo</span>
-            </div>
-            <div class="weapon-price-row">
-              <span>City</span><span>$2,700/mo</span>
-            </div>
-            <div class="weapon-price-row">
-              <span>Metro</span><span>$4,800/mo</span>
-            </div>
+          <div class="service-mega-pricing">
+            <span class="service-price-from">From</span>
+            <span class="service-price-amount">$1,800<span>/mo</span></span>
           </div>
           <a href="/services/local-seo/" class="btn btn-primary btn-block">Learn More</a>
         </div>
 
-        <div class="weapon-card">
-          <div class="weapon-header">
-            <h3>Google Ads (PPC)</h3>
-            <span class="weapon-badge">No Agency Fees + 30% Better Performance</span>
+        <!-- PPC -->
+        <div class="service-mega-card">
+          <div class="service-mega-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
           </div>
-          <ul class="weapon-features">
-            <li><strong>Your budget goes to ads, not agency fees.</strong> Through our Spectrum Reach partnership, no management fee stacks on top.</li>
-            <li><strong>First-party data from 30M+ households.</strong> Real behavioral targeting, not guesswork.</li>
-            <li><strong>Multi-platform deployment.</strong> Google, Bing, Yahoo. 99% of all search traffic covered.</li>
-            <li><strong>30-50% higher CTR, 33% lower CPC.</strong> Certified by Google and TAG across all four categories.</li>
+          <h3>Google Ads (PPC)</h3>
+          <p class="service-mega-tagline">No agency fee. Your entire budget funds your campaigns.</p>
+          <ul class="service-mega-features">
+            <li>$0 Agency Fee on $5K+ Spend</li>
+            <li>First-Party Data from 30M+ Households</li>
+            <li>Google, Bing, and Yahoo Coverage</li>
+            <li>30-50% Higher CTR, 33% Lower CPC</li>
           </ul>
-          <div class="weapon-pricing">
-            <div class="weapon-price-row">
-              <span>Under $5K spend</span><span>$500/mo flat</span>
-            </div>
-            <div class="weapon-price-row featured">
-              <span>$5K+ spend</span><span>No Agency Fee</span>
-            </div>
+          <div class="service-mega-pricing">
+            <span class="service-price-from">From</span>
+            <span class="service-price-amount">$500<span>/mo</span></span>
           </div>
           <a href="/services/ppc/" class="btn btn-primary btn-block">Learn More</a>
         </div>
+
+        <!-- WEB DESIGN -->
+        <div class="service-mega-card">
+          <div class="service-mega-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          </div>
+          <h3>Website Design</h3>
+          <p class="service-mega-tagline">Sub-2-second loads. Built to convert visitors into booked jobs.</p>
+          <ul class="service-mega-features">
+            <li>Custom Performance Sites (Astro)</li>
+            <li>WordPress with Full CMS</li>
+            <li>Mobile-First, SEO-Optimized</li>
+            <li>Conversion-Focused CTAs and Funnels</li>
+          </ul>
+          <div class="service-mega-pricing">
+            <span class="service-price-from">From</span>
+            <span class="service-price-amount">$2,500</span>
+          </div>
+          <a href="/services/website-design/" class="btn btn-primary btn-block">Learn More</a>
+        </div>
+
+        <!-- TV & STREAMING -->
+        <div class="service-mega-card service-spectrum">
+          <div class="service-mega-badge spectrum-badge">Spectrum Reach Partner</div>
+          <div class="service-mega-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="15" rx="2"/><polyline points="17 2 12 7 7 2"/></svg>
+          </div>
+          <h3>TV & Streaming</h3>
+          <p class="service-mega-tagline">Precision-targeted streaming campaigns. No agency fee on media spend.</p>
+          <ul class="service-mega-features">
+            <li>Connected TV and Streaming Platforms</li>
+            <li>First-Party Data Targeting</li>
+            <li>Professional Ad Production</li>
+            <li>Full Attribution and Reporting</li>
+          </ul>
+          <div class="service-mega-pricing">
+            <span class="service-price-from">Custom</span>
+            <span class="service-price-amount">Quote</span>
+          </div>
+          <a href="/services/tv-streaming-advertising/" class="btn btn-primary btn-block">Learn More</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPECTRUM REACH PARTNERSHIP -->
+  <section class="spectrum-section section">
+    <div class="container spectrum-grid">
+      <div class="spectrum-content">
+        <span class="section-label">Exclusive Partnership</span>
+        <h2>Powered by Spectrum Reach</h2>
+        <p class="spectrum-lead">We are one of the only agencies in the country with a direct Spectrum Reach partnership. That means our clients get access to tools and data that other agencies cannot offer at any price.</p>
+        <div class="spectrum-stats">
+          <div class="spectrum-stat">
+            <span class="spectrum-stat-value">30M+</span>
+            <span class="spectrum-stat-label">Households of First-Party Data</span>
+          </div>
+          <div class="spectrum-stat">
+            <span class="spectrum-stat-value">36</span>
+            <span class="spectrum-stat-label">States Covered</span>
+          </div>
+          <div class="spectrum-stat">
+            <span class="spectrum-stat-value">$0</span>
+            <span class="spectrum-stat-label">Agency Fee on $5K+ Ad Spend</span>
+          </div>
+        </div>
+        <div class="spectrum-certs">
+          {config.spectrum_partnership.certifications.map(cert => (
+            <span class="spectrum-cert">{cert}</span>
+          ))}
+        </div>
+      </div>
+      <div class="spectrum-visual">
+        <div class="spectrum-card-stack">
+          <div class="spectrum-feature-card">
+            <h4>First-Party Data</h4>
+            <p>Real behavioral data from 30M+ households. Not third-party guesses. Not cookie-based estimates. Real viewing and purchasing behavior.</p>
+          </div>
+          <div class="spectrum-feature-card">
+            <h4>Zero Agency Fees</h4>
+            <p>On ad budgets over $5K/month, there is no management fee. Your entire budget goes toward reaching your customers. Every dollar works.</p>
+          </div>
+          <div class="spectrum-feature-card">
+            <h4>Multi-Platform Reach</h4>
+            <p>Google, Bing, Yahoo, Connected TV, Streaming. 99% of all search and viewing traffic covered through a single partnership.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FREE 10-DAY BOOST -->
+  <section class="boost-section section section-dark">
+    <div class="container boost-grid">
+      <div class="boost-content">
+        <span class="section-label section-label-light">Limited Offer</span>
+        <h2>Free 10-Day Local SEO Boost</h2>
+        <p class="boost-lead">We will optimize your Google Business Profile, fix your citations, and boost your local signals for 10 days. No charge. No commitment. If you see results, we talk about what a full campaign looks like.</p>
+        <div class="boost-requirements">
+          <span class="boost-req-title">Requirements:</span>
+          <ul>
+            <li>Physical Google Business Profile (not virtual/PO Box)</li>
+            <li>15+ existing Google reviews</li>
+            <li>4.5+ star rating</li>
+            <li>Existing website</li>
+          </ul>
+        </div>
+        <a href="/contact?service=10-day-boost" class="btn btn-primary btn-lg">Apply for Free Boost &rarr;</a>
+      </div>
+      <div class="boost-results">
+        <div class="boost-result-card">
+          <span class="boost-result-label">Average Result After 10 Days</span>
+          <div class="boost-metric">
+            <span class="boost-metric-value">+47%</span>
+            <span class="boost-metric-label">Increase in Search Appearances</span>
+          </div>
+          <div class="boost-metric">
+            <span class="boost-metric-value">+23%</span>
+            <span class="boost-metric-label">More Discovery Searches</span>
+          </div>
+          <div class="boost-metric">
+            <span class="boost-metric-value">+15%</span>
+            <span class="boost-metric-label">More Direction Requests</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CASE STUDIES / RESULTS -->
+  <section class="results-section section">
+    <div class="container">
+      <span class="section-label">Real Results</span>
+      <h2>What We Do for Our Clients</h2>
+      <div class="results-grid">
+        {config.case_studies.slice(0, 4).map(cs => (
+          <div class="result-card">
+            <span class="result-category">{cs.category}</span>
+            <h3 class="result-metric">{cs.result}</h3>
+            <span class="result-client">{cs.title}</span>
+          </div>
+        ))}
+      </div>
+      <div class="results-more">
+        <a href="/case-studies/" class="btn btn-outline">View All {config.case_studies.length} Case Studies &rarr;</a>
       </div>
     </div>
   </section>
 
   <!-- PROCESS -->
-  <section class="process section">
+  <section class="process-section section section-alt">
     <div class="container">
-      <span class="section-label">Next Steps</span>
+      <span class="section-label">How It Works</span>
       <h2>From Invisible to Unavoidable</h2>
       <div class="process-grid">
         <div class="process-step">
           <div class="step-num">1</div>
-          <h3>Free Strategy Call</h3>
-          <p>15-minute no-pressure call. We analyze your market, your competition, your current marketing.</p>
+          <div class="step-content">
+            <h3>Free Strategy Call</h3>
+            <p>15-minute no-pressure call. We analyze your market, your competition, and your current marketing spend. You get a clear picture of where the opportunities are.</p>
+          </div>
         </div>
+        <div class="process-connector"></div>
         <div class="process-step">
           <div class="step-num">2</div>
-          <h3>Custom Battle Plan</h3>
-          <p>We build your strategy. You see exactly what we are doing, when, and how we measure success.</p>
+          <div class="step-content">
+            <h3>Custom Battle Plan</h3>
+            <p>We build your strategy with specific timelines and KPIs. You see exactly what we are doing, when we are doing it, and how we measure success.</p>
+          </div>
         </div>
+        <div class="process-connector"></div>
         <div class="process-step">
           <div class="step-num">3</div>
-          <h3>Launch and Dominate</h3>
-          <p>We execute. Your phone rings. You track every lead. When it works, we scale up.</p>
+          <div class="step-content">
+            <h3>Launch and Scale</h3>
+            <p>We execute. Your phone rings. You track every lead in real time. When it works, we scale up together.</p>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- INDUSTRIES -->
-  <section class="industries-preview section section-alt">
+  <section class="industries-section section">
     <div class="container">
-      <span class="section-label">Industries</span>
+      <span class="section-label">Who We Work With</span>
       <h2>Built for the Businesses That Keep America Running</h2>
       <div class="industries-chips">
         {config.industries.map(ind => (
@@ -187,115 +344,183 @@ const description = config.business.description;
     </div>
   </section>
 
-  <!-- CASE STUDIES PREVIEW -->
-  <section class="cases section">
-    <div class="container">
-      <span class="section-label">Results</span>
-      <h2>Real Stories from Real Clients</h2>
-      <div class="cases-grid">
-        {config.reviews.slice(0, 4).map(review => (
-          <div class="case-card">
-            <div class="case-result">{review.text.split('.')[0]}.</div>
-            <div class="case-meta">
-              <strong>{review.author}</strong>
-              {review.company && <span>{review.company}</span>}
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
   <ReviewsSection compact={true} maxReviews={4} />
 
   <CTABand
-    heading="Stop Losing Customers to Competitors Who Found Them First"
-    text="Book a 15-minute strategy call. See if we can dominate your market. No pressure. No pitch deck. Just straight answers."
+    heading="Stop Losing Jobs to Competitors Who Showed Up First"
+    text="Book a 15-minute strategy call. No pressure. No pitch deck. Just straight answers about what it takes to dominate your local market."
   />
 
   <Footer slot="footer" />
 </Base>
 
 <style>
-  /* HERO */
-  .hero { background: var(--color-dark); padding: var(--space-3xl) 0 var(--space-2xl); color: var(--color-white); }
-  .hero-grid { display: grid; grid-template-columns: 1fr; gap: var(--space-2xl); align-items: start; }
-  @media (min-width: 1024px) { .hero-grid { grid-template-columns: 1.2fr 1fr; } }
+  /* === HERO === */
+  .hero {
+    background: var(--color-dark);
+    padding: var(--space-3xl) 0 var(--space-2xl);
+    color: var(--color-white);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg-pattern {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(circle at 20% 80%, rgba(192,57,43,0.15) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(192,57,43,0.08) 0%, transparent 40%);
+    pointer-events: none;
+  }
+  .hero-grid { display: grid; grid-template-columns: 1fr; gap: var(--space-2xl); align-items: start; position: relative; z-index: 1; }
+  @media (min-width: 1024px) { .hero-grid { grid-template-columns: 1.3fr 1fr; } }
 
-  .hero-badges { display: flex; flex-wrap: wrap; gap: var(--space-sm); margin-bottom: var(--space-lg); }
-  .hero-badge { display: inline-block; border: 1px solid rgba(255,255,255,0.25); padding: 0.25rem 0.75rem; border-radius: 999px; font-size: var(--text-xs); color: rgba(255,255,255,0.8); }
-
-  .hero h1 { font-size: var(--text-3xl); line-height: 1.15; margin-bottom: var(--space-md); color: var(--color-white); }
+  .hero-eyebrow { display: inline-block; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--color-primary); margin-bottom: var(--space-md); border: 1px solid rgba(192,57,43,0.3); padding: 0.25rem 0.75rem; border-radius: 4px; }
+  .hero h1 { font-size: var(--text-3xl); line-height: 1.1; margin-bottom: var(--space-md); color: var(--color-white); }
   @media (min-width: 768px) { .hero h1 { font-size: var(--text-4xl); } }
-  .hero-accent { color: var(--color-primary); }
+  @media (min-width: 1280px) { .hero h1 { font-size: var(--text-5xl); } }
+  .hero-accent { color: var(--color-primary); display: block; }
+  .hero-sub { font-size: var(--text-lg); color: rgba(255,255,255,0.7); margin-bottom: var(--space-xl); line-height: 1.6; max-width: 540px; }
+  .hero-ctas { display: flex; gap: var(--space-md); flex-wrap: wrap; margin-bottom: var(--space-2xl); }
 
-  .hero-sub { font-size: var(--text-lg); color: rgba(255,255,255,0.75); margin-bottom: var(--space-xl); line-height: var(--leading-relaxed); }
-  .hero-sub a { color: var(--color-primary); font-weight: 600; text-decoration: none; }
-  .hero-sub strong { color: var(--color-white); }
+  .btn-outline-light { background: transparent; border: 2px solid rgba(255,255,255,0.3); color: var(--color-white); border-radius: 6px; font-weight: 600; padding: 0.75rem 1.5rem; text-decoration: none; display: inline-block; cursor: pointer; transition: all 0.15s; }
+  .btn-outline-light:hover { background: var(--color-white); color: var(--color-dark); border-color: var(--color-white); }
 
-  .hero-ctas { display: flex; gap: var(--space-md); flex-wrap: wrap; }
-  .btn-outline-light { background: transparent; border: 2px solid var(--color-white); color: var(--color-white); border-radius: var(--btn-radius, 6px); font-weight: 600; padding: 0.75rem 1.5rem; text-decoration: none; display: inline-block; cursor: pointer; transition: all 0.15s ease; }
-  .btn-outline-light:hover { background: var(--color-white); color: var(--color-dark); }
+  .hero-proof { display: flex; gap: var(--space-xl); align-items: center; }
+  .hero-stat-value { display: block; font-family: var(--font-heading); font-size: var(--text-xl); font-weight: 800; color: var(--color-white); }
+  .hero-stat-label { display: block; font-size: 0.7rem; color: rgba(255,255,255,0.45); }
+  .hero-stat-divider { width: 1px; height: 32px; background: rgba(255,255,255,0.15); }
 
-  /* HERO FORM */
-  .hero-form-wrap { background: var(--color-secondary, #2c2c2c); border-radius: var(--radius-md); padding: var(--space-xl); border: 1px solid rgba(255,255,255,0.1); }
-  .hero-form { display: flex; flex-direction: column; gap: var(--space-md); }
-  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-md); }
-  @media (max-width: 480px) { .form-row { grid-template-columns: 1fr; } }
-  .form-group { display: flex; flex-direction: column; gap: 0.25rem; }
-  .form-group label { font-size: var(--text-sm); font-weight: 600; color: var(--color-white); }
-  .req { color: var(--color-primary); }
-  .form-group input { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); border-radius: var(--radius-sm); padding: 0.625rem 0.75rem; color: var(--color-white); font-size: var(--text-sm); transition: border-color 0.15s; }
-  .form-group input::placeholder { color: rgba(255,255,255,0.35); }
-  .form-group input:focus { outline: none; border-color: var(--color-primary); }
+  /* === HERO FORM === */
+  .hero-form-wrap { background: rgba(255,255,255,0.04); border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); overflow: hidden; backdrop-filter: blur(8px); }
+  .hero-form-header { padding: var(--space-lg) var(--space-xl) 0; }
+  .hero-form-header h2 { font-size: var(--text-lg); color: var(--color-white); margin-bottom: var(--space-xs); }
+  .hero-form-header p { font-size: var(--text-sm); color: rgba(255,255,255,0.5); margin-bottom: 0; }
+  .hero-form { display: flex; flex-direction: column; gap: var(--space-sm); padding: var(--space-lg) var(--space-xl) var(--space-xl); }
+  .hero-form input { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); border-radius: 6px; padding: 0.7rem 0.875rem; color: var(--color-white); font-size: var(--text-sm); transition: border-color 0.15s; width: 100%; font-family: var(--font-body); }
+  .hero-form input::placeholder { color: rgba(255,255,255,0.3); }
+  .hero-form input:focus { outline: none; border-color: var(--color-primary); background: rgba(255,255,255,0.1); }
   .hp-field { position: absolute; left: -9999px; }
   .btn-block { display: block; width: 100%; text-align: center; }
 
-  /* SECTION LABEL */
-  .section-label { display: inline-block; font-size: var(--text-xs); font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-primary); margin-bottom: var(--space-sm); }
-  .section-label-light { color: rgba(255,255,255,0.5); }
-
-  /* PROBLEMS */
+  /* === PROBLEMS === */
+  .section-label { display: inline-block; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-primary); margin-bottom: var(--space-sm); }
+  .section-label-light { color: rgba(255,255,255,0.4); }
   .problems-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--space-lg); margin-top: var(--space-xl); }
-  .problem-card { padding: var(--space-xl); background: var(--color-white); border: 1px solid var(--color-gray-200); border-radius: 10px; }
-  .problem-icon { font-size: 2rem; margin-bottom: var(--space-sm); }
+  .problem-card { padding: var(--space-xl); background: var(--color-white); border: 1px solid var(--color-gray-200); border-radius: 10px; position: relative; transition: transform 0.2s, box-shadow 0.2s; }
+  .problem-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+  .problem-num { font-family: var(--font-heading); font-size: var(--text-3xl); font-weight: 800; color: rgba(192,57,43,0.1); line-height: 1; margin-bottom: var(--space-sm); }
   .problem-card h3 { font-size: var(--text-lg); margin-bottom: var(--space-sm); }
-  .problem-card p { font-size: var(--text-sm); color: var(--color-text-light); line-height: var(--leading-relaxed); }
+  .problem-card p { font-size: var(--text-sm); color: var(--color-text-light); line-height: 1.6; }
 
-  /* WEAPONS */
-  .weapons-grid { display: grid; grid-template-columns: 1fr; gap: var(--space-xl); margin-top: var(--space-xl); }
-  @media (min-width: 768px) { .weapons-grid { grid-template-columns: 1fr 1fr; } }
-  .weapon-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; padding: var(--space-xl); }
-  .weapon-header { margin-bottom: var(--space-lg); }
-  .weapon-header h3 { font-size: var(--text-2xl); color: var(--color-white); margin-bottom: var(--space-xs); }
-  .weapon-badge { display: inline-block; font-size: var(--text-xs); font-weight: 700; color: var(--color-primary); text-transform: uppercase; letter-spacing: 0.05em; }
-  .weapon-features { list-style: none; padding: 0; margin-bottom: var(--space-lg); }
-  .weapon-features li { padding: 0.5rem 0; font-size: var(--text-sm); color: rgba(255,255,255,0.75); border-bottom: 1px solid rgba(255,255,255,0.05); line-height: var(--leading-relaxed); }
-  .weapon-features li strong { color: var(--color-white); }
-  .weapon-pricing { margin-bottom: var(--space-lg); }
-  .weapon-price-row { display: flex; justify-content: space-between; padding: 0.5rem 0; font-size: var(--text-sm); color: rgba(255,255,255,0.6); border-bottom: 1px solid rgba(255,255,255,0.05); }
-  .weapon-price-row span:last-child { font-weight: 700; color: var(--color-white); }
-  .weapon-price-row.featured span:last-child { color: var(--color-primary); font-size: var(--text-base); }
+  /* === SERVICES SHOWCASE === */
+  .section-subtitle { font-size: var(--text-base); color: rgba(255,255,255,0.55); margin-top: var(--space-sm); max-width: 540px; }
+  .services-mega-grid { display: grid; grid-template-columns: 1fr; gap: var(--space-lg); margin-top: var(--space-2xl); }
+  @media (min-width: 768px) { .services-mega-grid { grid-template-columns: 1fr 1fr; } }
 
-  /* PROCESS */
-  .process-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: var(--space-xl); margin-top: var(--space-xl); }
-  .process-step { text-align: center; }
-  .step-num { width: 56px; height: 56px; border-radius: 50%; background: var(--color-primary); color: var(--color-white); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: var(--text-xl); margin: 0 auto var(--space-md); }
-  .process-step h3 { margin-bottom: var(--space-sm); }
-  .process-step p { font-size: var(--text-sm); color: var(--color-text-light); line-height: var(--leading-relaxed); }
+  .service-mega-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    padding: var(--space-xl);
+    position: relative;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .service-mega-card:hover { border-color: rgba(255,255,255,0.2); transform: translateY(-2px); }
+  .service-featured { border-color: rgba(192,57,43,0.4); background: linear-gradient(135deg, rgba(192,57,43,0.08) 0%, rgba(255,255,255,0.02) 100%); }
+  .service-spectrum { border-color: rgba(59,130,246,0.3); background: linear-gradient(135deg, rgba(59,130,246,0.06) 0%, rgba(255,255,255,0.02) 100%); }
 
-  /* INDUSTRIES PREVIEW */
-  .section-alt { background: var(--color-gray-50, #fafafa); }
+  .service-mega-badge { position: absolute; top: var(--space-lg); right: var(--space-lg); font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-primary); background: rgba(192,57,43,0.15); padding: 0.25rem 0.625rem; border-radius: 4px; }
+  .spectrum-badge { color: #3b82f6; background: rgba(59,130,246,0.15); }
+
+  .service-mega-icon { margin-bottom: var(--space-md); color: var(--color-primary); }
+  .service-spectrum .service-mega-icon { color: #3b82f6; }
+  .service-mega-card h3 { font-size: var(--text-xl); color: var(--color-white); margin-bottom: var(--space-xs); }
+  .service-mega-tagline { font-size: var(--text-sm); color: rgba(255,255,255,0.55); margin-bottom: var(--space-lg); }
+
+  .service-mega-features { list-style: none; padding: 0; margin-bottom: var(--space-lg); }
+  .service-mega-features li { padding: 0.375rem 0; padding-left: 1.25rem; position: relative; font-size: var(--text-sm); color: rgba(255,255,255,0.7); }
+  .service-mega-features li::before { content: ''; position: absolute; left: 0; top: 0.65rem; width: 6px; height: 6px; border-radius: 50%; background: var(--color-primary); }
+  .service-spectrum .service-mega-features li::before { background: #3b82f6; }
+
+  .service-mega-pricing { margin-bottom: var(--space-lg); padding: var(--space-sm) 0; border-top: 1px solid rgba(255,255,255,0.06); }
+  .service-price-from { display: block; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.35); }
+  .service-price-amount { font-family: var(--font-heading); font-size: var(--text-2xl); font-weight: 800; color: var(--color-white); }
+  .service-price-amount span { font-size: var(--text-sm); font-weight: 600; color: rgba(255,255,255,0.5); }
+
+  /* === SPECTRUM SECTION === */
+  .spectrum-section { background: linear-gradient(180deg, var(--color-white) 0%, #fafafa 100%); }
+  .spectrum-grid { display: grid; grid-template-columns: 1fr; gap: var(--space-2xl); }
+  @media (min-width: 1024px) { .spectrum-grid { grid-template-columns: 1fr 1fr; align-items: center; } }
+  .spectrum-lead { font-size: var(--text-base); color: var(--color-text-light); line-height: 1.7; margin-bottom: var(--space-xl); max-width: 480px; }
+  .spectrum-stats { display: flex; gap: var(--space-xl); margin-bottom: var(--space-lg); }
+  .spectrum-stat-value { display: block; font-family: var(--font-heading); font-size: var(--text-2xl); font-weight: 800; color: var(--color-dark); }
+  .spectrum-stat-label { display: block; font-size: 0.7rem; color: var(--color-text-muted); }
+  .spectrum-certs { display: flex; flex-wrap: wrap; gap: var(--space-sm); }
+  .spectrum-cert { font-size: 0.7rem; font-weight: 600; padding: 0.25rem 0.75rem; border: 1px solid var(--color-gray-200); border-radius: 4px; color: var(--color-text-muted); }
+
+  .spectrum-card-stack { display: flex; flex-direction: column; gap: var(--space-md); }
+  .spectrum-feature-card {
+    padding: var(--space-lg);
+    background: var(--color-white);
+    border: 1px solid var(--color-gray-200);
+    border-radius: 10px;
+    border-left: 3px solid var(--color-primary);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .spectrum-feature-card:hover { transform: translateX(4px); box-shadow: 0 4px 16px rgba(0,0,0,0.06); }
+  .spectrum-feature-card h4 { font-size: var(--text-base); margin-bottom: var(--space-xs); }
+  .spectrum-feature-card p { font-size: var(--text-sm); color: var(--color-text-light); line-height: 1.6; margin-bottom: 0; }
+
+  /* === FREE 10-DAY BOOST === */
+  .boost-section { position: relative; overflow: hidden; }
+  .boost-section::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 70% 50%, rgba(192,57,43,0.2) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .boost-grid { display: grid; grid-template-columns: 1fr; gap: var(--space-2xl); position: relative; z-index: 1; }
+  @media (min-width: 1024px) { .boost-grid { grid-template-columns: 1.2fr 1fr; align-items: center; } }
+  .boost-lead { font-size: var(--text-base); color: rgba(255,255,255,0.7); line-height: 1.7; margin-bottom: var(--space-lg); max-width: 520px; }
+  .boost-requirements { margin-bottom: var(--space-xl); }
+  .boost-req-title { display: block; font-size: var(--text-sm); font-weight: 700; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: var(--space-sm); }
+  .boost-requirements ul { list-style: none; padding: 0; }
+  .boost-requirements li { padding: 0.25rem 0; padding-left: 1.25rem; position: relative; font-size: var(--text-sm); color: rgba(255,255,255,0.65); }
+  .boost-requirements li::before { content: ''; position: absolute; left: 0; top: 0.5rem; width: 8px; height: 8px; border-radius: 50%; background: var(--color-primary); }
+
+  .boost-result-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: var(--space-xl); }
+  .boost-result-label { display: block; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.4); margin-bottom: var(--space-lg); }
+  .boost-metric { padding: var(--space-sm) 0; border-bottom: 1px solid rgba(255,255,255,0.06); }
+  .boost-metric:last-child { border-bottom: none; }
+  .boost-metric-value { display: block; font-family: var(--font-heading); font-size: var(--text-2xl); font-weight: 800; color: var(--color-primary); }
+  .boost-metric-label { display: block; font-size: var(--text-sm); color: rgba(255,255,255,0.5); }
+
+  /* === RESULTS === */
+  .results-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: var(--space-lg); margin-top: var(--space-xl); }
+  .result-card {
+    padding: var(--space-xl);
+    background: var(--color-white);
+    border-left: 3px solid var(--color-primary);
+    border-radius: 0 10px 10px 0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .result-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+  .result-category { display: block; font-size: 0.625rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-primary); margin-bottom: var(--space-xs); }
+  .result-metric { font-size: var(--text-xl); margin-bottom: var(--space-xs); }
+  .result-client { font-size: var(--text-sm); color: var(--color-text-muted); }
+  .results-more { text-align: center; margin-top: var(--space-xl); }
+
+  /* === PROCESS === */
+  .section-alt { background: #fafafa; }
+  .process-grid { display: flex; flex-direction: column; align-items: center; gap: 0; margin-top: var(--space-xl); max-width: 600px; margin-left: auto; margin-right: auto; }
+  .process-step { display: flex; gap: var(--space-lg); align-items: flex-start; width: 100%; }
+  .step-num { width: 48px; height: 48px; border-radius: 50%; background: var(--color-primary); color: var(--color-white); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: var(--text-lg); flex-shrink: 0; font-family: var(--font-heading); }
+  .step-content h3 { font-size: var(--text-lg); margin-bottom: var(--space-xs); }
+  .step-content p { font-size: var(--text-sm); color: var(--color-text-light); line-height: 1.6; }
+  .process-connector { width: 2px; height: 32px; background: var(--color-gray-300); margin-left: 23px; }
+
+  /* === INDUSTRIES === */
   .industries-chips { display: flex; flex-wrap: wrap; gap: var(--space-sm); margin-top: var(--space-lg); margin-bottom: var(--space-lg); }
   .industry-chip { display: inline-block; padding: 0.5rem 1rem; background: var(--color-white); border: 1px solid var(--color-gray-200); border-radius: 999px; font-size: var(--text-sm); color: var(--color-text); text-decoration: none; transition: all 0.15s; }
   .industry-chip:hover { background: var(--color-primary); color: var(--color-white); border-color: var(--color-primary); }
   .section-link { font-size: var(--text-sm); font-weight: 600; color: var(--color-primary); text-decoration: none; }
-
-  /* CASE STUDIES */
-  .cases-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: var(--space-lg); margin-top: var(--space-xl); }
-  .case-card { background: var(--color-white); border-left: 3px solid var(--color-primary); border-radius: 0 10px 10px 0; padding: var(--space-lg); box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
-  .case-result { font-size: var(--text-base); font-weight: 600; color: var(--color-dark); margin-bottom: var(--space-md); line-height: var(--leading-relaxed); }
-  .case-meta { font-size: var(--text-sm); }
-  .case-meta strong { display: block; color: var(--color-dark); }
-  .case-meta span { color: var(--color-text-light); }
 </style>

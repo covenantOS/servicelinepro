@@ -1,20 +1,20 @@
 /* Agency Theme - ServiceLine Pro
    Dark, bold, performance-focused. Red accents on dark backgrounds.
-   Professional without being corporate. Aggressive without being cheap. */
+   Premium agency feel with gradients, depth, and visual sophistication. */
 
 :root {
-  /* Card treatment: subtle border, no heavy shadows at rest */
+  /* Card treatment */
   --card-border: 1px solid var(--color-gray-200);
   --card-radius: 10px;
   --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
-  --card-hover-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  --card-hover-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
 
-  /* Button treatment: solid, no gradients, sharp corners */
+  /* Button treatment */
   --btn-radius: 6px;
   --btn-weight: 600;
 
-  /* Section backgrounds alternate */
-  --section-alt-bg: var(--color-gray-50, #fafafa);
+  /* Section backgrounds */
+  --section-alt-bg: #fafafa;
 
   /* Trust bar */
   --trust-bar-bg: var(--color-primary);
@@ -29,7 +29,7 @@
   --footer-color: rgba(255, 255, 255, 0.7);
 }
 
-/* Override card styles for agency feel */
+/* === CARDS === */
 .card {
   border: var(--card-border);
   border-radius: var(--card-radius);
@@ -38,12 +38,12 @@
   overflow: hidden;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
-
 .card:hover {
   box-shadow: var(--card-hover-shadow);
+  transform: translateY(-3px);
 }
 
-/* Agency-specific button styles */
+/* === BUTTONS === */
 .btn-primary {
   background: var(--color-primary);
   color: var(--color-white);
@@ -53,13 +53,14 @@
   padding: 0.75rem 1.5rem;
   text-decoration: none;
   display: inline-block;
-  transition: background 0.15s ease, border-color 0.15s ease;
+  transition: all 0.15s ease;
   cursor: pointer;
+  position: relative;
 }
-
 .btn-primary:hover {
   background: #a93226;
   border-color: #a93226;
+  box-shadow: 0 4px 12px rgba(192, 57, 43, 0.3);
 }
 
 .btn-outline {
@@ -71,32 +72,24 @@
   padding: 0.75rem 1.5rem;
   text-decoration: none;
   display: inline-block;
-  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  transition: all 0.15s ease;
   cursor: pointer;
 }
-
 .btn-outline:hover {
   background: var(--color-dark);
   color: var(--color-white);
   border-color: var(--color-dark);
 }
 
-/* Dark sections get special link treatment */
+/* === DARK SECTIONS === */
 .section-dark {
   background: var(--color-dark);
   color: var(--color-white);
 }
+.section-dark h2, .section-dark h3 { color: var(--color-white); }
+.section-dark p { color: rgba(255, 255, 255, 0.75); }
 
-.section-dark h2,
-.section-dark h3 {
-  color: var(--color-white);
-}
-
-.section-dark p {
-  color: rgba(255, 255, 255, 0.75);
-}
-
-/* Accent underline for section headings */
+/* === HEADING ACCENT LINE === */
 .section h2::after {
   content: '';
   display: block;
@@ -105,29 +98,25 @@
   background: var(--color-primary);
   margin-top: 0.75rem;
 }
-
-/* No accent line for centered headings */
-.text-center h2::after,
-h2.text-center::after {
+.text-center h2::after, h2.text-center::after {
   margin-left: auto;
   margin-right: auto;
 }
 
-/* Stats/metrics styling */
+/* === STATS === */
 .stat-value {
   font-size: var(--text-4xl);
   font-weight: 800;
   color: var(--color-primary);
   line-height: 1;
 }
-
 .stat-label {
   font-size: var(--text-sm);
   color: var(--color-text-light);
   margin-top: 0.25rem;
 }
 
-/* Review cards */
+/* === REVIEW CARDS === */
 .review-card {
   background: var(--color-white);
   border-left: 3px solid var(--color-primary);
@@ -135,17 +124,132 @@ h2.text-center::after {
   border-radius: 0 var(--card-radius) var(--card-radius) 0;
 }
 
-/* CTA band override for agency */
+/* === CTA BAND === */
 .cta-band {
   background: var(--color-dark);
   color: var(--color-white);
   padding: var(--space-2xl) 0;
+  position: relative;
+  overflow: hidden;
+}
+.cta-band::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 30% 50%, rgba(192,57,43,0.15) 0%, transparent 50%);
+  pointer-events: none;
+}
+.cta-band h2 { color: var(--color-white); }
+.cta-band h2::after { display: none; }
+
+/* === PREMIUM VISUAL ELEMENTS === */
+
+/* Subtle grid pattern for light sections */
+.section-alt {
+  background: #fafafa;
+  position: relative;
+}
+.section-alt::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0,0,0,0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,0.015) 1px, transparent 1px);
+  background-size: 64px 64px;
+  pointer-events: none;
 }
 
-.cta-band h2 {
+/* Content pages - main content area styling */
+.main-content h2 {
+  font-size: var(--text-2xl);
+  margin-top: var(--space-2xl);
+  margin-bottom: var(--space-md);
+}
+.main-content h3 {
+  font-size: var(--text-xl);
+  margin-top: var(--space-xl);
+  margin-bottom: var(--space-sm);
+}
+.main-content p { line-height: 1.75; }
+.main-content ul, .main-content ol { margin-bottom: 1em; }
+.main-content li { margin-bottom: 0.25em; line-height: 1.6; }
+
+/* Internal page hero gradient backdrop */
+.page-hero {
+  background: var(--color-dark);
+  padding: var(--space-3xl) 0 var(--space-2xl);
   color: var(--color-white);
+  position: relative;
+  overflow: hidden;
+}
+.page-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 15% 85%, rgba(192,57,43,0.12) 0%, transparent 45%),
+    radial-gradient(circle at 85% 15%, rgba(192,57,43,0.06) 0%, transparent 35%);
+  pointer-events: none;
+}
+.page-hero h1 { color: var(--color-white); font-size: var(--text-4xl); margin-bottom: var(--space-sm); position: relative; }
+.page-hero-desc { color: rgba(255,255,255,0.65); font-size: var(--text-lg); max-width: 550px; position: relative; }
+
+/* Service/industry badge styling */
+.page-badge {
+  display: inline-block;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0.25rem 0.75rem;
+  border-radius: 4px;
+  margin-bottom: var(--space-md);
+  position: relative;
+}
+.page-badge-service { color: var(--color-primary); background: rgba(192,57,43,0.12); border: 1px solid rgba(192,57,43,0.2); }
+.page-badge-industry { color: #3b82f6; background: rgba(59,130,246,0.1); border: 1px solid rgba(59,130,246,0.2); }
+.page-badge-area { color: #059669; background: rgba(5,150,105,0.1); border: 1px solid rgba(5,150,105,0.2); }
+
+/* FAQ styling */
+.faq-item {
+  border-bottom: 1px solid var(--color-gray-200);
+  padding: var(--space-md) 0;
+}
+.faq-question {
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.faq-answer {
+  padding-top: var(--space-sm);
+  color: var(--color-text-light);
+  line-height: 1.7;
 }
 
-.cta-band h2::after {
-  display: none;
+/* Pricing cards on service pages */
+.pricing-card {
+  background: var(--color-white);
+  border: 1px solid var(--color-gray-200);
+  border-radius: 12px;
+  padding: var(--space-xl);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.pricing-card:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,0.08); }
+.pricing-card-featured {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 1px var(--color-primary);
+}
+.pricing-card-featured::before {
+  content: 'Most Popular';
+  display: block;
+  text-align: center;
+  font-size: 0.625rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-primary);
+  margin-bottom: var(--space-md);
 }

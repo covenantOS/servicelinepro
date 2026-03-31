@@ -27,10 +27,7 @@ Thumbs.db
 *.swp
 *.swo
 
-# Client media (fetched/optimized per deploy)
-public/media/*.webp
-public/media/*.jpg
-public/media/*.png
+# Client media placeholder (real images are tracked)
 !public/media/.gitkeep
 
 # Sharp cache

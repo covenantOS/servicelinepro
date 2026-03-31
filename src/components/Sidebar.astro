@@ -4,33 +4,38 @@ import config from '../lib/config';
 interface Props {
   currentService?: string;
   currentArea?: string;
-  serviceSlug?: string;
+  currentIndustry?: string;
 }
 
-const { currentService = '', currentArea = '', serviceSlug = '' } = Astro.props;
-
-const primaryArea = config.areas.find(a => a.is_primary) || config.areas[0];
-const city = primaryArea.name.toLowerCase().replace(/\s+/g, '-');
-const state = config.business.address.state.toLowerCase();
+const { currentService = '', currentArea = '', currentIndustry = '' } = Astro.props;
 
 const currentServiceData = config.services.find(s => s.slug === currentService);
+
+// Pick a relevant case study if possible
+const relevantCase = config.case_studies.find(cs =>
+  currentServiceData && cs.category.toLowerCase().includes(currentServiceData.name.toLowerCase().split(' ')[0])
+) || config.case_studies[0];
 ---
 
-<aside class="sidebar" aria-label="Sidebar navigation">
+<aside class="sidebar" aria-label="Sidebar">
   <div class="sidebar-sticky">
-    <!-- Phone CTA -->
-    <a href={`tel:${config.business.phone_raw}`} class="btn btn-phone btn-full sidebar-phone">{config.business.phone}</a>
-
-    <!-- Estimate CTA -->
-    <a href={`/contact${currentService ? `?service=${encodeURIComponent(currentServiceData?.name || '')}` : ''}`} class="btn btn-primary btn-full sidebar-estimate">Free Estimate</a>
-
-    <!-- Contact box -->
-    <div class="sidebar-box">
-      <h3>Get Your Free Estimate</h3>
-      <p class="sidebar-box-sub">Call us today or fill out the form below</p>
-      <a href={`tel:${config.business.phone_raw}`} class="sidebar-link">{config.business.phone}</a>
-      <a href={`/contact${currentService ? `?service=${encodeURIComponent(currentServiceData?.name || '')}` : ''}`} class="sidebar-link accent">Request Estimate Online</a>
+    <!-- Primary CTA Card -->
+    <div class="sidebar-cta-card">
+      <h3>Get Your Free Strategy Call</h3>
+      <p>15 minutes. No pressure. We analyze your market and show you where the opportunities are.</p>
+      <a href={`/contact${currentService ? `?service=${encodeURIComponent(currentServiceData?.name || '')}` : ''}`} class="btn btn-primary btn-full">Book Strategy Call</a>
+      <a href={`tel:${config.business.phone_raw}`} class="sidebar-phone-link">Or call {config.business.phone}</a>
     </div>
+
+    <!-- Quick Result -->
+    {relevantCase && (
+      <div class="sidebar-result-card">
+        <span class="sidebar-result-label">{relevantCase.category} Result</span>
+        <span class="sidebar-result-metric">{relevantCase.result}</span>
+        <span class="sidebar-result-client">{relevantCase.title}</span>
+        <a href="/case-studies/" class="sidebar-result-link">See All Results &rarr;</a>
+      </div>
+    )}
 
     <!-- Services list -->
     <div class="sidebar-box">
@@ -39,7 +44,7 @@ const currentServiceData = config.services.find(s => s.slug === currentService);
         {config.services.map(service => (
           <li>
             <a
-              href={`/services/${service.slug}-${city}-${state}`}
+              href={`/services/${service.slug}/`}
               class:list={['sidebar-list-link', service.slug === currentService ? 'active' : '']}
             >
               {service.name}
@@ -49,32 +54,33 @@ const currentServiceData = config.services.find(s => s.slug === currentService);
       </ul>
     </div>
 
-    <!-- Area links -->
+    <!-- Area links (shown on service pages) -->
     {currentService && (
       <div class="sidebar-box">
-        <h3>{currentServiceData?.name || 'Service'} Near You</h3>
+        <h3>Areas We Serve</h3>
         <ul class="sidebar-list">
-          {config.areas.slice(0, 9).map(area => (
+          {config.areas.slice(0, 8).map(area => (
             <li>
               <a
-                href={`/areas/${area.slug}`}
+                href={`/areas/${area.slug}/`}
                 class:list={['sidebar-list-link', area.slug === currentArea ? 'active' : '']}
               >
                 {area.name}
               </a>
             </li>
           ))}
+          <li><a href="/areas/" class="sidebar-list-link accent">All {config.areas.length} Areas &rarr;</a></li>
         </ul>
       </div>
     )}
 
-    <!-- Trust badges -->
+    <!-- Trust signals -->
     <div class="sidebar-box sidebar-trust">
-      <h3>Why Choose Us</h3>
+      <h3>Why ServiceLine Pro</h3>
       <ul class="sidebar-trust-list">
-        <li><span class="trust-check">✓</span> {config.trust_signals.rating} {config.trust_signals.review_platform} Rating</li>
-        {config.trust_signals.badges.slice(1, 4).map((badge: string) => (
-          <li><span class="trust-check">✓</span> {badge}</li>
+        <li><span class="trust-check">&#10003;</span> {config.trust_signals.rating} Star {config.trust_signals.review_platform} Rating</li>
+        {config.trust_signals.badges.slice(0, 4).map((badge: string) => (
+          <li><span class="trust-check">&#10003;</span> {badge}</li>
         ))}
       </ul>
     </div>
@@ -82,117 +88,66 @@ const currentServiceData = config.services.find(s => s.slug === currentService);
 </aside>
 
 <style>
-  .sidebar {
-    width: 100%;
-  }
+  .sidebar { width: 100%; }
 
   @media (min-width: 1024px) {
     .sidebar-sticky {
       position: sticky;
-      top: calc(var(--header-height) + 1.5rem);
-      max-height: calc(100vh - var(--header-height) - 3rem);
-      overflow-y: auto;
-      scrollbar-width: thin;
-      scrollbar-color: var(--color-gray-300) transparent;
-    }
-
-    .sidebar-sticky::-webkit-scrollbar {
-      width: 4px;
-    }
-
-    .sidebar-sticky::-webkit-scrollbar-thumb {
-      background: var(--color-gray-300);
-      border-radius: 2px;
+      top: calc(72px + var(--space-lg));
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
     }
   }
 
-  .sidebar-phone {
-    margin-bottom: var(--space-sm);
+  /* Primary CTA Card */
+  .sidebar-cta-card {
+    background: var(--color-dark);
+    color: var(--color-white);
+    border-radius: 10px;
+    padding: var(--space-xl);
+    text-align: center;
   }
+  .sidebar-cta-card h3 { color: var(--color-white); font-size: var(--text-lg); margin-bottom: var(--space-sm); }
+  .sidebar-cta-card p { font-size: var(--text-sm); color: rgba(255,255,255,0.65); margin-bottom: var(--space-lg); max-width: none; }
+  .sidebar-phone-link { display: block; margin-top: var(--space-sm); font-size: var(--text-sm); color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.15s; }
+  .sidebar-phone-link:hover { color: var(--color-white); }
 
-  .sidebar-estimate {
-    margin-bottom: var(--space-lg);
+  /* Result Card */
+  .sidebar-result-card {
+    background: linear-gradient(135deg, rgba(192,57,43,0.06) 0%, rgba(192,57,43,0.02) 100%);
+    border: 1px solid rgba(192,57,43,0.15);
+    border-radius: 10px;
+    padding: var(--space-lg);
   }
+  .sidebar-result-label { display: block; font-size: 0.625rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-primary); margin-bottom: var(--space-xs); }
+  .sidebar-result-metric { display: block; font-size: var(--text-2xl); font-weight: 800; color: var(--color-dark); line-height: 1.1; margin-bottom: var(--space-xs); }
+  .sidebar-result-client { display: block; font-size: var(--text-sm); color: var(--color-text-muted); margin-bottom: var(--space-sm); }
+  .sidebar-result-link { font-size: var(--text-sm); font-weight: 600; color: var(--color-primary); text-decoration: none; }
+  .sidebar-result-link:hover { text-decoration: underline; }
 
+  /* Box */
   .sidebar-box {
     background: var(--color-white);
     border: 1px solid var(--color-gray-200);
-    border-radius: var(--radius-md);
+    border-radius: 10px;
     padding: var(--space-lg);
-    margin-bottom: var(--space-md);
   }
+  .sidebar-box h3 { font-size: var(--text-sm); font-weight: 700; margin-bottom: var(--space-sm); padding-bottom: var(--space-sm); border-bottom: 2px solid var(--color-primary); }
 
-  .sidebar-box h3 {
-    font-size: var(--text-base);
-    font-weight: 700;
-    margin-bottom: var(--space-sm);
-    padding-bottom: var(--space-sm);
-    border-bottom: 2px solid var(--color-primary);
-  }
-
-  .sidebar-box-sub {
-    font-size: var(--text-sm);
-    color: var(--color-text-muted);
-    margin-bottom: var(--space-sm);
-  }
-
-  .sidebar-link {
-    display: block;
-    font-size: var(--text-sm);
-    font-weight: 600;
-    margin-bottom: var(--space-xs);
-  }
-
-  .sidebar-link.accent {
-    color: var(--color-primary);
-  }
-
-  .sidebar-list {
-    list-style: none;
-    padding: 0;
-  }
-
-  .sidebar-list li {
-    margin-bottom: 0;
-  }
-
+  /* Lists */
+  .sidebar-list { list-style: none; padding: 0; }
+  .sidebar-list li { margin-bottom: 0; }
   .sidebar-list-link {
-    display: block;
-    padding: 0.375rem 0.625rem;
-    font-size: var(--text-sm);
-    color: var(--color-text-light);
-    border-radius: var(--radius-sm);
-    transition: background var(--transition-fast), color var(--transition-fast);
+    display: block; padding: 0.375rem 0.5rem; font-size: var(--text-sm); color: var(--color-text-light);
+    border-radius: 4px; transition: background 0.15s, color 0.15s; text-decoration: none;
   }
+  .sidebar-list-link:hover { background: var(--color-gray-100); color: var(--color-primary); }
+  .sidebar-list-link.active { background: rgba(192,57,43,0.08); color: var(--color-primary); font-weight: 600; }
+  .sidebar-list-link.accent { color: var(--color-primary); font-weight: 600; }
 
-  .sidebar-list-link:hover {
-    background: var(--color-gray-100);
-    color: var(--color-primary);
-  }
-
-  .sidebar-list-link.active {
-    background: rgba(45, 90, 39, 0.08);
-    color: var(--color-primary);
-    font-weight: 600;
-  }
-
-  .sidebar-trust-list {
-    list-style: none;
-    padding: 0;
-  }
-
-  .sidebar-trust-list li {
-    display: flex;
-    align-items: center;
-    gap: var(--space-sm);
-    font-size: var(--text-sm);
-    font-weight: 500;
-    color: var(--color-text);
-    padding: 0.25rem 0;
-  }
-
-  .trust-check {
-    color: var(--color-primary);
-    font-weight: 700;
-  }
+  /* Trust */
+  .sidebar-trust-list { list-style: none; padding: 0; }
+  .sidebar-trust-list li { display: flex; align-items: center; gap: var(--space-sm); font-size: var(--text-sm); font-weight: 500; color: var(--color-text); padding: 0.25rem 0; }
+  .trust-check { color: var(--color-primary); font-weight: 700; font-size: 0.75rem; }
 </style>

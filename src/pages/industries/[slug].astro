@@ -40,7 +40,7 @@ const pageDescription = frontmatter.description || `${config.business.name} prov
 
 const breadcrumbItems = [
   { label: 'Home', href: '/' },
-  { label: 'Industries', href: '/industries/' },
+  { label: 'Who We Work With', href: '/industries/' },
   { label: industry.full_name },
 ];
 
@@ -59,6 +59,7 @@ const schema = {
   <Header slot="header" />
 
   <section class="industry-hero">
+    <div class="industry-hero-bg"></div>
     <div class="container industry-hero-inner">
       <Breadcrumbs items={breadcrumbItems} />
       <div class="industry-hero-badge">{industry.name} Marketing</div>
@@ -141,19 +142,30 @@ const schema = {
     background: var(--color-dark);
     padding: var(--space-3xl) 0 var(--space-2xl);
     color: var(--color-white);
+    position: relative;
+    overflow: hidden;
   }
+  .industry-hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(circle at 15% 85%, rgba(192,57,43,0.1) 0%, transparent 40%),
+      radial-gradient(circle at 85% 15%, rgba(59,130,246,0.06) 0%, transparent 35%);
+    pointer-events: none;
+  }
+  .industry-hero-inner { position: relative; z-index: 1; }
 
   .industry-hero-badge {
     display: inline-block;
-    background: var(--color-primary);
-    color: var(--color-white);
+    background: rgba(192,57,43,0.15);
+    color: var(--color-primary);
     padding: 0.25rem 0.75rem;
-    border-radius: var(--radius-sm);
-    font-size: var(--text-sm);
-    font-weight: 600;
+    border-radius: 4px;
+    font-size: 0.65rem;
+    font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.08em;
     margin-bottom: var(--space-md);
+    border: 1px solid rgba(192,57,43,0.2);
   }
 
   .industry-hero h1 {
@@ -164,10 +176,11 @@ const schema = {
   }
 
   .industry-hero-desc {
-    color: rgba(255, 255, 255, 0.8);
+    color: rgba(255, 255, 255, 0.7);
     font-size: var(--text-lg);
     max-width: 600px;
     margin-bottom: var(--space-lg);
+    line-height: 1.6;
   }
 
   .industry-hero-ctas {
