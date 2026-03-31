@@ -18,7 +18,7 @@ faq:
 
 The junk removal industry has exploded. What was once a niche service dominated by guys with pickup trucks has become a competitive, professionalized market. National franchises like 1-800-GOT-JUNK and College Hunks Hauling Junk have poured millions into brand awareness. Local operators face real competition for every lead.
 
-But here is what the franchises cannot replicate: local dominance. A well-marketed independent junk removal company that owns its local search results, answers the phone fast, and delivers same-day service will outperform a franchise in its market. The key is building a marketing system designed around how junk removal customers actually search and buy.
+But here is what the franchises cannot replicate: local dominance. A well-marketed independent junk removal company that owns its local search results, answers the phone fast, and delivers same-day service will outperform a franchise in its market. The key is building a marketing system designed around how junk removal customers actually search and buy. Our [case studies](/case-studies/) show exactly how independent operators achieve this.
 
 ## The Junk Removal Customer
 
@@ -34,7 +34,7 @@ Average residential cleanout jobs range from $200 to $800, with whole-house clea
 
 ### Construction and Renovation Debris
 
-Contractors, remodelers, and property flippers generate consistent junk removal demand. Demolition debris, old cabinetry, flooring rip-outs, drywall scraps, and general construction waste need to go. These customers care about reliability, capacity (can you handle a full kitchen demo worth of debris?), and competitive pricing for recurring work.
+Contractors, remodelers, and property flippers generate consistent junk removal demand. Demolition debris, old cabinetry, [flooring](/industries/flooring/) rip-outs, drywall scraps, and [general contracting](/industries/general-contracting/) waste need to go. These customers care about reliability, capacity (can you handle a full kitchen demo worth of debris?), and competitive pricing for recurring work.
 
 Construction debris jobs range from $300 to $1,500 depending on volume and material type. The real value is in recurring relationships with contractors who generate repeat work every month.
 
@@ -48,7 +48,7 @@ Specific item searches drive significant volume: "refrigerator removal," "hot tu
 
 ## Google Ads: Speed Wins
 
-Junk removal is one of the best industries for Google Ads because the customer's urgency matches the immediacy of paid search. Someone searching "junk removal near me" right now wants to book service within hours.
+Junk removal is one of the best industries for [Google Ads](/services/ppc/) because the customer's urgency matches the immediacy of paid search. Someone searching "junk removal near me" right now wants to book service within hours.
 
 ### Campaign Structure
 
@@ -111,11 +111,11 @@ Companies spending $5,000 or more per month through Spectrum Reach pay no agency
 
 Junk removal customers frequently include timing in their searches: "same day junk removal," "junk removal today," "next day junk pickup." Bid aggressively on these time-sensitive keywords. They indicate maximum urgency and convert at the highest rates.
 
-## Local SEO for Junk Removal Companies
+## [Local SEO](/services/local-seo/) for Junk Removal Companies
 
 Organic visibility in the Google map pack generates consistent leads without per-click costs. Junk removal is a local service, and customers strongly prefer companies that appear nearby and well-reviewed.
 
-### Google Business Profile
+### [Google Business Profile](/services/local-seo/)
 
 **Category:** "Junk Removal Service" as primary. Add "Hauling Service" and "Waste Management Service" as secondaries if applicable.
 
@@ -159,7 +159,7 @@ Junk removal content opportunities center around pricing, process, and disposal 
 
 The disposal question matters more than many companies realize. Environmentally conscious customers want to know that their items will be recycled, donated, or disposed of responsibly, not dumped in a landfill. Content that explains your donation partnerships and recycling process builds trust and differentiates you from competitors.
 
-## Website Design for Junk Removal Companies
+## [Website Design](/services/website-design/) for Junk Removal Companies
 
 A junk removal website must do one thing above all else: make it incredibly easy to book service. Every second of friction between landing on the page and booking an appointment costs you leads.
 
@@ -227,7 +227,7 @@ Spring cleaning drives the highest demand of the year. Homeowners tackle garages
 
 ### Summer: Moving Season
 
-Summer is peak moving season, which generates move-out cleanups, estate cleanouts, and new homeowner decluttering. Demand remains strong through August.
+Summer is peak [moving](/industries/moving/) season, which generates move-out cleanups, estate cleanouts, and new homeowner decluttering. Demand remains strong through August.
 
 ### Fall: Pre-Holiday Decluttering
 
@@ -237,7 +237,7 @@ September through November brings a second wave as homeowners clear space before
 
 December through February is the slowest period for most markets. Reduce ad spend but do not stop. Post-holiday decluttering, New Year's resolution-driven cleanouts, and ongoing construction debris work maintain baseline demand. Use this time to invest in SEO, build content, and prepare for the spring surge.
 
-## TV and Streaming Advertising
+## [TV and Streaming Advertising](/services/tv-streaming-advertising/)
 
 Junk removal is a service many homeowners do not realize is available or affordable. TV and streaming ads introduce the concept to a broad audience: "Got junk? We pick it up today. You point, we load." The simplicity of the message combined with before-and-after visuals creates immediate understanding and desire.
 

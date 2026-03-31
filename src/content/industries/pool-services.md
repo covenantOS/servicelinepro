@@ -18,7 +18,7 @@ faq:
 
 The pool service industry splits into two worlds. In Florida, Texas, Arizona, and Southern California, pools run year-round and demand never stops. In the northern half of the country, the business compresses into six or seven months of intense activity bookended by seasonal openings and closings. Both models share one thing: the companies that dominate local search capture the lion's share of new recurring accounts, and those accounts compound into serious revenue over time.
 
-ServiceLine Pro builds marketing systems for pool service companies that generate recurring monthly customers, drive high-ticket repair and remodeling leads, and keep your route sheets full regardless of which market you serve. We understand the economics of this industry. A single recurring pool cleaning customer is worth $1,800 to $3,000 per year. A pool remodel or replaster job runs $5,000 to $80,000. The marketing strategy for each revenue stream looks completely different, and we build campaigns that capture both.
+ServiceLine Pro builds marketing systems for pool service companies that generate recurring monthly customers, drive high-ticket repair and [remodeling](/industries/remodeling/) leads, and keep your route sheets full regardless of which market you serve. We understand the economics of this industry. A single recurring pool cleaning customer is worth $1,800 to $3,000 per year. A pool remodel or replaster job runs $5,000 to $80,000. The marketing strategy for each revenue stream looks completely different, and we build campaigns that capture both.
 
 ## The Pool Service Revenue Model
 
@@ -30,11 +30,11 @@ This is the foundation. A healthy pool service company builds its entire busines
 
 But you need marketing to build that route. And here is the problem most pool companies face: the customers searching for "pool cleaning near me" are not emergency buyers. They are comparison shoppers. They will get three quotes. They will read your reviews. They will look at your website and decide in 30 seconds whether you look like a professional operation or a guy with a skimmer net and a pickup truck.
 
-Your website must communicate professionalism, reliability, and chemical expertise. We build pool service websites with dedicated pages for recurring maintenance that show exactly what is included in each visit: skimming, brushing, vacuuming, chemical testing and adjustment, filter inspection, pump check, and water level management. Transparent pricing tiers with clear distinctions between basic, standard, and premium plans convert browsers into callers.
+Your [website](/services/website-design/) must communicate professionalism, reliability, and chemical expertise. We build pool service websites with dedicated pages for recurring maintenance that show exactly what is included in each visit: skimming, brushing, vacuuming, chemical testing and adjustment, filter inspection, pump check, and water level management. Transparent pricing tiers with clear distinctions between basic, standard, and premium plans convert browsers into callers.
 
 ### Pool Repair
 
-When a pool pump dies, a filter cracks, or a heater stops working, the homeowner searches with urgency. Not the same panic as a broken air conditioner in August, but real urgency nonetheless. A non-functional pool in the summer heat turns green within days. Pool repair searches carry strong commercial intent and convert at high rates.
+When a pool pump dies, a filter cracks, or a heater stops working, the homeowner searches with urgency. Not the same panic as a broken air conditioner in August (see our [HVAC marketing](/industries/hvac/) page), but real urgency nonetheless. A non-functional pool in the summer heat turns green within days. Pool repair searches carry strong commercial intent and convert at high rates.
 
 The key repair keywords include "pool pump repair near me," "pool filter replacement," "pool heater not working," and "pool light repair." Average repair tickets range from $200 for a simple valve replacement to $1,500 or more for a variable-speed pump installation or heater replacement. These searches spike in late spring when homeowners discover their equipment failed over the winter, and again in mid-summer when overworked systems break down.
 
@@ -50,7 +50,7 @@ This is the high-ticket revenue driver. Pool resurfacing (replastering) ranges f
 
 Marketing for pool remodeling requires visual content. Before-and-after photo galleries are not optional. They are the single most important conversion tool on your website. A homeowner looking at a tired, stained plaster surface in their own backyard needs to see what a pebble finish or glass bead surface looks like. They need to see crumbling coping replaced with travertine. They need to see a dark-bottom pool with LED color lighting and a new water feature.
 
-We build dedicated remodeling galleries organized by project type: resurfacing, tile and coping, equipment upgrades, complete renovations. Each gallery includes the scope of work, materials used, approximate project value, and the city where the work was performed. This content serves double duty: it convinces prospects and it generates organic traffic from keywords like "pool remodel before and after," "pool resurfacing cost," and "pool renovation ideas."
+We build dedicated remodeling galleries organized by project type: resurfacing, tile and coping, equipment upgrades, complete renovations. Each gallery includes the scope of work, materials used, approximate project value, and the city where the work was performed. See our [case studies](/case-studies/) for examples of how pool companies have grown with this approach. This content serves double duty: it convinces prospects and it generates organic traffic from keywords like "pool remodel before and after," "pool resurfacing cost," and "pool renovation ideas."
 
 ### Seasonal Openings and Closings (Northern Markets)
 
@@ -88,7 +88,7 @@ We structure northern market campaigns with an aggressive spring push: increased
 
 Pool service searches are fundamentally local. No homeowner drives thirty miles to hire a pool cleaner. Your entire market exists within a reasonable driving radius of your base, and the companies that rank in the Google Map Pack for their service area capture the majority of organic leads.
 
-### Google Business Profile Optimization
+### [Google Business Profile](/services/local-seo/) Optimization
 
 Most pool companies set their primary category to "Swimming Pool Contractor" and stop there. That leaves enormous opportunity on the table. Secondary categories should include "Swimming Pool Repair Service," "Swimming Pool Cleaning Service," and "Hot Tub Repair Service" if applicable. Each category signals to Google that your listing should appear for a broader range of pool-related searches.
 
@@ -100,7 +100,7 @@ Review volume and velocity are critical ranking factors. Pool service companies 
 
 Pool companies serve multiple cities and neighborhoods. Each area you serve should have a dedicated page on your website targeting "pool service [city name]" and "pool cleaning [city name]." These pages should include neighborhood-specific details: common pool types in that area, HOA requirements that affect pool maintenance, local water chemistry characteristics, and references to well-known subdivisions or communities with high pool density.
 
-A pool company serving the Tampa Bay area might have separate pages for Tampa, St. Petersburg, Clearwater, Brandon, Riverview, Lutz, and Wesley Chapel. Each page targets searches specific to that city and gives Google clear signals about your geographic relevance. This approach multiplies your organic visibility across your entire service area rather than concentrating it in a single location.
+A pool company serving the Tampa Bay area might have separate pages for [Tampa](/areas/tampa-fl/), [St. Petersburg](/areas/st-petersburg-fl/), [Clearwater](/areas/clearwater-fl/), Brandon, Riverview, Lutz, and Wesley Chapel. Each page targets searches specific to that city and gives Google clear signals about your geographic relevance. This approach multiplies your organic visibility across your entire service area rather than concentrating it in a single location.
 
 ### Content Strategy for Pool SEO
 
@@ -118,7 +118,7 @@ We build content libraries targeting the full range of pool-related searches:
 
 Each piece of content should answer the question thoroughly, reference your company's expertise, and include clear calls to action for homeowners who want professional help.
 
-## Google Ads for Pool Service Companies
+## [Google Ads](/services/ppc/) for Pool Service Companies
 
 Google Ads delivers immediate visibility for pool companies that need leads now. The cost per click for pool service keywords runs $8 to $25 depending on market competitiveness, with Sun Belt metros like Phoenix, Dallas, and Miami at the higher end of that range.
 
@@ -162,7 +162,7 @@ Over 70 percent of pool service searches happen on mobile devices. The homeowner
 
 We build pool service websites with a sticky mobile header that keeps your phone number and a "Get a Quote" button visible at all times. Forms are short: name, phone, address, service needed. Nothing more. Every unnecessary form field reduces conversion rates.
 
-## TV and Streaming Advertising for Pool Companies
+## [TV and Streaming Advertising](/services/tv-streaming-advertising/) for Pool Companies
 
 In competitive Sun Belt markets, TV and streaming ads build the brand awareness that makes every other marketing channel more effective. When a homeowner sees your pool company during their evening streaming session and then encounters your Google listing the next day, they are far more likely to click and call.
 

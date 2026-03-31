@@ -29,7 +29,7 @@ faq:
 
 Your phone should be ringing. Homeowners within ten miles of your shop are searching Google right now for the exact services you provide. They type "plumber near me" or "AC repair" and pick one of the three businesses Google shows them in the Map Pack. If your company is not one of those three, you are invisible to the highest-intent buyers in your market.
 
-We fix that. ServiceLine Pro delivers local SEO services built from the ground up for home service businesses. Plumbers, HVAC contractors, electricians, roofers, garage door companies, pest control operators. We know this industry because it is the only industry we serve.
+We fix that. ServiceLine Pro delivers local SEO services built from the ground up for home service businesses. [Plumbers](/industries/plumbing/), [HVAC contractors](/industries/hvac/), [electricians](/industries/electrical/), [roofers](/industries/roofing/), [garage door companies](/industries/garage-door/), [pest control operators](/industries/pest-control/). We know this industry because it is the only industry we serve.
 
 Our guarantee is concrete: top 3 Map Pack placement within 90 days, or you do not pay.
 
@@ -181,13 +181,13 @@ Every plan includes our 90-day Map Pack guarantee. If you are not ranking in the
 
 Our local SEO services are built for established home service businesses generating $1M or more in annual revenue. This is not a startup play. You need an existing business with real customers, a physical address, and the operational capacity to handle increased call volume.
 
-We work with plumbers, HVAC contractors, electricians, roofers, garage door companies, pest control operators, landscapers, painters, restoration companies, and other residential service providers.
+We work with plumbers, HVAC contractors, electricians, roofers, garage door companies, pest control operators, [landscapers](/industries/landscaping/), [painters](/industries/painting/), restoration companies, and other residential service providers.
 
 You are a good fit if:
 
 - You are losing Map Pack visibility to competitors with worse service and better marketing
 - Your GBP has been stagnant despite your efforts to update it
-- You are spending heavily on paid ads and want to build an organic lead channel
+- You are spending heavily on [paid ads](/services/ppc/) and want to build an organic lead channel
 - You have expanded your service area but are not getting calls from new territories
 - Your review count has plateaued or you are getting outpaced by competitors
 
@@ -210,7 +210,7 @@ Average results across our home service clients after six months:
 - 189% increase in phone calls from Google
 - Top 3 Map Pack placement for 85% of target keywords
 
-These numbers reflect averages. Your results depend on your market, your competition, and your starting position. But the trajectory is consistent: businesses that commit to professional local SEO services generate more calls, more leads, and more revenue from Google than any other single marketing channel.
+These numbers reflect averages. Your results depend on your market, your competition, and your starting position. But the trajectory is consistent: businesses that commit to professional local SEO services generate more calls, more leads, and more revenue from Google than any other single marketing channel. See our [case studies](/case-studies/) for real results from home service businesses like yours.
 
 ## Stop Paying for Invisibility
 

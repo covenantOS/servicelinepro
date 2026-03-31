@@ -33,7 +33,7 @@ We offer two distinct website packages. One prioritizes raw speed and search per
 
 ## Two Ways to Build Your Online Presence
 
-Every contractor has different needs. A one-truck plumbing operation does not need the same website infrastructure as a multi-location HVAC company running seasonal promotions. That is why we offer two separate website design packages, each engineered for a specific set of business requirements.
+Every contractor has different needs. A one-truck [plumbing](/industries/plumbing/) operation does not need the same website infrastructure as a multi-location [HVAC](/industries/hvac/) company running seasonal promotions. That is why we offer two separate website design packages, each engineered for a specific set of business requirements.
 
 ### Custom Performance Sites
 
@@ -66,7 +66,7 @@ This option is the right choice for contractors who want to publish content regu
 **What a WordPress build includes:**
 
 - Custom theme design tailored to your brand and trade
-- Hand-selected plugin stack for SEO, security, forms, and performance
+- Hand-selected plugin stack for [SEO](/services/local-seo/), security, forms, and performance
 - Content management training so your team can make updates independently
 - Blog and landing page templates ready for ongoing content marketing
 - Role-based user access for teams with multiple editors
@@ -156,7 +156,7 @@ A site without proper heading structure, meta tags, schema markup, and internal 
 
 ## The Web Design Process for Home Service Companies
 
-We have refined our process across hundreds of contractor website builds. Every project follows the same four phases, keeping timelines tight and results predictable.
+We have refined our process across [hundreds of contractor website builds](/case-studies/). Every project follows the same four phases, keeping timelines tight and results predictable.
 
 ### Phase 1: Discovery and Strategy
 
@@ -225,7 +225,7 @@ Both packages scale with your needs. Additional service pages, location pages, o
 
 ServiceLine Pro works exclusively with home service businesses. We do not build websites for restaurants, law firms, or e-commerce stores. Every design decision, content strategy, and technical choice we make comes from deep experience in the trades.
 
-We understand that a plumber's website needs to communicate trust and availability. An HVAC company's site needs to handle seasonal traffic spikes and promote maintenance plans. An electrician's site needs prominent licensing and safety credentials.
+We understand that a plumber's website needs to communicate trust and availability. An HVAC company's site needs to handle seasonal traffic spikes and promote maintenance plans. An [electrician's](/industries/electrical/) site needs prominent licensing and safety credentials.
 
 This focus gives us an unfair advantage. We know what works for contractors because it is all we do.
 

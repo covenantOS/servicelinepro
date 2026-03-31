@@ -20,9 +20,9 @@ The average website for a home service business takes 4 to 7 seconds to load on 
 
 Your website is hemorrhaging leads before visitors ever see your services, your reviews, or your phone number. They tap a search result, stare at a loading screen, and hit the back button. Your competitor with the faster site gets the call.
 
-ServiceLine Pro builds Custom Performance Websites on the Astro framework. These sites ship zero JavaScript to the browser by default. They load in under 2 seconds on any device, any connection. They score near-perfect on Google's Core Web Vitals. They are deployed to Cloudflare's global edge network, putting cached copies of your pages on servers within milliseconds of every visitor.
+ServiceLine Pro builds Custom Performance [Websites](/services/website-design/) on the Astro framework. These sites ship zero JavaScript to the browser by default. They load in under 2 seconds on any device, any connection. They score near-perfect on Google's Core Web Vitals. They are deployed to Cloudflare's global edge network, putting cached copies of your pages on servers within milliseconds of every visitor.
 
-Starting at $2,500 with delivery in 3 to 4 weeks, a Custom Performance Site is the fastest, leanest, most conversion-focused website available to contractors and home service businesses.
+Starting at $2,500 with delivery in 3 to 4 weeks, a Custom Performance Site is the fastest, leanest, most conversion-focused website available to contractors and home service businesses. From [HVAC](/industries/hvac/) companies to [roofers](/industries/roofing/) to [plumbers](/industries/plumbing/), the architecture is the same: speed that converts.
 
 ## Why Site Speed Matters More Than You Think
 
@@ -38,7 +38,7 @@ In 2021, Google began using Core Web Vitals as a ranking factor. Core Web Vitals
 
 **Cumulative Layout Shift (CLS):** How stable your page is as it loads. You have experienced bad CLS on sites where the text jumps around as images and ads load above it. Google wants CLS under 0.1. Our pre-rendered static pages load with all elements in their final positions, scoring 0.00 or close to it.
 
-Sites that pass all three Core Web Vitals thresholds get a ranking boost. Sites that fail get penalized. When two contractors compete for the same search terms with similar content and similar backlink profiles, the one with better Core Web Vitals claims the higher position. Our sites give you that edge.
+Sites that pass all three Core Web Vitals thresholds get a ranking boost. Sites that fail get penalized. When two contractors compete for the same search terms with similar content and similar backlink profiles, the one with better Core Web Vitals claims the higher position. This speed advantage compounds with a strong [Local SEO](/services/local-seo/) strategy. Our sites give you that edge.
 
 ### Bounce Rates: The Silent Revenue Killer
 
@@ -51,7 +51,7 @@ The relationship between load time and bounce rate is well documented:
 - Pages loading in 5 seconds: bounce rate exceeds 38%
 - Pages loading in 6 or more seconds: bounce rate hits 46% and higher
 
-A contractor's WordPress site loading in 5 seconds is losing nearly 4 out of 10 visitors before they read a single word. That is not a technology problem. That is a revenue problem. Every bounced visitor represents a potential job that went to a faster competitor.
+A contractor's [WordPress](/services/website-design/wordpress/) site loading in 5 seconds is losing nearly 4 out of 10 visitors before they read a single word. That is not a technology problem. That is a revenue problem. Every bounced visitor represents a potential job that went to a faster competitor.
 
 ### Conversion Rate: Speed Equals Money
 
@@ -59,7 +59,7 @@ Amazon famously calculated that every 100 milliseconds of load time costs them 1
 
 When your site loads fast, visitors engage with your content, read your reviews, see your licensing credentials, and call your number or fill out your form. When your site loads slowly, they bail. The connection between speed and conversion is direct and measurable.
 
-Our clients who migrate from WordPress template sites to Custom Performance Sites typically see conversion rate improvements of 15% to 30% within the first 60 days. Same traffic sources. Same services. Same pricing. The only change is a faster, better-structured website that holds visitor attention and moves them toward the phone.
+Our clients who migrate from WordPress template sites to Custom Performance Sites typically see conversion rate improvements of 15% to 30% within the first 60 days. See our [case studies](/case-studies/) for specific performance data. Same traffic sources. Same services. Same pricing. The only change is a faster, better-structured website that holds visitor attention and moves them toward the phone.
 
 ## How Astro Eliminates the JavaScript Problem
 
@@ -145,7 +145,7 @@ When Google's crawler visits a WordPress site, it must download the HTML, then d
 
 Static sites eliminate this problem entirely. The crawler receives the final, complete HTML document on the first request. Every word, every heading, every image reference, every internal link is immediately visible. There is nothing to render, nothing to wait for, nothing that might fail to load.
 
-For contractor websites with 50 to 200 pages covering services, service areas, and combination pages, efficient crawling means faster indexing and more reliable ranking for every page on your site.
+For contractor websites with 50 to 200 pages covering services, service areas, and combination pages, efficient crawling means faster indexing and more reliable ranking for every page on your site. Pair this with [PPC campaigns](/services/ppc/) and your site captures both paid and organic traffic from day one.
 
 ### Built-In Technical SEO
 
@@ -167,7 +167,7 @@ Every Custom Performance Site follows a structured four-phase build process. Her
 
 ### Phase 1: Discovery and Strategy (Days 1-5)
 
-We start with a discovery call to understand your business. Which services generate the most revenue? What geographic area do you serve? Who are your top competitors? What does your ideal customer look like?
+We start with a discovery call to understand your business. Which services generate the most revenue? What geographic area do you serve? Who are your top competitors? What does your ideal customer look like? Whether you run an [electrical](/industries/electrical/) shop or a [painting](/industries/painting/) company, the strategy is tailored to your trade.
 
 We audit your current online presence (if you have one), analyze competitor websites for design and content gaps, and build a detailed site map. The site map defines every page on your site, its URL structure, its target keywords, and its role in the conversion funnel.
 
@@ -270,6 +270,6 @@ Your website loads in under 2 seconds or it does not. It scores 95 or higher on 
 
 There is no middle ground on website performance. Google measures it. Your visitors experience it. Your conversion rate reflects it. Every contractor competing for local search visibility is measured against the same yardstick.
 
-A Custom Performance Site from ServiceLine Pro gives you the fastest, leanest, most technically sound website in your market. It loads before your competitor's site finishes requesting its first JavaScript file. It ranks higher because Google rewards the speed and structure. It converts better because visitors who see your content instantly are visitors who pick up the phone.
+A Custom Performance Site from ServiceLine Pro gives you the fastest, leanest, most technically sound website in your market. It loads before your competitor's site finishes requesting its first JavaScript file. It ranks higher because Google rewards the speed and structure. It converts better because visitors who see your content instantly, whether they arrive from search, PPC, or [TV and streaming ads](/services/tv-streaming-advertising/), are visitors who pick up the phone.
 
 $2,500. Three to four weeks. Zero JavaScript. Sub-2-second loads. One year of free hosting. That is the offer. Contact ServiceLine Pro to schedule your free website audit and see exactly how your current site stacks up.

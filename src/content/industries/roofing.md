@@ -24,11 +24,11 @@ ServiceLine Pro builds marketing systems specifically for roofing companies. We 
 
 ## Why Roofing Companies Need a Different Marketing Approach
 
-The roofing industry operates unlike any other home service trade. A plumber gets steady calls year-round because pipes burst in January and drains clog in July. An HVAC company rides predictable seasonal waves. Roofing demand, by contrast, is shaped by weather events that no one can predict and seasonal patterns that vary dramatically by region.
+The roofing industry operates unlike any other home service trade. A [plumber](/industries/plumbing/) gets steady calls year-round because pipes burst in January and drains clog in July. An [HVAC company](/industries/hvac/) rides predictable seasonal waves. Roofing demand, by contrast, is shaped by weather events that no one can predict and seasonal patterns that vary dramatically by region.
 
 In the southern states, roofing work runs nearly year-round, with demand peaking after hurricane season and spring hail events. In the Midwest, storm season from April through August drives the majority of insurance restoration work, while the shoulder months of September through November see the highest volume of retail reroof projects. Northern markets compress most roofing activity into a six-to-eight-month window between April and November.
 
-These patterns create a fundamental marketing challenge. You cannot run the same campaign in March that you run in August. Your keyword strategy, ad copy, landing pages, and budget allocation must shift with the seasons. A generic marketing agency that treats roofing like any other lead generation campaign will waste your money during slow periods and leave you invisible during the weeks when demand explodes.
+These patterns create a fundamental marketing challenge. You cannot run the same campaign in March that you run in August. Your keyword strategy, ad copy, landing pages, and budget allocation must shift with the seasons. A generic marketing agency that treats roofing like any other lead generation campaign will waste your money during slow periods and leave you invisible during the weeks when demand explodes. That is why we build [TV and streaming advertising](/services/tv-streaming-advertising/) campaigns alongside search to keep your brand visible year-round.
 
 ## The Problem with Storm Chasing as a Business Model
 
@@ -44,7 +44,7 @@ This is exactly what a combined SEO and Google Ads strategy delivers. SEO builds
 
 When a homeowner needs a new roof, the first thing they see in Google search results is the Map Pack, those three local business listings with star ratings, phone numbers, and directions. For roofing companies, the Map Pack generates more phone calls than any other search feature. Ranking in those top three positions for terms like "roofing contractor near me" and "roof replacement [city]" is the single most valuable marketing asset you can build.
 
-ServiceLine Pro's Local SEO program for roofers focuses on four pillars.
+ServiceLine Pro's [Local SEO](/services/local-seo/) program for roofers focuses on four pillars.
 
 ### Google Business Profile Optimization
 
@@ -60,7 +60,7 @@ We implement automated review request sequences that trigger after job completio
 
 ### On-Page SEO and Content
 
-Your website needs dedicated pages for every service you offer and every major area you serve. A roofing company that has a single "Services" page listing everything they do will lose to a competitor with individual pages for roof replacement, roof repair, storm damage restoration, gutter installation, skylight repair, and flat roof systems.
+Your website needs dedicated pages for every service you offer and every major area you serve. A roofing company that has a single "Services" page listing everything they do will lose to a competitor with individual pages for roof replacement, roof repair, storm damage restoration, gutter installation, skylight repair, and flat roof systems. The same principle applies to [painting](/industries/painting/) and [electrical](/industries/electrical/) contractors.
 
 Each page must target specific keywords that homeowners actually search. "Roof replacement cost" gets searched 22,000 times per month nationally. "Architectural shingle roof" gets 6,600 searches. "Metal roof installation" gets 12,000. These terms need dedicated content that answers the questions homeowners are asking, with real pricing information, material comparisons, and process explanations.
 
@@ -74,7 +74,7 @@ We build and maintain citations across 60 or more relevant platforms, ensuring t
 
 ## Google Ads for Roofing Companies
 
-SEO is a long-term investment. It takes months to build organic rankings. Google Ads puts your company at the top of search results today.
+SEO is a long-term investment. It takes months to build organic rankings. [Google Ads](/services/ppc/) puts your company at the top of search results today.
 
 For roofing companies, Google Ads is particularly powerful because of the economics involved. The average cost per click for roofing keywords ranges from $15 to $45, depending on the market. That sounds expensive until you consider that a single converted lead is worth $8,000 to $25,000 in revenue on a retail reroof, and potentially $15,000 to $40,000 on an insurance restoration project. Even at a 5 percent conversion rate from click to booked job, the return on ad spend is extraordinary.
 
@@ -102,7 +102,7 @@ Most marketing agencies charge a management fee of 15 to 20 percent on top of yo
 
 ServiceLine Pro eliminates the agency fee entirely on Google Ads budgets of $5,000 per month or more. You pay Google for the clicks, and our management is included as part of your partnership. This model saves the average roofing company $18,000 to $24,000 per year compared to the traditional agency fee structure.
 
-## Website Design for Roofing Companies
+## [Website Design](/services/website-design/) for Roofing Companies
 
 Your website is where leads convert. A homeowner who finds you through Google, whether through organic search or a paid ad, will visit your website before calling. If your site looks outdated, loads slowly, or does not immediately communicate trust and professionalism, that homeowner will hit the back button and call your competitor instead.
 
@@ -140,7 +140,7 @@ Effective roofing marketing requires a seasonal playbook. Here is how we structu
 
 ## What Results Look Like
 
-Roofing companies that partner with ServiceLine Pro for combined SEO and Google Ads management typically see these outcomes within the first 12 months:
+Roofing companies that partner with ServiceLine Pro for combined SEO and Google Ads management typically see these outcomes within the first 12 months, as documented in our [case studies](/case-studies/):
 
 A 3x to 5x increase in monthly organic website traffic from roofing-related searches. Map Pack visibility for 15 to 30 high-value local keywords. Google Ads cost per lead between $45 and $120, depending on market competitiveness. A 40 to 60 percent reduction in cost per lead compared to buying leads from third-party platforms like HomeAdvisor or Angi. And a consistent pipeline of 30 to 80 qualified roofing leads per month, depending on market size and budget.
 

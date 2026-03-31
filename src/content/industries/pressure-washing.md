@@ -46,7 +46,7 @@ Soft washing uses low pressure and chemical solutions to clean delicate surfaces
 
 Soft wash services command premium pricing because of the specialized chemicals, equipment, and expertise required. Average soft wash jobs run $300 to $1,000+, with roof cleaning at the higher end. Marketing soft wash as a distinct, premium service rather than grouping it with standard pressure washing justifies this pricing and attracts higher-quality leads.
 
-## Google Ads for Pressure Washing Companies
+## [Google Ads](/services/ppc/) for Pressure Washing Companies
 
 Google Ads puts your company in front of homeowners and property managers the moment they search for cleaning services. The high intent of pressure washing searches, combined with relatively affordable click costs, makes this an excellent channel.
 
@@ -117,11 +117,11 @@ A monthly budget of $2,000 to $4,000 generates meaningful lead volume in most ma
 
 The challenge with pressure washing is that individual job values are lower than trades like roofing or HVAC. This means your conversion process from lead to booked job must be efficient. Answer calls quickly, provide same-day quotes, and close on the first interaction whenever possible.
 
-## Local SEO for Pressure Washing Companies
+## [Local SEO](/services/local-seo/) for Pressure Washing Companies
 
 Local SEO builds organic lead flow that does not cost per click. For pressure washing companies, map pack visibility drives consistent inquiries from homeowners searching for local cleaning services.
 
-### Google Business Profile
+### [Google Business Profile](/services/local-seo/)
 
 **Category:** "Pressure Washing Service" as primary. Add "Roof Cleaning Service" and "Building Cleaning Service" as secondary categories.
 
@@ -146,7 +146,7 @@ Build individual pages for every surface and method you clean:
 - Parking lot and garage cleaning
 - Restaurant and retail exterior cleaning
 - Gutter exterior cleaning
-- Pool deck cleaning
+- [Pool](/industries/pool-services/) deck cleaning
 
 Each page needs 800 to 1,200 words, before-and-after photos specific to that surface, a description of your process and chemicals used, and a clear call to action.
 
@@ -164,7 +164,7 @@ Pressure washing content opportunities align with homeowner questions about surf
 
 The roof cleaning topic is especially valuable. Most homeowners do not realize that black streaks on their roof are caused by Gloeocapsa magma algae, not dirt. Educating them about the problem and the soft wash solution positions your company as an expert and generates leads from homeowners who did not realize a solution existed.
 
-## Website Design for Pressure Washing Companies
+## [Website Design](/services/website-design/) for Pressure Washing Companies
 
 A pressure washing website needs to do two things brilliantly: show stunning before-and-after transformations and make booking effortless.
 
@@ -206,7 +206,7 @@ After completing a one-time job, offer an annual or biannual maintenance plan at
 
 Commercial clients represent the highest-value recurring revenue. Restaurants need grease trap area cleaning weekly or monthly. Retail plazas need sidewalk and facade cleaning quarterly. Apartment complexes need annual building and parking area cleaning.
 
-Build a dedicated commercial page on your website with different messaging than your residential content. Emphasize reliability, insurance coverage, flexible scheduling, and environmental compliance. Include case studies of commercial clients you service regularly.
+Build a dedicated commercial page on your website with different messaging than your residential content. Emphasize reliability, insurance coverage, flexible scheduling, and environmental compliance. Include [case studies](/case-studies/) of commercial clients you service regularly.
 
 ### HOA Partnerships
 
@@ -232,7 +232,7 @@ September and October bring demand from homeowners preparing for the holidays an
 
 November through February slows dramatically in cold climates. In warm-weather markets, pressure washing continues year-round. During slow months, invest in SEO, refresh your website with new before-and-after content, and build your commercial prospect list for spring outreach.
 
-## TV and Streaming
+## [TV and Streaming](/services/tv-streaming-advertising/)
 
 Pressure washing is made for television. A time-lapse of a filthy driveway being cleaned, with black grime peeling away under the spray, is mesmerizing content. Streaming platforms allow you to target homeowners in your service area with short video ads that showcase these transformations.
 
@@ -243,8 +243,8 @@ The visual nature of pressure washing results makes TV and streaming uniquely ef
 Pressure washing companies frequently leave revenue on the table by not marketing complementary services. Your website and ad campaigns should promote service bundles:
 
 - Pressure washing + gutter cleaning
-- House washing + window cleaning
-- Driveway cleaning + fence staining
+- House washing + [window cleaning](/industries/window-cleaning/)
+- Driveway cleaning + [fence](/industries/fencing/) staining
 - Roof cleaning + gutter brightening
 
 If you offer window cleaning, market it alongside pressure washing. Many customers who book house washing also want their windows cleaned. Cross-promoting these services increases average job value and customer satisfaction.

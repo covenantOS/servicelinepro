@@ -20,9 +20,9 @@ faq:
 
 Carpet cleaning companies face a marketing challenge unique to their industry: the Groupon trap. Over the past decade, daily deal platforms trained an entire generation of carpet cleaning customers to expect 50% to 70% discounts on cleaning services. The result is a market segment conditioned to never pay full price, never rebook without a coupon, and never develop loyalty to a specific provider.
 
-The carpet cleaning companies that thrive are the ones that build their own lead generation systems independent of discount platforms. They invest in Google visibility so homeowners find them through organic search and paid ads. They accumulate hundreds of reviews that establish trust before the first phone call. They build email lists of past customers and stay in front of them with maintenance reminders. And they diversify beyond basic carpet cleaning into higher-margin services like upholstery cleaning, tile and grout restoration, area rug cleaning, and commercial contracts.
+The carpet cleaning companies that thrive are the ones that build their own lead generation systems independent of discount platforms. They invest in Google visibility so homeowners find them through [organic search](/services/local-seo/) and [paid ads](/services/ppc/). They accumulate hundreds of reviews that establish trust before the first phone call. They build email lists of past customers and stay in front of them with maintenance reminders. And they diversify beyond basic carpet cleaning into higher-margin services like upholstery cleaning, tile and grout restoration, area rug cleaning, and commercial contracts.
 
-ServiceLine Pro builds marketing systems that accomplish all of this. We help carpet cleaning companies escape the discount cycle, attract full-price customers, build recurring revenue, and expand into profitable service additions.
+ServiceLine Pro builds marketing systems that accomplish all of this. We help carpet cleaning companies escape the discount cycle, attract full-price customers, build recurring revenue, and expand into profitable service additions. See our [case studies](/case-studies/) for real results.
 
 ## Local SEO for Carpet Cleaning Companies
 
@@ -30,7 +30,7 @@ ServiceLine Pro builds marketing systems that accomplish all of this. We help ca
 
 ### Google Business Profile Dominance
 
-Your Google Business Profile is the battlefield where carpet cleaning market share is won. When a homeowner searches for carpet cleaning, the map pack results get the majority of clicks. Ranking in the top three requires:
+Your [Google Business Profile](/services/local-seo/) is the battlefield where carpet cleaning market share is won. When a homeowner searches for carpet cleaning, the map pack results get the majority of clicks. Ranking in the top three requires:
 
 **Category Optimization:** Primary category as "carpet cleaning service" with secondaries including "upholstery cleaning service," "rug cleaning service," and "tile cleaning service" to capture adjacent searches.
 
@@ -44,13 +44,13 @@ We build automated review request sequences via text message, sent 2 hours after
 
 ### Service Page Architecture
 
-A comprehensive website with dedicated service pages ranks for the full spectrum of carpet cleaning keywords. Here is the page structure we build:
+A comprehensive [website](/services/website-design/) with dedicated service pages ranks for the full spectrum of carpet cleaning keywords. Here is the page structure we build:
 
 **Core Carpet Cleaning Pages:** Residential carpet cleaning, whole-house carpet cleaning, room-by-room carpet cleaning, deep carpet cleaning, steam cleaning vs. dry cleaning comparison, carpet sanitizing and disinfecting.
 
 **Specialty Carpet Pages:** Pet stain and odor removal, red wine and food stain removal, carpet stretching and repair, Scotchgard and stain protection, water damage carpet restoration, move-in/move-out carpet cleaning.
 
-**Add-On Service Pages:** Upholstery cleaning (with sub-pages for couch cleaning, sectional cleaning, mattress cleaning, auto upholstery), tile and grout cleaning, hardwood floor cleaning, area rug cleaning, dryer vent cleaning, air duct cleaning.
+**Add-On Service Pages:** Upholstery cleaning (with sub-pages for couch cleaning, sectional cleaning, mattress cleaning, auto upholstery), tile and grout cleaning, hardwood [floor cleaning](/industries/flooring/), area rug cleaning, dryer vent cleaning, air duct cleaning.
 
 **Commercial Pages:** Office carpet cleaning, restaurant carpet cleaning, retail store carpet cleaning, property management carpet cleaning, real estate carpet cleaning (pre-listing and post-move), hotel and hospitality carpet cleaning.
 
@@ -72,7 +72,7 @@ This three-touch system produces review conversion rates of 15% to 25%, which tr
 
 ## Google Ads for Carpet Cleaning Companies
 
-Google Ads is the fastest path to lead generation for carpet cleaning companies. You can launch a campaign today and receive phone calls tomorrow. The economics work well because carpet cleaning keywords have moderate competition and the conversion from click to booked appointment is relatively high (homeowners searching for carpet cleaning usually need it done soon).
+[Google Ads](/services/ppc/) is the fastest path to lead generation for carpet cleaning companies. You can launch a campaign today and receive phone calls tomorrow. The economics work well because carpet cleaning keywords have moderate competition and the conversion from click to booked appointment is relatively high (homeowners searching for carpet cleaning usually need it done soon).
 
 ### Campaign Architecture
 
@@ -158,9 +158,9 @@ Commercial carpet cleaning pages address the concerns of office managers and pro
 
 ### Real Estate Partnerships
 
-Real estate agents need carpet cleaning for pre-listing preparation and post-move-out cleaning. This represents a high-volume referral channel with repeat business. We create content targeting "move-out carpet cleaning" and "real estate carpet cleaning" and build landing pages designed for agent referrals, including quick turnaround guarantees and volume pricing.
+Real estate agents need carpet cleaning for pre-listing preparation and post-[move](/industries/moving/)-out cleaning. This represents a high-volume referral channel with repeat business. We create content targeting "move-out carpet cleaning" and "real estate carpet cleaning" and build landing pages designed for agent referrals, including quick turnaround guarantees and volume pricing.
 
-## TV and Streaming Advertising for Carpet Cleaners
+## [TV and Streaming Advertising](/services/tv-streaming-advertising/) for Carpet Cleaners
 
 Television advertising builds the brand recognition that makes homeowners choose you when they search "carpet cleaning near me." A 30-second commercial showing dramatic before-and-after cleaning results, a friendly and professional technician, and a clear phone number or website plants your company name in the viewer's memory.
 

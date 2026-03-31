@@ -14,7 +14,7 @@ faq:
 
 # Digital Marketing for Home Service Businesses in Dunedin, FL
 
-Dunedin is one of Pinellas County's most distinctive communities. Located on the Gulf Coast between Clearwater and Palm Harbor, this city of roughly 36,000 residents has preserved a small-town charm that sets it apart from the surrounding suburban sprawl. The Scottish heritage reflected in its name, its annual Highland Games, and the character of its walkable downtown create a community identity that residents take pride in maintaining.
+Dunedin is one of Pinellas County's most distinctive communities. Located on the Gulf Coast between [Clearwater](/areas/clearwater-fl/) and [Palm Harbor](/areas/palm-harbor-fl/), this city of roughly 36,000 residents has preserved a small-town charm that sets it apart from the surrounding suburban sprawl. The Scottish heritage reflected in its name, its annual Highland Games, and the character of its walkable downtown create a community identity that residents take pride in maintaining.
 
 For home service businesses, Dunedin offers a market defined by older housing stock, engaged homeowners, and a community that values quality and local expertise over the lowest price. ServiceLine Pro helps Dunedin contractors build the digital presence needed to reach these homeowners and grow their businesses.
 
@@ -44,7 +44,7 @@ Dunedin's housing stock is the foundation of its home service demand. The city w
 
 ### 1950s and 1960s Construction
 
-The earliest wave of post-war development brought concrete block homes to Dunedin's neighborhoods. These homes feature terrazzo floors, jalousie windows (many now replaced), original or second-generation roofing, and HVAC systems that have been upgraded at least once. Plumbing in these homes may include galvanized piping that needs replacement. Electrical panels are often undersized for modern demands.
+The earliest wave of post-war development brought concrete block homes to Dunedin's neighborhoods. These homes feature terrazzo floors, jalousie windows (many now replaced), original or second-generation roofing, and [HVAC](/industries/hvac/) systems that have been upgraded at least once. [Plumbing](/industries/plumbing/) in these homes may include galvanized piping that needs replacement. [Electrical](/industries/electrical/) panels are often undersized for modern demands.
 
 ### 1970s and 1980s Development
 
@@ -58,11 +58,11 @@ Dunedin has waterfront and water-adjacent properties along Edgewater Drive, the 
 
 ### Limited New Construction
 
-Unlike the rapidly growing communities of Pasco County, Dunedin has limited land available for new development. Most new construction takes the form of infill: older homes demolished and replaced with modern construction, or vacant lots developed within existing neighborhoods. This infill activity generates demolition, construction, and service demand but at a much smaller scale than suburban growth markets.
+Unlike the rapidly growing communities of Pasco County like [Wesley Chapel](/areas/wesley-chapel-fl/), Dunedin has limited land available for new development. Most new construction takes the form of infill: older homes demolished and replaced with modern construction, or vacant lots developed within existing neighborhoods. This infill activity generates demolition, construction, and service demand but at a much smaller scale than suburban growth markets.
 
 ## Local SEO for Dunedin
 
-Local SEO in Dunedin requires a nuanced approach that accounts for the city's size, its position within densely populated Pinellas County, and the search behavior of its residents.
+[Local SEO](/services/local-seo/) in Dunedin requires a nuanced approach that accounts for the city's size, its position within densely populated Pinellas County, and the search behavior of its residents.
 
 ### Google Business Profile
 
@@ -74,7 +74,7 @@ For Dunedin specifically, your profile should communicate local presence and com
 
 We create content targeting Dunedin-specific searches:
 
-**Older home services:** Pages about HVAC replacement for older Dunedin homes, repiping for polybutylene plumbing, electrical panel upgrades for 1970s construction, and roof replacement for homes approaching their second or third roof. This content demonstrates expertise with the housing types Dunedin homeowners actually live in.
+**Older home services:** Pages about HVAC replacement for older Dunedin homes, repiping for polybutylene plumbing, electrical panel upgrades for 1970s construction, and [roof](/industries/roofing/) replacement for homes approaching their second or third roof. This content demonstrates expertise with the housing types Dunedin homeowners actually live in.
 
 **Waterfront property content:** Pages addressing the specific maintenance challenges of properties near the Intracoastal, Edgewater Drive, and the Honeymoon Island causeway. Salt air corrosion, humidity management, and storm preparation are relevant topics.
 
@@ -94,7 +94,7 @@ We build citations and local authority through directory listings, the Dunedin C
 
 ## Google Ads for Dunedin
 
-Google Ads provide immediate visibility while your SEO strategy builds over time. In the Dunedin market, paid advertising can be precisely targeted to reach the homeowners most likely to need your services.
+[Google Ads](/services/ppc/) provide immediate visibility while your SEO strategy builds over time. In the Dunedin market, paid advertising can be precisely targeted to reach the homeowners most likely to need your services.
 
 ### Geographic Targeting
 
@@ -112,7 +112,7 @@ Through our Spectrum Reach partnership, businesses spending $5,000 or more month
 
 Pinellas County's density means multiple contractors compete for the same searches. We manage bidding strategies, negative keywords, and ad quality to ensure your campaigns maintain efficiency despite the competitive environment.
 
-## Website Design
+## [Website Design](/services/website-design/)
 
 Your website must reflect the quality and local commitment that Dunedin homeowners expect. A generic, template-driven site will not build the trust needed to win business in this community.
 
@@ -130,7 +130,7 @@ Licenses, insurance, manufacturer certifications, BBB membership, and community 
 
 ## TV and Streaming Advertising
 
-Through Spectrum Reach, we place TV and streaming ads reaching Dunedin and northern Pinellas County households. Brand awareness in a community-oriented market like Dunedin creates recognition that translates directly into trust when homeowners encounter your business in search results.
+Through Spectrum Reach, we place [TV and streaming ads](/services/tv-streaming-advertising/) reaching Dunedin and northern Pinellas County households. Brand awareness in a community-oriented market like Dunedin creates recognition that translates directly into trust when homeowners encounter your business in search results.
 
 ## Dunedin's Service Demand
 
@@ -170,7 +170,7 @@ The border between Dunedin and Palm Harbor is fuzzy for many residents. Targetin
 
 ## Partner with ServiceLine Pro
 
-Dunedin offers a stable, quality-oriented market for home service businesses that earn the community's trust. The aging housing stock provides deep, recurring demand, and the community's values reward contractors who invest in professionalism and local presence.
+Dunedin offers a stable, quality-oriented market for home service businesses that earn the community's trust. The aging housing stock provides deep, recurring demand, and the community's values reward contractors who invest in professionalism and local presence. See our [case studies](/case-studies/) for examples of what this looks like in practice.
 
 ServiceLine Pro provides local SEO from $1,800 to $4,800 per month, Google Ads management with no agency fee on $5,000+ budgets, website design from $2,500 to $4,000+, and TV/streaming advertising through Spectrum Reach.
 

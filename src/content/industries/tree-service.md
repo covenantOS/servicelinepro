@@ -56,7 +56,7 @@ When a tree falls on a home or structure, the property owner files a homeowner's
 
 ## Google Ads for Tree Service Companies
 
-Google Ads generates immediate lead flow for tree service companies. The combination of high job values and strong search intent makes paid search one of the most profitable channels available.
+[Google Ads](/services/ppc/) generates immediate lead flow for tree service companies. The combination of high job values and strong search intent makes paid search one of the most profitable channels available.
 
 ### Campaign Architecture
 
@@ -124,11 +124,11 @@ Include your ISA certification, insurance limits, and years of experience in you
 
 ## Local SEO for Tree Service Companies
 
-Local SEO builds the organic visibility that generates leads without per-click costs. For tree service companies, the map pack is a premium lead source because homeowners searching for tree services have strong local intent.
+[Local SEO](/services/local-seo/) builds the organic visibility that generates leads without per-click costs. For tree service companies, the map pack is a premium lead source because homeowners searching for tree services have strong local intent.
 
 ### Google Business Profile Optimization
 
-**Categories:** Use "Tree Service" as your primary category. Add "Arborist" and "Landscaper" as secondary categories if applicable.
+**Categories:** Use "Tree Service" as your primary category. Add "Arborist" and "[Landscaper](/industries/landscaping/)" as secondary categories if applicable.
 
 **Photos:** Upload photos from every job. Tree removal in progress, completed removals with clean yards, stump grinding results, trimming before-and-after shots, your equipment, and your crews. Aerial drone photos of large removals are especially compelling and signal the scale of work you can handle.
 
@@ -170,7 +170,7 @@ Permit information is another goldmine. Tree removal permits vary widely by juri
 
 ## Website Design for Tree Service Companies
 
-Tree work produces some of the most dramatic before-and-after transformations in the home services industry. A 100-foot dead tree looming over a house, and then the same house with a clean, open yard. Your website must showcase these transformations.
+Tree work produces some of the most dramatic before-and-after transformations in the home services industry. A 100-foot dead tree looming over a house, and then the same house with a clean, open yard. Your [website](/services/website-design/) must showcase these transformations.
 
 ### Visual Impact
 
@@ -180,7 +180,7 @@ Organize your project gallery by service type and tree size. Some visitors want 
 
 ### Trust and Safety Signals
 
-Tree service involves more risk than most home services. A falling tree can destroy a roof, a fence, a car, or a utility line. Homeowners need reassurance that your company carries adequate insurance and employs skilled, certified arborists.
+Tree service involves more risk than most home services. A falling tree can destroy a [roof](/industries/roofing/), a [fence](/industries/fencing/), a car, or a utility line. Homeowners need reassurance that your company carries adequate insurance and employs skilled, certified arborists.
 
 Display prominently on your website:
 
@@ -225,7 +225,7 @@ In cold climates, tree service slows from December through February. Some compan
 
 In warm climates, tree service is year-round. Adjust your strategy to match your actual demand patterns.
 
-## TV and Streaming for Brand Building
+## [TV and Streaming](/services/tv-streaming-advertising/) for Brand Building
 
 Tree removal is inherently dramatic and visual. A 30-second spot showing a crane lifting a massive trunk section over a house, followed by a clean, open yard, tells a powerful story about capability and professionalism. Streaming platforms allow geographic targeting to your service area.
 
@@ -247,4 +247,4 @@ Call tracking is essential. Most tree service leads come by phone, and without c
 
 The tree service companies that build seven-figure businesses do not rely on word of mouth and yard signs. They build marketing systems. Local SEO ($1,800 to $4,800/month) creates compounding organic visibility. Google Ads captures high-intent searches and emergency demand. A professional website ($2,500 to $4,000+) converts every type of visitor into an estimate request. TV and streaming advertising builds the brand recognition that gives you an edge in every interaction.
 
-ServiceLine Pro builds these systems for tree service companies. From storm-ready emergency campaigns to the before-and-after portfolios that sell large removals, every component is designed to generate measurable results. The goal is a predictable pipeline of tree removal, trimming, and stump grinding leads that keeps crews working and revenue growing through every season.
+ServiceLine Pro builds these systems for tree service companies. From storm-ready emergency campaigns to the before-and-after portfolios that sell large removals, every component is designed to generate [measurable results](/case-studies/). The goal is a predictable pipeline of tree removal, trimming, and stump grinding leads that keeps crews working and revenue growing through every season.

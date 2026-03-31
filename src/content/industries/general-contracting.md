@@ -16,7 +16,7 @@ faq:
 
 # Marketing for General Contractors
 
-General contracting is the highest-ticket segment of home services. A kitchen remodel runs $30,000 to $80,000. A full home renovation hits $100,000 to $300,000. New construction starts at $200,000 and scales into the millions. These are not impulse purchases. The homeowner who hires a general contractor is making one of the largest financial decisions of their life, and they will scrutinize every detail of your reputation, your portfolio, and your online presence before they make that commitment.
+General contracting is the highest-ticket segment of home services. A kitchen remodel runs $30,000 to $80,000. A full home [renovation](/industries/remodeling/) hits $100,000 to $300,000. New construction starts at $200,000 and scales into the millions. These are not impulse purchases. The homeowner who hires a general contractor is making one of the largest financial decisions of their life, and they will scrutinize every detail of your reputation, your portfolio, and your online presence before they make that commitment.
 
 ServiceLine Pro builds marketing systems for general contractors that generate qualified leads for direct-to-consumer renovation and construction projects. We build the online presence that converts skeptical homeowners into confident clients: a project portfolio that proves your capability, a website that communicates professionalism at every level, and search visibility that puts you in front of homeowners when they start researching their next major project.
 
@@ -34,7 +34,7 @@ Direct-to-consumer renovation work is the most marketable category for a GC. The
 
 Custom home building is a different business entirely. The average custom home costs $300,000 to $1,000,000 or more depending on the market, and the sales cycle can stretch 6 to 18 months from initial conversation to contract signing. These projects come through a combination of referrals, realtor relationships, lot referrals, and organic search.
 
-Marketing for new construction is less about lead volume and more about positioning. Your website must project a level of sophistication that matches the investment your clients are making. Professional photography, 3D renderings, virtual tours of completed homes, and detailed case studies that walk the prospective buyer through the design and construction process establish the credibility necessary to win $500K+ projects.
+Marketing for new construction is less about lead volume and more about positioning. Your website must project a level of sophistication that matches the investment your clients are making. Professional photography, 3D renderings, virtual tours of completed homes, and detailed [case studies](/case-studies/) that walk the prospective buyer through the design and construction process establish the credibility necessary to win $500K+ projects.
 
 ### Bid and Spec Work
 
@@ -48,7 +48,7 @@ Most general contractors built their businesses on referrals. A homeowner loves 
 
 Referral-dependent businesses are vulnerable. A slow quarter in referrals means a slow quarter in revenue. A key referral source (a realtor, architect, or past client) moves away or stops referring. The economy shifts and renovation budgets tighten. Suddenly the phone is quiet, and there is no marketing infrastructure in place to fill the gap.
 
-The GCs that build lasting, scalable businesses combine strong referral relationships with predictable digital marketing channels. SEO generates a baseline of organic leads every month. Google Ads can be scaled up during slow periods and dialed back when the schedule is full. The website works around the clock, converting visitors into inquiries whether you are on the job site or asleep.
+The GCs that build lasting, scalable businesses combine strong referral relationships with predictable digital marketing channels. [SEO](/services/local-seo/) generates a baseline of organic leads every month. [Google Ads](/services/ppc/) can be scaled up during slow periods and dialed back when the schedule is full. The [website](/services/website-design/) works around the clock, converting visitors into inquiries whether you are on the job site or asleep.
 
 This does not mean abandoning referrals. It means building a second engine that runs in parallel. When referrals are strong and the digital leads are flowing, you have the luxury of choosing the best projects and commanding premium pricing. When referrals slow down, the digital pipeline prevents the feast-or-famine cycle that kills so many contracting businesses.
 
@@ -56,7 +56,7 @@ This does not mean abandoning referrals. It means building a second engine that 
 
 "General contractor near me" generates over 246,000 annual searches nationally. That is a massive pool of homeowners looking for exactly what you offer. The GCs ranking in the Google Map Pack and the top organic positions for this term in their market receive a steady stream of high-value inquiries.
 
-### Google Business Profile
+### [Google Business Profile](/services/local-seo/)
 
 Your Google Business Profile is the front door for most prospective clients. GCs should select "General Contractor" as their primary category with secondary categories including "Home Builder," "Remodeling Contractor," "Kitchen Remodeler," "Bathroom Remodeler," and any other relevant specialties.
 
@@ -83,13 +83,13 @@ A kitchen remodel page that ranks for "kitchen remodel contractor [city]," "kitc
 
 ### Content That Demonstrates Expertise
 
-General contractors have a unique content advantage: project complexity. A blog post walking through the structural considerations of removing a load-bearing wall, the permitting process for a home addition, or the decision framework for a full gut renovation vs. a cosmetic update demonstrates expertise that separates you from handymen and unlicensed operators.
+General contractors have a unique content advantage: project complexity. A blog post walking through the structural considerations of removing a load-bearing wall, the permitting process for a home addition, or the decision framework for a full gut [renovation](/industries/remodeling/) vs. a cosmetic update demonstrates expertise that separates you from handymen and unlicensed operators.
 
 We build content strategies for GCs around the questions homeowners ask during the planning phase:
 
 "How much does a kitchen remodel cost in [city]?" Write a 2,000-word guide with actual pricing breakdowns by scope level (cosmetic refresh at $15,000 to $25,000, mid-range renovation at $30,000 to $60,000, high-end custom at $60,000 to $120,000).
 
-"Do I need a permit for a bathroom remodel?" Write a guide explaining when permits are required (moving plumbing, electrical work, structural changes) and when they are not (cosmetic updates, fixture swaps).
+"Do I need a permit for a bathroom remodel?" Write a guide explaining when permits are required (moving [plumbing](/industries/plumbing/), [electrical](/industries/electrical/) work, structural changes) and when they are not (cosmetic updates, fixture swaps).
 
 "How long does a home addition take?" Walk through the typical timeline from design through permitting through construction, with honest assessment of what causes delays.
 
@@ -172,7 +172,7 @@ We build detailed process pages that include typical timelines, what the homeown
 
 Many homeowners fund renovations through home equity loans, HELOCs, construction loans, or personal savings. A GC website that addresses financing options and connects homeowners with lending partners removes a barrier to commitment. A page explaining typical financing paths for different project sizes ($30,000 cosmetic renovation vs. $150,000 major renovation vs. $400,000 new construction) helps homeowners understand that their project is financially achievable.
 
-## TV and Streaming Advertising for General Contractors
+## [TV and Streaming Advertising](/services/tv-streaming-advertising/) for General Contractors
 
 For GCs pursuing high-end residential work, streaming TV advertising builds brand awareness among affluent homeowners in target zip codes. A 30-second spot showcasing a luxury kitchen transformation or a stunning home addition creates an aspirational connection with homeowners who are thinking about their own renovation.
 

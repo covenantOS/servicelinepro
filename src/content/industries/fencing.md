@@ -24,7 +24,7 @@ That visibility does not happen by accident. It requires a deliberate marketing 
 
 Homeowners hire fence companies for a handful of predictable reasons: privacy, security, pet containment, property line definition, curb appeal, and pool code compliance. Each of these motivations carries different urgency, budget expectations, and research behavior.
 
-A homeowner who needs a pool safety fence installed before their municipal inspection has a deadline. They will call the first reputable company they find and pay a premium for speed. A homeowner researching decorative wrought iron fencing for their front yard will spend weeks comparing styles, materials, and contractors. These two buyers require completely different marketing approaches.
+A homeowner who needs a [pool](/industries/pool-services/) safety fence installed before their municipal inspection has a deadline. They will call the first reputable company they find and pay a premium for speed. A homeowner researching decorative wrought iron fencing for their front yard will spend weeks comparing styles, materials, and contractors. These two buyers require completely different marketing approaches.
 
 Privacy fence buyers represent the largest segment. They tend to be practical, budget-conscious, and focused on material durability and total cost. Vinyl and wood dominate this category. These homeowners respond well to clear pricing guides, material comparison content, and before-and-after photos of completed projects.
 
@@ -32,7 +32,7 @@ Commercial fence buyers operate differently. Property managers, general contract
 
 ## Local SEO: The Foundation of Fence Company Marketing
 
-Local SEO is the single most important long-term investment a fence company can make. When someone searches "fence company near me" or "vinyl fence installation," Google displays a map pack of three local businesses above the organic search results. Those three spots capture the majority of clicks. Getting into that map pack, and staying there, requires consistent effort across several fronts.
+[Local SEO](/services/local-seo/) is the single most important long-term investment a fence company can make. When someone searches "fence company near me" or "vinyl fence installation," Google displays a map pack of three local businesses above the organic search results. Those three spots capture the majority of clicks. Getting into that map pack, and staying there, requires consistent effort across several fronts.
 
 ### Google Business Profile Optimization
 
@@ -74,7 +74,7 @@ Permit requirements are a goldmine for local content. Fence permit rules vary by
 
 ## Google Ads for Fence Companies
 
-Google Ads delivers leads faster than any other channel. A well-structured campaign can generate phone calls and form submissions within days of launch. The key is precision targeting, tight ad groups, and aggressive negative keyword management.
+[Google Ads](/services/ppc/) delivers leads faster than any other channel. A well-structured campaign can generate phone calls and form submissions within days of launch. The key is precision targeting, tight ad groups, and aggressive negative keyword management.
 
 ### Campaign Structure
 
@@ -132,7 +132,7 @@ High-converting landing pages for fence companies include:
 
 ## Website Design for Fence Companies
 
-Your website is your digital showroom. For fence companies, visual proof of quality work is the most persuasive sales tool available. Homeowners want to see what their new fence will look like, and they want to see that you have done the work before.
+Your [website](/services/website-design/) is your digital showroom. For fence companies, visual proof of quality work is the most persuasive sales tool available. Homeowners want to see what their new fence will look like, and they want to see that you have done the work before.
 
 ### Portfolio-Driven Design
 
@@ -178,7 +178,7 @@ In warm-weather markets (the South, Southwest, and West Coast), fencing remains 
 
 ## TV and Streaming Advertising
 
-Television and streaming platforms offer fence companies a way to build brand awareness that digital channels alone cannot achieve. A 30-second spot showing a beautiful completed fence project, set against a before shot of a bare or run-down yard, communicates quality instantly.
+[Television and streaming platforms](/services/tv-streaming-advertising/) offer fence companies a way to build brand awareness that digital channels alone cannot achieve. A 30-second spot showing a beautiful completed fence project, set against a before shot of a bare or run-down yard, communicates quality instantly.
 
 Streaming platforms like connected TV allow geographic targeting, ensuring your ads reach homeowners in your service area. This is especially effective for fence companies because the visual nature of the product translates perfectly to video. Paired with a strong digital presence, TV advertising creates a recognition effect: when a viewer later searches for a fence company, they remember your name and are more likely to click.
 
@@ -211,7 +211,7 @@ The companies that measure rigorously and adjust based on data consistently outp
 
 ## Building a Sustainable Lead Pipeline
 
-The fence companies that thrive long-term build marketing systems, not campaigns. A system combines Local SEO ($1,800 to $4,800/month) for ongoing organic visibility, Google Ads for immediate lead flow, a high-converting website ($2,500 to $4,000+) that serves as the hub, and optional TV/streaming for brand building.
+The fence companies that thrive long-term build [marketing systems](/case-studies/), not campaigns. A system combines Local SEO ($1,800 to $4,800/month) for ongoing organic visibility, Google Ads for immediate lead flow, a high-converting website ($2,500 to $4,000+) that serves as the hub, and optional TV/streaming for brand building.
 
 Each component reinforces the others. SEO content drives organic traffic that improves your site's authority. Google Ads captures high-intent searches while your SEO builds momentum. Your website converts both paid and organic visitors into leads. TV and streaming create the brand familiarity that boosts click-through rates on every other channel.
 

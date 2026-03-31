@@ -26,13 +26,13 @@ ServiceLine Pro builds marketing systems for landscaping companies that account 
 
 ## Local SEO for Landscaping Companies
 
-Landscaping is one of the most searched home service categories. Keywords like "landscaper near me," "lawn care service," and "hardscape contractor" carry substantial search volume in every market. Ranking at the top of local search results produces a consistent flow of leads that compounds month over month without ongoing per-click costs.
+Landscaping is one of the most searched home service categories. Keywords like "landscaper near me," "lawn care service," and "hardscape contractor" carry substantial search volume in every market. Ranking at the top of [local search results](/services/local-seo/) produces a consistent flow of leads that compounds month over month without ongoing per-click costs.
 
 ### Google Business Profile Strategy
 
 Your Google Business Profile drives the majority of your local SEO visibility. For landscaping companies, optimization includes:
 
-**Category Selection:** Primary category as "landscaper" with secondary categories covering your service mix: lawn care service, landscape designer, paving contractor, irrigation company, tree service, snow removal service. Each category signals to Google what searches should trigger your profile.
+**Category Selection:** Primary category as "landscaper" with secondary categories covering your service mix: lawn care service, landscape designer, paving contractor, irrigation company, [tree service](/industries/tree-service/), snow removal service. Each category signals to Google what searches should trigger your profile.
 
 **Photo Volume and Variety:** Landscaping is a visual industry. Google Business Profiles with extensive photo libraries outperform sparse profiles by a wide margin. We establish a photo upload rhythm: completed project photos every week during the active season, seasonal service images (spring cleanups, fall leaf removal, snow plowing), equipment and crew photos, and close-up shots of craftsmanship on hardscape details like cut stone edges and perfectly graded paver joints.
 
@@ -58,13 +58,13 @@ Each page targets 1,500+ words of unique content covering the service process, m
 
 Blog content captures research-phase traffic and establishes your company as an authority. Landscaping content performs exceptionally well because homeowners actively seek gardening and outdoor living information. High-performing topics include:
 
-Material comparison guides (pavers vs. stamped concrete, natural stone vs. manufactured), seasonal lawn care calendars, plant selection guides for specific climates and soil types, hardscape design inspiration galleries, cost guides for common projects, and maintenance tips that demonstrate expertise while keeping your brand visible.
+Material comparison guides (pavers vs. [stamped concrete](/industries/concrete/), natural stone vs. manufactured), seasonal lawn care calendars, plant selection guides for specific climates and soil types, hardscape design inspiration galleries, cost guides for common projects, and maintenance tips that demonstrate expertise while keeping your brand visible.
 
 This content ranks for hundreds of long-tail keywords, drives thousands of organic visits per month, and feeds your remarketing audiences with prospects who are actively thinking about outdoor improvements.
 
 ## Google Ads for Landscaping Companies
 
-Google Ads produces immediate lead flow for landscaping companies and allows precise control over which services generate leads during which seasons. The ability to activate and pause campaigns based on seasonal demand makes paid search particularly valuable for an industry with dramatic volume swings.
+[Google Ads](/services/ppc/) produces immediate lead flow for landscaping companies and allows precise control over which services generate leads during which seasons. The ability to activate and pause campaigns based on seasonal demand makes paid search particularly valuable for an industry with dramatic volume swings.
 
 ### Campaign Structure by Service Type
 
@@ -90,7 +90,7 @@ Landscaping companies spending $5,000 or more per month on Google Ads through Se
 
 ## Website Design for Landscaping Companies
 
-A landscaping company's website must balance two opposing needs: it must inspire with visual beauty (this is a design-oriented industry) and convert with functional simplicity (visitors need to request estimates quickly). We build landscaping websites that accomplish both.
+A landscaping company's [website](/services/website-design/) must balance two opposing needs: it must inspire with visual beauty (this is a design-oriented industry) and convert with functional simplicity (visitors need to request estimates quickly). We build landscaping websites that accomplish both.
 
 ### Visual-First Design
 
@@ -158,7 +158,7 @@ Commercial maintenance contracts provide the stable, recurring revenue that succ
 
 Commercial decision-makers evaluate landscaping companies based on different criteria than residential homeowners. They want to see proof of capacity (crew size, equipment fleet, number of properties served), insurance documentation (minimum $2M general liability is standard for commercial), safety programs, and references from comparable properties.
 
-We build commercial landing pages that address these concerns directly. Case studies featuring specific property types (HOA communities, office parks, retail centers, medical facilities, apartment complexes) demonstrate relevant experience. A portfolio organized by commercial project type lets property managers quickly assess your fit for their needs.
+We build commercial landing pages that address these concerns directly. [Case studies](/case-studies/) featuring specific property types (HOA communities, office parks, retail centers, medical facilities, apartment complexes) demonstrate relevant experience. A portfolio organized by commercial project type lets property managers quickly assess your fit for their needs.
 
 ### Commercial Lead Generation
 
@@ -168,7 +168,7 @@ We also create content targeting the RFP process: "how to evaluate commercial la
 
 ## TV and Streaming Advertising for Landscapers
 
-Television advertising works powerfully for landscaping companies because outdoor transformations are inherently visual and aspirational. A 30-second commercial showing a bare, muddy backyard transformed into a stunning outdoor living space with a paver patio, stone fire pit, and professional plantings creates immediate desire in homeowners watching from their couch.
+[Television advertising](/services/tv-streaming-advertising/) works powerfully for landscaping companies because outdoor transformations are inherently visual and aspirational. A 30-second commercial showing a bare, muddy backyard transformed into a stunning outdoor living space with a paver patio, stone fire pit, and professional plantings creates immediate desire in homeowners watching from their couch.
 
 Through our Spectrum Reach partnership, landscaping companies access TV and streaming placements at rates unavailable through direct negotiation. We produce broadcast-quality commercials showcasing your work across seasons, from spring planting installations to summer evening outdoor entertaining to fall landscape color.
 

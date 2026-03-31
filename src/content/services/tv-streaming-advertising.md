@@ -23,7 +23,7 @@ faq:
 
 # TV & Streaming Advertising for Home Service Businesses
 
-Most contractors pour every marketing dollar into Google Ads and SEO. Those channels work. But they only reach people who are already searching for a service. That leaves an enormous pool of future customers completely untouched.
+Most contractors pour every marketing dollar into [Google Ads](/services/ppc/) and [SEO](/services/local-seo/). Those channels work. But they only reach people who are already searching for a service. That leaves an enormous pool of future customers completely untouched.
 
 Streaming TV advertising puts your brand in front of homeowners before they ever type a query into Google. It builds the kind of name recognition that makes your phone ring first when a pipe bursts, an AC unit dies, or an outlet starts sparking.
 
@@ -81,7 +81,7 @@ Here is how streaming TV advertising translates into revenue for a home service 
 
 **Stage 3: Trigger Event.** Their water heater fails. Their AC stops cooling. A circuit breaker keeps tripping. Now they need help.
 
-**Stage 4: Recall and Action.** Instead of Googling "plumber near me" and clicking the first result, they search for your company by name. Or they skip Google entirely and call the number they remember from your commercial. Branded searches and direct calls are the highest-converting traffic a contractor can get.
+**Stage 4: Recall and Action.** Instead of Googling "[plumber](/industries/plumbing/) near me" and clicking the first result, they search for your company by name. Or they skip Google entirely and call the number they remember from your commercial. Branded searches and direct calls are the highest-converting traffic a contractor can get.
 
 **Stage 5: Compounding Returns.** As your brand awareness grows in your market, every other marketing channel performs better. Your Google Ads get higher click-through rates because people recognize your name. Your SEO rankings improve because more people search for you by name. Your close rate on estimates goes up because homeowners already feel like they know your company.
 
@@ -95,7 +95,7 @@ Connected TV advertising works for any home service business that wants to build
 
 **Companies competing against well-known local brands.** If a competitor has been in your market for 30 years and has the name recognition to match, streaming TV advertising closes that gap.
 
-**Businesses with strong margins and repeat service potential.** HVAC maintenance plans, plumbing service agreements, and annual electrical inspections all benefit from top-of-mind awareness. Streaming ads keep your company in front of homeowners who will need your service again.
+**Businesses with strong margins and repeat service potential.** [HVAC](/industries/hvac/) maintenance plans, plumbing service agreements, and annual [electrical](/industries/electrical/) inspections all benefit from top-of-mind awareness. Streaming ads keep your company in front of homeowners who will need your service again.
 
 **Multi-location operations looking to dominate a region.** If you operate across several service areas, a connected TV campaign can blanket your entire footprint with consistent brand messaging.
 
@@ -119,7 +119,7 @@ Spectrum Reach can target households based on viewing habits, purchase behavior,
 
 ### Contextual Targeting
 
-Your ads can be placed alongside relevant content categories. A roofing commercial running during a home renovation show hits differently than the same commercial interrupting a sports broadcast. Contextual alignment increases engagement and recall.
+Your ads can be placed alongside relevant content categories. A [roofing](/industries/roofing/) commercial running during a home renovation show hits differently than the same commercial interrupting a sports broadcast. Contextual alignment increases engagement and recall.
 
 ## What a Campaign Looks Like
 
@@ -171,7 +171,7 @@ Streaming TV advertising does not replace your Google Ads or SEO strategy. It am
 
 The combination of brand awareness and search visibility creates a feedback loop that neither channel can produce alone. Contractors who run both strategies consistently outperform those who rely on a single channel.
 
-This is true across every trade. Website design for HVAC companies, plumbing businesses, and electrical contractors all follows the same principle: the more touchpoints you create with a potential customer, the more likely they are to choose you when the need arises.
+This is true across every trade. [Website design](/services/website-design/) for HVAC companies, plumbing businesses, and electrical contractors all follows the same principle: the more touchpoints you create with a potential customer, the more likely they are to choose you when the need arises.
 
 ## Quote-Based Pricing, Custom Strategy
 

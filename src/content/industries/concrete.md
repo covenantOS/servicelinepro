@@ -26,7 +26,7 @@ This guide covers how concrete contractors can build a marketing system that gen
 
 Concrete contractors serve two distinct markets, and each requires its own marketing approach.
 
-**Residential concrete** includes driveways, patios, sidewalks, pool decks, retaining walls, and foundation work. Homeowners typically get two to four quotes and make decisions based on price, portfolio quality, online reviews, and responsiveness. The average residential job ranges from $3,000 to $15,000, with decorative work and large pours pushing higher.
+**Residential concrete** includes driveways, patios, sidewalks, [pool decks](/industries/pool-services/), retaining walls, and foundation work. Homeowners typically get two to four quotes and make decisions based on price, portfolio quality, online reviews, and responsiveness. The average residential job ranges from $3,000 to $15,000, with decorative work and large pours pushing higher.
 
 **Commercial concrete** includes foundations, slabs, parking lots, sidewalks, ADA-compliant ramps, and structural pours. Commercial buyers are general contractors, property developers, and facility managers. They care about capacity, timeline reliability, certifications, and bonding. Job values range from $20,000 to six figures and beyond.
 
@@ -34,7 +34,7 @@ Your marketing must address both audiences separately. The messaging, landing pa
 
 ## Local SEO for Concrete Contractors
 
-When a homeowner searches "concrete driveway near me" or "concrete contractor," Google displays a map pack showing three local businesses. Earning and holding a position in that map pack is the highest-value marketing objective for any concrete company.
+When a homeowner searches "concrete driveway near me" or "concrete contractor," Google displays a [map pack](/services/local-seo/) showing three local businesses. Earning and holding a position in that map pack is the highest-value marketing objective for any concrete company.
 
 ### Google Business Profile
 
@@ -84,7 +84,7 @@ Each piece of content builds your site's authority, attracts organic search traf
 
 ## Google Ads for Concrete Contractors
 
-Google Ads generates leads within days. For concrete contractors, the combination of high job values and strong search intent makes paid search one of the most profitable marketing channels available.
+[Google Ads](/services/ppc/) generates leads within days. For concrete contractors, the combination of high job values and strong search intent makes paid search one of the most profitable marketing channels available.
 
 ### Campaign Architecture
 
@@ -171,7 +171,7 @@ Before-and-after photos are the most persuasive content a concrete contractor ca
 
 ## Website Design for Concrete Contractors
 
-Your website is your digital business card, portfolio, and sales team combined. For concrete contractors, the website needs to accomplish three things: showcase your work, establish credibility, and make it effortless to request a quote.
+Your [website](/services/website-design/) is your digital business card, portfolio, and sales team combined. For concrete contractors, the website needs to accomplish three things: showcase your work, establish credibility, and make it effortless to request a quote.
 
 ### Essential Website Elements
 
@@ -213,7 +213,7 @@ In cold climates, exterior concrete work pauses from November through February. 
 
 In warm-weather markets, concrete work continues year-round with minimal seasonal variation. Adjust your strategy to match your actual demand patterns.
 
-## TV and Streaming for Concrete Companies
+## [TV and Streaming](/services/tv-streaming-advertising/) for Concrete Companies
 
 Concrete transformation is inherently visual and dramatic. A time-lapse of a crumbling driveway being demolished and replaced with stamped, colored concrete is compelling television content. Streaming and connected TV platforms allow you to target homeowners in your service area with video that showcases this transformation.
 
@@ -237,4 +237,4 @@ The concrete contractors who grow predictably do not rely on a single channel. T
 
 Each element supports the others. SEO content improves your website's authority, which improves ad Quality Scores, which reduces cost-per-click. A strong review profile boosts both organic rankings and ad performance. TV exposure increases branded searches, which convert at the highest rate of any traffic type.
 
-ServiceLine Pro builds these systems specifically for concrete contractors. From the visual portfolio that wins homeowner trust to the ad campaigns that capture commercial project inquiries, every piece is engineered to generate measurable returns. The result is a marketing engine that fills your pipeline month after month, across every service type your company offers.
+ServiceLine Pro builds these systems specifically for concrete contractors. From the visual portfolio that wins homeowner trust to the ad campaigns that capture commercial project inquiries, every piece is engineered to generate [measurable returns](/case-studies/). The result is a marketing engine that fills your pipeline month after month, across every service type your company offers.

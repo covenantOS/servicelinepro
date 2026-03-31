@@ -18,7 +18,7 @@ faq:
 
 # Marketing for Pest Control Companies
 
-Pest control is a recurring revenue business. That fundamental characteristic separates it from most home service trades and creates a marketing dynamic that rewards long-term strategic thinking over short-term lead chasing. Every new customer you acquire through SEO or Google Ads is not a one-time transaction. They are a potential subscriber to a monthly or quarterly service plan that generates $400 to $800 per year for as long as you retain them.
+Pest control is a recurring revenue business. That fundamental characteristic separates it from most home service trades and creates a marketing dynamic that rewards long-term strategic thinking over short-term lead chasing. Every new customer you acquire through SEO or [Google Ads](/services/ppc/) is not a one-time transaction. They are a potential subscriber to a monthly or quarterly service plan that generates $400 to $800 per year for as long as you retain them.
 
 ServiceLine Pro builds marketing systems for pest control companies that optimize for customer lifetime value, not volume of one-off calls. We help you capture seasonal surges in demand, convert first-time customers into recurring plan subscribers, grow high-margin termite and specialty pest revenue, and build the local search dominance that compounds your customer base year over year.
 
@@ -68,7 +68,7 @@ Winter Google Ads budgets can be reduced by 30 to 50 percent, with spend focused
 
 ## Local SEO for Pest Control Companies
 
-Pest control searches are overwhelmingly local. A homeowner with ants in their kitchen searches "pest control near me" or "ant exterminator [city]." They want a local company that can come to their home today or tomorrow. This makes the Google Map Pack the most important piece of digital real estate for any pest control company.
+Pest control searches are overwhelmingly local. A homeowner with ants in their kitchen searches "pest control near me" or "ant exterminator [city]." They want a local company that can come to their home today or tomorrow. This makes the [Google Map Pack](/services/local-seo/) the most important piece of digital real estate for any pest control company.
 
 ### Google Business Profile Optimization
 
@@ -130,7 +130,7 @@ Pest control companies typically spend $3,000 to $10,000 per month on Google Ads
 
 ## Website Design for Pest Control Companies
 
-ServiceLine Pro builds pest control websites for $2,500 to $4,000 with a structure designed to convert visitors into service requests and recurring plan subscribers.
+ServiceLine Pro builds pest control [websites](/services/website-design/) for $2,500 to $4,000 with a structure designed to convert visitors into service requests and recurring plan subscribers.
 
 Core features include: individual pages for every pest you treat, a pest identification resource section, service plan descriptions with clear pricing tiers, a prominent phone number that is click-to-call on mobile, commercial pest control pages for business customers, location pages for every area served, Google review integration, and mobile-first design that loads in under two seconds.
 
@@ -152,7 +152,7 @@ Google Ads campaigns for termite services run year-round with budget increases d
 
 ## What Pest Control Companies Can Expect
 
-Pest control companies working with ServiceLine Pro for combined SEO and Google Ads management typically achieve these results within 12 months:
+Pest control companies working with ServiceLine Pro for combined SEO and Google Ads management typically achieve [these results](/case-studies/) within 12 months:
 
 Map Pack rankings for 20 to 40 pest-related keywords. A 2x to 4x increase in organic website traffic. Google Ads cost per lead between $25 and $60. A pipeline of 80 to 250 qualified pest control leads per month, depending on market size and investment. A measurable increase in recurring plan sign-ups as lead volume grows. And growing termite, bed bug, and specialty service revenue as targeted campaigns build momentum.
 

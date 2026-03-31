@@ -11,7 +11,7 @@ faq:
   - question: "Is WordPress secure enough for a business website?"
     answer: "WordPress is secure when properly configured. The security problems that make headlines come from outdated core installations, unpatched plugins, weak passwords, and cheap hosting. Our security hardening process addresses every common vulnerability: forced strong passwords, two-factor authentication, login attempt limiting, file permission lockdown, XML-RPC disabling, database prefix randomization, security headers configuration, and automated malware scanning. We also keep WordPress core, themes, and plugins updated with a managed update schedule."
   - question: "Can I add e-commerce or online booking to my WordPress site?"
-    answer: "Yes. WordPress supports WooCommerce for e-commerce functionality and integrates with booking plugins for online appointment scheduling. For home service businesses, WooCommerce is useful for selling maintenance plans, service packages, gift certificates, and replacement parts or filters. Online booking integrations connect with platforms like ServiceTitan, Housecall Pro, and Jobber. We configure these integrations during the build process or add them later as your business needs evolve."
+    answer: "Yes. WordPress supports WooCommerce for e-commerce functionality and integrates with booking plugins for online appointment scheduling. For home service businesses, WooCommerce is useful for selling maintenance plans, service packages, gift certificates, and replacement parts or filters. Online booking integrations connect with platforms like ServiceTitan, Housecall Pro, and Jobber. [Electrical](/industries/electrical/) contractors and [landscaping](/industries/landscaping/) companies use these integrations to streamline scheduling. We configure these integrations during the build process or add them later as your business needs evolve."
 ---
 
 ## WordPress Website Design for Contractors and Home Service Businesses
@@ -20,7 +20,7 @@ Some home service businesses need more than a fast, lean website. They need a co
 
 WordPress is that platform. It powers over 40% of the internet because it gives non-technical users the ability to manage professional websites through an intuitive dashboard. For contractors who want full editorial control over their online presence, WordPress remains the most capable and flexible option available.
 
-ServiceLine Pro builds WordPress sites specifically for home service businesses. We do not install a pre-made theme and fill in the blanks. We design and code a custom theme for your brand and trade. We hand-select every plugin based on performance, security, and compatibility. We harden the installation against the security threats that plague WordPress sites across the web. And we train your team to manage the site with confidence.
+ServiceLine Pro builds [WordPress sites](/services/website-design/) specifically for home service businesses. We do not install a pre-made theme and fill in the blanks. We design and code a custom theme for your brand and trade. We hand-select every plugin based on performance, security, and compatibility. We harden the installation against the security threats that plague WordPress sites across the web. And we train your team to manage the site with confidence.
 
 Starting at $4,000 with delivery in 4 to 6 weeks, every WordPress site includes a custom theme, SEO optimization, security hardening, content management training, and 1 full year of free managed hosting.
 
@@ -28,19 +28,19 @@ Starting at $4,000 with delivery in 4 to 6 weeks, every WordPress site includes 
 
 WordPress is the right fit for your business when one or more of the following statements apply:
 
-**You want to publish content regularly.** Blog posts about seasonal maintenance tips, how-to guides for homeowners, company news, project spotlights, and industry insights. Regular publishing builds organic search authority and establishes your company as a knowledgeable resource. WordPress makes publishing as simple as writing in a word processor.
+**You want to publish content regularly.** Blog posts about seasonal maintenance tips, how-to guides for homeowners, company news, project spotlights, and industry insights. Regular publishing builds organic search authority through [Local SEO](/services/local-seo/) and establishes your company as a knowledgeable resource. WordPress makes publishing as simple as writing in a word processor.
 
 **Your team needs to edit the site.** If your office manager, marketing coordinator, or business partner needs to update service descriptions, change pricing, swap out photos, or adjust operating hours, WordPress gives them a dashboard to do it without touching code.
 
-**You run seasonal promotions.** HVAC companies running spring tune-up specials, roofers promoting storm damage assessments, plumbers pushing winterization services. WordPress lets you spin up landing pages for seasonal campaigns in minutes, not days.
+**You run seasonal promotions.** [HVAC](/industries/hvac/) companies running spring tune-up specials, [roofers](/industries/roofing/) promoting storm damage assessments, [plumbers](/industries/plumbing/) pushing winterization services. WordPress lets you spin up landing pages for seasonal campaigns in minutes, not days.
 
 **You manage multiple locations.** Multi-location home service companies need the ability to add location pages, update individual location details, and manage location-specific content from a central dashboard. WordPress handles this natively.
 
 **You need third-party integrations.** CRM connections, appointment scheduling widgets, review aggregators, live chat, payment processing, and job management platform integrations. WordPress's plugin ecosystem connects with virtually every business tool a contractor uses.
 
-**You plan to scale your content marketing.** If your growth strategy includes publishing 2 to 4 blog posts per month to build organic traffic, WordPress provides the editorial infrastructure, categories, tags, scheduling, and SEO tools that make content marketing sustainable.
+**You plan to scale your content marketing.** If your growth strategy includes publishing 2 to 4 blog posts per month to build organic traffic, WordPress provides the editorial infrastructure, categories, tags, scheduling, and SEO tools that make content marketing sustainable. Combine content marketing with [PPC campaigns](/services/ppc/) for maximum lead generation.
 
-If none of these apply, and you want the fastest possible site with the least maintenance overhead, our Custom Performance Site (built on Astro) is the better option. Both packages deliver professional, conversion-focused websites for home service businesses. The question is whether your business needs a content management system.
+If none of these apply, and you want the fastest possible site with the least maintenance overhead, our [Custom Performance Site](/services/website-design/custom-sites/) (built on Astro) is the better option. Both packages deliver professional, conversion-focused websites for home service businesses. The question is whether your business needs a content management system.
 
 ## Custom Theme Design: No Templates, No Page Builders
 
@@ -318,12 +318,12 @@ Both options deliver professional, conversion-focused websites for home service 
 
 **Choose a Custom Performance Site if** speed and search performance are your top priorities, you do not need frequent content updates, and you want the lowest possible maintenance and hosting costs.
 
-Many contractors start with a Custom Performance Site, build their business, and upgrade to WordPress when their content marketing strategy matures. Others start with WordPress from day one because they know content publishing is central to their growth plan. Both paths lead to a professional online presence that generates leads and builds credibility.
+Many contractors start with a Custom Performance Site, build their business with [TV and streaming advertising](/services/tv-streaming-advertising/) driving brand awareness, and upgrade to WordPress when their content marketing strategy matures. Others start with WordPress from day one because they know content publishing is central to their growth plan. Both paths lead to a professional online presence that generates leads and builds credibility.
 
 ## Why ServiceLine Pro for WordPress
 
 The WordPress development market is enormous. Thousands of agencies and freelancers build WordPress sites. Most of them have never built a site for a plumber. They have never written ad copy for an HVAC company. They have never structured a service page to rank for "emergency electrician" in a competitive local market.
 
-ServiceLine Pro works exclusively with home service businesses. Every theme we design, every content template we write, and every SEO structure we build comes from years of data and experience in the trades. We know which conversion elements matter for contractors. We know which page structures rank for home service keywords. We know how homeowners search for and evaluate the companies they hire.
+ServiceLine Pro works exclusively with home service businesses. Every theme we design, every content template we write, and every SEO structure we build comes from years of data and experience in the trades. We know which conversion elements matter for contractors. We know which page structures rank for home service keywords. We know how homeowners search for and evaluate the companies they hire. Our [case studies](/case-studies/) show the results across dozens of trades.
 
 $4,000. Four to six weeks. Custom theme. Full CMS. Security hardened. Performance optimized. One year of free managed hosting. That is the WordPress package. Contact ServiceLine Pro to schedule your free website audit and get a custom proposal for your new site.

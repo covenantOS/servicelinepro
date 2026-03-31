@@ -42,7 +42,7 @@ Garage door opener replacements, smart opener upgrades, and keypad installations
 
 ## Google Ads: The Emergency Lead Machine
 
-For garage door companies, Google Ads is not optional. It is the primary lead generation engine for emergency repair calls, and it produces strong results for installation and opener services as well.
+For garage door companies, [Google Ads](/services/ppc/) is not optional. It is the primary lead generation engine for emergency repair calls, and it produces strong results for installation and opener services as well.
 
 ### Campaign Structure
 
@@ -109,7 +109,7 @@ Track your cost per lead by campaign. Emergency repair leads should cost $40 to 
 
 ## Local SEO for Garage Door Companies
 
-While Google Ads captures immediate demand, Local SEO builds the organic visibility that generates leads without ongoing per-click costs. For garage door companies, ranking in the map pack for "garage door repair near me" is worth thousands of dollars in monthly lead value.
+While Google Ads captures immediate demand, [Local SEO](/services/local-seo/) builds the organic visibility that generates leads without ongoing per-click costs. For garage door companies, ranking in the map pack for "garage door repair near me" is worth thousands of dollars in monthly lead value.
 
 ### Google Business Profile Essentials
 
@@ -155,7 +155,7 @@ Each page should detail the service, explain common issues, describe your proces
 
 ## Website Design for Garage Door Companies
 
-A garage door company's website has one primary job: convert visitors into phone calls and form submissions. Every design decision should serve that goal.
+A garage door company's [website](/services/website-design/) has one primary job: convert visitors into phone calls and form submissions. Every design decision should serve that goal.
 
 ### Above-the-Fold Priorities
 
@@ -194,7 +194,7 @@ Cold weather is the enemy of garage door springs. Metal contracts in low tempera
 
 ### Spring and Summer: Installation Season
 
-Warmer months drive installation and replacement projects. Homeowners focus on curb appeal and home improvement during spring and summer. Push installation-focused campaigns, showcase new door styles, and highlight energy-efficient insulated doors.
+Warmer months drive installation and replacement projects. Homeowners focus on curb appeal and [home improvement](/industries/remodeling/) during spring and summer. Push installation-focused campaigns, showcase new door styles, and highlight energy-efficient insulated doors.
 
 ### Storm Season: Emergency Surges
 
@@ -204,7 +204,7 @@ Severe weather creates garage door damage, from wind-bent panels to doors knocke
 
 Unlike many home services, garage door repair maintains baseline demand year-round. Openers fail, springs break, and doors get damaged regardless of season. This consistent demand makes garage door marketing a strong year-round investment.
 
-## TV and Streaming Advertising
+## [TV and Streaming Advertising](/services/tv-streaming-advertising/)
 
 Garage door companies benefit from brand awareness advertising more than many contractors realize. When a garage door emergency happens, homeowners default to the company name they recognize. TV and streaming ads build that name recognition.
 
@@ -228,4 +228,4 @@ Streaming platforms allow geographic targeting to your service area, ensuring yo
 
 The garage door companies that grow consistently combine multiple channels into an integrated system. Google Ads ($5,000+/month through Spectrum Reach with no agency fee) captures emergency and high-intent searches immediately. Local SEO ($1,800 to $4,800/month) builds organic visibility that generates leads without per-click costs. A professional website ($2,500 to $4,000+) converts both paid and organic traffic into service calls. TV and streaming advertising builds the brand recognition that amplifies everything else.
 
-ServiceLine Pro builds these systems for garage door companies. Every element is designed to work together, from the ad campaigns that capture emergency searches to the website that converts them into dispatched technicians. The result is a predictable, measurable flow of repair calls and installation leads that keeps technicians busy and revenue growing.
+ServiceLine Pro builds these systems for garage door companies. Every element is designed to work together, from the ad campaigns that capture emergency searches to the website that converts them into dispatched technicians. The result is a [predictable, measurable flow](/case-studies/) of repair calls and installation leads that keeps technicians busy and revenue growing.

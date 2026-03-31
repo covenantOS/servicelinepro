@@ -20,7 +20,7 @@ faq:
 
 The HVAC industry runs on urgency and seasons. When a homeowner's air conditioner dies in July or their furnace stops producing heat in January, they are not browsing. They are searching with intent to buy, right now. And when they search, the HVAC companies that appear first win the work.
 
-ServiceLine Pro builds marketing systems for HVAC contractors that capture the full spectrum of demand: emergency repair calls that need immediate response, scheduled maintenance appointments that build recurring revenue, and high-ticket equipment replacement leads that drive your annual growth. We understand the seasonal dynamics that make HVAC marketing fundamentally different from other trades, and we build strategies that flex with the calendar rather than fighting against it.
+ServiceLine Pro builds marketing systems for HVAC contractors that capture the full spectrum of demand: emergency repair calls that need immediate response, scheduled maintenance appointments that build recurring revenue, and high-ticket equipment replacement leads that drive your annual growth. We understand the seasonal dynamics that make HVAC marketing fundamentally different from other trades, and we build strategies that flex with the calendar rather than fighting against it. See how we have delivered these [results for real clients](/case-studies/).
 
 ## The HVAC Revenue Model and Why It Matters for Marketing
 
@@ -30,7 +30,7 @@ HVAC companies generate revenue from three distinct service categories, each wit
 
 A homeowner with no air conditioning on a 95-degree day will call the first company they can reach. Emergency repair calls have the shortest decision cycle of any HVAC lead. The search-to-call window is often under 60 seconds. Average tickets on emergency repairs range from $150 for a capacitor replacement to $1,200 for a compressor repair or a blower motor swap.
 
-Emergency repair marketing demands speed and visibility. You must appear in the Map Pack and in the top Google Ads positions for terms like "AC repair near me," "furnace not working," "HVAC emergency repair," and "no heat." If you are not visible the moment the homeowner searches, someone else gets the call.
+Emergency repair marketing demands speed and visibility. You must appear in the [Map Pack](/services/local-seo/) and in the top [Google Ads](/services/ppc/) positions for terms like "AC repair near me," "furnace not working," "HVAC emergency repair," and "no heat." If you are not visible the moment the homeowner searches, someone else gets the call.
 
 ### Maintenance Agreements
 
@@ -74,7 +74,7 @@ We also use the shoulder seasons to build organic content that will rank during 
 
 HVAC is one of the most searched home service categories on Google. "AC repair near me" alone generates over 450,000 annual searches nationally. "HVAC contractor near me" adds another 200,000. "Furnace repair near me" contributes 180,000. The volume is massive, and the companies that rank for these terms receive a disproportionate share of the leads.
 
-### Google Business Profile Optimization
+### [Google Business Profile](/services/local-seo/) Optimization
 
 For HVAC companies, the Google Business Profile needs to communicate the breadth of services offered. Many HVAC companies only list "HVAC Contractor" as their category. They are missing secondary categories like "Air Conditioning Repair Service," "Furnace Repair Service," "Heat Pump Supplier," and "Air Duct Cleaning Service." Each secondary category tells Google to show your listing for a wider range of relevant searches.
 
@@ -120,7 +120,7 @@ Most HVAC companies we work with spend $5,000 to $15,000 per month on Google Ads
 
 That savings can be reinvested into additional ad spend, generating more leads with the same total marketing investment.
 
-## Website Design for HVAC Companies
+## [Website Design](/services/website-design/) for HVAC Companies
 
 An HVAC company's website must accomplish two things simultaneously: convert emergency visitors who need help right now and educate research-phase visitors who are evaluating equipment replacement options.
 
@@ -146,9 +146,9 @@ Email and SMS campaigns targeting existing customers who have not yet signed up 
 
 ## TV and Streaming Advertising for HVAC
 
-HVAC is one of the few home service industries where television advertising can produce measurable results. The equipment replacement market targets homeowners aged 35 to 65 with household incomes above $75,000. This demographic watches streaming television and local broadcast.
+HVAC is one of the few home service industries where television advertising can produce measurable results, much like [roofing](/industries/roofing/) and [remodeling](/industries/remodeling/). The equipment replacement market targets homeowners aged 35 to 65 with household incomes above $75,000. This demographic watches streaming television and local broadcast.
 
-ServiceLine Pro offers TV and streaming advertising packages that put your brand in front of homeowners before they need you. Brand awareness compounds over time. The homeowner who sees your commercial in March remembers your name when their AC fails in July. This top-of-funnel strategy reduces your cost per lead across all channels because branded search traffic is free and converts at the highest rate.
+ServiceLine Pro offers [TV and streaming advertising](/services/tv-streaming-advertising/) packages that put your brand in front of homeowners before they need you. Brand awareness compounds over time. The homeowner who sees your commercial in March remembers your name when their AC fails in July. This top-of-funnel strategy reduces your cost per lead across all channels because branded search traffic is free and converts at the highest rate.
 
 ## Results HVAC Companies Can Expect
 

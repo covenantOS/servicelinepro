@@ -38,9 +38,9 @@ Material markup changes how you should think about marketing. A lead for a custo
 
 ### Commercial Contracts
 
-Commercial flooring work (property management companies, office buildouts, retail spaces, multi-family renovations) produces larger individual contracts with longer payment cycles and different marketing requirements. A single commercial flooring contract can be worth $25,000 to $250,000. These deals do not come from Google Ads targeting "flooring near me." They come from relationships with general contractors, property managers, and commercial real estate firms.
+Commercial flooring work (property management companies, office buildouts, retail spaces, multi-family renovations) produces larger individual contracts with longer payment cycles and different marketing requirements. These deals often come through relationships with [general contractors](/industries/general-contracting/). A single commercial flooring contract can be worth $25,000 to $250,000. These deals do not come from Google Ads targeting "flooring near me." They come from relationships with general contractors, property managers, and commercial real estate firms.
 
-Marketing for commercial flooring requires a parallel strategy: a dedicated commercial page on your website showcasing past projects, a LinkedIn presence that connects with property managers and GC firms, and case studies that demonstrate your ability to handle large-scale installations on schedule and within budget.
+Marketing for commercial flooring requires a parallel strategy: a dedicated commercial page on your website showcasing past projects, a LinkedIn presence that connects with property managers and GC firms, and case studies that demonstrate your ability to handle large-scale installations on schedule and within budget. A dedicated [Local SEO](/services/local-seo/) program ensures your commercial pages rank for the right searches.
 
 ### New Construction Relationships
 
@@ -54,7 +54,7 @@ Flooring companies generally operate with one of two customer acquisition models
 
 A flooring showroom is a powerful sales tool. Homeowners can see, touch, and compare hundreds of material samples in person. They can visualize how different products look installed. The showroom experience converts at extremely high rates because the homeowner physically handles the product they are choosing.
 
-Marketing for showroom-based companies must drive foot traffic. Google Business Profile optimization is critical because "flooring store near me" and "flooring showroom [city]" are high-volume searches. Your GBP listing should include showroom hours, photos of the showroom interior, and directions. Google Ads campaigns should use location extensions that show your address and a map pin.
+Marketing for showroom-based companies must drive foot traffic. [Google Business Profile](/services/local-seo/) optimization is critical because "flooring store near me" and "flooring showroom [city]" are high-volume searches. Your GBP listing should include showroom hours, photos of the showroom interior, and directions. Google Ads campaigns should use location extensions that show your address and a map pin.
 
 Your website should feature a virtual tour of the showroom, highlight specific brands and product lines you carry, and make it easy to schedule a showroom visit. A dedicated "Visit Our Showroom" page with hours, directions, parking information, and photos of the space reduces friction and increases foot traffic.
 
@@ -92,13 +92,13 @@ We build flooring company websites with deep content libraries covering every ma
 
 **Tile content:** "Best tile for kitchen floors," "large format tile installation," "tile vs LVP in bathrooms," "heated floor tile installation," "tile installation cost per square foot." Tile content benefits from visual comparisons showing different sizes, patterns, and layout options.
 
-**Carpet content:** "Best carpet for bedrooms," "carpet vs LVP for bedrooms," "stain-resistant carpet options," "carpet installation cost," "how long does carpet last." Carpet is losing market share to hard surfaces, but it remains a significant revenue category, especially in bedrooms and basements.
+**[Carpet](/industries/carpet-cleaning/) content:** "Best carpet for bedrooms," "carpet vs LVP for bedrooms," "stain-resistant carpet options," "carpet installation cost," "how long does carpet last." Carpet is losing market share to hard surfaces, but it remains a significant revenue category, especially in bedrooms and basements.
 
 **Comparison content:** "LVP vs hardwood vs tile," "best flooring for dogs," "best flooring for kitchens," "most durable flooring for families with kids." These pages capture homeowners who have not yet decided on a material and are comparing options. They carry enormous SEO value because they attract high-intent visitors who need guidance.
 
 Each content page should link to your relevant service pages, include pricing ranges, mention specific product brands you carry or recommend, and feature before-and-after photos when available.
 
-## Google Ads for Flooring Companies
+## [Google Ads](/services/ppc/) for Flooring Companies
 
 Google Ads delivers immediate lead flow for flooring companies in competitive markets. The cost per click for flooring keywords runs $5 to $20, with installation-specific terms at the higher end and material research terms at the lower end.
 
@@ -126,7 +126,7 @@ Flooring companies should invest $3,000 to $8,000 per month in Google Ads depend
 
 A typical flooring company spending $5,000 per month generates 80 to 150 leads at a cost per lead of $35 to $65. With an average project value of $5,000 to $12,000 and a close rate of 25 to 35 percent, the monthly revenue generated from that ad spend ranges from $100,000 to $500,000. The returns are significant.
 
-## Website Design for Flooring Companies
+## [Website Design](/services/website-design/) for Flooring Companies
 
 A flooring company's website is a visual portfolio, a material education center, and a lead generation machine. It must perform all three functions simultaneously.
 
@@ -154,7 +154,7 @@ Flooring research happens on mobile devices. Homeowners browse Pinterest for ins
 
 We build flooring websites with a sticky mobile header containing your phone number and a "Free Estimate" button that stays visible as the homeowner scrolls through galleries and content. Forms are short and mobile-optimized: name, phone, address, service type, and an optional space for project details.
 
-## TV and Streaming Advertising for Flooring Companies
+## [TV and Streaming Advertising](/services/tv-streaming-advertising/) for Flooring Companies
 
 Flooring is a visual product, and video advertising showcases it beautifully. A 15-second streaming spot showing a dramatic before-and-after transformation or a time-lapse of an installation creates an emotional response that static search ads cannot achieve.
 
@@ -168,6 +168,6 @@ Every flooring company competes with Home Depot and Lowe's. These retailers spen
 
 But local flooring companies win on quality, expertise, and accountability. The Home Depot installer is a subcontractor who may or may not show up on time, whose work may or may not meet professional standards, and who answers to a corporate chain rather than to the homeowner personally. Your installers are your employees or your trusted subcontractors. You stand behind the work. You answer the phone when there is a problem.
 
-Your marketing should emphasize these differences consistently. Reviews that mention professional installation quality, attention to detail, and responsive communication after the sale build a case that big-box stores cannot replicate. Case studies showing how you fixed a big-box installation gone wrong are particularly compelling. A homeowner who had their floor installed by a national chain and ended up with lippage, gaps, or transitions that do not match is exactly the customer who will pay more for a company that does it right the first time.
+Your marketing should emphasize these differences consistently. Reviews that mention professional installation quality, attention to detail, and responsive communication after the sale build a case that big-box stores cannot replicate. [Case studies](/case-studies/) showing how you fixed a big-box installation gone wrong are particularly compelling. A homeowner who had their floor installed by a national chain and ended up with lippage, gaps, or transitions that do not match is exactly the customer who will pay more for a company that does it right the first time.
 
 The flooring companies that build strong local brands through consistent SEO, targeted advertising, and websites that showcase their work at a professional level do not lose sleep over big-box competition. They attract the customers who value quality, and those customers pay higher prices, refer their friends, and come back for their next project.

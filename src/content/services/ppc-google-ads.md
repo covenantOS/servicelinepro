@@ -18,9 +18,9 @@ faq:
 
 Google processes over 8.5 billion searches per day. A meaningful percentage of those searches come from homeowners looking for contractors, plumbers, HVAC technicians, electricians, and roofers. When someone types "AC repair near me" into their phone at 2 PM on a 98-degree afternoon, the businesses appearing in Google's paid results get the call. Everyone else waits.
 
-Google Ads is the fastest, most controllable way to put your business in front of homeowners who need your services right now. Not tomorrow. Not after your SEO strategy matures over six months. Right now, today, the moment your campaigns go live.
+Google Ads is the fastest, most controllable way to put your business in front of homeowners who need your services right now. Not tomorrow. Not after your [Local SEO](/services/local-seo/) strategy matures over six months. Right now, today, the moment your campaigns go live.
 
-ServiceLine Pro manages Google Ads campaigns exclusively for home service businesses. We understand the keyword landscape, the seasonal patterns, the conversion psychology, and the campaign structures that turn ad spend into booked jobs. Through our partnership with Spectrum Reach, we eliminate the agency management fee entirely for clients spending $5,000 or more per month on ads.
+ServiceLine Pro manages [Google Ads](/services/ppc/) campaigns exclusively for home service businesses. We understand the keyword landscape, the seasonal patterns, the conversion psychology, and the campaign structures that turn ad spend into booked jobs. Through our partnership with Spectrum Reach, we eliminate the agency management fee entirely for clients spending $5,000 or more per month on ads.
 
 This page breaks down every component of a high-performing Google Ads campaign for contractors and home service companies.
 
@@ -122,7 +122,7 @@ Bid strategies for call-only campaigns differ from standard campaigns. We set mi
 
 Your landing page determines whether a click becomes a lead or a wasted dollar. The best keyword targeting, the sharpest ad copy, and the highest Quality Score mean nothing if the page your visitor lands on fails to convert.
 
-We build dedicated landing pages for every major campaign and ad group. Each page matches the specific search intent that brought the visitor there. Here is the anatomy of a landing page that converts for home service businesses.
+We build dedicated [landing pages](/services/website-design/) for every major campaign and ad group. Each page matches the specific search intent that brought the visitor there. Here is the anatomy of a landing page that converts for home service businesses.
 
 ### Above the Fold: Instant Relevance
 
@@ -172,17 +172,17 @@ No other Google Ads agency serving contractors has access to this data. It is ex
 
 Cost-per-click varies by trade, market, and keyword type. Here are the typical ranges we see across our client base:
 
-**HVAC:** $15 to $45 per click. Emergency keywords push toward the high end. Maintenance keywords run cheaper at $8 to $20.
+**[HVAC](/industries/hvac/):** $15 to $45 per click. Emergency keywords push toward the high end. Maintenance keywords run cheaper at $8 to $20.
 
-**Plumbing:** $20 to $60 per click. Drain cleaning and sewer line keywords tend to cost more due to high job values. Standard plumbing repair keywords run $15 to $35.
+**[Plumbing](/industries/plumbing/):** $20 to $60 per click. Drain cleaning and sewer line keywords tend to cost more due to high job values. Standard plumbing repair keywords run $15 to $35.
 
-**Roofing:** $30 to $80 per click. Roofing has some of the highest CPCs in home services because average job values are $8,000 to $15,000. The ROI still works because one closed deal covers weeks of ad spend.
+**[Roofing](/industries/roofing/):** $30 to $80 per click. Roofing has some of the highest CPCs in home services because average job values are $8,000 to $15,000. The ROI still works because one closed deal covers weeks of ad spend.
 
-**Electrical:** $12 to $35 per click. Lower competition than plumbing and HVAC in most markets. Panel upgrades and generator installation keywords cost more.
+**[Electrical](/industries/electrical/):** $12 to $35 per click. Lower competition than plumbing and HVAC in most markets. Panel upgrades and generator installation keywords cost more.
 
-**Pest Control:** $10 to $30 per click. Termite and bed bug keywords cost more than general pest control.
+**[Pest Control](/industries/pest-control/):** $10 to $30 per click. Termite and bed bug keywords cost more than general pest control.
 
-**Landscaping and Lawn Care:** $8 to $25 per click. Lower CPCs but also lower average job values. Volume matters here.
+**[Landscaping](/industries/landscaping/) and Lawn Care:** $8 to $25 per click. Lower CPCs but also lower average job values. Volume matters here.
 
 These ranges shift based on geographic market, seasonal demand, and competitive density. A plumber in a mid-size market might pay $22 per click for "plumber near me" while the same keyword costs $55 in a major metro. Our campaigns consistently achieve CPCs 20% to 33% below these industry averages through Quality Score optimization and first-party data targeting.
 
@@ -286,6 +286,6 @@ The Google Ads management market is saturated with agencies that treat home serv
 
 ServiceLine Pro works exclusively with contractors and home service companies. Every campaign structure, keyword list, negative keyword database, ad template, and landing page design comes from years of data across HVAC, plumbing, roofing, electrical, and dozens of other trades.
 
-Our Spectrum Reach partnership eliminates the agency fee for clients spending $5,000 or more per month and provides access to first-party household data that no competitor can match. Our TAG and Google certifications protect your budget from click fraud. Our dedicated landing pages, call tracking infrastructure, and AI-powered optimization deliver measurable, attributable results.
+Our Spectrum Reach partnership eliminates the agency fee for clients spending $5,000 or more per month and provides access to first-party household data that no competitor can match. Our TAG and Google certifications protect your budget from click fraud. Our dedicated landing pages, call tracking infrastructure, and AI-powered optimization deliver measurable, attributable [results](/case-studies/).
 
 Your phone should ring with qualified leads. Your dashboard should show exactly what those leads cost. Your campaigns should improve every month. That is the standard we hold ourselves to, and it is what we deliver for every client we work with.

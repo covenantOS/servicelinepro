@@ -30,11 +30,11 @@ First, the cost per lead is high. Google Ads clicks for solar keywords run $8 to
 
 Second, lead quality is terrible across the industry. The solar lead generation ecosystem is flooded with companies selling shared leads to multiple installers simultaneously. The homeowner fills out one form and gets calls from five companies within an hour. By the third call, they are annoyed. By the fifth, they are hostile. These leads close at 5 to 10 percent even with excellent sales teams because the homeowner was never exclusively interested in your company.
 
-The solution to both problems is the same: own your lead generation. Build organic rankings that attract homeowners searching for solar in your market. Run Google Ads campaigns targeting high-intent keywords with landing pages that educate and convert. Create a website that establishes your company as the local authority on solar, so when the homeowner is ready to move forward, you are the company they already know and trust.
+The solution to both problems is the same: own your lead generation. Build organic rankings through [Local SEO](/services/local-seo/) that attract homeowners searching for solar in your market. Run [Google Ads](/services/ppc/) campaigns targeting high-intent keywords with landing pages that educate and convert. Create a [website](/services/website-design/) that establishes your company as the local authority on solar, so when the homeowner is ready to move forward, you are the company they already know and trust.
 
 ## Understanding the Solar Customer
 
-Solar customers are different from other home service customers in fundamental ways. When a homeowner's air conditioner breaks, they call the first HVAC company they can find. When a homeowner considers solar, they spend weeks or months researching before they ever contact an installer.
+Solar customers are different from other home service customers in fundamental ways. When a homeowner's air conditioner breaks, they call the first [HVAC](/industries/hvac/) company they can find. When a homeowner considers solar, they spend weeks or months researching before they ever contact an installer.
 
 The typical solar buyer journey looks like this:
 
@@ -54,7 +54,7 @@ Some of this is unavoidable. The solar buying cycle is long, and not every inqui
 
 When you buy shared leads from aggregators, you get people who clicked a Facebook ad promising "free solar panels" or who filled out a form on a generic solar website without understanding what they were signing up for. These people were never qualified. The lead was bad before it reached your CRM.
 
-When you generate your own leads through SEO and Google Ads, you control the messaging. Your website can pre-qualify visitors by being transparent about costs, explaining that solar requires a suitable roof orientation and condition, and making it clear that the process takes time and involves a real financial commitment. Homeowners who read through your content and still fill out the form are genuinely interested. They have already educated themselves. Your sales team spends less time explaining basics and more time closing deals.
+When you generate your own leads through SEO and Google Ads, you control the messaging. Your website can pre-qualify visitors by being transparent about costs, explaining that solar requires a suitable [roof](/industries/roofing/) orientation and condition, and making it clear that the process takes time and involves a real financial commitment. Homeowners who read through your content and still fill out the form are genuinely interested. They have already educated themselves. Your sales team spends less time explaining basics and more time closing deals.
 
 We build solar websites with qualification elements embedded throughout. A solar savings calculator that requires the homeowner to enter their average electric bill and roof details filters out casual browsers. A dedicated page explaining who solar is and is not right for (shaded roofs, planned moves within 5 years, very low electric bills) prevents mismatched leads from entering your pipeline. These are not barriers to conversion. They are filters that improve conversion quality.
 
@@ -62,7 +62,7 @@ We build solar websites with qualification elements embedded throughout. A solar
 
 Solar SEO is brutally competitive. The keywords are valuable, the search volume is high, and the competition includes national brands with enormous marketing budgets. A local solar installer competing against SunRun, Tesla Energy, and a dozen funded startups needs a focused strategy that leverages the advantages only a local company has.
 
-### Google Business Profile
+### [Google Business Profile](/services/local-seo/)
 
 Your Google Business Profile is your single most important local asset. Solar companies should select "Solar Energy Contractor" as their primary category with secondary categories including "Solar Energy Equipment Supplier" and "Electrician" if applicable. Profile completeness matters: fill every available field, upload photos of actual installations (not stock images), post weekly updates about completed projects and incentive changes, and respond to every review.
 
@@ -70,7 +70,7 @@ Review volume is a differentiator. National solar companies struggle to accumula
 
 ### City-Specific Landing Pages
 
-Solar searches are intensely local. "Solar installers in Phoenix," "solar panel cost in Austin," "best solar company in Tampa." Each city you serve needs its own landing page targeting that city's specific keywords. But these cannot be thin pages with swapped city names. Google penalizes that approach.
+Solar searches are intensely local. "Solar installers in Phoenix," "solar panel cost in Austin," "best solar company in [Tampa](/areas/tampa-fl/)." Each city you serve needs its own landing page targeting that city's specific keywords. But these cannot be thin pages with swapped city names. Google penalizes that approach.
 
 Each city page should include the local utility company and its net metering policy, any city or county-specific solar incentives beyond the federal ITC, the average electric rate in that market (and how it has increased over the past 5 years), the average system size for homes in that area, and testimonials from customers in that specific city. This level of local detail signals relevance to Google and credibility to the homeowner.
 
@@ -128,7 +128,7 @@ Dedicated pages for each major topic create depth that serves both the homeowner
 
 ### Social Proof and Case Studies
 
-Solar is a trust-intensive purchase. The homeowner is committing to a 25-year relationship with a technology installed on their roof by a company they found on the internet. Case studies showing real installations with specific details, including system size, panel brand, inverter type, installation timeline, cost after incentives, and monthly savings, build the trust that moves prospects toward commitment.
+Solar is a trust-intensive purchase. The homeowner is committing to a 25-year relationship with a technology installed on their roof by a company they found on the internet. [Case studies](/case-studies/) showing real installations with specific details, including system size, panel brand, inverter type, installation timeline, cost after incentives, and monthly savings, build the trust that moves prospects toward commitment.
 
 We design case study sections that are easy to browse and filter by city, system size, or home type. Each case study includes photos of the installation, the homeowner's motivation for going solar, and the financial results. Video testimonials from satisfied customers are particularly powerful and should be featured prominently.
 
@@ -146,7 +146,7 @@ The local solar company's advantage is trust. Homeowners prefer to work with a c
 
 National companies cannot replicate this. They can outspend you on brand advertising, but they cannot claim to be your neighbor. They cannot show your sales team coaching little league or your install crew at the local barbecue joint. Local identity is a marketing asset that compounds over time, and the solar companies that leverage it consistently build stronger brands and more sustainable businesses than those competing on price alone.
 
-## Streaming and TV Advertising for Solar Companies
+## [Streaming and TV Advertising](/services/tv-streaming-advertising/) for Solar Companies
 
 In competitive solar markets, streaming TV advertising builds the brand awareness that makes all other channels more effective. A 15 or 30-second spot showing a local family reducing their electric bill by 70 percent after installing solar creates emotional resonance that a Google search ad cannot match.
 
