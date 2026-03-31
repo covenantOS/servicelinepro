@@ -1,13 +1,12 @@
 # Cloudflare Pages Configuration
-# This file is used when deploying via `wrangler pages deploy`
-# For GitHub-connected deploys, configure these settings in the Cloudflare dashboard.
+# For GitHub-connected deploys, set these in the Cloudflare Pages dashboard:
+#   Build command: npm run build
+#   Build output directory: dist
+#   Do NOT set a deploy command - Pages handles this automatically.
 
-name = "website-factory"
+name = "servicelinepro"
 compatibility_date = "2025-01-01"
-pages_build_output_dir = "dist"
 
-[build]
-command = "npm run build"
-
-# Environment variables set per-project in Cloudflare dashboard:
-# NODE_VERSION = "22"
+# For Pages static assets
+[assets]
+directory = "./dist"
