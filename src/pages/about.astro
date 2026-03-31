@@ -1,0 +1,141 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import ReviewsSection from '../components/ReviewsSection.astro';
+import CTABand from '../components/CTABand.astro';
+import Footer from '../components/Footer.astro';
+import config from '../lib/config';
+
+const pageTitle = "About ServiceLine Pro";
+const pageDescription = "ServiceLine Pro is a Tampa-based marketing agency specializing in local SEO, Google Ads, and website design for home service businesses generating $1M+ in annual revenue.";
+
+const breadcrumbItems = [
+  { label: 'Home', href: '/' },
+  { label: 'About' },
+];
+---
+
+<Base title={pageTitle} description={pageDescription}>
+  <Header slot="header" />
+
+  <section class="page-hero">
+    <div class="container">
+      <Breadcrumbs items={breadcrumbItems} />
+      <h1>The ServiceLine Story</h1>
+      <p class="page-hero-desc">Most agencies are built to extract. We are built to partner. If our clients do not grow, we do not grow.</p>
+    </div>
+  </section>
+
+  <section class="about-story section">
+    <div class="container about-grid">
+      <div class="about-content">
+        <h2>Built Different from Day One</h2>
+        <p>{config.business.name} was founded in {config.business.founded_year} by {config.business.owner} with a single conviction: marketing agencies should earn their money by producing results, not billing hours.</p>
+        <p>William started in production and filming at 16. By the time he entered the marketing world, he had already spent years learning what actually captures attention and drives action. That production background shapes everything we build. Every landing page, every ad campaign, every SEO strategy is built to perform, not just to look good in a report.</p>
+        <p>After marrying Victoria in Florida, William launched ServiceLine Pro to serve the home service industry specifically. Not restaurants. Not e-commerce. Not SaaS. Home service companies generating $1M or more in annual revenue that need a marketing partner who understands their business model, their seasonal cycles, and their customers.</p>
+        <p>Today we serve clients across the United States with local SEO, Google Ads, website design, and streaming TV advertising. Our exclusive partnership with Spectrum Reach gives our clients access to first-party data from 30 million households across 36 states, something no other agency our size can offer.</p>
+
+        <h2>What We Believe</h2>
+        <p>Your marketing budget should fund your growth, not someone else's overhead. That is why we charge no agency fee on Google Ads for clients spending $5,000 or more. That is why our SEO guarantee means you do not pay if you do not rank. And that is why every client gets a dedicated account manager, not a ticket queue.</p>
+        <p>We are a small team by design. William Hamilton leads strategy and client relationships. Victoria Hamilton runs operations. Daniel Gomez directs fulfillment. Every campaign gets direct attention from people who know your business, your market, and your competition.</p>
+      </div>
+
+      <aside class="about-sidebar">
+        <div class="about-card">
+          <h3>Company Info</h3>
+          <dl class="about-details">
+            <dt>Founded</dt>
+            <dd>{config.business.founded_year}</dd>
+            <dt>Location</dt>
+            <dd>{config.business.address.city}, {config.business.address.state_full}</dd>
+            <dt>Specialization</dt>
+            <dd>Home Service Marketing</dd>
+            <dt>Clients Served</dt>
+            <dd>50+ nationwide</dd>
+            <dt>Google Rating</dt>
+            <dd>{config.trust_signals.rating}/5 ({config.trust_signals.review_count} reviews)</dd>
+          </dl>
+        </div>
+
+        <div class="about-card team-card">
+          <h3>Leadership</h3>
+          {config.business.team?.map(member => (
+            <div class="team-member">
+              <strong>{member.name}</strong>
+              <span>{member.role}</span>
+            </div>
+          ))}
+        </div>
+
+        <div class="about-card cta-card">
+          <h3>Work With Us</h3>
+          <p>15-minute strategy call. No pressure.</p>
+          <a href="/contact" class="btn btn-primary btn-block">Book Now</a>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="values section section-alt">
+    <div class="container">
+      <h2>Our Values</h2>
+      <div class="values-grid">
+        <div class="value-card">
+          <h3>Results Over Reports</h3>
+          <p>We measure success by your revenue growth, not by impressions or click-through rates. If your phone is not ringing, we are not done.</p>
+        </div>
+        <div class="value-card">
+          <h3>Radical Transparency</h3>
+          <p>You see every dollar spent, every keyword ranked, every lead generated. No black boxes. No jargon-filled reports designed to confuse.</p>
+        </div>
+        <div class="value-card">
+          <h3>Partnership Over Extraction</h3>
+          <p>We grow when you grow. Our pricing model is designed so our incentives align with yours. Your success is our business model.</p>
+        </div>
+        <div class="value-card">
+          <h3>Speed of Execution</h3>
+          <p>Google Ads campaigns launch in a week. SEO campaigns start generating movement in 10 days. We do not waste your time or your money.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <ReviewsSection compact={true} maxReviews={4} />
+  <CTABand heading="Ready to Partner with a Team That Delivers?" />
+  <Footer slot="footer" />
+</Base>
+
+<style>
+  .page-hero { background: var(--color-dark); padding: var(--space-3xl) 0 var(--space-2xl); color: var(--color-white); }
+  .page-hero h1 { color: var(--color-white); font-size: var(--text-4xl); margin-bottom: var(--space-sm); }
+  .page-hero-desc { color: rgba(255,255,255,0.75); font-size: var(--text-lg); max-width: 600px; font-style: italic; }
+
+  .about-grid { display: grid; grid-template-columns: 1fr; gap: var(--space-2xl); }
+  @media (min-width: 1024px) { .about-grid { grid-template-columns: 1fr 320px; } }
+
+  .about-content h2 { font-size: var(--text-2xl); margin-top: var(--space-2xl); margin-bottom: var(--space-md); }
+  .about-content h2:first-child { margin-top: 0; }
+  .about-content p { color: var(--color-text-light); line-height: var(--leading-relaxed); margin-bottom: var(--space-md); }
+
+  .about-sidebar { display: flex; flex-direction: column; gap: var(--space-lg); }
+  .about-card { background: var(--color-white); border: 1px solid var(--color-gray-200); border-radius: 10px; padding: var(--space-lg); }
+  .about-card h3 { font-size: var(--text-base); margin-bottom: var(--space-md); }
+  .about-details { display: grid; grid-template-columns: auto 1fr; gap: 0.5rem var(--space-md); }
+  .about-details dt { font-size: var(--text-sm); color: var(--color-text-light); font-weight: 600; }
+  .about-details dd { font-size: var(--text-sm); margin: 0; }
+  .team-member { display: flex; flex-direction: column; padding: 0.5rem 0; border-bottom: 1px solid var(--color-gray-100); }
+  .team-member:last-child { border-bottom: none; }
+  .team-member strong { font-size: var(--text-sm); }
+  .team-member span { font-size: var(--text-xs); color: var(--color-text-light); }
+  .cta-card { background: var(--color-dark); color: var(--color-white); border: none; }
+  .cta-card h3 { color: var(--color-white); }
+  .cta-card p { color: rgba(255,255,255,0.7); margin-bottom: var(--space-md); font-size: var(--text-sm); }
+  .btn-block { display: block; width: 100%; text-align: center; }
+
+  .section-alt { background: var(--color-gray-50, #fafafa); }
+  .values-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: var(--space-lg); margin-top: var(--space-xl); }
+  .value-card { padding: var(--space-xl); background: var(--color-white); border: 1px solid var(--color-gray-200); border-radius: 10px; }
+  .value-card h3 { font-size: var(--text-lg); margin-bottom: var(--space-sm); }
+  .value-card p { font-size: var(--text-sm); color: var(--color-text-light); line-height: var(--leading-relaxed); }
+</style>

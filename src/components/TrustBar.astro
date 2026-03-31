@@ -1,0 +1,95 @@
+---
+import config from '../lib/config';
+
+const icons = ['★', '📍', '🛡', '✓', '💰', '⏱'];
+const subs = [
+  `${config.trust_signals.review_count} ${config.trust_signals.review_platform} Reviews`,
+  `${config.business.address.city}, ${config.business.address.state}`,
+  config.business.name,
+  'Guaranteed',
+  'No Hidden Fees',
+  'Every Inquiry',
+];
+
+const badges = config.trust_signals.badges.map((badge: string, i: number) => ({
+  main: badge,
+  sub: subs[i] || '',
+  icon: icons[i] || '✓',
+}));
+---
+
+<section class="trust-bar" aria-label="Trust signals">
+  <div class="trust-bar-inner">
+    {badges.map(badge => (
+      <div class="trust-badge">
+        <span class="trust-icon">{badge.icon}</span>
+        <div class="trust-text">
+          <span class="trust-main">{badge.main}</span>
+          <span class="trust-sub">{badge.sub}</span>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  .trust-bar {
+    background: var(--color-gray-100);
+    border-bottom: 1px solid var(--color-gray-200);
+    padding: var(--space-lg) 0;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .trust-bar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .trust-bar-inner {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-xl);
+    min-width: max-content;
+    padding: 0 var(--space-lg);
+    max-width: var(--container-wide);
+    margin: 0 auto;
+  }
+
+  .trust-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    flex-shrink: 0;
+  }
+
+  .trust-icon {
+    font-size: var(--text-xl);
+    color: var(--color-primary);
+    line-height: 1;
+  }
+
+  .trust-text {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .trust-main {
+    font-family: var(--font-heading);
+    font-size: var(--text-sm);
+    font-weight: 700;
+    color: var(--color-dark);
+    white-space: nowrap;
+  }
+
+  .trust-sub {
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+    white-space: nowrap;
+  }
+
+  @media (max-width: 767px) {
+    .trust-bar-inner {
+      justify-content: flex-start;
+    }
+  }
+</style>

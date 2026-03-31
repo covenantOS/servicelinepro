@@ -1,0 +1,110 @@
+---
+interface Props {
+  heading?: string;
+  subtitle?: string;
+  steps?: { title: string; description: string }[];
+}
+
+const {
+  heading = 'Our Simple 3-Step Process',
+  subtitle = 'We make home improvement simple and stress-free.',
+  steps = [
+    { title: 'Free Consultation & Estimate', description: 'We visit your property, listen to your vision, take measurements, and provide a detailed written estimate with no obligation.' },
+    { title: 'Custom Plan & Design', description: 'We develop a detailed scope of work with material specs, timeline, and cost breakdown. You know exactly what to expect before we start.' },
+    { title: 'Expert Build & Final Walkthrough', description: 'Our skilled crews build to the highest standards. We walk the finished project with you to ensure complete satisfaction.' },
+  ],
+} = Astro.props;
+---
+
+<section class="process section section-alt" aria-label="Our process">
+  <div class="container">
+    <div class="process-header">
+      <h2 class="accent-line">{heading}</h2>
+      <p class="process-subtitle">{subtitle}</p>
+    </div>
+
+    <div class="process-steps">
+      {steps.map((step, i) => (
+        <div class="process-step">
+          <span class="step-number">Step {i + 1}</span>
+          <h3>{step.title}</h3>
+          <p>{step.description}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .process-header {
+    text-align: center;
+    margin-bottom: var(--space-3xl);
+  }
+
+  .process-subtitle {
+    color: var(--color-text-light);
+    font-size: var(--text-lg);
+    max-width: 520px;
+    margin: var(--space-md) auto 0;
+  }
+
+  .process-header .accent-line::after {
+    margin-inline: auto;
+  }
+
+  .process-steps {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-2xl);
+    position: relative;
+  }
+
+  @media (min-width: 768px) {
+    .process-steps {
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-xl);
+    }
+
+    .process-steps::before {
+      content: '';
+      position: absolute;
+      top: 28px;
+      left: 15%;
+      right: 15%;
+      height: 2px;
+      background: var(--color-gray-300);
+      z-index: 0;
+    }
+  }
+
+  .process-step {
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .step-number {
+    display: inline-block;
+    font-family: var(--font-heading);
+    font-size: var(--text-sm);
+    font-weight: 700;
+    color: var(--color-white);
+    background: var(--color-primary);
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-sm);
+    margin-bottom: var(--space-md);
+  }
+
+  .process-step h3 {
+    font-size: var(--text-xl);
+    margin-bottom: var(--space-sm);
+  }
+
+  .process-step p {
+    font-size: var(--text-sm);
+    color: var(--color-text-light);
+    line-height: var(--leading-relaxed);
+    max-width: 340px;
+    margin-inline: auto;
+  }
+</style>

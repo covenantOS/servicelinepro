@@ -1,0 +1,407 @@
+---
+import Base from '../../../layouts/Base.astro';
+import Header from '../../../components/Header.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import ReviewsSection from '../../../components/ReviewsSection.astro';
+import CTABand from '../../../components/CTABand.astro';
+import Footer from '../../../components/Footer.astro';
+import config from '../../../lib/config';
+import { renderMarkdown } from '../../../lib/markdown';
+import fs from 'node:fs';
+import path from 'node:path';
+import YAML from 'yaml';
+
+export function getStaticPaths() {
+  const paths: any[] = [];
+  for (const industry of config.industries) {
+    for (const service of config.services) {
+      paths.push({
+        params: { industry: industry.slug, service: service.slug },
+        props: { industry, service },
+      });
+    }
+  }
+  return paths;
+}
+
+const { industry, service } = Astro.props;
+
+let content = '';
+let frontmatter: any = {};
+
+const filePath = path.resolve(`./src/content/industry-services/${industry.slug}-${service.slug}.md`);
+if (fs.existsSync(filePath)) {
+  const raw = fs.readFileSync(filePath, 'utf8');
+  const fmMatch = raw.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
+  if (fmMatch) {
+    frontmatter = YAML.parse(fmMatch[1]);
+    content = fmMatch[2];
+  } else {
+    content = raw;
+  }
+}
+
+const pageTitle = frontmatter.title || `${service.name} for ${industry.full_name}`;
+const pageDescription = frontmatter.description || `${service.name} services designed specifically for ${industry.full_name.toLowerCase()}. ${config.business.name} delivers results-driven ${service.name.toLowerCase()} campaigns that generate real leads.`;
+
+const breadcrumbItems = [
+  { label: 'Home', href: '/' },
+  { label: 'Industries', href: '/industries/' },
+  { label: industry.full_name, href: `/industries/${industry.slug}/` },
+  { label: `${service.name}` },
+];
+
+const faqQuestions = frontmatter.faq || [];
+const pricingTiers = service.pricing?.tiers || [];
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: `${service.name} for ${industry.full_name}`,
+  description: pageDescription,
+  provider: {
+    '@type': 'ProfessionalService',
+    name: config.business.name,
+  },
+};
+---
+
+<Base title={pageTitle} description={pageDescription} schema={schema}>
+  <Header slot="header" />
+
+  <section class="combo-hero">
+    <div class="container combo-hero-inner">
+      <Breadcrumbs items={breadcrumbItems} />
+      <div class="combo-badges">
+        <span class="badge badge-industry">{industry.name}</span>
+        <span class="badge badge-service">{service.name}</span>
+      </div>
+      <h1>{pageTitle}</h1>
+      <p class="combo-hero-desc">{pageDescription}</p>
+      <div class="combo-hero-ctas">
+        <a href="/contact" class="btn btn-primary">Get Your Free Strategy Call</a>
+        <a href="/pricing/" class="btn btn-outline">View Pricing</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="combo-content section">
+    <div class="container content-layout">
+      <div class="main-content">
+        {content ? (
+          <div class="prose" set:html={renderMarkdown(content)} />
+        ) : (
+          <div class="prose">
+            <h2>{service.name} Built for the {industry.name} Industry</h2>
+            <p>{config.business.name} delivers {service.name.toLowerCase()} campaigns designed specifically for {industry.full_name.toLowerCase()}. We understand how {industry.name.toLowerCase()} customers search, what triggers them to call, and how to position your business as the obvious choice.</p>
+          </div>
+        )}
+
+        {pricingTiers.length > 0 && (
+          <div class="inline-pricing">
+            <h2>{service.name} Pricing for {industry.full_name}</h2>
+            <div class="pricing-grid">
+              {pricingTiers.map((tier: any) => (
+                <div class={`pricing-card ${tier.featured ? 'pricing-featured' : ''}`}>
+                  {tier.featured && <div class="pricing-badge">Most Popular</div>}
+                  <h3>{tier.name}</h3>
+                  <div class="pricing-price">
+                    {tier.price === 0 ? (
+                      <span class="price-amount">{tier.price_label || 'Custom'}</span>
+                    ) : (
+                      <>
+                        <span class="price-currency">$</span>
+                        <span class="price-amount">{tier.price.toLocaleString()}</span>
+                        <span class="price-period">{tier.price_label || '/mo'}</span>
+                      </>
+                    )}
+                  </div>
+                  <p class="pricing-desc">{tier.description}</p>
+                  <ul class="pricing-features">
+                    {tier.features.map((f: string) => (
+                      <li>{f}</li>
+                    ))}
+                  </ul>
+                  <a href="/contact" class={`btn ${tier.featured ? 'btn-primary' : 'btn-outline'} btn-block`}>Get Started</a>
+                </div>
+              ))}
+            </div>
+            {service.pricing?.setup_fee && (
+              <p class="setup-note">One-time setup fee: ${service.pricing.setup_fee.toLocaleString()}</p>
+            )}
+          </div>
+        )}
+
+        {faqQuestions.length > 0 && (
+          <div class="faq-section">
+            <h2>{service.name} FAQ for {industry.full_name}</h2>
+            {faqQuestions.map((q: any) => (
+              <details class="faq-item">
+                <summary>{q.question}</summary>
+                <div class="faq-answer" set:html={renderMarkdown(q.answer)} />
+              </details>
+            ))}
+          </div>
+        )}
+      </div>
+
+      <aside class="sidebar">
+        <div class="sidebar-card">
+          <h3>{service.name} by Industry</h3>
+          <ul class="sidebar-nav">
+            {config.industries.slice(0, 15).map(ind => (
+              <li class={ind.slug === industry.slug ? 'active' : ''}>
+                <a href={`/industries/${ind.slug}/${service.slug}/`}>{ind.full_name}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div class="sidebar-card">
+          <h3>All Services for {industry.name}</h3>
+          <ul class="sidebar-nav">
+            {config.services.map(svc => (
+              <li class={svc.slug === service.slug ? 'active' : ''}>
+                <a href={`/industries/${industry.slug}/${svc.slug}/`}>{svc.name}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div class="sidebar-card sidebar-cta">
+          <h3>Free Strategy Call</h3>
+          <p>Custom {service.name.toLowerCase()} plan for your {industry.name.toLowerCase()} business.</p>
+          <a href="/contact" class="btn btn-primary btn-block">Book Now</a>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <CTABand heading={`Get ${service.name} Results for Your ${industry.name} Business`} />
+  <ReviewsSection compact={true} maxReviews={3} />
+  <Footer slot="footer" />
+</Base>
+
+<style>
+  .combo-hero {
+    background: var(--color-dark);
+    padding: var(--space-3xl) 0 var(--space-2xl);
+    color: var(--color-white);
+  }
+
+  .combo-badges {
+    display: flex;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-md);
+  }
+
+  .badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: var(--radius-sm);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .badge-industry {
+    background: var(--color-primary);
+    color: var(--color-white);
+  }
+
+  .badge-service {
+    background: rgba(255, 255, 255, 0.15);
+    color: var(--color-white);
+  }
+
+  .combo-hero h1 {
+    color: var(--color-white);
+    font-size: var(--text-4xl);
+    margin-bottom: var(--space-sm);
+    max-width: 700px;
+  }
+
+  .combo-hero-desc {
+    color: rgba(255, 255, 255, 0.75);
+    font-size: var(--text-base);
+    max-width: 600px;
+    margin-bottom: var(--space-lg);
+    line-height: var(--leading-relaxed);
+  }
+
+  .combo-hero-ctas {
+    display: flex;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+  }
+
+  .combo-hero .btn-outline {
+    border-color: var(--color-white);
+    color: var(--color-white);
+  }
+
+  .content-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-2xl);
+  }
+
+  @media (min-width: 1024px) {
+    .content-layout {
+      grid-template-columns: 1fr 300px;
+    }
+  }
+
+  .inline-pricing {
+    margin-top: var(--space-2xl);
+  }
+
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: var(--space-lg);
+    margin-top: var(--space-lg);
+  }
+
+  .pricing-card {
+    background: var(--color-white);
+    border: 1px solid var(--color-gray-200);
+    border-radius: var(--radius-md);
+    padding: var(--space-xl);
+    position: relative;
+  }
+
+  .pricing-featured {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 1px var(--color-primary);
+  }
+
+  .pricing-badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--color-primary);
+    color: var(--color-white);
+    padding: 0.25rem 1rem;
+    border-radius: 999px;
+    font-size: var(--text-xs);
+    font-weight: 700;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .pricing-card h3 {
+    font-size: var(--text-lg);
+    margin-bottom: var(--space-sm);
+  }
+
+  .pricing-price {
+    margin-bottom: var(--space-sm);
+  }
+
+  .price-currency {
+    font-size: var(--text-xl);
+    font-weight: 700;
+    vertical-align: top;
+  }
+
+  .price-amount {
+    font-size: var(--text-3xl);
+    font-weight: 800;
+    line-height: 1;
+  }
+
+  .price-period {
+    font-size: var(--text-sm);
+    color: var(--color-text-light);
+  }
+
+  .pricing-desc {
+    font-size: var(--text-sm);
+    color: var(--color-text-light);
+    margin-bottom: var(--space-md);
+  }
+
+  .pricing-features {
+    list-style: none;
+    padding: 0;
+    margin-bottom: var(--space-lg);
+  }
+
+  .pricing-features li {
+    padding: 0.375rem 0;
+    font-size: var(--text-sm);
+    border-bottom: 1px solid var(--color-gray-100);
+  }
+
+  .pricing-features li::before {
+    content: '✓ ';
+    color: var(--color-primary);
+    font-weight: 700;
+  }
+
+  .setup-note {
+    text-align: center;
+    color: var(--color-text-light);
+    font-size: var(--text-sm);
+    margin-top: var(--space-md);
+  }
+
+  .sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+
+  .sidebar-card {
+    background: var(--color-white);
+    border: 1px solid var(--color-gray-200);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+  }
+
+  .sidebar-card h3 {
+    font-size: var(--text-base);
+    margin-bottom: var(--space-md);
+  }
+
+  .sidebar-nav {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 350px;
+    overflow-y: auto;
+  }
+
+  .sidebar-nav li a {
+    display: block;
+    padding: 0.375rem 0.5rem;
+    font-size: var(--text-sm);
+    color: var(--color-text-light);
+    border-radius: var(--radius-sm);
+    transition: background var(--transition-fast);
+  }
+
+  .sidebar-nav li a:hover,
+  .sidebar-nav li.active a {
+    background: var(--color-gray-100);
+    color: var(--color-primary);
+    font-weight: 600;
+  }
+
+  .sidebar-cta {
+    background: var(--color-dark);
+    color: var(--color-white);
+    border: none;
+  }
+
+  .sidebar-cta h3 { color: var(--color-white); }
+  .sidebar-cta p { color: rgba(255, 255, 255, 0.7); margin-bottom: var(--space-md); }
+
+  .btn-block { display: block; text-align: center; width: 100%; }
+
+  .faq-section { margin-top: var(--space-2xl); }
+  .faq-item { border-bottom: 1px solid var(--color-gray-200); padding: var(--space-md) 0; }
+  .faq-item summary { font-weight: 600; cursor: pointer; }
+  .faq-answer { padding-top: var(--space-sm); color: var(--color-text-light); }
+</style>

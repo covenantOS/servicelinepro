@@ -1,0 +1,124 @@
+---
+import Base from '../../layouts/Base.astro';
+import Header from '../../components/Header.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import CTABand from '../../components/CTABand.astro';
+import Footer from '../../components/Footer.astro';
+import config from '../../lib/config';
+
+const pageTitle = "Our Services";
+const pageDescription = `${config.business.name} offers local SEO, Google Ads management, website design, and TV & streaming advertising for home service businesses. Performance-driven marketing with transparent pricing.`;
+
+const breadcrumbItems = [
+  { label: 'Home', href: '/' },
+  { label: 'Services' },
+];
+---
+
+<Base title={pageTitle} description={pageDescription}>
+  <Header slot="header" />
+
+  <section class="page-hero">
+    <div class="container">
+      <Breadcrumbs items={breadcrumbItems} />
+      <h1>{pageTitle}</h1>
+      <p class="page-hero-desc">Four ways to grow your home service business. Each one built for performance, priced for transparency, and proven with real results.</p>
+    </div>
+  </section>
+
+  <section class="services-section section">
+    <div class="container">
+      <div class="services-list">
+        {config.services.map((service, index) => (
+          <div class={`service-row ${index % 2 === 1 ? 'service-row-alt' : ''}`}>
+            <div class="service-info">
+              <h2>{service.name}</h2>
+              <p class="service-desc">{service.short_description}</p>
+              {service.sub_services && service.sub_services.length > 0 && (
+                <div class="service-subs">
+                  {service.sub_services.map(sub => (
+                    <a href={`/services/${service.slug}/${sub.slug}/`} class="sub-link">{sub.name} &rarr;</a>
+                  ))}
+                </div>
+              )}
+              <a href={`/services/${service.slug}/`} class="btn btn-primary">Learn More</a>
+            </div>
+            <div class="service-highlights">
+              {service.pricing?.tiers ? (
+                <div class="price-preview">
+                  {service.pricing.tiers.map(tier => (
+                    <div class="price-preview-item">
+                      <span class="price-preview-name">{tier.name}</span>
+                      <span class="price-preview-amount">
+                        {tier.price === 0 ? (tier.price_label || 'Custom') : `$${tier.price.toLocaleString()}`}
+                        {tier.price > 0 && !tier.price_label && '/mo'}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              ) : service.pricing?.quote_based ? (
+                <div class="price-preview">
+                  <div class="price-preview-item">
+                    <span class="price-preview-name">Custom Strategy</span>
+                    <span class="price-preview-amount">Quote-Based</span>
+                  </div>
+                </div>
+              ) : null}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CTABand heading="Not Sure Which Service You Need?" />
+  <Footer slot="footer" />
+</Base>
+
+<style>
+  .page-hero {
+    background: var(--color-dark);
+    padding: var(--space-3xl) 0 var(--space-2xl);
+    color: var(--color-white);
+  }
+
+  .page-hero h1 { color: var(--color-white); font-size: var(--text-4xl); margin-bottom: var(--space-sm); }
+  .page-hero-desc { color: rgba(255, 255, 255, 0.75); font-size: var(--text-lg); max-width: 600px; }
+
+  .services-list { display: flex; flex-direction: column; gap: var(--space-2xl); }
+
+  .service-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-xl);
+    padding: var(--space-xl) 0;
+    border-bottom: 1px solid var(--color-gray-200);
+  }
+
+  @media (min-width: 768px) {
+    .service-row { grid-template-columns: 1.5fr 1fr; align-items: start; }
+  }
+
+  .service-info h2 { font-size: var(--text-2xl); margin-bottom: var(--space-sm); }
+  .service-desc { color: var(--color-text-light); margin-bottom: var(--space-md); line-height: var(--leading-relaxed); }
+
+  .service-subs { display: flex; flex-wrap: wrap; gap: var(--space-sm); margin-bottom: var(--space-lg); }
+  .sub-link { font-size: var(--text-sm); color: var(--color-primary); font-weight: 600; }
+
+  .price-preview {
+    background: var(--color-gray-50, #fafafa);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+  }
+
+  .price-preview-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--color-gray-200);
+  }
+
+  .price-preview-item:last-child { border-bottom: none; }
+  .price-preview-name { font-size: var(--text-sm); color: var(--color-text-light); }
+  .price-preview-amount { font-weight: 700; font-size: var(--text-sm); }
+</style>

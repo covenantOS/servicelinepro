@@ -1,0 +1,3 @@
+# Cloudflare Pages redirects
+# Add client-specific redirects here (e.g., old site URLs)
+# Format: /old-path /new-path 301

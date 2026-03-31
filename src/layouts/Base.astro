@@ -1,0 +1,130 @@
+---
+import config from '../lib/config';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  ogImage?: string;
+  canonical?: string;
+  noindex?: boolean;
+  schema?: object;
+}
+
+const {
+  title,
+  description = config.business.description,
+  ogImage = `/${config.brand.logo}`,
+  canonical,
+  noindex = false,
+  schema,
+} = Astro.props;
+
+const fullTitle = title.includes(config.business.name)
+  ? title
+  : `${title}${config.seo.title_suffix}`;
+
+const siteUrl = `https://${config.seo.domain}`;
+const canonicalUrl = canonical || new URL(Astro.url.pathname, siteUrl).href;
+
+// LocalBusiness schema present on every page
+const localBusinessSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  name: config.business.name,
+  description: config.business.description,
+  url: siteUrl,
+  telephone: config.business.phone_raw,
+  email: config.business.email,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: config.business.address.street,
+    addressLocality: config.business.address.city,
+    addressRegion: config.business.address.state,
+    postalCode: config.business.address.zip,
+    addressCountry: 'US',
+  },
+  ...(config.business.geo ? {
+    geo: {
+      '@type': 'GeoCoordinates',
+      latitude: config.business.geo.latitude,
+      longitude: config.business.geo.longitude,
+    },
+  } : {}),
+  openingHours: config.business.hours_schema || 'Mo-Fr 08:00-17:00',
+  aggregateRating: {
+    '@type': 'AggregateRating',
+    ratingValue: config.trust_signals.rating,
+    reviewCount: config.trust_signals.review_count,
+    bestRating: '5',
+    worstRating: '1',
+  },
+  foundingDate: String(config.business.founded_year),
+  founder: {
+    '@type': 'Person',
+    name: config.business.owner,
+  },
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    <link rel="canonical" href={canonicalUrl} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={new URL(ogImage, siteUrl).href} />
+    <meta property="og:site_name" content={config.business.name} />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={new URL(ogImage, siteUrl).href} />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Font preloads -->
+    <link rel="preload" href="/fonts/Montserrat-Bold.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/Inter-Regular.woff2" as="font" type="font/woff2" crossorigin />
+
+    <!-- CSS Custom Properties from config -->
+    <style define:vars={{
+      'color-primary': config.brand.colors.primary,
+      'color-secondary': config.brand.colors.secondary,
+      'color-dark': config.brand.colors.dark,
+      'color-light': config.brand.colors.light,
+      'color-white': config.brand.colors.white,
+    }}></style>
+
+    <!-- Schema Markup -->
+    <script type="application/ld+json" set:html={JSON.stringify(localBusinessSchema)} />
+    {schema && (
+      <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+    )}
+
+    <!-- View Transitions -->
+    <meta name="view-transition" content="same-origin" />
+  </head>
+  <body>
+    <a href="#main-content" class="sr-only">Skip to main content</a>
+    <slot name="header" />
+    <main id="main-content">
+      <slot />
+    </main>
+    <slot name="footer" />
+  </body>
+</html>

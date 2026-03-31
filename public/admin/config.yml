@@ -1,0 +1,105 @@
+backend:
+  name: github
+  repo: your-org/your-repo
+  branch: main
+  base_url: https://sveltia-cms-auth.your-domain.workers.dev
+
+media_folder: public/media
+public_folder: /media
+
+collections:
+  - name: services
+    label: Services
+    folder: src/content/services
+    create: true
+    extension: md
+    fields:
+      - { name: title, label: Title, widget: string }
+      - { name: description, label: Meta Description, widget: string }
+      - { name: image, label: Hero Image, widget: image }
+      - name: pricing
+        label: Pricing Tiers
+        widget: list
+        fields:
+          - { name: name, label: Tier Name, widget: string }
+          - { name: price, label: Price Range, widget: string }
+          - { name: notes, label: Notes, widget: string, required: false }
+      - name: faq
+        label: FAQ
+        widget: list
+        fields:
+          - { name: question, label: Question, widget: string }
+          - { name: answer, label: Answer, widget: text }
+      - name: process_steps
+        label: Process Steps
+        widget: list
+        fields:
+          - { name: title, label: Step Title, widget: string }
+          - { name: description, label: Description, widget: text }
+      - { name: body, label: Content, widget: markdown }
+
+  - name: areas
+    label: Service Areas
+    folder: src/content/areas
+    create: true
+    extension: md
+    fields:
+      - { name: title, label: Title, widget: string }
+      - { name: description, label: Meta Description, widget: string }
+      - { name: body, label: Content, widget: markdown }
+
+  - name: service-areas
+    label: Service-Area Combos
+    folder: src/content/service-areas
+    create: true
+    extension: md
+    fields:
+      - { name: title, label: Title, widget: string }
+      - { name: description, label: Meta Description, widget: string }
+      - { name: service, label: Service Slug, widget: string }
+      - { name: area, label: Area Slug, widget: string }
+      - { name: body, label: Content, widget: markdown }
+
+  - name: blog
+    label: Blog Posts
+    folder: src/content/blog
+    create: true
+    extension: md
+    fields:
+      - { name: title, label: Title, widget: string }
+      - { name: date, label: Publish Date, widget: datetime }
+      - { name: description, label: Meta Description, widget: string }
+      - { name: image, label: Featured Image, widget: image, required: false }
+      - { name: body, label: Content, widget: markdown }
+
+  - name: reviews
+    label: Reviews
+    file: src/content/reviews.yml
+    fields:
+      - name: reviews
+        label: Reviews
+        widget: list
+        fields:
+          - { name: author, label: Author Name, widget: string }
+          - { name: text, label: Review Text, widget: text }
+          - { name: rating, label: Rating (1-5), widget: number, min: 1, max: 5 }
+          - { name: date, label: Date Text, widget: string }
+
+  - name: settings
+    label: Site Settings
+    files:
+      - name: business
+        label: Business Info
+        file: site.config.yaml
+        fields:
+          - name: business
+            label: Business
+            widget: object
+            fields:
+              - { name: name, label: Business Name, widget: string }
+              - { name: owner, label: Owner Name, widget: string }
+              - { name: phone, label: Phone, widget: string }
+              - { name: email, label: Email, widget: string }
+              - { name: hours, label: Hours, widget: string }
+              - { name: tagline, label: Tagline, widget: string }
+              - { name: description, label: Description, widget: text }

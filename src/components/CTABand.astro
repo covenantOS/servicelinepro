@@ -1,0 +1,113 @@
+---
+import config from '../lib/config';
+import ContactForm from './ContactForm.astro';
+
+interface Props {
+  heading?: string;
+  text?: string;
+  showForm?: boolean;
+  variant?: 'dark' | 'primary';
+  serviceSlug?: string;
+}
+
+const {
+  heading = 'Ready to Start Your Project?',
+  text = `Call ${config.business.owner} directly at ${config.business.phone} or fill out our free estimate form. We respond within 24 hours.`,
+  showForm = false,
+  variant = 'dark',
+  serviceSlug = '',
+} = Astro.props;
+---
+
+<section class:list={['cta-band', `cta-band--${variant}`]} aria-label="Call to action">
+  <div class="container cta-inner">
+    <div class="cta-content">
+      <h2>{heading}</h2>
+      <p>{text}</p>
+      <div class="cta-buttons">
+        <a href="/contact" class:list={['btn', 'btn-lg', variant === 'dark' ? 'btn-primary' : 'btn-white']}>Get Your Free Estimate</a>
+        <a href={`tel:${config.business.phone_raw}`} class:list={['btn', 'btn-lg', variant === 'dark' ? 'btn-outline cta-outline' : 'btn-outline cta-outline-primary']}>Call {config.business.phone}</a>
+      </div>
+    </div>
+    {showForm && (
+      <div class="cta-form">
+        <ContactForm variant="hero" servicePreselect={serviceSlug} />
+      </div>
+    )}
+  </div>
+</section>
+
+<style>
+  .cta-band {
+    padding: var(--space-3xl) 0;
+  }
+
+  .cta-band--dark {
+    background: var(--color-dark);
+    color: var(--color-white);
+  }
+
+  .cta-band--primary {
+    background: var(--color-primary);
+    color: var(--color-white);
+  }
+
+  .cta-inner {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-2xl);
+    align-items: center;
+  }
+
+  @media (min-width: 1024px) {
+    .cta-inner:has(.cta-form) {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .cta-band h2 {
+    color: var(--color-white);
+    font-size: var(--text-3xl);
+    margin-bottom: var(--space-md);
+  }
+
+  .cta-content p {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: var(--text-lg);
+    max-width: 540px;
+  }
+
+  .cta-buttons {
+    display: flex;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+    margin-top: var(--space-xl);
+  }
+
+  .cta-outline {
+    border-color: var(--color-white);
+    color: var(--color-white);
+  }
+
+  .cta-outline:hover {
+    background: var(--color-white);
+    color: var(--color-dark);
+  }
+
+  .cta-outline-primary {
+    border-color: var(--color-white);
+    color: var(--color-white);
+  }
+
+  .cta-outline-primary:hover {
+    background: var(--color-white);
+    color: var(--color-primary);
+  }
+
+  .cta-form {
+    background: var(--color-white);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+    box-shadow: var(--shadow-lg);
+  }
+</style>

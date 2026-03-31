@@ -1,0 +1,13 @@
+# Cloudflare Pages Configuration
+# This file is used when deploying via `wrangler pages deploy`
+# For GitHub-connected deploys, configure these settings in the Cloudflare dashboard.
+
+name = "website-factory"
+compatibility_date = "2025-01-01"
+pages_build_output_dir = "dist"
+
+[build]
+command = "npm run build"
+
+# Environment variables set per-project in Cloudflare dashboard:
+# NODE_VERSION = "22"

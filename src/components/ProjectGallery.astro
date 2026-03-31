@@ -1,0 +1,109 @@
+---
+import config from '../lib/config';
+
+interface Props {
+  images?: { src: string; alt: string }[];
+  maxImages?: number;
+  heading?: string;
+}
+
+const {
+  images = [
+    { src: '/media/project-1.webp', alt: `Custom composite deck build in ${config.business.address.city}, ${config.business.address.state}` },
+    { src: '/media/project-2.webp', alt: `Wood privacy fence installation in ${config.business.address.city}` },
+    { src: '/media/project-3.webp', alt: `Master bathroom remodel by ${config.business.name}` },
+    { src: '/media/project-4.webp', alt: `Hardwood floor installation in ${config.business.address.city} home` },
+    { src: '/media/project-5.webp', alt: `Kitchen remodel by ${config.business.name}` },
+    { src: '/media/project-6.webp', alt: `Elevated deck with panoramic view in ${config.business.address.city}` },
+    { src: '/media/project-7.webp', alt: `Cedar fence project in ${config.areas.find(a => a.slug.includes('county'))?.name || 'the area'}` },
+    { src: '/media/project-8.webp', alt: `Exterior home improvement by ${config.business.name}` },
+  ],
+  maxImages = 8,
+  heading = 'Recent Projects',
+} = Astro.props;
+
+const displayImages = images.slice(0, maxImages);
+---
+
+<section class="gallery-section section" aria-label="Project gallery">
+  <div class="container">
+    <p class="section-label">Our Work</p>
+    <h2>{heading}</h2>
+    <p class="gallery-subtitle">Real photos from real {config.business.name} projects across {config.business.address.city} and {config.areas.find(a => a.slug.includes('county'))?.name || 'surrounding areas'}.</p>
+
+    <div class="gallery-grid">
+      {displayImages.map((img, i) => (
+        <a href="/projects" class:list={['gallery-item', i === 0 ? 'gallery-item--wide' : '', i === 3 ? 'gallery-item--tall' : '']}>
+          <img src={img.src} alt={img.alt} loading="lazy" width="400" height="300" />
+        </a>
+      ))}
+    </div>
+
+    <div class="gallery-actions">
+      <a href="/projects" class="btn btn-outline">View All Project Photos</a>
+      <a href="/contact" class="btn btn-primary">Get a Free Estimate</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .gallery-section h2 {
+    margin-bottom: var(--space-sm);
+  }
+
+  .gallery-subtitle {
+    color: var(--color-text-light);
+    margin-bottom: var(--space-2xl);
+  }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-sm);
+  }
+
+  @media (min-width: 768px) {
+    .gallery-grid {
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-md);
+    }
+
+    .gallery-item--wide {
+      grid-column: span 2;
+    }
+
+    .gallery-item--tall {
+      grid-row: span 2;
+    }
+  }
+
+  .gallery-item {
+    overflow: hidden;
+    border-radius: var(--radius-sm);
+    aspect-ratio: 4/3;
+    display: block;
+  }
+
+  .gallery-item--tall {
+    aspect-ratio: auto;
+  }
+
+  .gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-slow);
+  }
+
+  .gallery-item:hover img {
+    transform: scale(1.05);
+  }
+
+  .gallery-actions {
+    display: flex;
+    gap: var(--space-md);
+    justify-content: center;
+    margin-top: var(--space-2xl);
+    flex-wrap: wrap;
+  }
+</style>

@@ -1,0 +1,145 @@
+---
+interface Props {
+  heading?: string;
+  questions: { question: string; answer: string }[];
+}
+
+const {
+  heading = 'Frequently Asked Questions',
+  questions,
+} = Astro.props;
+
+// FAQPage schema
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: questions.map(q => ({
+    '@type': 'Question',
+    name: q.question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: q.answer,
+    },
+  })),
+};
+---
+
+<div class="faq-section" aria-label="FAQ">
+  <h2 class="accent-line">{heading}</h2>
+
+  <div class="faq-list">
+    {questions.map((q, i) => (
+      <details class="faq-item" name="faq">
+        <summary class="faq-question">
+          <h3>{q.question}</h3>
+          <span class="faq-toggle" aria-hidden="true"></span>
+        </summary>
+        <div class="faq-answer">
+          <p>{q.answer}</p>
+        </div>
+      </details>
+    ))}
+  </div>
+
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+</div>
+
+<style>
+  .faq-section {
+    margin: var(--space-2xl) 0;
+  }
+
+  .faq-section h2 {
+    margin-bottom: var(--space-xl);
+  }
+
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .faq-item {
+    border-bottom: 1px solid var(--color-gray-200);
+  }
+
+  .faq-item:first-child {
+    border-top: 1px solid var(--color-gray-200);
+  }
+
+  .faq-question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-lg) 0;
+    cursor: pointer;
+    list-style: none;
+    gap: var(--space-md);
+  }
+
+  .faq-question::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-question h3 {
+    font-size: var(--text-lg);
+    font-weight: 600;
+    margin: 0;
+    flex: 1;
+  }
+
+  .faq-toggle {
+    width: 28px;
+    height: 28px;
+    border: 2px solid var(--color-gray-300);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    position: relative;
+    transition: border-color var(--transition-fast);
+  }
+
+  .faq-toggle::before,
+  .faq-toggle::after {
+    content: '';
+    position: absolute;
+    background: var(--color-gray-500);
+    transition: transform var(--transition-base);
+  }
+
+  .faq-toggle::before {
+    width: 12px;
+    height: 2px;
+  }
+
+  .faq-toggle::after {
+    width: 2px;
+    height: 12px;
+  }
+
+  .faq-item[open] .faq-toggle {
+    border-color: var(--color-primary);
+  }
+
+  .faq-item[open] .faq-toggle::before {
+    background: var(--color-primary);
+  }
+
+  .faq-item[open] .faq-toggle::after {
+    background: var(--color-primary);
+    transform: rotate(90deg);
+    opacity: 0;
+  }
+
+  .faq-answer {
+    padding: 0 0 var(--space-lg);
+  }
+
+  .faq-answer p {
+    color: var(--color-text-light);
+    line-height: var(--leading-relaxed);
+    max-width: 680px;
+  }
+</style>

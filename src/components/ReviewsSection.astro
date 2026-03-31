@@ -1,0 +1,198 @@
+---
+import config from '../lib/config';
+
+interface Props {
+  reviews?: typeof config.reviews;
+  maxReviews?: number;
+  compact?: boolean;
+}
+
+const {
+  reviews = config.reviews,
+  maxReviews = 6,
+  compact = false,
+} = Astro.props;
+
+const displayReviews = reviews.slice(0, maxReviews);
+const stars = '★★★★★';
+---
+
+<section class:list={['reviews-section', compact ? 'section-tight' : 'section']} aria-label="Customer reviews">
+  <div class="container">
+    {!compact && (
+      <div class="reviews-header">
+        <p class="section-label">{config.trust_signals.review_platform} Reviews</p>
+        <div class="reviews-aggregate">
+          <span class="reviews-rating">{config.trust_signals.rating}</span>
+          <div class="reviews-meta">
+            <span class="stars">{stars}</span>
+            <span class="reviews-count">{config.trust_signals.review_count} five-star reviews</span>
+          </div>
+        </div>
+        <a href={config.business.google_maps_url} target="_blank" rel="noopener" class="reviews-all-link">See all reviews on Google &rarr;</a>
+      </div>
+    )}
+
+    {compact && (
+      <div class="reviews-compact-header">
+        <h3>{config.trust_signals.rating} Stars on {config.trust_signals.review_platform} &bull; {config.trust_signals.review_count} Reviews</h3>
+      </div>
+    )}
+
+    <div class="reviews-grid">
+      {displayReviews.map(review => (
+        <div class="review-card">
+          <div class="review-top">
+            <div class="review-avatar">{review.author.charAt(0)}</div>
+            <div class="review-author-info">
+              <span class="review-author">{review.author}</span>
+              <span class="review-date">{review.date}</span>
+            </div>
+          </div>
+          <div class="review-stars stars">{stars}</div>
+          <p class="review-text">&ldquo;{review.text}&rdquo;</p>
+          <span class="review-source">{config.trust_signals.review_platform} Review</span>
+        </div>
+      ))}
+    </div>
+
+    {!compact && (
+      <div class="reviews-footer">
+        <a href={config.business.google_maps_url} target="_blank" rel="noopener" class="btn btn-outline">View All Reviews</a>
+      </div>
+    )}
+  </div>
+</section>
+
+<style>
+  .reviews-header {
+    margin-bottom: var(--space-2xl);
+  }
+
+  .reviews-aggregate {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    margin-bottom: var(--space-sm);
+  }
+
+  .reviews-rating {
+    font-family: var(--font-heading);
+    font-size: var(--text-4xl);
+    font-weight: 700;
+    color: var(--color-dark);
+    line-height: 1;
+  }
+
+  .reviews-meta {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .reviews-meta .stars {
+    font-size: var(--text-xl);
+  }
+
+  .reviews-count {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+
+  .reviews-all-link {
+    font-size: var(--text-sm);
+    font-weight: 600;
+  }
+
+  .reviews-compact-header h3 {
+    text-align: center;
+    margin-bottom: var(--space-xl);
+    font-size: var(--text-lg);
+  }
+
+  .reviews-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
+
+  @media (min-width: 640px) {
+    .reviews-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .reviews-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .review-card {
+    background: var(--color-white);
+    border: 1px solid var(--color-gray-200);
+    border-radius: var(--radius-md);
+    padding: var(--space-xl);
+  }
+
+  .review-top {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-sm);
+  }
+
+  .review-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--color-primary);
+    color: var(--color-white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: var(--text-lg);
+    flex-shrink: 0;
+  }
+
+  .review-author-info {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .review-author {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: var(--text-sm);
+    color: var(--color-dark);
+  }
+
+  .review-date {
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+  }
+
+  .review-stars {
+    font-size: var(--text-sm);
+    margin-bottom: var(--space-sm);
+  }
+
+  .review-text {
+    font-size: var(--text-sm);
+    color: var(--color-text-light);
+    line-height: var(--leading-relaxed);
+    margin-bottom: var(--space-sm);
+  }
+
+  .review-source {
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+    font-weight: 500;
+  }
+
+  .reviews-footer {
+    text-align: center;
+    margin-top: var(--space-2xl);
+  }
+</style>

@@ -1,0 +1,326 @@
+---
+import Base from '../../layouts/Base.astro';
+import Header from '../../components/Header.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import ReviewsSection from '../../components/ReviewsSection.astro';
+import CTABand from '../../components/CTABand.astro';
+import Footer from '../../components/Footer.astro';
+import config from '../../lib/config';
+import { renderMarkdown } from '../../lib/markdown';
+import fs from 'node:fs';
+import path from 'node:path';
+import YAML from 'yaml';
+
+export function getStaticPaths() {
+  return config.industries.map(industry => ({
+    params: { slug: industry.slug },
+    props: { industry },
+  }));
+}
+
+const { industry } = Astro.props;
+
+let content = '';
+let frontmatter: any = {};
+
+const filePath = path.resolve(`./src/content/industries/${industry.slug}.md`);
+if (fs.existsSync(filePath)) {
+  const raw = fs.readFileSync(filePath, 'utf8');
+  const fmMatch = raw.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
+  if (fmMatch) {
+    frontmatter = YAML.parse(fmMatch[1]);
+    content = fmMatch[2];
+  } else {
+    content = raw;
+  }
+}
+
+const pageTitle = frontmatter.title || `Marketing for ${industry.full_name}`;
+const pageDescription = frontmatter.description || `${config.business.name} provides local SEO, Google Ads, and website design for ${industry.full_name.toLowerCase()}. Scale your ${industry.name.toLowerCase()} business with performance-driven marketing.`;
+
+const breadcrumbItems = [
+  { label: 'Home', href: '/' },
+  { label: 'Industries', href: '/industries/' },
+  { label: industry.full_name },
+];
+
+const faqQuestions = frontmatter.faq || [];
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  name: config.business.name,
+  description: pageDescription,
+  url: `https://${config.seo.domain}/industries/${industry.slug}/`,
+};
+---
+
+<Base title={pageTitle} description={pageDescription} schema={schema}>
+  <Header slot="header" />
+
+  <section class="industry-hero">
+    <div class="container industry-hero-inner">
+      <Breadcrumbs items={breadcrumbItems} />
+      <div class="industry-hero-badge">{industry.name} Marketing</div>
+      <h1>{pageTitle}</h1>
+      <p class="industry-hero-desc">{industry.description}</p>
+      <div class="industry-hero-ctas">
+        <a href="/contact" class="btn btn-primary">Get Your Free Strategy Call</a>
+        <a href={`tel:${config.business.phone_raw}`} class="btn btn-outline">{config.business.phone}</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="industry-content section">
+    <div class="container content-layout">
+      <div class="main-content">
+        {content ? (
+          <div class="prose" set:html={renderMarkdown(content)} />
+        ) : (
+          <div class="prose">
+            <h2>Digital Marketing Built for {industry.full_name}</h2>
+            <p>{config.business.name} specializes in performance-driven marketing for {industry.full_name.toLowerCase()}. We understand the unique challenges of your industry and build campaigns that generate real leads, not vanity metrics.</p>
+          </div>
+        )}
+
+        <div class="industry-services">
+          <h2>Our Services for {industry.full_name}</h2>
+          <div class="industry-services-grid">
+            {config.services.map(service => (
+              <a href={`/industries/${industry.slug}/${service.slug}/`} class="industry-service-card card">
+                <div class="industry-service-body">
+                  <h3>{service.name} for {industry.full_name}</h3>
+                  <p>{service.short_description}</p>
+                  <span class="card-link">Learn More &rarr;</span>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+
+        {faqQuestions.length > 0 && (
+          <div class="faq-section">
+            <h2>{industry.name} Marketing FAQ</h2>
+            {faqQuestions.map((q: any) => (
+              <details class="faq-item">
+                <summary>{q.question}</summary>
+                <div class="faq-answer" set:html={renderMarkdown(q.answer)} />
+              </details>
+            ))}
+          </div>
+        )}
+      </div>
+
+      <aside class="sidebar">
+        <div class="sidebar-card">
+          <h3>Industries We Serve</h3>
+          <ul class="sidebar-nav">
+            {config.industries.map(ind => (
+              <li class={ind.slug === industry.slug ? 'active' : ''}>
+                <a href={`/industries/${ind.slug}/`}>{ind.full_name}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div class="sidebar-card sidebar-cta">
+          <h3>Free Strategy Call</h3>
+          <p>See how we can grow your {industry.name.toLowerCase()} business.</p>
+          <a href="/contact" class="btn btn-primary btn-block">Book Now</a>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <CTABand heading={`Ready to Dominate ${industry.name} Marketing?`} />
+  <ReviewsSection compact={true} maxReviews={3} />
+  <Footer slot="footer" />
+</Base>
+
+<style>
+  .industry-hero {
+    background: var(--color-dark);
+    padding: var(--space-3xl) 0 var(--space-2xl);
+    color: var(--color-white);
+  }
+
+  .industry-hero-badge {
+    display: inline-block;
+    background: var(--color-primary);
+    color: var(--color-white);
+    padding: 0.25rem 0.75rem;
+    border-radius: var(--radius-sm);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: var(--space-md);
+  }
+
+  .industry-hero h1 {
+    color: var(--color-white);
+    font-size: var(--text-4xl);
+    margin-bottom: var(--space-sm);
+    max-width: 700px;
+  }
+
+  .industry-hero-desc {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: var(--text-lg);
+    max-width: 600px;
+    margin-bottom: var(--space-lg);
+  }
+
+  .industry-hero-ctas {
+    display: flex;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+  }
+
+  .industry-hero .btn-outline {
+    border-color: var(--color-white);
+    color: var(--color-white);
+  }
+
+  .industry-hero .btn-outline:hover {
+    background: var(--color-white);
+    color: var(--color-dark);
+  }
+
+  .content-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-2xl);
+  }
+
+  @media (min-width: 1024px) {
+    .content-layout {
+      grid-template-columns: 1fr 300px;
+    }
+  }
+
+  .industry-services {
+    margin-top: var(--space-2xl);
+  }
+
+  .industry-services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--space-lg);
+    margin-top: var(--space-lg);
+  }
+
+  .industry-service-card {
+    text-decoration: none;
+    color: inherit;
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  }
+
+  .industry-service-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .industry-service-body {
+    padding: var(--space-lg);
+  }
+
+  .industry-service-body h3 {
+    font-size: var(--text-lg);
+    margin-bottom: var(--space-sm);
+  }
+
+  .industry-service-body p {
+    font-size: var(--text-sm);
+    color: var(--color-text-light);
+    margin-bottom: var(--space-sm);
+  }
+
+  .card-link {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--color-primary);
+  }
+
+  .sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+
+  .sidebar-card {
+    background: var(--color-white);
+    border: 1px solid var(--color-gray-200);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+  }
+
+  .sidebar-card h3 {
+    font-size: var(--text-lg);
+    margin-bottom: var(--space-md);
+  }
+
+  .sidebar-nav {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 400px;
+    overflow-y: auto;
+  }
+
+  .sidebar-nav li a {
+    display: block;
+    padding: 0.5rem 0.75rem;
+    font-size: var(--text-sm);
+    color: var(--color-text-light);
+    border-radius: var(--radius-sm);
+    transition: background var(--transition-fast);
+  }
+
+  .sidebar-nav li a:hover,
+  .sidebar-nav li.active a {
+    background: var(--color-gray-100);
+    color: var(--color-primary);
+    font-weight: 600;
+  }
+
+  .sidebar-cta {
+    background: var(--color-dark);
+    color: var(--color-white);
+    border: none;
+  }
+
+  .sidebar-cta h3 {
+    color: var(--color-white);
+  }
+
+  .sidebar-cta p {
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: var(--space-md);
+  }
+
+  .btn-block {
+    display: block;
+    text-align: center;
+    width: 100%;
+  }
+
+  .faq-section {
+    margin-top: var(--space-2xl);
+  }
+
+  .faq-item {
+    border-bottom: 1px solid var(--color-gray-200);
+    padding: var(--space-md) 0;
+  }
+
+  .faq-item summary {
+    font-weight: 600;
+    cursor: pointer;
+    font-size: var(--text-base);
+  }
+
+  .faq-answer {
+    padding-top: var(--space-sm);
+    color: var(--color-text-light);
+  }
+</style>

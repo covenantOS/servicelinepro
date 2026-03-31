@@ -1,0 +1,80 @@
+---
+import config from '../lib/config';
+
+interface Props {
+  heading?: string;
+  features?: { title: string; description: string; icon: string }[];
+}
+
+const {
+  heading = `Why ${config.business.address.city} Families Choose Us`,
+  features = [
+    { title: 'Locally Owned & Operated', description: `${config.business.owner} lives in ${config.business.address.city} and stakes a personal reputation on every project.`, icon: '🏠' },
+    { title: 'Clear Communication', description: 'We answer the phone. We respond to messages. No surprises, no confusion.', icon: '📞' },
+    { title: `${config.trust_signals.rating}-Star Rated`, description: `Our ${config.trust_signals.rating}-star ${config.trust_signals.review_platform} rating across ${config.trust_signals.review_count} reviews speaks for itself.`, icon: '★' },
+    { title: 'Quality Guaranteed', description: `${config.business.tagline}`, icon: '✓' },
+  ],
+} = Astro.props;
+---
+
+<section class="why-section section" aria-label="Why choose us">
+  <div class="container">
+    <p class="section-label">Why {config.business.name}</p>
+    <h2>{heading}</h2>
+
+    <div class="why-grid">
+      {features.map((feature, i) => (
+        <div class:list={['why-item', i % 2 === 1 ? 'why-item--offset' : '']}>
+          <span class="why-icon">{feature.icon}</span>
+          <h3>{feature.title}</h3>
+          <p>{feature.description}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .why-section h2 {
+    margin-bottom: var(--space-2xl);
+  }
+
+  .why-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-xl);
+  }
+
+  @media (min-width: 768px) {
+    .why-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-2xl) var(--space-3xl);
+    }
+
+    .why-item--offset {
+      padding-top: var(--space-xl);
+    }
+  }
+
+  .why-item {
+    padding-left: var(--space-lg);
+    border-left: 3px solid var(--color-primary);
+  }
+
+  .why-icon {
+    display: block;
+    font-size: var(--text-2xl);
+    margin-bottom: var(--space-sm);
+  }
+
+  .why-item h3 {
+    font-size: var(--text-xl);
+    margin-bottom: var(--space-sm);
+  }
+
+  .why-item p {
+    font-size: var(--text-base);
+    color: var(--color-text-light);
+    line-height: var(--leading-relaxed);
+  }
+</style>

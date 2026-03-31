@@ -1,0 +1,17 @@
+---
+/**
+ * SEOHead is used for page-specific schema markup injection
+ * beyond what the Base layout provides.
+ * Import and use this component in the <head> slot of specific pages.
+ */
+interface Props {
+  schema?: object | object[];
+}
+
+const { schema } = Astro.props;
+const schemas = Array.isArray(schema) ? schema : schema ? [schema] : [];
+---
+
+{schemas.map(s => (
+  <script type="application/ld+json" set:html={JSON.stringify(s)} />
+))}

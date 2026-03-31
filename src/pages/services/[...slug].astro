@@ -1,0 +1,382 @@
+---
+import Base from '../../layouts/Base.astro';
+import Header from '../../components/Header.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import ReviewsSection from '../../components/ReviewsSection.astro';
+import CTABand from '../../components/CTABand.astro';
+import Footer from '../../components/Footer.astro';
+import config from '../../lib/config';
+import { renderMarkdown } from '../../lib/markdown';
+import fs from 'node:fs';
+import path from 'node:path';
+import YAML from 'yaml';
+
+export function getStaticPaths() {
+  const paths: any[] = [];
+
+  for (const service of config.services) {
+    // Main service page: /services/local-seo/
+    paths.push({
+      params: { slug: service.slug },
+      props: { service, type: 'service' },
+    });
+
+    // Sub-service pages: /services/ppc/google-ads/
+    if (service.sub_services) {
+      for (const sub of service.sub_services) {
+        paths.push({
+          params: { slug: `${service.slug}/${sub.slug}` },
+          props: { service, subService: sub, type: 'sub-service' },
+        });
+      }
+    }
+  }
+
+  return paths;
+}
+
+const { service, subService, type } = Astro.props;
+
+let content = '';
+let frontmatter: any = {};
+
+function loadContent(dir: string, slug: string) {
+  const filePath = path.resolve(`./src/content/${dir}/${slug}.md`);
+  if (fs.existsSync(filePath)) {
+    const raw = fs.readFileSync(filePath, 'utf8');
+    const fmMatch = raw.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
+    if (fmMatch) {
+      frontmatter = YAML.parse(fmMatch[1]);
+      content = fmMatch[2];
+    } else {
+      content = raw;
+    }
+  }
+}
+
+if (type === 'sub-service' && subService) {
+  loadContent('services', `${service.slug}-${subService.slug}`);
+  if (!content) loadContent('services', subService.slug);
+} else {
+  loadContent('services', service.slug);
+}
+
+const displayName = type === 'sub-service' && subService ? subService.name : service.name;
+const displayDesc = type === 'sub-service' && subService ? (subService.short_description || service.short_description) : service.short_description;
+
+const pageTitle = frontmatter.title || `${displayName} for Home Service Businesses`;
+const pageDescription = frontmatter.description || `${displayDesc} ${config.business.name} delivers performance-driven results.`;
+
+const breadcrumbItems = [
+  { label: 'Home', href: '/' },
+  { label: 'Services', href: '/services/' },
+];
+
+if (type === 'sub-service' && subService) {
+  breadcrumbItems.push({ label: service.name, href: `/services/${service.slug}/` });
+  breadcrumbItems.push({ label: subService.name });
+} else {
+  breadcrumbItems.push({ label: service.name });
+}
+
+const pricingTiers = service.pricing?.tiers || [];
+const faqQuestions = frontmatter.faq || [];
+const processSteps = frontmatter.process_steps || [];
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: displayName,
+  description: pageDescription,
+  provider: {
+    '@type': 'ProfessionalService',
+    name: config.business.name,
+  },
+};
+---
+
+<Base title={pageTitle} description={pageDescription} schema={schema}>
+  <Header slot="header" />
+
+  <section class="service-hero">
+    <div class="container service-hero-inner">
+      <Breadcrumbs items={breadcrumbItems} />
+      <h1>{pageTitle}</h1>
+      <p class="service-hero-desc">{displayDesc}</p>
+      <div class="service-hero-ctas">
+        <a href="/contact" class="btn btn-primary">Get Your Free Strategy Call</a>
+        <a href="/pricing/" class="btn btn-outline">View Pricing</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="service-content section">
+    <div class="container content-layout">
+      <div class="main-content">
+        {content ? (
+          <div class="prose" set:html={renderMarkdown(content)} />
+        ) : (
+          <div class="prose">
+            <h2>{displayName}</h2>
+            <p>{config.business.name} provides {displayName.toLowerCase()} services designed to grow home service businesses. We focus on measurable results: more calls, more booked jobs, more revenue.</p>
+          </div>
+        )}
+
+        {/* Sub-service cards */}
+        {type === 'service' && service.sub_services && service.sub_services.length > 0 && (
+          <div class="sub-services">
+            <h2>{service.name} Services</h2>
+            <div class="sub-services-grid">
+              {service.sub_services.map((sub: any) => (
+                <a href={`/services/${service.slug}/${sub.slug}/`} class="sub-service-card card">
+                  <div class="sub-service-body">
+                    <h3>{sub.name}</h3>
+                    <p>{sub.short_description}</p>
+                    <span class="card-link">Learn More &rarr;</span>
+                  </div>
+                </a>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Pricing */}
+        {pricingTiers.length > 0 && (
+          <div class="inline-pricing">
+            <h2>{displayName} Pricing</h2>
+            <div class="pricing-grid">
+              {pricingTiers.map((tier: any) => (
+                <div class={`pricing-card ${tier.featured ? 'pricing-featured' : ''}`}>
+                  {tier.featured && <div class="pricing-badge">Most Popular</div>}
+                  <h3>{tier.name}</h3>
+                  <div class="pricing-price">
+                    {tier.price === 0 ? (
+                      <span class="price-amount">{tier.price_label || 'Custom'}</span>
+                    ) : (
+                      <>
+                        {tier.price_label === 'starting at' && <span class="price-label">Starting at</span>}
+                        <span class="price-currency">$</span>
+                        <span class="price-amount">{tier.price.toLocaleString()}</span>
+                        {tier.price_label && tier.price_label !== 'starting at' && <span class="price-period">{tier.price_label}</span>}
+                        {!tier.price_label && <span class="price-period">/mo</span>}
+                      </>
+                    )}
+                  </div>
+                  <p class="pricing-desc">{tier.description}</p>
+                  <ul class="pricing-features">
+                    {tier.features.map((f: string) => (
+                      <li>{f}</li>
+                    ))}
+                  </ul>
+                  <a href="/contact" class={`btn ${tier.featured ? 'btn-primary' : 'btn-outline'} btn-block`}>Get Started</a>
+                </div>
+              ))}
+            </div>
+            {service.pricing?.setup_fee && (
+              <p class="setup-note">One-time setup fee: ${service.pricing.setup_fee.toLocaleString()}</p>
+            )}
+          </div>
+        )}
+
+        {/* Quote-based pricing */}
+        {service.pricing?.quote_based && (
+          <div class="quote-pricing">
+            <h2>{displayName} Pricing</h2>
+            <div class="quote-card">
+              <p>{service.pricing.description}</p>
+              <a href="/contact" class="btn btn-primary">Request a Custom Quote</a>
+            </div>
+          </div>
+        )}
+
+        {/* Process Steps */}
+        {processSteps.length > 0 && (
+          <div class="process-section">
+            <h2>How {displayName} Works</h2>
+            <div class="process-steps">
+              {processSteps.map((step: any, i: number) => (
+                <div class="process-step">
+                  <div class="step-number">{i + 1}</div>
+                  <div class="step-content">
+                    <h3>{step.title}</h3>
+                    <p>{step.description}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Industries served */}
+        <div class="industries-served">
+          <h2>Industries We Serve with {displayName}</h2>
+          <div class="industries-grid-small">
+            {config.industries.slice(0, 12).map(ind => (
+              <a href={`/industries/${ind.slug}/${service.slug}/`} class="industry-link">{ind.full_name}</a>
+            ))}
+          </div>
+          <a href="/industries/" class="see-all-link">See All {config.industries.length} Industries &rarr;</a>
+        </div>
+
+        {/* FAQ */}
+        {faqQuestions.length > 0 && (
+          <div class="faq-section">
+            <h2>{displayName} FAQ</h2>
+            {faqQuestions.map((q: any) => (
+              <details class="faq-item">
+                <summary>{q.question}</summary>
+                <div class="faq-answer" set:html={renderMarkdown(q.answer)} />
+              </details>
+            ))}
+          </div>
+        )}
+      </div>
+
+      <aside class="sidebar">
+        <div class="sidebar-card">
+          <h3>Our Services</h3>
+          <ul class="sidebar-nav">
+            {config.services.map(svc => (
+              <li class={svc.slug === service.slug ? 'active' : ''}>
+                <a href={`/services/${svc.slug}/`}>{svc.name}</a>
+                {svc.slug === service.slug && svc.sub_services && (
+                  <ul class="sidebar-sub-nav">
+                    {svc.sub_services.map((sub: any) => (
+                      <li class={subService?.slug === sub.slug ? 'active' : ''}>
+                        <a href={`/services/${svc.slug}/${sub.slug}/`}>{sub.name}</a>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div class="sidebar-card sidebar-cta">
+          <h3>Free Strategy Call</h3>
+          <p>15 minutes. No pressure. We analyze your market and show you the gaps.</p>
+          <a href="/contact" class="btn btn-primary btn-block">Book Now</a>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <CTABand heading={`Ready to Get Started with ${displayName}?`} />
+  <ReviewsSection compact={true} maxReviews={3} />
+  <Footer slot="footer" />
+</Base>
+
+<style>
+  .service-hero {
+    background: var(--color-dark);
+    padding: var(--space-3xl) 0 var(--space-2xl);
+    color: var(--color-white);
+  }
+
+  .service-hero h1 {
+    color: var(--color-white);
+    font-size: var(--text-4xl);
+    margin-bottom: var(--space-sm);
+    max-width: 700px;
+  }
+
+  .service-hero-desc {
+    color: rgba(255, 255, 255, 0.75);
+    font-size: var(--text-lg);
+    max-width: 600px;
+    margin-bottom: var(--space-lg);
+    line-height: var(--leading-relaxed);
+  }
+
+  .service-hero-ctas {
+    display: flex;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+  }
+
+  .service-hero .btn-outline {
+    border-color: var(--color-white);
+    color: var(--color-white);
+  }
+
+  .content-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-2xl);
+  }
+
+  @media (min-width: 1024px) {
+    .content-layout {
+      grid-template-columns: 1fr 300px;
+    }
+  }
+
+  .prose { max-width: none; }
+  .prose :global(h2) { font-size: var(--text-2xl); margin-top: var(--space-2xl); margin-bottom: var(--space-md); }
+  .prose :global(h3) { font-size: var(--text-xl); margin-top: var(--space-xl); margin-bottom: var(--space-sm); }
+  .prose :global(p) { color: var(--color-text-light); line-height: var(--leading-relaxed); }
+  .prose :global(ul), .prose :global(ol) { margin-bottom: 1em; color: var(--color-text-light); }
+  .prose :global(li) { margin-bottom: 0.375rem; line-height: var(--leading-relaxed); }
+  .prose :global(strong) { color: var(--color-text); }
+
+  .sub-services { margin: var(--space-2xl) 0; }
+  .sub-services-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: var(--space-lg); margin-top: var(--space-lg); }
+  .sub-service-card { text-decoration: none; color: inherit; transition: transform var(--transition-fast), box-shadow var(--transition-fast); }
+  .sub-service-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+  .sub-service-body { padding: var(--space-lg); }
+  .sub-service-body h3 { font-size: var(--text-lg); margin-bottom: var(--space-sm); }
+  .sub-service-body p { font-size: var(--text-sm); color: var(--color-text-light); margin-bottom: var(--space-sm); }
+  .card-link { font-size: var(--text-sm); font-weight: 600; color: var(--color-primary); }
+
+  .inline-pricing { margin-top: var(--space-2xl); }
+  .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: var(--space-lg); margin-top: var(--space-lg); }
+  .pricing-card { background: var(--color-white); border: 1px solid var(--color-gray-200); border-radius: var(--radius-md); padding: var(--space-xl); position: relative; }
+  .pricing-featured { border-color: var(--color-primary); box-shadow: 0 0 0 1px var(--color-primary); }
+  .pricing-badge { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--color-primary); color: var(--color-white); padding: 0.25rem 1rem; border-radius: 999px; font-size: var(--text-xs); font-weight: 700; text-transform: uppercase; white-space: nowrap; }
+  .pricing-card h3 { font-size: var(--text-lg); margin-bottom: var(--space-sm); }
+  .pricing-price { margin-bottom: var(--space-sm); }
+  .price-label { display: block; font-size: var(--text-xs); color: var(--color-text-light); text-transform: uppercase; letter-spacing: 0.05em; }
+  .price-currency { font-size: var(--text-xl); font-weight: 700; vertical-align: top; }
+  .price-amount { font-size: var(--text-3xl); font-weight: 800; line-height: 1; }
+  .price-period { font-size: var(--text-sm); color: var(--color-text-light); }
+  .pricing-desc { font-size: var(--text-sm); color: var(--color-text-light); margin-bottom: var(--space-md); }
+  .pricing-features { list-style: none; padding: 0; margin-bottom: var(--space-lg); }
+  .pricing-features li { padding: 0.375rem 0; font-size: var(--text-sm); border-bottom: 1px solid var(--color-gray-100); }
+  .pricing-features li::before { content: '✓ '; color: var(--color-primary); font-weight: 700; }
+  .setup-note { text-align: center; color: var(--color-text-light); font-size: var(--text-sm); margin-top: var(--space-md); }
+
+  .quote-pricing { margin-top: var(--space-2xl); }
+  .quote-card { background: var(--color-gray-100); border-radius: var(--radius-md); padding: var(--space-xl); text-align: center; }
+  .quote-card p { margin-bottom: var(--space-lg); color: var(--color-text-light); max-width: 500px; margin-left: auto; margin-right: auto; }
+
+  .process-section { margin-top: var(--space-2xl); }
+  .process-steps { margin-top: var(--space-lg); }
+  .process-step { display: flex; gap: var(--space-lg); padding: var(--space-lg) 0; border-bottom: 1px solid var(--color-gray-200); }
+  .step-number { width: 48px; height: 48px; border-radius: 50%; background: var(--color-primary); color: var(--color-white); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: var(--text-lg); flex-shrink: 0; }
+  .step-content h3 { margin-bottom: var(--space-xs); }
+  .step-content p { font-size: var(--text-sm); color: var(--color-text-light); }
+
+  .industries-served { margin-top: var(--space-2xl); }
+  .industries-grid-small { display: flex; flex-wrap: wrap; gap: var(--space-sm); margin-top: var(--space-md); }
+  .industry-link { display: inline-block; padding: 0.5rem 1rem; background: var(--color-gray-100); border-radius: var(--radius-sm); font-size: var(--text-sm); transition: background var(--transition-fast), color var(--transition-fast); }
+  .industry-link:hover { background: var(--color-primary); color: var(--color-white); }
+  .see-all-link { display: inline-block; margin-top: var(--space-md); font-size: var(--text-sm); font-weight: 600; color: var(--color-primary); }
+
+  .sidebar { display: flex; flex-direction: column; gap: var(--space-lg); }
+  .sidebar-card { background: var(--color-white); border: 1px solid var(--color-gray-200); border-radius: var(--radius-md); padding: var(--space-lg); position: sticky; top: var(--space-lg); }
+  .sidebar-card h3 { font-size: var(--text-base); margin-bottom: var(--space-md); }
+  .sidebar-nav { list-style: none; padding: 0; margin: 0; }
+  .sidebar-nav li a { display: block; padding: 0.5rem 0.75rem; font-size: var(--text-sm); color: var(--color-text-light); border-radius: var(--radius-sm); transition: background var(--transition-fast); }
+  .sidebar-nav li a:hover, .sidebar-nav li.active > a { background: var(--color-gray-100); color: var(--color-primary); font-weight: 600; }
+  .sidebar-sub-nav { list-style: none; padding: 0 0 0 var(--space-md); margin: 0; }
+  .sidebar-sub-nav li a { font-size: var(--text-xs); padding: 0.375rem 0.5rem; }
+  .sidebar-cta { background: var(--color-dark); color: var(--color-white); border: none; }
+  .sidebar-cta h3 { color: var(--color-white); }
+  .sidebar-cta p { color: rgba(255, 255, 255, 0.7); margin-bottom: var(--space-md); font-size: var(--text-sm); }
+  .btn-block { display: block; text-align: center; width: 100%; }
+
+  .faq-section { margin-top: var(--space-2xl); }
+  .faq-item { border-bottom: 1px solid var(--color-gray-200); padding: var(--space-md) 0; }
+  .faq-item summary { font-weight: 600; cursor: pointer; }
+  .faq-answer { padding-top: var(--space-sm); color: var(--color-text-light); }
+</style>

@@ -1,0 +1,37 @@
+name: contractor
+description: "General contractor, remodeler, deck builder theme"
+
+design:
+  feeling: "Warm, trustworthy, substantial. Not flashy, not minimal."
+  colors:
+    primary_range: "Earth tones, greens, warm grays, rich wood tones"
+    accent: "Gold/amber"
+    backgrounds: "Warm off-whites (#f8f7f4 range)"
+  typography:
+    heading: "Montserrat 700 or DM Serif Display"
+    body: "Inter or Open Sans"
+  corner_radius: "8-12px. Warm, not sharp, not bubbly."
+  card_style: "Elevated with subtle shadow. Feels substantial."
+  section_backgrounds: "Alternate white and very light warm gray (#f5f3f0)"
+  hero_style: "Project collage or split layout with owner/project image"
+
+trust_angles:
+  - "Owner involvement: owner personally oversees every project"
+  - "Communication: We answer the phone. We respond to messages."
+  - "Insurance: Fully insured. Your property is protected."
+  - "No surprises: Line-item estimates with no hidden fees"
+  - "Clean worksite: Clean job sites, respectful crews"
+  - "Warranty: satisfaction guarantee, material warranties"
+  - "Local reputation: Google rating, review count, years in community"
+  - "Code compliance: Every connection meets or exceeds building code"
+
+cta_language:
+  primary: "Get Your Free Estimate"
+  secondary: "Call [Owner] Directly at [Phone]"
+  service: "Start Your [Service] Project"
+
+content_priorities:
+  - "Pricing guides with realistic ranges"
+  - "Permit and building code sections with city links"
+  - "Material comparison sections with brand names"
+  - "Process sections to reassure anxious buyers"

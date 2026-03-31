@@ -1,0 +1,132 @@
+---
+import config from '../lib/config';
+
+interface Props {
+  heading?: string;
+  subtitle?: string;
+}
+
+const {
+  heading = 'Our Services',
+  subtitle = `${config.business.name} handles every detail from design through final walkthrough. Serving ${config.business.address.city} and surrounding areas.`,
+} = Astro.props;
+
+const primaryArea = config.areas.find(a => a.is_primary) || config.areas[0];
+const city = primaryArea.name.toLowerCase().replace(/\s+/g, '-');
+const state = config.business.address.state.toLowerCase();
+---
+
+<section class="services-section section-alt section" aria-label="Services">
+  <div class="container">
+    <p class="section-label">What We Do</p>
+    <h2>{heading}</h2>
+    <p class="services-subtitle">{subtitle}</p>
+
+    <div class="services-grid">
+      {config.services.map((service, i) => (
+        <a href={`/services/${service.slug}-${city}-${state}`} class="service-card card">
+          <div class="service-card-img">
+            <img src={`/${service.image}`} alt={service.name} loading="lazy" width="400" height="260" />
+          </div>
+          <div class="service-card-body">
+            <h3>{service.name}</h3>
+            <p>{service.short_description}</p>
+            <span class="service-card-link">Learn More</span>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .services-subtitle {
+    color: var(--color-text-light);
+    max-width: 640px;
+    margin-bottom: var(--space-2xl);
+  }
+
+  .services-section h2 {
+    margin-bottom: var(--space-md);
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
+
+  @media (min-width: 640px) {
+    .services-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .services-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .service-card {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .service-card-img {
+    overflow: hidden;
+    aspect-ratio: 16/10;
+  }
+
+  .service-card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-slow);
+  }
+
+  .service-card:hover .service-card-img img {
+    transform: scale(1.05);
+  }
+
+  .service-card-body {
+    padding: var(--space-lg);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .service-card-body h3 {
+    font-size: var(--text-xl);
+    margin-bottom: var(--space-sm);
+  }
+
+  .service-card-body p {
+    font-size: var(--text-sm);
+    color: var(--color-text-light);
+    flex: 1;
+    line-height: var(--leading-relaxed);
+  }
+
+  .service-card-link {
+    font-family: var(--font-heading);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--color-primary);
+    margin-top: var(--space-sm);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .service-card-link::after {
+    content: '→';
+    transition: transform var(--transition-fast);
+  }
+
+  .service-card:hover .service-card-link::after {
+    transform: translateX(4px);
+  }
+</style>

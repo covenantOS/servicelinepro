@@ -1,0 +1,88 @@
+---
+interface Props {
+  heading?: string;
+  tiers: { name: string; price: string; notes?: string }[];
+  disclaimer?: string;
+}
+
+const {
+  heading = 'Pricing Guide',
+  tiers,
+  disclaimer = 'Prices vary based on project scope, materials, and site conditions. Contact us for a personalized estimate.',
+} = Astro.props;
+---
+
+<div class="pricing-guide" aria-label="Pricing guide">
+  <h2 class="accent-line">{heading}</h2>
+
+  <div class="pricing-tiers">
+    {tiers.map(tier => (
+      <div class="pricing-tier">
+        <span class="tier-name">{tier.name}</span>
+        <span class="tier-price">{tier.price}</span>
+        {tier.notes && <span class="tier-notes">{tier.notes}</span>}
+      </div>
+    ))}
+  </div>
+
+  <p class="pricing-disclaimer">{disclaimer}</p>
+</div>
+
+<style>
+  .pricing-guide {
+    margin: var(--space-2xl) 0;
+  }
+
+  .pricing-guide h2 {
+    margin-bottom: var(--space-xl);
+  }
+
+  .pricing-tiers {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+  }
+
+  @media (min-width: 768px) {
+    .pricing-tiers {
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    }
+  }
+
+  .pricing-tier {
+    background: var(--color-gray-100);
+    border: 1px solid var(--color-gray-200);
+    border-left: 3px solid var(--color-primary);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .tier-name {
+    font-family: var(--font-heading);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--color-text-light);
+  }
+
+  .tier-price {
+    font-family: var(--font-heading);
+    font-size: var(--text-2xl);
+    font-weight: 700;
+    color: var(--color-dark);
+  }
+
+  .tier-notes {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+
+  .pricing-disclaimer {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    margin-top: var(--space-md);
+    font-style: italic;
+  }
+</style>

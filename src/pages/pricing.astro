@@ -1,0 +1,115 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import CTABand from '../components/CTABand.astro';
+import Footer from '../components/Footer.astro';
+import config from '../lib/config';
+
+const pageTitle = "Pricing";
+const pageDescription = "Transparent pricing for local SEO, Google Ads, website design, and TV advertising. No hidden fees. Performance-driven plans for home service businesses.";
+
+const breadcrumbItems = [
+  { label: 'Home', href: '/' },
+  { label: 'Pricing' },
+];
+---
+
+<Base title={pageTitle} description={pageDescription}>
+  <Header slot="header" />
+
+  <section class="page-hero">
+    <div class="container">
+      <Breadcrumbs items={breadcrumbItems} />
+      <h1>Transparent Pricing. Real Results.</h1>
+      <p class="page-hero-desc">No hidden fees. No long-term contracts. Every dollar is accountable. Pick the service that fits your growth stage.</p>
+    </div>
+  </section>
+
+  {config.services.map(service => (
+    <section class="pricing-section section" id={service.slug}>
+      <div class="container">
+        <h2>{service.name}</h2>
+        <p class="pricing-section-desc">{service.short_description}</p>
+
+        {service.pricing?.tiers && service.pricing.tiers.length > 0 && (
+          <div class="pricing-grid">
+            {service.pricing.tiers.map(tier => (
+              <div class={`pricing-card ${tier.featured ? 'pricing-featured' : ''}`}>
+                {tier.featured && <div class="pricing-badge">Most Popular</div>}
+                <h3>{tier.name}</h3>
+                <div class="pricing-price">
+                  {tier.price === 0 ? (
+                    <span class="price-amount">{tier.price_label || 'Custom'}</span>
+                  ) : (
+                    <>
+                      {tier.price_label === 'starting at' && <span class="price-label">Starting at</span>}
+                      <span class="price-currency">$</span>
+                      <span class="price-amount">{tier.price.toLocaleString()}</span>
+                      {tier.price_label && tier.price_label !== 'starting at' && <span class="price-period">{tier.price_label}</span>}
+                      {!tier.price_label && <span class="price-period">/mo</span>}
+                    </>
+                  )}
+                </div>
+                <p class="pricing-desc">{tier.description}</p>
+                <ul class="pricing-features">
+                  {tier.features.map(f => (
+                    <li>{f}</li>
+                  ))}
+                </ul>
+                <a href="/contact" class={`btn ${tier.featured ? 'btn-primary' : 'btn-outline'} btn-block`}>Get Started</a>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {service.pricing?.quote_based && (
+          <div class="quote-card">
+            <p>{service.pricing.description}</p>
+            <a href="/contact" class="btn btn-primary">Request a Custom Quote</a>
+          </div>
+        )}
+
+        {service.pricing?.setup_fee && (
+          <p class="setup-note">One-time setup fee: ${service.pricing.setup_fee.toLocaleString()}</p>
+        )}
+      </div>
+    </section>
+  ))}
+
+  <CTABand heading="Not Sure Which Plan Fits? Let's Talk." />
+  <Footer slot="footer" />
+</Base>
+
+<style>
+  .page-hero { background: var(--color-dark); padding: var(--space-3xl) 0 var(--space-2xl); color: var(--color-white); }
+  .page-hero h1 { color: var(--color-white); font-size: var(--text-4xl); margin-bottom: var(--space-sm); }
+  .page-hero-desc { color: rgba(255,255,255,0.75); font-size: var(--text-lg); max-width: 550px; }
+
+  .pricing-section { border-bottom: 1px solid var(--color-gray-200); }
+  .pricing-section:nth-child(even) { background: var(--color-gray-50, #fafafa); }
+  .pricing-section h2 { font-size: var(--text-3xl); margin-bottom: var(--space-xs); }
+  .pricing-section-desc { color: var(--color-text-light); margin-bottom: var(--space-xl); max-width: 600px; }
+
+  .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--space-lg); }
+
+  .pricing-card { background: var(--color-white); border: 1px solid var(--color-gray-200); border-radius: 10px; padding: var(--space-xl); position: relative; }
+  .pricing-featured { border-color: var(--color-primary); box-shadow: 0 0 0 1px var(--color-primary), 0 4px 16px rgba(192, 57, 43, 0.1); }
+  .pricing-badge { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--color-primary); color: var(--color-white); padding: 0.25rem 1rem; border-radius: 999px; font-size: var(--text-xs); font-weight: 700; text-transform: uppercase; white-space: nowrap; }
+
+  .pricing-card h3 { font-size: var(--text-xl); margin-bottom: var(--space-sm); }
+  .pricing-price { margin-bottom: var(--space-sm); }
+  .price-label { display: block; font-size: var(--text-xs); color: var(--color-text-light); text-transform: uppercase; letter-spacing: 0.05em; }
+  .price-currency { font-size: var(--text-xl); font-weight: 700; vertical-align: top; }
+  .price-amount { font-size: var(--text-4xl); font-weight: 800; line-height: 1; }
+  .price-period { font-size: var(--text-sm); color: var(--color-text-light); }
+  .pricing-desc { font-size: var(--text-sm); color: var(--color-text-light); margin-bottom: var(--space-lg); line-height: var(--leading-relaxed); }
+  .pricing-features { list-style: none; padding: 0; margin-bottom: var(--space-xl); }
+  .pricing-features li { padding: 0.5rem 0; font-size: var(--text-sm); border-bottom: 1px solid var(--color-gray-100); }
+  .pricing-features li::before { content: '\2713 '; color: var(--color-primary); font-weight: 700; }
+  .setup-note { text-align: center; color: var(--color-text-light); font-size: var(--text-sm); margin-top: var(--space-lg); }
+  .btn-block { display: block; width: 100%; text-align: center; }
+
+  .quote-card { background: var(--color-gray-100); border-radius: 10px; padding: var(--space-2xl); text-align: center; max-width: 500px; }
+  .quote-card p { margin-bottom: var(--space-lg); color: var(--color-text-light); line-height: var(--leading-relaxed); }
+</style>

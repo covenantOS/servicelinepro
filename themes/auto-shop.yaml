@@ -1,0 +1,36 @@
+name: auto-shop
+description: "Auto repair, mechanic theme"
+
+design:
+  feeling: "Competent, no-nonsense, industrial but clean. NOT greasy."
+  colors:
+    primary_range: "Dark gray/charcoal primary"
+    accent: "Red or blue"
+    backgrounds: "Clean white for content areas"
+  typography:
+    heading: "Oswald or Anton (condensed, industrial)"
+    body: "Roboto or Source Sans"
+  corner_radius: "2-4px. Sharp, industrial, precise."
+  card_style: "Flat with colored top border or left border accent."
+  hero_style: "Full-bleed with strong heading and diagnostic CTA"
+
+trust_angles:
+  - "ASE Certified technicians"
+  - "Transparent pricing: show the problem before fixing"
+  - "Digital inspections: photos/video of issues"
+  - "Written estimates before work begins"
+  - "24-month/24,000-mile warranty"
+  - "OEM parts vs aftermarket transparency"
+  - "No upselling policy"
+
+cta_language:
+  primary: "Schedule Service Online"
+  secondary: "Get a Diagnostic Quote"
+  service: "Book Your Appointment"
+
+content_priorities:
+  - "Services organized by system (Engine, Brakes, Transmission, etc.)"
+  - "Warning signs you need service"
+  - "What happens if you delay"
+  - "Check Engine Light diagnostic pages"
+  - "Coupon/special offer section"

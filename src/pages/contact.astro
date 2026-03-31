@@ -1,0 +1,180 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import Footer from '../components/Footer.astro';
+import config from '../lib/config';
+
+const pageTitle = "Contact ServiceLine Pro";
+const pageDescription = "Book a free 15-minute strategy call with ServiceLine Pro. Local SEO, Google Ads, website design, and TV advertising for home service businesses.";
+
+const breadcrumbItems = [
+  { label: 'Home', href: '/' },
+  { label: 'Contact' },
+];
+---
+
+<Base title={pageTitle} description={pageDescription}>
+  <Header slot="header" />
+
+  <section class="page-hero">
+    <div class="container">
+      <Breadcrumbs items={breadcrumbItems} />
+      <h1>Let's Talk Growth</h1>
+      <p class="page-hero-desc">Book a free strategy call. We will analyze your market, your competition, and show you exactly where the opportunities are.</p>
+    </div>
+  </section>
+
+  <section class="contact-section section">
+    <div class="container contact-grid">
+      <div class="contact-form-wrap">
+        <h2>Book Your Free Strategy Call</h2>
+        <form class="contact-form" action={config.form.action} method="POST">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="c-name">Full Name <span class="req">*</span></label>
+              <input type="text" id="c-name" name="name" required />
+            </div>
+            <div class="form-group">
+              <label for="c-email">Email <span class="req">*</span></label>
+              <input type="email" id="c-email" name="email" required />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="c-phone">Phone <span class="req">*</span></label>
+              <input type="tel" id="c-phone" name="phone" required />
+            </div>
+            <div class="form-group">
+              <label for="c-website">Current Website</label>
+              <input type="url" id="c-website" name="website" placeholder="yourcompany.com" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="c-company">Company Name <span class="req">*</span></label>
+            <input type="text" id="c-company" name="company" required />
+          </div>
+          <div class="form-group">
+            <label for="c-service">Service Interested In</label>
+            <select id="c-service" name="service">
+              <option value="">Select a service</option>
+              {config.services.map(svc => (
+                <option value={svc.slug}>{svc.name}</option>
+              ))}
+              <option value="other">Not Sure / Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="c-message">Tell us about your business</label>
+            <textarea id="c-message" name="message" rows="4" placeholder="What services do you offer? How many employees? Current monthly marketing budget?"></textarea>
+          </div>
+          <div class="hp-field" aria-hidden="true">
+            <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" />
+          </div>
+          <button type="submit" class="btn btn-primary btn-lg btn-block">Book My Strategy Call</button>
+        </form>
+      </div>
+
+      <aside class="contact-info">
+        <div class="contact-card">
+          <h3>Contact Info</h3>
+          <div class="contact-detail">
+            <strong>Phone</strong>
+            <a href={`tel:${config.business.phone_raw}`}>{config.business.phone}</a>
+          </div>
+          <div class="contact-detail">
+            <strong>Email</strong>
+            <a href={`mailto:${config.business.email}`}>{config.business.email}</a>
+          </div>
+          <div class="contact-detail">
+            <strong>Location</strong>
+            <span>{config.business.address.city}, {config.business.address.state_full}</span>
+          </div>
+          <div class="contact-detail">
+            <strong>Hours</strong>
+            <span>Mon-Fri, 7:00am - 7:00pm EST</span>
+            <span>Sat, 11:00am - 5:00pm EST</span>
+          </div>
+        </div>
+
+        <div class="contact-card process-card">
+          <h3>What Happens Next</h3>
+          <div class="next-step">
+            <span class="next-num">1</span>
+            <div>
+              <strong>Reach Out</strong>
+              <p>Fill out the form or call us directly.</p>
+            </div>
+          </div>
+          <div class="next-step">
+            <span class="next-num">2</span>
+            <div>
+              <strong>Strategy Call</strong>
+              <p>15-minute call to analyze your market and competition.</p>
+            </div>
+          </div>
+          <div class="next-step">
+            <span class="next-num">3</span>
+            <div>
+              <strong>Custom Plan</strong>
+              <p>We build a campaign tailored to your goals and budget.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-card serving-card">
+          <h3>Serving All U.S. Markets</h3>
+          <p>Based in Tampa, FL. Working with home service businesses nationwide.</p>
+          <div class="serving-industries">
+            {config.industries.slice(0, 8).map(ind => (
+              <span class="serving-chip">{ind.name}</span>
+            ))}
+            <span class="serving-chip">+{config.industries.length - 8} more</span>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <Footer slot="footer" />
+</Base>
+
+<style>
+  .page-hero { background: var(--color-dark); padding: var(--space-3xl) 0 var(--space-2xl); color: var(--color-white); }
+  .page-hero h1 { color: var(--color-white); font-size: var(--text-4xl); margin-bottom: var(--space-sm); }
+  .page-hero-desc { color: rgba(255,255,255,0.75); font-size: var(--text-lg); max-width: 550px; }
+
+  .contact-grid { display: grid; grid-template-columns: 1fr; gap: var(--space-2xl); }
+  @media (min-width: 1024px) { .contact-grid { grid-template-columns: 1.5fr 1fr; } }
+
+  .contact-form-wrap h2 { font-size: var(--text-2xl); margin-bottom: var(--space-xl); }
+  .contact-form { display: flex; flex-direction: column; gap: var(--space-md); }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-md); }
+  @media (max-width: 480px) { .form-row { grid-template-columns: 1fr; } }
+  .form-group { display: flex; flex-direction: column; gap: 0.25rem; }
+  .form-group label { font-size: var(--text-sm); font-weight: 600; }
+  .req { color: var(--color-primary); }
+  .form-group input, .form-group select, .form-group textarea { border: 1px solid var(--color-gray-300); border-radius: var(--radius-sm); padding: 0.625rem 0.75rem; font-size: var(--text-sm); transition: border-color 0.15s; font-family: var(--font-body); }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--color-primary); }
+  .hp-field { position: absolute; left: -9999px; }
+  .btn-block { display: block; width: 100%; text-align: center; }
+
+  .contact-info { display: flex; flex-direction: column; gap: var(--space-lg); }
+  .contact-card { background: var(--color-white); border: 1px solid var(--color-gray-200); border-radius: 10px; padding: var(--space-lg); }
+  .contact-card h3 { font-size: var(--text-base); margin-bottom: var(--space-md); }
+  .contact-detail { padding: 0.5rem 0; border-bottom: 1px solid var(--color-gray-100); }
+  .contact-detail:last-child { border-bottom: none; }
+  .contact-detail strong { display: block; font-size: var(--text-xs); color: var(--color-text-light); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.125rem; }
+  .contact-detail a, .contact-detail span { display: block; font-size: var(--text-sm); }
+  .contact-detail a { color: var(--color-primary); font-weight: 600; text-decoration: none; }
+
+  .next-step { display: flex; gap: var(--space-md); padding: 0.75rem 0; border-bottom: 1px solid var(--color-gray-100); }
+  .next-step:last-child { border-bottom: none; }
+  .next-num { width: 28px; height: 28px; border-radius: 50%; background: var(--color-primary); color: var(--color-white); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: var(--text-xs); flex-shrink: 0; }
+  .next-step strong { display: block; font-size: var(--text-sm); }
+  .next-step p { font-size: var(--text-xs); color: var(--color-text-light); margin: 0; }
+
+  .serving-card p { font-size: var(--text-sm); color: var(--color-text-light); margin-bottom: var(--space-md); }
+  .serving-industries { display: flex; flex-wrap: wrap; gap: 0.25rem; }
+  .serving-chip { font-size: 0.6875rem; padding: 0.125rem 0.5rem; background: var(--color-gray-100); border-radius: 999px; color: var(--color-text-light); }
+</style>

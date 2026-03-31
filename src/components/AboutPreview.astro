@@ -1,0 +1,113 @@
+---
+import config from '../lib/config';
+
+interface Props {
+  heading?: string;
+  paragraphs?: string[];
+  image?: string;
+}
+
+const {
+  heading = 'Built on Craftsmanship and Honest Communication',
+  paragraphs = [
+    `When ${config.business.owner} founded ${config.business.name}, the vision was clear: build something that lasts. Not a business that cuts corners to save a dollar, but a company that treats every project like its own home.`,
+    `We are a family-owned contracting company based right here in ${config.business.address.city}, ${config.business.address.state_full}. ${config.business.owner} and his team live in this community, work in this community, and stake their reputation on every single project.`,
+  ],
+  image = '/media/team.webp',
+} = Astro.props;
+
+const features = config.trust_signals.badges.slice(0, 4);
+---
+
+<section class="about-preview section" aria-label="About us">
+  <div class="container about-grid">
+    <div class="about-image-wrap">
+      <img src={image} alt={`${config.business.owner} and the ${config.business.name} team`} class="about-image" loading="lazy" width="560" height="420" />
+    </div>
+
+    <div class="about-content">
+      <p class="section-label">About Us</p>
+      <h2>{heading}</h2>
+
+      {paragraphs.map(p => <p>{p}</p>)}
+
+      <div class="about-features">
+        {features.map(f => (
+          <div class="about-feature">
+            <span class="about-feature-icon">✓</span>
+            <span>{f}</span>
+          </div>
+        ))}
+      </div>
+
+      <a href="/about" class="btn btn-outline">Meet Our Team</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-2xl);
+    align-items: center;
+  }
+
+  @media (min-width: 768px) {
+    .about-grid {
+      grid-template-columns: 1fr 1.2fr;
+    }
+  }
+
+  .about-image-wrap {
+    overflow: hidden;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md);
+  }
+
+  .about-image {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    aspect-ratio: 4/3;
+  }
+
+  .about-content h2 {
+    margin-bottom: var(--space-lg);
+  }
+
+  .about-content p {
+    color: var(--color-text-light);
+    line-height: var(--leading-relaxed);
+  }
+
+  .about-features {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-sm) var(--space-lg);
+    margin: var(--space-xl) 0;
+  }
+
+  .about-feature {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    font-family: var(--font-heading);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--color-dark);
+  }
+
+  .about-feature-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    background: var(--color-primary);
+    color: var(--color-white);
+    border-radius: 50%;
+    font-size: var(--text-xs);
+    flex-shrink: 0;
+  }
+</style>

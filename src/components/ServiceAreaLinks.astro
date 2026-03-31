@@ -1,0 +1,113 @@
+---
+import config from '../lib/config';
+
+interface Props {
+  heading?: string;
+  introText?: string[];
+}
+
+const county = config.areas.find(a => a.slug.includes('county'))?.name || 'the surrounding area';
+
+const {
+  heading = `Serving ${config.business.address.city} & ${county}`,
+  introText = [
+    `${config.business.name} proudly serves homeowners throughout the greater ${config.business.address.city} area and ${county}, ${config.business.address.state_full}.`,
+    `We understand the unique characteristics of ${config.business.address.city} neighborhoods. Each area has different housing stock and different project requirements. That local knowledge shapes every project we take on.`,
+    `From our home base at ${config.business.address.street}, we are centrally located to reach every corner of the ${config.business.address.city} metro area.`,
+  ],
+} = Astro.props;
+---
+
+<section class="areas-section section section-alt" aria-label="Service areas">
+  <div class="container areas-grid">
+    <div class="areas-content">
+      <p class="section-label">Service Area</p>
+      <h2>{heading}</h2>
+      {introText.map(p => <p>{p}</p>)}
+
+      <div class="areas-links">
+        {config.areas.map(area => (
+          <a href={`/areas/${area.slug}`} class="area-link">{area.name}</a>
+        ))}
+      </div>
+    </div>
+
+    <div class="areas-image">
+      <img src="/media/service-area-map.webp" alt={`${config.business.name} serving ${config.business.address.city}, ${config.business.address.state_full}`} loading="lazy" width="480" height="400" />
+    </div>
+  </div>
+</section>
+
+<style>
+  .areas-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-2xl);
+    align-items: start;
+  }
+
+  @media (min-width: 768px) {
+    .areas-grid {
+      grid-template-columns: 1.4fr 1fr;
+    }
+  }
+
+  .areas-content h2 {
+    margin-bottom: var(--space-lg);
+  }
+
+  .areas-content p {
+    color: var(--color-text-light);
+    line-height: var(--leading-relaxed);
+  }
+
+  .areas-links {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-sm);
+    margin-top: var(--space-xl);
+  }
+
+  @media (min-width: 640px) {
+    .areas-links {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .areas-links {
+      grid-template-columns: repeat(5, 1fr);
+    }
+  }
+
+  .area-link {
+    display: inline-block;
+    padding: 0.5rem 0.875rem;
+    background: var(--color-white);
+    border: 1px solid var(--color-gray-200);
+    border-radius: var(--radius-sm);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    color: var(--color-text);
+    text-align: center;
+    transition: border-color var(--transition-fast), color var(--transition-fast), background var(--transition-fast);
+  }
+
+  .area-link:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+    background: rgba(45, 90, 39, 0.04);
+  }
+
+  .areas-image {
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+  }
+
+  .areas-image img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+</style>

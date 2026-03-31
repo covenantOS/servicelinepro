@@ -1,0 +1,117 @@
+---
+import config from '../lib/config';
+const year = new Date().getFullYear();
+---
+
+<div class="footer-cta-band">
+  <div class="container footer-cta-inner">
+    <h2>Stop Losing Customers to Competitors Who Found Them First</h2>
+    <p>Book a 15-minute strategy call. See if we can dominate your market. No pressure. No pitch deck. Just straight answers.</p>
+    <div class="footer-cta-buttons">
+      <a href="/contact" class="btn btn-primary btn-lg">Book Strategy Call</a>
+      <a href={`tel:${config.business.phone_raw}`} class="btn btn-outline btn-lg">Call {config.business.phone}</a>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-accent"></div>
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <a href="/" class="footer-logo-link">
+        <span class="footer-logo-text"><span class="logo-service">Service</span><span class="logo-line">Line</span><span class="logo-pro">Pro</span></span>
+      </a>
+      <p class="footer-tagline">{config.business.tagline}</p>
+      <p class="footer-description">{config.business.description}</p>
+    </div>
+
+    <div class="footer-col">
+      <h3>Services</h3>
+      <ul>
+        {config.services.map(service => (
+          <li><a href={`/services/${service.slug}/`}>{service.name}</a></li>
+        ))}
+        <li><a href="/pricing/">Pricing</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h3>Industries</h3>
+      <ul>
+        {config.industries.slice(0, 10).map(ind => (
+          <li><a href={`/industries/${ind.slug}/`}>{ind.full_name}</a></li>
+        ))}
+        <li><a href="/industries/">View All &rarr;</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h3>Areas</h3>
+      <ul>
+        {config.areas.slice(0, 8).map(area => (
+          <li><a href={`/areas/${area.slug}/`}>{area.name}</a></li>
+        ))}
+        <li><a href="/areas/">View All &rarr;</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col footer-contact">
+      <h3>Contact</h3>
+      <ul>
+        <li><a href={`tel:${config.business.phone_raw}`}>{config.business.phone}</a></li>
+        <li><a href={`mailto:${config.business.email}`}>{config.business.email}</a></li>
+        <li>{config.business.address.city}, {config.business.address.state_full}</li>
+        <li>{config.business.hours.split('|')[0].trim()}</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="container footer-bottom-inner">
+      <p>&copy; {year} {config.business.name}. All rights reserved.</p>
+      <div class="footer-bottom-links">
+        <a href="/privacy-policy">Privacy Policy</a>
+        <a href="/sitemap.xml">Sitemap</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer-cta-band { background: var(--color-dark); color: var(--color-white); padding: var(--space-3xl) 0; text-align: center; }
+  .footer-cta-inner h2 { color: var(--color-white); font-size: var(--text-3xl); margin-bottom: var(--space-sm); max-width: 600px; margin-left: auto; margin-right: auto; }
+  .footer-cta-inner h2::after { display: none; }
+  .footer-cta-inner p { color: var(--color-gray-400); font-size: var(--text-lg); margin-bottom: var(--space-xl); }
+  .footer-cta-buttons { display: flex; gap: var(--space-md); justify-content: center; flex-wrap: wrap; }
+  .footer-cta-buttons .btn-outline { border-color: var(--color-white); color: var(--color-white); }
+  .footer-cta-buttons .btn-outline:hover { background: var(--color-white); color: var(--color-dark); }
+
+  .site-footer { background: var(--color-dark); color: var(--color-gray-400); }
+  .footer-accent { height: 3px; background: var(--color-primary); }
+  .footer-grid { display: grid; grid-template-columns: 1fr; gap: var(--space-2xl); padding: var(--space-3xl) 0; }
+  @media (min-width: 768px) { .footer-grid { grid-template-columns: 1.5fr 1fr 1fr; } }
+  @media (min-width: 1280px) { .footer-grid { grid-template-columns: 2fr 1fr 1fr 1fr 1.2fr; } }
+
+  .footer-brand { max-width: 340px; }
+  .footer-logo-link { text-decoration: none; display: inline-block; margin-bottom: var(--space-md); }
+  .footer-logo-text { font-family: var(--font-heading); font-size: 1.5rem; font-weight: 700; }
+  .footer-logo-text .logo-service, .footer-logo-text .logo-line { color: var(--color-white); }
+  .footer-logo-text .logo-pro { color: var(--color-primary); font-size: 0.6em; vertical-align: super; }
+  .footer-tagline { font-family: var(--font-heading); font-size: var(--text-base); font-weight: 600; color: var(--color-white); margin-bottom: var(--space-sm); }
+  .footer-description { font-size: var(--text-sm); line-height: var(--leading-relaxed); }
+
+  .footer-col h3 { font-size: var(--text-sm); font-weight: 700; color: var(--color-white); margin-bottom: var(--space-md); text-transform: uppercase; letter-spacing: 0.05em; font-family: var(--font-heading); }
+  .footer-col ul { list-style: none; padding: 0; }
+  .footer-col li { margin-bottom: 0.375rem; font-size: var(--text-sm); }
+  .footer-col a { color: var(--color-gray-400); transition: color var(--transition-fast); text-decoration: none; }
+  .footer-col a:hover { color: var(--color-white); }
+  .footer-contact li:first-child a { color: var(--color-white); font-weight: 600; font-size: var(--text-base); }
+
+  .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding: var(--space-lg) 0; }
+  .footer-bottom-inner { display: flex; flex-direction: column; gap: var(--space-sm); font-size: var(--text-xs); }
+  @media (min-width: 768px) { .footer-bottom-inner { flex-direction: row; justify-content: space-between; align-items: center; } }
+  .footer-bottom p { margin: 0; }
+  .footer-bottom-links { display: flex; gap: var(--space-lg); }
+  .footer-bottom-links a { color: var(--color-gray-500); transition: color var(--transition-fast); text-decoration: none; }
+  .footer-bottom-links a:hover { color: var(--color-white); }
+</style>

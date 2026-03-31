@@ -1,0 +1,151 @@
+/* Agency Theme - ServiceLine Pro
+   Dark, bold, performance-focused. Red accents on dark backgrounds.
+   Professional without being corporate. Aggressive without being cheap. */
+
+:root {
+  /* Card treatment: subtle border, no heavy shadows at rest */
+  --card-border: 1px solid var(--color-gray-200);
+  --card-radius: 10px;
+  --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  --card-hover-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+
+  /* Button treatment: solid, no gradients, sharp corners */
+  --btn-radius: 6px;
+  --btn-weight: 600;
+
+  /* Section backgrounds alternate */
+  --section-alt-bg: var(--color-gray-50, #fafafa);
+
+  /* Trust bar */
+  --trust-bar-bg: var(--color-primary);
+  --trust-bar-color: var(--color-white);
+
+  /* Header */
+  --header-bg: var(--color-white);
+  --header-shadow: 0 1px 0 rgba(0, 0, 0, 0.08);
+
+  /* Footer */
+  --footer-bg: var(--color-dark);
+  --footer-color: rgba(255, 255, 255, 0.7);
+}
+
+/* Override card styles for agency feel */
+.card {
+  border: var(--card-border);
+  border-radius: var(--card-radius);
+  box-shadow: var(--card-shadow);
+  background: var(--color-white);
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  box-shadow: var(--card-hover-shadow);
+}
+
+/* Agency-specific button styles */
+.btn-primary {
+  background: var(--color-primary);
+  color: var(--color-white);
+  border: 2px solid var(--color-primary);
+  border-radius: var(--btn-radius);
+  font-weight: var(--btn-weight);
+  padding: 0.75rem 1.5rem;
+  text-decoration: none;
+  display: inline-block;
+  transition: background 0.15s ease, border-color 0.15s ease;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background: #a93226;
+  border-color: #a93226;
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--color-dark);
+  border: 2px solid var(--color-gray-300);
+  border-radius: var(--btn-radius);
+  font-weight: var(--btn-weight);
+  padding: 0.75rem 1.5rem;
+  text-decoration: none;
+  display: inline-block;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  cursor: pointer;
+}
+
+.btn-outline:hover {
+  background: var(--color-dark);
+  color: var(--color-white);
+  border-color: var(--color-dark);
+}
+
+/* Dark sections get special link treatment */
+.section-dark {
+  background: var(--color-dark);
+  color: var(--color-white);
+}
+
+.section-dark h2,
+.section-dark h3 {
+  color: var(--color-white);
+}
+
+.section-dark p {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+/* Accent underline for section headings */
+.section h2::after {
+  content: '';
+  display: block;
+  width: 48px;
+  height: 3px;
+  background: var(--color-primary);
+  margin-top: 0.75rem;
+}
+
+/* No accent line for centered headings */
+.text-center h2::after,
+h2.text-center::after {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Stats/metrics styling */
+.stat-value {
+  font-size: var(--text-4xl);
+  font-weight: 800;
+  color: var(--color-primary);
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: var(--text-sm);
+  color: var(--color-text-light);
+  margin-top: 0.25rem;
+}
+
+/* Review cards */
+.review-card {
+  background: var(--color-white);
+  border-left: 3px solid var(--color-primary);
+  padding: var(--space-lg);
+  border-radius: 0 var(--card-radius) var(--card-radius) 0;
+}
+
+/* CTA band override for agency */
+.cta-band {
+  background: var(--color-dark);
+  color: var(--color-white);
+  padding: var(--space-2xl) 0;
+}
+
+.cta-band h2 {
+  color: var(--color-white);
+}
+
+.cta-band h2::after {
+  display: none;
+}
