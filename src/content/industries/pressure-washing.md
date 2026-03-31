@@ -121,7 +121,7 @@ The challenge with pressure washing is that individual job values are lower than
 
 Local SEO builds organic lead flow that does not cost per click. For pressure washing companies, map pack visibility drives consistent inquiries from homeowners searching for local cleaning services.
 
-### [Google Business Profile](/services/local-seo/)
+### Google Business Profile
 
 **Category:** "Pressure Washing Service" as primary. Add "Roof Cleaning Service" and "Building Cleaning Service" as secondary categories.
 

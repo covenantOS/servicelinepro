@@ -54,7 +54,7 @@ Flooring companies generally operate with one of two customer acquisition models
 
 A flooring showroom is a powerful sales tool. Homeowners can see, touch, and compare hundreds of material samples in person. They can visualize how different products look installed. The showroom experience converts at extremely high rates because the homeowner physically handles the product they are choosing.
 
-Marketing for showroom-based companies must drive foot traffic. [Google Business Profile](/services/local-seo/) optimization is critical because "flooring store near me" and "flooring showroom [city]" are high-volume searches. Your GBP listing should include showroom hours, photos of the showroom interior, and directions. Google Ads campaigns should use location extensions that show your address and a map pin.
+Marketing for showroom-based companies must drive foot traffic. Google Business Profile optimization is critical because "flooring store near me" and "flooring showroom [city]" are high-volume searches. Your GBP listing should include showroom hours, photos of the showroom interior, and directions. Google Ads campaigns should use location extensions that show your address and a map pin.
 
 Your website should feature a virtual tour of the showroom, highlight specific brands and product lines you carry, and make it easy to schedule a showroom visit. A dedicated "Visit Our Showroom" page with hours, directions, parking information, and photos of the space reduces friction and increases foot traffic.
 

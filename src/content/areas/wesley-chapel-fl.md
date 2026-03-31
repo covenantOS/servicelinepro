@@ -136,7 +136,7 @@ Wesley Chapel's newer roofs have the advantage of current Florida building codes
 
 ### Pest Control and Lawn Care
 
-Florida's climate creates persistent demand for pest control and lawn maintenance. Wesley Chapel's new communities, built on formerly undeveloped land, often have particular challenges with ant colonies, termites, and wildlife intrusion. These service categories complement the core mechanical trades.
+Florida's climate creates persistent demand for [pest control](/industries/pest-control/) and [landscaping](/industries/landscaping/). Wesley Chapel's new communities, built on formerly undeveloped land, often have particular challenges with ant colonies, termites, and wildlife intrusion. These service categories complement the core mechanical trades.
 
 ## The Competitive Window
 
@@ -148,4 +148,4 @@ That window is closing. As more contractors recognize Wesley Chapel's potential,
 
 ServiceLine Pro provides the complete marketing system Wesley Chapel contractors need to capitalize on this growth: local SEO from $1,800 to $4,800 per month, Google Ads management with no agency fee on $5,000+ budgets, website design from $2,500 to $4,000+, and TV/streaming advertising through Spectrum Reach.
 
-Contact us today. The growth is happening now, and the homeowners searching for contractors in Wesley Chapel are choosing someone. Make sure they choose you.
+Contact us today. The growth is happening now, and the homeowners searching for contractors in Wesley Chapel are choosing someone. See our [case studies](/case-studies/) and make sure they choose you.

@@ -115,7 +115,7 @@ Junk removal customers frequently include timing in their searches: "same day ju
 
 Organic visibility in the Google map pack generates consistent leads without per-click costs. Junk removal is a local service, and customers strongly prefer companies that appear nearby and well-reviewed.
 
-### [Google Business Profile](/services/local-seo/)
+### Google Business Profile
 
 **Category:** "Junk Removal Service" as primary. Add "Hauling Service" and "Waste Management Service" as secondaries if applicable.
 

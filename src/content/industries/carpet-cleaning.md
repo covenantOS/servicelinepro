@@ -30,7 +30,7 @@ ServiceLine Pro builds marketing systems that accomplish all of this. We help ca
 
 ### Google Business Profile Dominance
 
-Your [Google Business Profile](/services/local-seo/) is the battlefield where carpet cleaning market share is won. When a homeowner searches for carpet cleaning, the map pack results get the majority of clicks. Ranking in the top three requires:
+Your Google Business Profile is the battlefield where carpet cleaning market share is won. When a homeowner searches for carpet cleaning, the map pack results get the majority of clicks. Ranking in the top three requires:
 
 **Category Optimization:** Primary category as "carpet cleaning service" with secondaries including "upholstery cleaning service," "rug cleaning service," and "tile cleaning service" to capture adjacent searches.
 
@@ -72,7 +72,7 @@ This three-touch system produces review conversion rates of 15% to 25%, which tr
 
 ## Google Ads for Carpet Cleaning Companies
 
-[Google Ads](/services/ppc/) is the fastest path to lead generation for carpet cleaning companies. You can launch a campaign today and receive phone calls tomorrow. The economics work well because carpet cleaning keywords have moderate competition and the conversion from click to booked appointment is relatively high (homeowners searching for carpet cleaning usually need it done soon).
+Google Ads is the fastest path to lead generation for carpet cleaning companies. You can launch a campaign today and receive phone calls tomorrow. The economics work well because carpet cleaning keywords have moderate competition and the conversion from click to booked appointment is relatively high (homeowners searching for carpet cleaning usually need it done soon).
 
 ### Campaign Architecture
 

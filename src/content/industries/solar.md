@@ -62,7 +62,7 @@ We build solar websites with qualification elements embedded throughout. A solar
 
 Solar SEO is brutally competitive. The keywords are valuable, the search volume is high, and the competition includes national brands with enormous marketing budgets. A local solar installer competing against SunRun, Tesla Energy, and a dozen funded startups needs a focused strategy that leverages the advantages only a local company has.
 
-### [Google Business Profile](/services/local-seo/)
+### Google Business Profile
 
 Your Google Business Profile is your single most important local asset. Solar companies should select "Solar Energy Contractor" as their primary category with secondary categories including "Solar Energy Equipment Supplier" and "Electrician" if applicable. Profile completeness matters: fill every available field, upload photos of actual installations (not stock images), post weekly updates about completed projects and incentive changes, and respond to every review.
 

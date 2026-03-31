@@ -32,7 +32,7 @@ Moving is the most trust-intensive transaction in the home service industry. A h
 
 This trust barrier is massive. Homeowners spend more time researching moving companies than almost any other service provider. They read reviews obsessively. They check licensing. They look for red flags. They ask friends and family for recommendations.
 
-Your marketing must address this trust barrier at every touchpoint. Your [Google Business Profile](/services/local-seo/) needs hundreds of reviews from verified customers. Your [website](/services/website-design/) must display your DOT number, MC number, state license, and insurance coverage prominently. Your landing pages must feature customer testimonials that specifically reference careful handling of belongings, on-time arrival, and professional crews.
+Your marketing must address this trust barrier at every touchpoint. Your Google Business Profile needs hundreds of reviews from verified customers. Your website must display your DOT number, MC number, state license, and insurance coverage prominently. Your landing pages must feature customer testimonials that specifically reference careful handling of belongings, on-time arrival, and professional crews.
 
 Companies that treat moving marketing like generic lead generation will fail. The homeowner who searches "movers near me" is not looking for the cheapest option. They are looking for the safest option. Your marketing must communicate safety, reliability, and professionalism before it communicates price.
 

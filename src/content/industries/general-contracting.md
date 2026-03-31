@@ -56,7 +56,7 @@ This does not mean abandoning referrals. It means building a second engine that 
 
 "General contractor near me" generates over 246,000 annual searches nationally. That is a massive pool of homeowners looking for exactly what you offer. The GCs ranking in the Google Map Pack and the top organic positions for this term in their market receive a steady stream of high-value inquiries.
 
-### [Google Business Profile](/services/local-seo/)
+### Google Business Profile
 
 Your Google Business Profile is the front door for most prospective clients. GCs should select "General Contractor" as their primary category with secondary categories including "Home Builder," "Remodeling Contractor," "Kitchen Remodeler," "Bathroom Remodeler," and any other relevant specialties.
 
@@ -83,7 +83,7 @@ A kitchen remodel page that ranks for "kitchen remodel contractor [city]," "kitc
 
 ### Content That Demonstrates Expertise
 
-General contractors have a unique content advantage: project complexity. A blog post walking through the structural considerations of removing a load-bearing wall, the permitting process for a home addition, or the decision framework for a full gut [renovation](/industries/remodeling/) vs. a cosmetic update demonstrates expertise that separates you from handymen and unlicensed operators.
+General contractors have a unique content advantage: project complexity. A blog post walking through the structural considerations of removing a load-bearing wall, the permitting process for a home addition, or the decision framework for a full gut renovation vs. a cosmetic update demonstrates expertise that separates you from handymen and unlicensed operators.
 
 We build content strategies for GCs around the questions homeowners ask during the planning phase:
 
