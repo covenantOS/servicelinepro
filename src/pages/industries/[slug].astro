@@ -5,6 +5,8 @@ import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import ReviewsSection from '../../components/ReviewsSection.astro';
 import CTABand from '../../components/CTABand.astro';
 import Footer from '../../components/Footer.astro';
+import Sidebar from '../../components/Sidebar.astro';
+import LeadMagnet from '../../components/LeadMagnet.astro';
 import config from '../../lib/config';
 import { renderMarkdown } from '../../lib/markdown';
 import fs from 'node:fs';
@@ -45,6 +47,11 @@ const breadcrumbItems = [
 ];
 
 const faqQuestions = frontmatter.faq || [];
+
+// Find case studies matching this industry
+const industryCases = config.case_studies.filter(cs =>
+  cs.industry && cs.industry.toLowerCase().includes(industry.name.toLowerCase().split('/')[0].trim().toLowerCase())
+).slice(0, 3);
 
 const schema = {
   '@context': 'https://schema.org',
@@ -99,6 +106,38 @@ const schema = {
           </div>
         </div>
 
+        {/* Case Studies for this industry */}
+        {industryCases.length > 0 && (
+          <div class="industry-cases">
+            <h2>{industry.name} Results</h2>
+            <div class="industry-cases-grid">
+              {industryCases.map(cs => (
+                <a href={`/case-studies/${cs.slug}/`} class="ind-case-card">
+                  <span class="ind-case-tag">{cs.category}</span>
+                  <h3>{cs.metrics?.primary || cs.result}</h3>
+                  <span class="ind-case-client">{cs.title}</span>
+                  <span class="card-link">Read Case Study &rarr;</span>
+                </a>
+              ))}
+            </div>
+            <a href="/case-studies/" class="see-all-link">See All {config.case_studies.length} Case Studies &rarr;</a>
+          </div>
+        )}
+
+        {/* Lead Magnet */}
+        <LeadMagnet variant="inline" />
+
+        {/* Areas served */}
+        <div class="industry-areas">
+          <h2>{industry.name} Marketing in Central Florida</h2>
+          <div class="industry-areas-grid">
+            {config.areas.slice(0, 10).map(a => (
+              <a href={`/areas/${a.slug}/`} class="industry-area-link">{a.name}</a>
+            ))}
+          </div>
+          <a href="/areas/" class="see-all-link">See All {config.areas.length} Areas &rarr;</a>
+        </div>
+
         {faqQuestions.length > 0 && (
           <div class="faq-section">
             <h2>{industry.name} Marketing FAQ</h2>
@@ -112,23 +151,7 @@ const schema = {
         )}
       </div>
 
-      <aside class="sidebar">
-        <div class="sidebar-card">
-          <h3>Industries We Serve</h3>
-          <ul class="sidebar-nav">
-            {config.industries.map(ind => (
-              <li class={ind.slug === industry.slug ? 'active' : ''}>
-                <a href={`/industries/${ind.slug}/`}>{ind.full_name}</a>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div class="sidebar-card sidebar-cta">
-          <h3>Free Strategy Call</h3>
-          <p>See how we can grow your {industry.name.toLowerCase()} business.</p>
-          <a href="/contact" class="btn btn-primary btn-block">Book Now</a>
-        </div>
-      </aside>
+      <Sidebar currentIndustry={industry.slug} />
     </div>
   </section>
 
@@ -254,68 +277,30 @@ const schema = {
     color: var(--color-primary);
   }
 
-  .sidebar {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-lg);
+  /* Industry Case Studies */
+  .industry-cases { margin-top: var(--space-2xl); }
+  .industry-cases-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: var(--space-md); margin-top: var(--space-lg); }
+  .ind-case-card {
+    display: flex; flex-direction: column; padding: var(--space-lg);
+    background: var(--color-white); border: 1px solid var(--color-gray-200); border-radius: 10px;
+    text-decoration: none; color: inherit; transition: transform 0.15s, box-shadow 0.15s;
   }
+  .ind-case-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.1); }
+  .ind-case-tag { font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-primary); margin-bottom: var(--space-xs); }
+  .ind-case-card h3 { font-size: var(--text-lg); margin-bottom: var(--space-xs); }
+  .ind-case-client { font-size: var(--text-sm); color: var(--color-text-muted); margin-bottom: var(--space-sm); }
+  .see-all-link { display: inline-block; margin-top: var(--space-md); font-size: var(--text-sm); font-weight: 600; color: var(--color-primary); }
 
-  .sidebar-card {
-    background: var(--color-white);
-    border: 1px solid var(--color-gray-200);
-    border-radius: var(--radius-md);
-    padding: var(--space-lg);
+  /* Industry Areas */
+  .industry-areas { margin-top: var(--space-2xl); }
+  .industry-areas-grid { display: flex; flex-wrap: wrap; gap: var(--space-sm); margin-top: var(--space-md); }
+  .industry-area-link {
+    display: inline-block; padding: 0.5rem 1rem;
+    background: var(--color-gray-100); border-radius: 6px; font-size: var(--text-sm);
+    text-decoration: none; color: var(--color-text-light);
+    transition: background 0.15s, color 0.15s;
   }
-
-  .sidebar-card h3 {
-    font-size: var(--text-lg);
-    margin-bottom: var(--space-md);
-  }
-
-  .sidebar-nav {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    max-height: 400px;
-    overflow-y: auto;
-  }
-
-  .sidebar-nav li a {
-    display: block;
-    padding: 0.5rem 0.75rem;
-    font-size: var(--text-sm);
-    color: var(--color-text-light);
-    border-radius: var(--radius-sm);
-    transition: background var(--transition-fast);
-  }
-
-  .sidebar-nav li a:hover,
-  .sidebar-nav li.active a {
-    background: var(--color-gray-100);
-    color: var(--color-primary);
-    font-weight: 600;
-  }
-
-  .sidebar-cta {
-    background: var(--color-dark);
-    color: var(--color-white);
-    border: none;
-  }
-
-  .sidebar-cta h3 {
-    color: var(--color-white);
-  }
-
-  .sidebar-cta p {
-    color: rgba(255, 255, 255, 0.7);
-    margin-bottom: var(--space-md);
-  }
-
-  .btn-block {
-    display: block;
-    text-align: center;
-    width: 100%;
-  }
+  .industry-area-link:hover { background: var(--color-primary); color: var(--color-white); }
 
   .faq-section {
     margin-top: var(--space-2xl);

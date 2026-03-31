@@ -2,6 +2,8 @@
 import Base from '../../layouts/Base.astro';
 import Header from '../../components/Header.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Sidebar from '../../components/Sidebar.astro';
+import LeadMagnet from '../../components/LeadMagnet.astro';
 import ReviewsSection from '../../components/ReviewsSection.astro';
 import CTABand from '../../components/CTABand.astro';
 import Footer from '../../components/Footer.astro';
@@ -15,14 +17,12 @@ export function getStaticPaths() {
   const paths: any[] = [];
 
   for (const area of config.areas) {
-    // Main area page: /areas/tampa-fl/
     paths.push({
       params: { slug: area.slug },
       props: { area, type: 'area' },
     });
   }
 
-  // Area-service combos for top areas: /areas/tampa-fl/local-seo/
   for (const areaSlug of config.area_service_combos) {
     const area = config.areas.find(a => a.slug === areaSlug);
     if (!area) continue;
@@ -65,12 +65,12 @@ if (type === 'area') {
 const isCombo = type === 'area-service' && service;
 
 const pageTitle = isCombo
-  ? frontmatter.title || `${service.name} in ${area.name}, ${config.business.address.state_full}`
-  : frontmatter.title || `Digital Marketing Agency in ${area.name}, ${config.business.address.state_full}`;
+  ? frontmatter.title || `${service.name} in ${area.name}`
+  : frontmatter.title || `Performance Marketing in ${area.name}`;
 
 const pageDescription = isCombo
-  ? frontmatter.description || `${service.name} services in ${area.name}, FL. ${config.business.name} delivers results-driven ${service.name.toLowerCase()} for home service businesses.`
-  : frontmatter.description || `${config.business.name} provides local SEO, Google Ads, website design, and TV advertising for home service businesses in ${area.name}, ${config.business.address.state_full}.`;
+  ? frontmatter.description || `${service.name} services in ${area.name}. ${config.business.name} delivers measurable results through data-driven ${service.name.toLowerCase()} campaigns.`
+  : frontmatter.description || `${config.business.name} delivers Local SEO, Google Ads, website design, and TV advertising for businesses in ${area.name}. Real results. No long-term contracts.`;
 
 const breadcrumbItems = [
   { label: 'Home', href: '/' },
@@ -85,7 +85,6 @@ if (isCombo) {
 }
 
 const schemaType = area.is_primary ? 'LocalBusiness' : 'ProfessionalService';
-
 const schema = {
   '@context': 'https://schema.org',
   '@type': schemaType,
@@ -109,20 +108,56 @@ const schema = {
 };
 
 const faqQuestions = frontmatter.faq || [];
+
+// Get relevant case studies
+const relevantCases = isCombo
+  ? config.case_studies.filter(cs => {
+      const cat = cs.category.toLowerCase();
+      if (service.slug === 'local-seo') return cat.includes('seo') || cat.includes('reputation');
+      if (service.slug === 'ppc') return cat.includes('ads') || cat.includes('ppc');
+      if (service.slug === 'website-design') return cat.includes('design') || cat.includes('website');
+      if (service.slug === 'tv-streaming-advertising') return cat.includes('sms') || cat.includes('tv');
+      return false;
+    }).slice(0, 3)
+  : config.case_studies.slice(0, 4);
+
+// Nearby areas (exclude current)
+const nearbyAreas = config.areas.filter(a => a.slug !== area.slug);
 ---
 
 <Base title={pageTitle} description={pageDescription} schema={schema}>
   <Header slot="header" />
 
   <section class="area-hero">
+    <div class="area-hero-bg"></div>
     <div class="container area-hero-inner">
       <Breadcrumbs items={breadcrumbItems} />
-      <div class="area-badge">{area.name}, {config.business.address.state_full}</div>
+      <div class="area-hero-tags">
+        <span class="area-badge area-badge-location">{area.name}, {config.business.address.state}</span>
+        {isCombo && <span class="area-badge area-badge-service">{service.name}</span>}
+        {area.is_primary && <span class="area-badge area-badge-hq">Headquarters</span>}
+      </div>
       <h1>{pageTitle}</h1>
-      <p class="area-hero-desc">{isCombo ? service.short_description : `Full-service marketing agency helping home service businesses in ${area.name} dominate local search, run profitable ad campaigns, and build websites that convert.`}</p>
+      <p class="area-hero-desc">{isCombo ? `Data-driven ${service.name.toLowerCase()} built to grow your business in ${area.name}. We measure everything. You only pay for what works.` : `Local SEO. Google Ads. Websites that convert. TV & streaming campaigns. All built for businesses in ${area.name} that want to grow.`}</p>
       <div class="area-hero-ctas">
-        <a href="/contact" class="btn btn-primary">Free Strategy Call</a>
-        <a href={`tel:${config.business.phone_raw}`} class="btn btn-outline">{config.business.phone}</a>
+        <a href="/contact" class="btn btn-primary btn-lg">Free Strategy Call</a>
+        <a href={`tel:${config.business.phone_raw}`} class="btn btn-outline-light">{config.business.phone}</a>
+      </div>
+
+      {/* Results preview strip */}
+      <div class="area-hero-stats">
+        <div class="area-hero-stat">
+          <span class="area-hero-stat-val">{config.case_studies.length}+</span>
+          <span class="area-hero-stat-label">Client Campaigns</span>
+        </div>
+        <div class="area-hero-stat">
+          <span class="area-hero-stat-val">$2M+</span>
+          <span class="area-hero-stat-label">Revenue Generated</span>
+        </div>
+        <div class="area-hero-stat">
+          <span class="area-hero-stat-val">4.9★</span>
+          <span class="area-hero-stat-label">Client Rating</span>
+        </div>
       </div>
     </div>
   </section>
@@ -134,11 +169,34 @@ const faqQuestions = frontmatter.faq || [];
           <div class="prose" set:html={renderMarkdown(content)} />
         ) : (
           <div class="prose">
-            <h2>{isCombo ? `${service.name} for ${area.name} Home Service Businesses` : `Home Service Marketing in ${area.name}`}</h2>
-            <p>{config.business.name} works with home service companies in {area.name} and across Central Florida. Whether you need local SEO to dominate the Map Pack, Google Ads to fill your calendar, or a website that turns visitors into booked jobs, we build marketing that actually performs.</p>
+            {isCombo ? (
+              <>
+                <h2>{service.name} for {area.name} Businesses</h2>
+                <p>{config.business.name} runs {service.name.toLowerCase()} campaigns specifically for businesses in {area.name} and across Central Florida. We know this market. We know the search patterns. And we know what it takes to outrank the competition here.</p>
+                <p>Every campaign starts with a market analysis of {area.name} search volume, competitor positioning, and opportunity gaps. We build your strategy around data, not guesses.</p>
+                <h2>What You Get</h2>
+                <ul>
+                  <li>Market-specific keyword research for {area.name}</li>
+                  <li>Competitor analysis showing exactly where you can win</li>
+                  <li>Monthly reporting with real metrics tied to revenue</li>
+                  <li>Direct access to your strategist (not a call center)</li>
+                  <li>No long-term contracts. Results keep you, not paperwork</li>
+                </ul>
+              </>
+            ) : (
+              <>
+                <h2>Marketing That Performs in {area.name}</h2>
+                <p>{config.business.name} is a performance marketing agency based in {config.business.address.city}. We work with businesses in {area.name} that are tired of agencies who talk about impressions and brand awareness while the phone stays quiet.</p>
+                <p>We build campaigns that generate calls, form fills, and booked appointments. You see the numbers. You see the ROI. And if the results are not there, you do not pay.</p>
+                <h2>How We Work With {area.name} Businesses</h2>
+                <p>We start with a 15-minute strategy call. No pitch deck. No "discovery phase" that takes six weeks. We look at your current digital presence, identify the biggest opportunities in {area.name}, and give you a straight answer about what will move the needle.</p>
+                <p>If we are a fit, we build a custom campaign. If we are not, we tell you. Either way, you walk away with actionable intelligence about your market.</p>
+              </>
+            )}
           </div>
         )}
 
+        {/* Services Grid (area pages only) */}
         {!isCombo && (
           <div class="area-services">
             <h2>Our Services in {area.name}</h2>
@@ -146,13 +204,33 @@ const faqQuestions = frontmatter.faq || [];
               {config.services.map(svc => {
                 const hasCombo = config.area_service_combos.includes(area.slug);
                 const href = hasCombo ? `/areas/${area.slug}/${svc.slug}/` : `/services/${svc.slug}/`;
+                const svcCases = config.case_studies.filter(cs => {
+                  const cat = cs.category.toLowerCase();
+                  if (svc.slug === 'local-seo') return cat.includes('seo');
+                  if (svc.slug === 'ppc') return cat.includes('ads');
+                  if (svc.slug === 'website-design') return cat.includes('design') || cat.includes('website');
+                  return false;
+                });
+                const topResult = svcCases[0];
                 return (
-                  <a href={href} class="area-service-card card">
-                    <div class="area-service-body">
+                  <a href={href} class="area-service-card">
+                    <div class="area-svc-header">
                       <h3>{svc.name}</h3>
-                      <p>{svc.short_description}</p>
-                      <span class="card-link">Learn More &rarr;</span>
+                      {svc.pricing?.tiers?.[0] && (
+                        <span class="area-svc-price">From ${svc.pricing.tiers[0].price.toLocaleString()}/mo</span>
+                      )}
+                      {svc.pricing?.quote_based && (
+                        <span class="area-svc-price">Custom Quote</span>
+                      )}
                     </div>
+                    <p>{svc.short_description}</p>
+                    {topResult && (
+                      <div class="area-svc-result">
+                        <span class="area-svc-result-val">{topResult.metrics?.primary || topResult.result}</span>
+                        <span class="area-svc-result-client">{topResult.title}</span>
+                      </div>
+                    )}
+                    <span class="card-link">Learn More &rarr;</span>
                   </a>
                 );
               })}
@@ -160,9 +238,49 @@ const faqQuestions = frontmatter.faq || [];
           </div>
         )}
 
+        {/* Case Studies */}
+        {relevantCases.length > 0 && (
+          <div class="area-cases">
+            <h2>{isCombo ? `${service.name} Results` : 'Client Results'}</h2>
+            <div class="area-cases-grid">
+              {relevantCases.map(cs => (
+                <a href={`/case-studies/${cs.slug}/`} class="area-case-card">
+                  <span class="area-case-tag">{cs.category}</span>
+                  <h3>{cs.metrics?.primary || cs.result}</h3>
+                  <span class="area-case-client">{cs.title}</span>
+                  {cs.industry && <span class="area-case-industry">{cs.industry}</span>}
+                  <span class="card-link">Read Case Study &rarr;</span>
+                </a>
+              ))}
+            </div>
+            <a href="/case-studies/" class="see-all-link">See All {config.case_studies.length} Case Studies &rarr;</a>
+          </div>
+        )}
+
+        {/* Lead Magnet */}
+        {isCombo && service ? (
+          <LeadMagnet service={service.slug} variant="dark" />
+        ) : (
+          <LeadMagnet variant="inline" />
+        )}
+
+        {/* Industries we serve in this area */}
+        {!isCombo && (
+          <div class="area-industries">
+            <h2>Who We Work With in {area.name}</h2>
+            <div class="area-industries-grid">
+              {config.industries.slice(0, 12).map(ind => (
+                <a href={`/industries/${ind.slug}/`} class="area-industry-chip">{ind.full_name}</a>
+              ))}
+            </div>
+            <a href="/industries/" class="see-all-link">See All {config.industries.length} Industries &rarr;</a>
+          </div>
+        )}
+
+        {/* FAQ */}
         {faqQuestions.length > 0 && (
           <div class="faq-section">
-            <h2>FAQ</h2>
+            <h2>{isCombo ? `${service.name} FAQ` : `Marketing FAQ for ${area.name}`}</h2>
             {faqQuestions.map((q: any) => (
               <details class="faq-item">
                 <summary>{q.question}</summary>
@@ -172,39 +290,25 @@ const faqQuestions = frontmatter.faq || [];
           </div>
         )}
 
-        {!isCombo && (
-          <div class="nearby-areas">
-            <h2>Nearby Areas We Serve</h2>
-            <div class="nearby-grid">
-              {config.areas.filter(a => a.slug !== area.slug).map(a => (
-                <a href={`/areas/${a.slug}/`} class="nearby-link">{a.name}</a>
-              ))}
-            </div>
+        {/* Nearby Areas */}
+        <div class="nearby-areas">
+          <h2>{isCombo ? `${service.name} in Nearby Areas` : 'Nearby Areas We Serve'}</h2>
+          <div class="nearby-grid">
+            {nearbyAreas.map(a => {
+              const href = isCombo && service && config.area_service_combos.includes(a.slug)
+                ? `/areas/${a.slug}/${service.slug}/`
+                : `/areas/${a.slug}/`;
+              return <a href={href} class="nearby-link">{a.name}</a>;
+            })}
           </div>
-        )}
+        </div>
       </div>
 
-      <aside class="sidebar">
-        <div class="sidebar-card">
-          <h3>Areas We Serve</h3>
-          <ul class="sidebar-nav">
-            {config.areas.map(a => (
-              <li class={a.slug === area.slug ? 'active' : ''}>
-                <a href={`/areas/${a.slug}/`}>{a.name}</a>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div class="sidebar-card sidebar-cta">
-          <h3>Grow Your Business in {area.name}</h3>
-          <p>Free strategy call. No pressure. Just straight answers about what will work in your market.</p>
-          <a href="/contact" class="btn btn-primary btn-block">Book Now</a>
-        </div>
-      </aside>
+      <Sidebar currentArea={area.slug} currentService={isCombo && service ? service.slug : undefined} />
     </div>
   </section>
 
-  <CTABand heading={`Dominate ${area.name} Search Results`} />
+  <CTABand heading={`Grow Your ${area.name} Business`} />
   <ReviewsSection compact={true} maxReviews={3} />
   <Footer slot="footer" />
 </Base>
@@ -214,17 +318,42 @@ const faqQuestions = frontmatter.faq || [];
     background: var(--color-dark);
     padding: var(--space-3xl) 0 var(--space-2xl);
     color: var(--color-white);
+    position: relative;
+    overflow: hidden;
   }
+  .area-hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(circle at 15% 85%, rgba(192,57,43,0.12) 0%, transparent 45%),
+      radial-gradient(circle at 85% 15%, rgba(34,197,94,0.06) 0%, transparent 35%);
+    pointer-events: none;
+  }
+  .area-hero-inner { position: relative; z-index: 1; }
 
+  .area-hero-tags { display: flex; gap: 0.5rem; margin-bottom: var(--space-md); flex-wrap: wrap; }
   .area-badge {
     display: inline-block;
-    background: var(--color-primary);
-    color: var(--color-white);
     padding: 0.25rem 0.75rem;
-    border-radius: var(--radius-sm);
-    font-size: var(--text-sm);
-    font-weight: 600;
-    margin-bottom: var(--space-md);
+    border-radius: 4px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .area-badge-location {
+    background: rgba(34,197,94,0.12);
+    color: #4ade80;
+    border: 1px solid rgba(34,197,94,0.2);
+  }
+  .area-badge-service {
+    background: rgba(192,57,43,0.15);
+    color: var(--color-primary);
+    border: 1px solid rgba(192,57,43,0.2);
+  }
+  .area-badge-hq {
+    background: rgba(59,130,246,0.12);
+    color: #60a5fa;
+    border: 1px solid rgba(59,130,246,0.2);
   }
 
   .area-hero h1 {
@@ -233,98 +362,93 @@ const faqQuestions = frontmatter.faq || [];
     margin-bottom: var(--space-sm);
     max-width: 700px;
   }
-
   .area-hero-desc {
-    color: rgba(255, 255, 255, 0.75);
-    font-size: var(--text-base);
+    color: rgba(255,255,255,0.7);
+    font-size: var(--text-lg);
     max-width: 600px;
     margin-bottom: var(--space-lg);
-    line-height: var(--leading-relaxed);
+    line-height: 1.6;
   }
+  .area-hero-ctas { display: flex; gap: var(--space-md); flex-wrap: wrap; }
+  .btn-outline-light { border: 1px solid rgba(255,255,255,0.3); color: var(--color-white); padding: 0.65rem 1.25rem; border-radius: 6px; font-weight: 600; font-size: var(--text-sm); text-decoration: none; transition: all 0.15s; }
+  .btn-outline-light:hover { background: var(--color-white); color: var(--color-dark); }
 
-  .area-hero-ctas {
-    display: flex;
-    gap: var(--space-md);
-    flex-wrap: wrap;
+  .area-hero-stats {
+    display: flex; gap: var(--space-xl); margin-top: var(--space-xl);
+    padding-top: var(--space-lg); border-top: 1px solid rgba(255,255,255,0.08);
   }
+  .area-hero-stat { display: flex; flex-direction: column; }
+  .area-hero-stat-val { font-family: var(--font-heading); font-size: var(--text-lg); font-weight: 800; color: var(--color-primary); }
+  .area-hero-stat-label { font-size: 0.7rem; color: rgba(255,255,255,0.4); }
 
-  .area-hero .btn-outline {
-    border-color: var(--color-white);
-    color: var(--color-white);
-  }
+  /* Content Layout */
+  .content-layout { display: grid; grid-template-columns: 1fr; gap: var(--space-2xl); }
+  @media (min-width: 1024px) { .content-layout { grid-template-columns: 1fr 300px; } }
 
-  .content-layout {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: var(--space-2xl);
-  }
+  .prose :global(h2) { font-size: var(--text-2xl); margin-top: var(--space-2xl); margin-bottom: var(--space-md); }
+  .prose :global(h3) { font-size: var(--text-xl); margin-top: var(--space-xl); margin-bottom: var(--space-sm); }
+  .prose :global(p) { color: var(--color-text-light); line-height: var(--leading-relaxed); }
+  .prose :global(ul), .prose :global(ol) { margin-bottom: 1em; color: var(--color-text-light); }
+  .prose :global(li) { margin-bottom: 0.375rem; line-height: var(--leading-relaxed); }
+  .prose :global(strong) { color: var(--color-text); }
 
-  @media (min-width: 1024px) {
-    .content-layout {
-      grid-template-columns: 1fr 300px;
-    }
-  }
-
+  /* Services Grid */
   .area-services { margin-top: var(--space-2xl); }
-
-  .area-services-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: var(--space-lg);
-    margin-top: var(--space-lg);
-  }
-
+  .area-services-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: var(--space-lg); margin-top: var(--space-lg); }
   .area-service-card {
-    text-decoration: none;
-    color: inherit;
-    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+    display: flex; flex-direction: column;
+    padding: var(--space-xl);
+    background: var(--color-white); border: 1px solid var(--color-gray-200); border-radius: 10px;
+    text-decoration: none; color: inherit; transition: transform 0.15s, box-shadow 0.15s;
   }
-
-  .area-service-card:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-lg);
-  }
-
-  .area-service-body {
-    padding: var(--space-lg);
-  }
-
-  .area-service-body h3 { font-size: var(--text-lg); margin-bottom: var(--space-sm); }
-  .area-service-body p { font-size: var(--text-sm); color: var(--color-text-light); margin-bottom: var(--space-sm); }
+  .area-service-card:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,0.1); }
+  .area-svc-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: var(--space-sm); }
+  .area-svc-header h3 { font-size: var(--text-lg); }
+  .area-svc-price { font-size: 0.7rem; font-weight: 600; color: var(--color-primary); }
+  .area-service-card p { font-size: var(--text-sm); color: var(--color-text-light); margin-bottom: var(--space-md); flex: 1; }
+  .area-svc-result { background: var(--color-gray-50, #f9fafb); border-radius: 6px; padding: var(--space-sm) var(--space-md); margin-bottom: var(--space-md); }
+  .area-svc-result-val { display: block; font-weight: 700; font-size: var(--text-sm); color: var(--color-primary); }
+  .area-svc-result-client { font-size: 0.7rem; color: var(--color-text-muted); }
   .card-link { font-size: var(--text-sm); font-weight: 600; color: var(--color-primary); }
 
+  /* Case Studies */
+  .area-cases { margin-top: var(--space-2xl); }
+  .area-cases-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: var(--space-md); margin-top: var(--space-lg); }
+  .area-case-card {
+    display: flex; flex-direction: column; padding: var(--space-lg);
+    background: var(--color-white); border: 1px solid var(--color-gray-200); border-radius: 10px;
+    text-decoration: none; color: inherit; transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .area-case-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.1); }
+  .area-case-tag { font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-primary); margin-bottom: var(--space-xs); }
+  .area-case-card h3 { font-size: var(--text-lg); margin-bottom: var(--space-xs); }
+  .area-case-client { font-size: var(--text-sm); color: var(--color-text-muted); }
+  .area-case-industry { font-size: 0.7rem; color: var(--color-text-muted); margin-bottom: var(--space-sm); }
+  .see-all-link { display: inline-block; margin-top: var(--space-md); font-size: var(--text-sm); font-weight: 600; color: var(--color-primary); }
+
+  /* Industries */
+  .area-industries { margin-top: var(--space-2xl); }
+  .area-industries-grid { display: flex; flex-wrap: wrap; gap: var(--space-sm); margin-top: var(--space-md); }
+  .area-industry-chip {
+    display: inline-block; padding: 0.5rem 1rem;
+    background: var(--color-gray-100); border-radius: 6px;
+    font-size: var(--text-sm); text-decoration: none; color: var(--color-text-light);
+    transition: background 0.15s, color 0.15s;
+  }
+  .area-industry-chip:hover { background: var(--color-primary); color: var(--color-white); }
+
+  /* Nearby */
   .nearby-areas { margin-top: var(--space-2xl); }
-  .nearby-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-sm);
-    margin-top: var(--space-md);
-  }
-
+  .nearby-grid { display: flex; flex-wrap: wrap; gap: var(--space-sm); margin-top: var(--space-md); }
   .nearby-link {
-    display: inline-block;
-    padding: 0.5rem 1rem;
-    background: var(--color-gray-100);
-    border-radius: var(--radius-sm);
-    font-size: var(--text-sm);
-    transition: background var(--transition-fast), color var(--transition-fast);
+    display: inline-block; padding: 0.5rem 1rem;
+    background: var(--color-gray-100); border-radius: 6px; font-size: var(--text-sm);
+    text-decoration: none; color: var(--color-text-light);
+    transition: background 0.15s, color 0.15s;
   }
+  .nearby-link:hover { background: var(--color-primary); color: var(--color-white); }
 
-  .nearby-link:hover {
-    background: var(--color-primary);
-    color: var(--color-white);
-  }
-
-  .sidebar { display: flex; flex-direction: column; gap: var(--space-lg); }
-  .sidebar-card { background: var(--color-white); border: 1px solid var(--color-gray-200); border-radius: var(--radius-md); padding: var(--space-lg); }
-  .sidebar-card h3 { font-size: var(--text-base); margin-bottom: var(--space-md); }
-  .sidebar-nav { list-style: none; padding: 0; margin: 0; max-height: 400px; overflow-y: auto; }
-  .sidebar-nav li a { display: block; padding: 0.375rem 0.5rem; font-size: var(--text-sm); color: var(--color-text-light); border-radius: var(--radius-sm); transition: background var(--transition-fast); }
-  .sidebar-nav li a:hover, .sidebar-nav li.active a { background: var(--color-gray-100); color: var(--color-primary); font-weight: 600; }
-  .sidebar-cta { background: var(--color-dark); color: var(--color-white); border: none; }
-  .sidebar-cta h3 { color: var(--color-white); }
-  .sidebar-cta p { color: rgba(255, 255, 255, 0.7); margin-bottom: var(--space-md); }
-  .btn-block { display: block; text-align: center; width: 100%; }
+  /* FAQ */
   .faq-section { margin-top: var(--space-2xl); }
   .faq-item { border-bottom: 1px solid var(--color-gray-200); padding: var(--space-md) 0; }
   .faq-item summary { font-weight: 600; cursor: pointer; }
