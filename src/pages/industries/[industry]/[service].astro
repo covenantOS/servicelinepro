@@ -1,11 +1,10 @@
 ---
 import Base from '../../../layouts/Base.astro';
 import Header from '../../../components/Header.astro';
-import Breadcrumbs from '../../../components/Breadcrumbs.astro';
 import ReviewsSection from '../../../components/ReviewsSection.astro';
-import CTABand from '../../../components/CTABand.astro';
 import Footer from '../../../components/Footer.astro';
-import LeadMagnet from '../../../components/LeadMagnet.astro';
+import StatBar from '../../../components/StatBar.astro';
+import HandwrittenCTA from '../../../components/HandwrittenCTA.astro';
 import config from '../../../lib/config';
 import { renderMarkdown, splitMarkdownSections } from '../../../lib/markdown';
 import InlineTestimonial from '../../../components/InlineTestimonial.astro';
@@ -44,21 +43,12 @@ if (fs.existsSync(filePath)) {
 }
 
 const pageTitle = frontmatter.title || `${service.name} for ${industry.full_name}`;
-const pageDescription = frontmatter.description || `${service.name} services designed specifically for ${industry.full_name.toLowerCase()}. ${config.business.name} delivers results-driven ${service.name.toLowerCase()} campaigns that generate real leads.`;
-
-const breadcrumbItems = [
-  { label: 'Home', href: '/' },
-  { label: 'Industries', href: '/industries/' },
-  { label: industry.full_name, href: `/industries/${industry.slug}/` },
-  { label: `${service.name}` },
-];
+const pageDescription = frontmatter.description || `${service.name} services designed specifically for ${industry.full_name.toLowerCase()}. ${config.business.name} delivers results-driven campaigns.`;
 
 const faqQuestions = frontmatter.faq || [];
 const contentSections = content ? splitMarkdownSections(content) : [];
 const inlineReview = config.reviews?.[0];
-const pricingTiers = service.pricing?.tiers || [];
 
-// Find case studies matching this service category or industry
 const serviceKeyword = service.name.toLowerCase().split(' ')[0];
 const industryKeyword = industry.name.toLowerCase().split('/')[0].trim();
 const relevantCases = config.case_studies.filter(cs =>
@@ -66,13 +56,8 @@ const relevantCases = config.case_studies.filter(cs =>
   (cs.industry && cs.industry.toLowerCase().includes(industryKeyword))
 ).slice(0, 4);
 
-// Other services for this industry (cross-links)
 const otherServices = config.services.filter(s => s.slug !== service.slug);
-
-// Other industries for this service (cross-links)
 const otherIndustries = config.industries.filter(i => i.slug !== industry.slug).slice(0, 8);
-
-// Nearby areas for internal linking
 const topAreas = config.areas.slice(0, 6);
 
 const schema = {
@@ -80,20 +65,17 @@ const schema = {
   '@type': 'Service',
   name: `${service.name} for ${industry.full_name}`,
   description: pageDescription,
-  provider: {
-    '@type': 'ProfessionalService',
-    name: config.business.name,
-  },
+  provider: { '@type': 'ProfessionalService', name: config.business.name },
 };
 ---
 
 <Base title={pageTitle} description={pageDescription} schema={schema}>
   <Header slot="header" />
 
+  <!-- ===== HERO ===== -->
   <section class="combo-hero">
-    <div class="combo-hero-bg"></div>
+    <div class="combo-hero-texture"></div>
     <div class="container combo-hero-inner">
-      <Breadcrumbs items={breadcrumbItems} />
       <div class="combo-badges">
         <span class="badge badge-industry">{industry.name}</span>
         <span class="badge badge-service">{service.name}</span>
@@ -101,75 +83,87 @@ const schema = {
       <h1>{pageTitle}</h1>
       <p class="combo-hero-desc">{pageDescription}</p>
       <div class="combo-hero-ctas">
-        <a href="/contact" class="btn btn-primary">Get Your Free Strategy Call</a>
-        <a href={`tel:${config.business.phone_raw}`} class="btn btn-outline">{config.business.phone}</a>
+        <a href="/contact" class="btn btn-ghost btn-lg">Get In Touch</a>
+        <a href={`tel:${config.business.phone_raw}`} class="btn btn-ghost btn-lg" style="border-color: rgba(255,255,255,0.2);">{config.business.phone}</a>
       </div>
     </div>
   </section>
 
-  {/* === FULL-WIDTH CONTENT SECTIONS — NO SIDEBAR === */}
+  <!-- ===== TRUST ===== -->
+  <section class="combo-trust">
+    <div class="container">
+      <StatBar stats={[
+        { value: '5.0 ★', label: 'Google Rating' },
+        { value: '$2M+', label: 'Revenue Generated' },
+        { value: '300+', label: 'Leads Delivered' },
+      ]} variant="dark" />
+    </div>
+  </section>
+
+  <!-- ===== CONTENT ===== -->
   {contentSections.length > 0 ? (
-    contentSections.map((section, i) => (
-      <>
-        <section class={`fw-section ${i % 3 === 1 ? 'fw-alt' : ''} ${i % 5 === 3 ? 'fw-dark' : ''}`}>
-          <div class="container fw-narrow">
-            <div class="prose" set:html={section.html} />
-          </div>
-        </section>
-
-        {i === 0 && inlineReview && (
-          <section class="fw-section fw-alt">
-            <div class="container fw-narrow">
-              <InlineTestimonial quote={inlineReview.text} author={inlineReview.author} company={inlineReview.company} rating={inlineReview.rating} />
+    <>
+      {contentSections.map((section, i) => (
+        <>
+          <section class={`combo-section ${i % 2 === 0 ? 'combo-dark' : ''}`}>
+            <div class="container" style="max-width: 800px;">
+              <div class="prose" set:html={section.html} />
             </div>
           </section>
-        )}
 
-        {i === 1 && (
-          <section class="fw-section fw-dark fw-cta-band">
-            <div class="container">
-              <div class="fw-cta-inner">
-                <div>
-                  <h3>Ready to Grow Your {industry.name} Business?</h3>
-                  <p>15-minute strategy call. No pitch deck. We show you where the money is.</p>
-                </div>
-                <a href="/contact" class="btn btn-primary">Free Strategy Call</a>
+          {i === 0 && inlineReview && (
+            <section class="combo-section" style="background: var(--color-gray-100);">
+              <div class="container" style="max-width: 800px;">
+                <InlineTestimonial quote={inlineReview.text} author={inlineReview.author} company={inlineReview.company} rating={inlineReview.rating} />
               </div>
-            </div>
-          </section>
-        )}
+            </section>
+          )}
 
-        {i === 3 && config.reviews?.[1] && (
-          <section class="fw-section">
-            <div class="container fw-narrow">
-              <InlineTestimonial quote={config.reviews[1].text} author={config.reviews[1].author} company={config.reviews[1].company} rating={config.reviews[1].rating} />
-            </div>
-          </section>
-        )}
-      </>
-    ))
+          {i === 1 && (
+            <section class="combo-section combo-dark combo-cta-band">
+              <div class="container">
+                <div class="combo-cta-inner">
+                  <div>
+                    <h3>Ready to Grow Your {industry.name} Business?</h3>
+                    <p>15-minute strategy call. No pitch deck. We show you where the money is.</p>
+                  </div>
+                  <a href="/contact" class="btn btn-primary">Free Strategy Call</a>
+                </div>
+              </div>
+            </section>
+          )}
+
+          {i === 3 && config.reviews?.[1] && (
+            <section class="combo-section">
+              <div class="container" style="max-width: 800px;">
+                <InlineTestimonial quote={config.reviews[1].text} author={config.reviews[1].author} company={config.reviews[1].company} rating={config.reviews[1].rating} />
+              </div>
+            </section>
+          )}
+        </>
+      ))}
+    </>
   ) : (
-    <section class="fw-section">
-      <div class="container fw-narrow">
+    <section class="combo-section">
+      <div class="container" style="max-width: 800px;">
         <div class="prose">
           <h2>{service.name} Built for the {industry.name} Industry</h2>
           <p>{config.business.name} delivers {service.name.toLowerCase()} campaigns designed specifically for {industry.full_name.toLowerCase()}.</p>
           <p>Your <a href={`/services/${service.slug}/`}>{service.name.toLowerCase()} strategy</a> needs to account for seasonal demand, local search patterns, and the specific language your customers use.</p>
-          <p>We have worked with <a href={`/industries/${industry.slug}/`}>{industry.full_name.toLowerCase()}</a> and know what moves the needle.</p>
         </div>
       </div>
     </section>
   )}
 
-  {/* Case Studies - full width dark */}
+  <!-- ===== CASE STUDIES ===== -->
   {relevantCases.length > 0 && (
-    <section class="fw-section fw-dark">
+    <section class="combo-section combo-dark">
       <div class="container">
-        <span class="section-label section-label-light">Proven Results</span>
-        <h2 class="fw-heading-light">{service.name} Results in {industry.name}</h2>
+        <span class="section-eyebrow" style="color: var(--color-primary);">Proven Results</span>
+        <h2 style="color: var(--color-white); margin-bottom: var(--space-xl);">{service.name} Results in {industry.name}</h2>
         <div class="combo-cases-grid">
           {relevantCases.map(cs => (
-            <a href={`/case-studies/${cs.slug}/`} class="combo-case-card combo-case-dark">
+            <a href={`/case-studies/${cs.slug}/`} class="combo-case-card">
               <span class="combo-case-tag">{cs.category}</span>
               <h3>{cs.metrics?.primary || cs.result}</h3>
               <span class="combo-case-client">{cs.title}</span>
@@ -181,14 +175,14 @@ const schema = {
     </section>
   )}
 
-  {/* Other services - full width alt */}
-  <section class="fw-section fw-alt">
+  <!-- ===== OTHER SERVICES ===== -->
+  <section class="combo-section" style="background: var(--color-gray-100);">
     <div class="container">
-      <span class="section-label">More for {industry.full_name}</span>
+      <span class="section-eyebrow">More for {industry.full_name}</span>
       <h2>Other Services for {industry.full_name}</h2>
-      <div class="cross-link-grid">
+      <div class="combo-cross-grid">
         {otherServices.map(svc => (
-          <a href={`/industries/${industry.slug}/${svc.slug}/`} class="cross-link-card">
+          <a href={`/industries/${industry.slug}/${svc.slug}/`} class="combo-cross-card">
             <h3>{svc.name}</h3>
             <p>{svc.short_description.split('.')[0]}.</p>
             <span class="card-link">{svc.name} for {industry.name}</span>
@@ -198,25 +192,25 @@ const schema = {
     </div>
   </section>
 
-  {/* Industries + Areas chips - full width dark */}
-  <section class="fw-section fw-dark">
+  <!-- ===== CROSS-LINKS — Dark ===== -->
+  <section class="combo-section combo-dark">
     <div class="container">
-      <div class="combo-links-grid">
+      <div class="combo-links-split">
         <div>
-          <span class="section-label section-label-light">{service.name} by Industry</span>
-          <h3 class="fw-heading-light">{service.name} for Other Industries</h3>
-          <div class="fw-chip-grid">
+          <span class="section-eyebrow" style="color: var(--color-primary);">{service.name} by Industry</span>
+          <h3 style="color: var(--color-white); margin-bottom: var(--space-md);">{service.name} for Other Industries</h3>
+          <div class="combo-chips">
             {otherIndustries.map(ind => (
-              <a href={`/industries/${ind.slug}/${service.slug}/`} class="fw-chip">{ind.full_name}</a>
+              <a href={`/industries/${ind.slug}/${service.slug}/`} class="combo-chip">{ind.full_name}</a>
             ))}
           </div>
         </div>
         <div>
-          <span class="section-label section-label-light">{industry.name} by Area</span>
-          <h3 class="fw-heading-light">{service.name} for {industry.name} Near You</h3>
-          <div class="fw-chip-grid">
+          <span class="section-eyebrow" style="color: var(--color-primary);">{industry.name} by Area</span>
+          <h3 style="color: var(--color-white); margin-bottom: var(--space-md);">{service.name} Near You</h3>
+          <div class="combo-chips">
             {topAreas.map(a => (
-              <a href={`/areas/${a.slug}/`} class="fw-chip">{a.name}</a>
+              <a href={`/areas/${a.slug}/`} class="combo-chip">{a.name}</a>
             ))}
           </div>
         </div>
@@ -224,13 +218,13 @@ const schema = {
     </div>
   </section>
 
-  {/* FAQ - full width */}
+  <!-- ===== FAQ ===== -->
   {faqQuestions.length > 0 && (
-    <section class="fw-section fw-alt">
-      <div class="container fw-narrow">
-        <span class="section-label">Common Questions</span>
+    <section class="combo-section" style="background: var(--color-gray-100);">
+      <div class="container" style="max-width: 800px;">
+        <span class="section-eyebrow">Common Questions</span>
         <h2>{service.name} FAQ for {industry.full_name}</h2>
-        <div class="faq-grid">
+        <div class="combo-faq">
           {faqQuestions.map((q: any) => (
             <details class="faq-item">
               <summary>{q.question}</summary>
@@ -242,143 +236,98 @@ const schema = {
     </section>
   )}
 
-  <CTABand heading={`Get ${service.name} Results for Your ${industry.name} Business`} />
+  <!-- ===== FINAL CTA ===== -->
+  <HandwrittenCTA
+    heading={`Get ${service.name} Results for Your ${industry.name} Business`}
+    buttonText="Schedule Your Strategy Call"
+    annotation="No obligation. Just a quick call."
+  />
+
   <ReviewsSection compact={true} maxReviews={3} />
   <Footer slot="footer" />
 </Base>
 
 <style>
   .combo-hero {
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
     background: var(--color-dark);
-    padding: var(--space-3xl) 0 var(--space-2xl);
     color: var(--color-white);
     position: relative;
     overflow: hidden;
+    padding: var(--space-4xl) 0;
   }
-  .combo-hero-bg {
+  .combo-hero-texture {
     position: absolute; inset: 0;
     background:
+      repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.02) 10px, rgba(255,255,255,0.02) 11px),
       radial-gradient(circle at 20% 80%, rgba(192,57,43,0.12) 0%, transparent 40%),
-      radial-gradient(circle at 80% 20%, rgba(59,130,246,0.06) 0%, transparent 35%);
+      radial-gradient(circle at 80% 20%, rgba(192,57,43,0.06) 0%, transparent 35%);
     pointer-events: none;
   }
-  .combo-hero-inner { position: relative; z-index: 1; }
+  .combo-hero-inner { position: relative; z-index: 1; max-width: 700px; }
+  .combo-badges { display: flex; gap: var(--space-sm); margin-bottom: var(--space-md); }
+  .badge { display: inline-block; padding: 0.25rem 0.75rem; border-radius: 4px; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; }
+  .badge-industry { background: rgba(192,57,43,0.15); color: var(--color-primary); border: 1px solid rgba(192,57,43,0.2); }
+  .badge-service { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.8); border: 1px solid rgba(255,255,255,0.15); }
+  .combo-hero h1 { color: var(--color-white); margin-bottom: var(--space-sm); }
+  .combo-hero-desc { color: rgba(255,255,255,0.7); font-size: var(--text-lg); margin-bottom: var(--space-lg); line-height: 1.6; }
+  .combo-hero-ctas { display: flex; gap: var(--space-md); flex-wrap: wrap; }
 
-  .combo-badges {
-    display: flex;
-    gap: var(--space-sm);
-    margin-bottom: var(--space-md);
+  .combo-trust {
+    background: var(--color-dark);
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding: var(--space-md) 0 var(--space-lg);
   }
 
-  .badge {
-    display: inline-block;
-    padding: 0.25rem 0.75rem;
-    border-radius: 4px;
-    font-size: 0.65rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-  }
+  .combo-section { padding: var(--space-4xl) 0; }
+  @media (min-width: 768px) { .combo-section { padding: var(--space-5xl) 0; } }
 
-  .badge-industry {
-    background: rgba(192,57,43,0.15);
-    color: var(--color-primary);
-    border: 1px solid rgba(192,57,43,0.2);
+  .combo-dark { background: var(--color-dark); color: var(--color-white); position: relative; }
+  .combo-dark::before {
+    content: ''; position: absolute; inset: 0;
+    background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.02) 10px, rgba(255,255,255,0.02) 11px);
+    pointer-events: none;
   }
+  .combo-dark > * { position: relative; z-index: 1; }
+  .combo-dark h2, .combo-dark h3, .combo-dark h4 { color: var(--color-white); }
+  .combo-dark p, .combo-dark li { color: rgba(255,255,255,0.7); }
+  .combo-dark strong { color: var(--color-white); }
+  .combo-dark a { color: var(--color-primary-light); }
+  .combo-dark .prose h2::before { background: var(--color-primary); }
 
-  .badge-service {
-    background: rgba(255, 255, 255, 0.1);
-    color: rgba(255,255,255,0.8);
-    border: 1px solid rgba(255,255,255,0.15);
-  }
+  .combo-cta-band { padding: var(--space-2xl) 0 !important; }
+  .combo-cta-inner { display: flex; align-items: center; justify-content: space-between; gap: var(--space-lg); flex-wrap: wrap; }
+  .combo-cta-inner h3 { font-size: var(--text-xl); margin-bottom: var(--space-xs); text-transform: none; }
+  .combo-cta-inner h3::before { display: none; }
+  .combo-cta-inner p { color: rgba(255,255,255,0.6); margin-bottom: 0; max-width: 550px; }
 
-  .combo-hero h1 {
-    color: var(--color-white);
-    font-size: var(--text-4xl);
-    margin-bottom: var(--space-sm);
-    max-width: 700px;
-  }
-
-  .combo-hero-desc {
-    color: rgba(255, 255, 255, 0.7);
-    font-size: var(--text-lg);
-    max-width: 600px;
-    margin-bottom: var(--space-lg);
-    line-height: 1.6;
-  }
-
-  .combo-hero-ctas {
-    display: flex;
-    gap: var(--space-md);
-    flex-wrap: wrap;
-  }
-
-  .combo-hero .btn-outline {
-    border-color: var(--color-white);
-    color: var(--color-white);
-  }
-  .combo-hero .btn-outline:hover {
-    background: var(--color-white);
-    color: var(--color-dark);
-  }
-
-  /* Full-width section system */
-  .fw-section { padding: var(--space-3xl) 0; }
-  .fw-alt { background: var(--color-gray-100); }
-  .fw-dark { background: var(--color-dark); color: var(--color-white); }
-  .fw-dark h2, .fw-dark h3 { color: var(--color-white); }
-  .fw-dark h2::before { background: var(--color-primary); }
-  .fw-dark p, .fw-dark li { color: rgba(255,255,255,0.7); }
-  .fw-dark strong { color: var(--color-white); }
-  .fw-dark a { color: var(--color-primary-light); }
-  .fw-narrow { max-width: 800px; }
-  .fw-heading-light { color: var(--color-white); margin-bottom: var(--space-xl); }
-  .fw-heading-light::before { background: var(--color-primary); }
-  .fw-cta-band { padding: var(--space-2xl) 0; position: relative; overflow: hidden; }
-  .fw-cta-band::before { content: ''; position: absolute; top: 0; right: 0; width: 300px; height: 100%; background: radial-gradient(circle at 100% 50%, rgba(192,57,43,0.15) 0%, transparent 70%); pointer-events: none; }
-  .fw-cta-band h3 { color: var(--color-white); font-size: var(--text-xl); margin-bottom: var(--space-xs); }
-  .fw-cta-band h3::before { display: none; }
-  .fw-cta-band p { color: rgba(255,255,255,0.6); margin-bottom: 0; max-width: 550px; }
-  .fw-cta-inner { display: flex; align-items: center; justify-content: space-between; gap: var(--space-lg); flex-wrap: wrap; position: relative; z-index: 1; }
-  .section-label-light { color: rgba(255,255,255,0.4); }
-  .card-link { font-size: var(--text-sm); font-weight: 600; color: var(--color-primary); }
-
-  /* Case studies (dark variant) */
-  .combo-cases-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: var(--space-lg); margin-top: var(--space-lg); }
+  .combo-cases-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: var(--space-lg); }
   .combo-case-card {
     display: flex; flex-direction: column; padding: var(--space-lg);
-    background: var(--color-white); border: 1px solid var(--color-gray-200); border-radius: 10px;
-    text-decoration: none; color: inherit; transition: transform 0.15s, box-shadow 0.15s;
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px;
+    text-decoration: none; color: inherit; transition: background 0.15s, transform 0.15s;
   }
-  .combo-case-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.1); }
-  .combo-case-dark { background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); }
-  .combo-case-dark:hover { background: rgba(255,255,255,0.08); }
-  .combo-case-dark h3 { color: var(--color-white); }
-  .combo-case-dark .combo-case-client { color: rgba(255,255,255,0.5); }
+  .combo-case-card:hover { background: rgba(255,255,255,0.08); transform: translateY(-2px); }
   .combo-case-tag { font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-primary); margin-bottom: var(--space-xs); }
-  .combo-case-card h3 { font-size: var(--text-lg); margin-bottom: var(--space-xs); }
-  .combo-case-client { font-size: var(--text-sm); color: var(--color-text-muted); margin-bottom: var(--space-sm); }
+  .combo-case-card h3 { font-size: var(--text-lg); margin-bottom: var(--space-xs); color: var(--color-white); text-transform: none; }
+  .combo-case-client { font-size: var(--text-sm); color: rgba(255,255,255,0.5); margin-bottom: var(--space-sm); }
+  .card-link { font-size: var(--text-sm); font-weight: 600; color: var(--color-primary); }
 
-  /* Cross-links */
-  .cross-link-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: var(--space-lg); margin-top: var(--space-xl); }
-  .cross-link-card {
-    display: block; padding: var(--space-lg);
-    background: var(--color-white); border: 1px solid var(--color-gray-200); border-radius: 10px;
-    text-decoration: none; color: inherit; transition: transform 0.15s, border-color 0.15s, box-shadow 0.15s;
-  }
-  .cross-link-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); border-color: var(--color-primary); }
-  .cross-link-card h3 { font-size: var(--text-base); margin-bottom: var(--space-xs); }
-  .cross-link-card p { font-size: var(--text-sm); color: var(--color-text-light); margin-bottom: var(--space-sm); }
+  .combo-cross-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: var(--space-lg); margin-top: var(--space-xl); }
+  .combo-cross-card { display: block; padding: var(--space-lg); background: var(--color-white); border: 1px solid var(--color-gray-200); border-radius: 10px; text-decoration: none; color: inherit; transition: transform 0.15s, border-color 0.15s; }
+  .combo-cross-card:hover { transform: translateY(-2px); border-color: var(--color-primary); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+  .combo-cross-card h3 { font-size: var(--text-base); margin-bottom: var(--space-xs); text-transform: none; }
+  .combo-cross-card p { font-size: var(--text-sm); color: var(--color-text-light); margin-bottom: var(--space-sm); }
 
-  /* Chip grids */
-  .fw-chip-grid { display: flex; flex-wrap: wrap; gap: var(--space-sm); margin-top: var(--space-md); }
-  .fw-chip { display: inline-block; padding: 0.5rem 1.25rem; border: 1px solid rgba(255,255,255,0.15); border-radius: 6px; font-size: var(--text-sm); color: rgba(255,255,255,0.7); text-decoration: none; transition: all 0.15s; }
-  .fw-chip:hover { border-color: var(--color-primary); color: var(--color-white); background: rgba(192,57,43,0.15); }
-  .combo-links-grid { display: grid; grid-template-columns: 1fr; gap: var(--space-2xl); }
-  @media (min-width: 768px) { .combo-links-grid { grid-template-columns: 1fr 1fr; } }
+  .combo-links-split { display: grid; grid-template-columns: 1fr; gap: var(--space-2xl); }
+  @media (min-width: 768px) { .combo-links-split { grid-template-columns: 1fr 1fr; } }
+  .combo-chips { display: flex; flex-wrap: wrap; gap: var(--space-sm); }
+  .combo-chip { display: inline-block; padding: 0.5rem 1.25rem; border: 1px solid rgba(255,255,255,0.15); border-radius: 6px; font-size: var(--text-sm); color: rgba(255,255,255,0.7); text-decoration: none; transition: all 0.15s; }
+  .combo-chip:hover { border-color: var(--color-primary); color: var(--color-white); background: rgba(192,57,43,0.15); }
 
-  /* FAQ */
-  .faq-grid { margin-top: var(--space-lg); }
+  .combo-faq { margin-top: var(--space-lg); }
   .faq-item { border: 1px solid var(--color-gray-200); border-radius: var(--radius-md); padding: var(--space-md) var(--space-lg); margin-bottom: var(--space-sm); background: var(--color-white); transition: box-shadow 0.15s; }
   .faq-item[open] { box-shadow: var(--shadow-sm); border-color: var(--color-primary); }
   .faq-item summary { font-weight: 600; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; }
@@ -386,14 +335,4 @@ const schema = {
   .faq-item[open] summary::after { content: '\2212'; }
   .faq-item summary::-webkit-details-marker { display: none; }
   .faq-answer { padding-top: var(--space-md); color: var(--color-text-light); border-top: 1px solid var(--color-gray-100); margin-top: var(--space-md); }
-
-  /* Dark section variants for feature cards */
-  .fw-dark .feature-card { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.1); }
-  .fw-dark .feature-card:hover { border-color: var(--color-primary); }
-  .fw-dark .feature-card-title { color: var(--color-white); }
-  .fw-dark .feature-card-desc { color: rgba(255,255,255,0.6); }
-  .fw-dark .callout-box { background: rgba(255,255,255,0.06); }
-  .fw-dark .callout-title { color: var(--color-white); }
-  .fw-dark .visual-list { border-color: rgba(255,255,255,0.1); }
-  .fw-dark .visual-list li { border-color: rgba(255,255,255,0.06); color: rgba(255,255,255,0.7); }
 </style>

@@ -1,48 +1,60 @@
 ---
 import Base from '../layouts/Base.astro';
 import Header from '../components/Header.astro';
-import Breadcrumbs from '../components/Breadcrumbs.astro';
 import ReviewsSection from '../components/ReviewsSection.astro';
-import CTABand from '../components/CTABand.astro';
 import Footer from '../components/Footer.astro';
+import StatBar from '../components/StatBar.astro';
+import LogoStrip from '../components/LogoStrip.astro';
+import HandwrittenCTA from '../components/HandwrittenCTA.astro';
 import config from '../lib/config';
 
 const pageTitle = "About ServiceLine Pro";
 const pageDescription = "ServiceLine Pro is a Tampa-based marketing agency specializing in local SEO, Google Ads, and website design for home service businesses generating $1M+ in annual revenue.";
-
-const breadcrumbItems = [
-  { label: 'Home', href: '/' },
-  { label: 'About' },
-];
 ---
 
 <Base title={pageTitle} description={pageDescription}>
   <Header slot="header" />
 
-  <section class="page-hero">
-    <div class="container hero-split">
-      <div class="hero-text">
-        <Breadcrumbs items={breadcrumbItems} />
+  <!-- ===== HERO — Dark ===== -->
+  <section class="about-hero">
+    <div class="about-hero-texture"></div>
+    <div class="container about-hero-inner">
+      <div class="about-hero-text">
+        <span class="about-hero-eyebrow">Our Story</span>
         <h1>The ServiceLine Story</h1>
-        <p class="page-hero-desc">Most agencies are built to extract. We are built to partner. If our clients do not grow, we do not grow.</p>
+        <p class="about-hero-desc">Most agencies are built to extract. We are built to partner. If our clients do not grow, we do not grow.</p>
       </div>
-      <div class="hero-photo">
-        <img src="/media/team.webp" alt="ServiceLine Pro team" width="480" height="360" />
+      <div class="about-hero-photo">
+        <img src="/media/team.webp" alt="ServiceLine Pro team" width="480" height="360" loading="eager" />
       </div>
     </div>
   </section>
 
-  <section class="about-story section">
+  <!-- ===== TRUST STRIP ===== -->
+  <section class="about-trust">
+    <div class="container">
+      <StatBar stats={[
+        { value: '5.0 ★', label: 'Google Rating' },
+        { value: 'Since 2020', label: 'Founded' },
+        { value: '50+', label: 'Clients Nationwide' },
+        { value: '22+', label: 'Industries Served' },
+      ]} variant="dark" />
+    </div>
+  </section>
+
+  <!-- ===== STORY — White ===== -->
+  <section class="about-section">
     <div class="container about-grid">
       <div class="about-content">
-        <h2>Built Different from Day One</h2>
-        <p>William Hamilton started in production and filming at 16. By the time he entered the marketing world, he had already spent years learning what actually captures attention and drives action. That production background shapes everything we build. Every landing page, every ad campaign, every SEO strategy is built to perform, not just to look good in a report.</p>
-        <p>In 2020, William launched Paradigm, a digital marketing firm. As the client base grew, a pattern emerged: the home service companies were the ones getting the best results. Plumbers, roofers, HVAC contractors. Their business model rewarded aggressive local marketing. So in 2021, ServiceLine Pro was born to serve that industry exclusively. Not restaurants. Not e-commerce. Not SaaS. Home service companies generating $1M or more in annual revenue that need a marketing partner who understands their business model, their seasonal cycles, and their customers.</p>
-        <p>Today we serve clients across the United States with local SEO, PPC advertising, website design, and streaming TV campaigns. Our exclusive partnership with Spectrum Reach gives our clients access to first-party data from 30 million households across 36 states, something no other agency our size can offer. And every TV and streaming client gets free video production included with their campaign.</p>
+        <span class="section-eyebrow">Built Different</span>
+        <h2>From Production to Performance Marketing</h2>
+        <p>William Hamilton started in production and filming at 16. By the time he entered the marketing world, he had already spent years learning what actually captures attention and drives action. That production background shapes everything we build.</p>
+        <p>In 2020, William launched Paradigm, a digital marketing firm. As the client base grew, a pattern emerged: the home service companies were the ones getting the best results. Plumbers, roofers, HVAC contractors. Their business model rewarded aggressive local marketing.</p>
+        <p>So in 2021, ServiceLine Pro was born to serve that industry exclusively. Not restaurants. Not e-commerce. Not SaaS. Home service companies generating $1M or more in annual revenue that need a marketing partner who understands their business model, their seasonal cycles, and their customers.</p>
 
         <h2>What We Believe</h2>
-        <p>Your marketing budget should fund your growth, not someone else's overhead. That is why we charge no agency fee on PPC campaigns for clients spending $5,000 or more through our Spectrum Reach partnership. 100% of your budget funds your campaign. That is why our SEO guarantee means 10 days free with no credit card required, and a top-3 Map Pack ranking within 90 days or you do not pay. Every client gets direct attention from people who know your business, your market, and your competition.</p>
-        <p>William Hamilton leads strategy and client relationships. His sister Victoria Hamilton runs operations. Daniel Gomez directs fulfillment. Kevin Morales manages SEO campaigns. Jonah Galobardi drives regional sales. Cade Hansen leads video production. This is a team that knows each other, trusts each other, and is accountable to each other.</p>
+        <p>Your marketing budget should fund your growth, not someone else's overhead. That is why we charge no agency fee on PPC campaigns for clients spending $5,000 or more through our Spectrum Reach partnership. 100% of your budget funds your campaign.</p>
+        <p>That is why our SEO guarantee means 10 days free with no credit card required, and a top-3 Map Pack ranking within 90 days or you do not pay. Every client gets direct attention from people who know your business, your market, and your competition.</p>
       </div>
 
       <aside class="about-sidebar">
@@ -81,62 +93,120 @@ const breadcrumbItems = [
     </div>
   </section>
 
-  <section class="values section section-alt">
+  <!-- ===== VALUES — Dark ===== -->
+  <section class="about-section about-dark">
     <div class="container">
-      <h2>Our Values</h2>
+      <div class="section-header-center">
+        <span class="section-eyebrow" style="color: var(--color-primary);">Our Values</span>
+        <h2 style="color: var(--color-white);">What Drives Us</h2>
+      </div>
       <div class="values-grid">
-        <div class="value-card">
+        <div class="value-card-dark">
           <h3>Results Over Reports</h3>
           <p>We measure success by your revenue growth, not by impressions or click-through rates. If your phone is not ringing, we are not done.</p>
         </div>
-        <div class="value-card">
+        <div class="value-card-dark">
           <h3>Radical Transparency</h3>
-          <p>You see every dollar spent, every keyword ranked, every lead generated. No black boxes. No jargon-filled reports designed to confuse.</p>
+          <p>You see every dollar spent, every keyword ranked, every lead generated. No black boxes. No jargon-filled reports.</p>
         </div>
-        <div class="value-card">
+        <div class="value-card-dark">
           <h3>Partnership Over Extraction</h3>
-          <p>We grow when you grow. Our pricing model is designed so our incentives align with yours. Your success is our business model.</p>
+          <p>We grow when you grow. Our pricing model is designed so our incentives align with yours.</p>
         </div>
-        <div class="value-card">
+        <div class="value-card-dark">
           <h3>Speed of Execution</h3>
-          <p>Google Ads campaigns launch in a week. SEO campaigns start generating movement in 10 days. We do not waste your time or your money.</p>
+          <p>Google Ads campaigns launch in a week. SEO campaigns start generating movement in 10 days. We do not waste your time.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="partners-strip section">
-    <div class="container partners-inner">
-      <span class="partners-label">Trusted Partnerships</span>
-      <img src="/media/partner-logos.webp" alt="ServiceLine Pro partner logos including Spectrum Reach and Google" width="900" height="120" class="partners-img" loading="lazy" />
+  <!-- ===== PARTNERS — White ===== -->
+  <section class="about-section">
+    <div class="container" style="text-align: center;">
+      <LogoStrip items={['Spectrum Reach', 'Google Partner', 'Yahoo', 'TAG Certified']} variant="light" label="Trusted Partnerships" />
     </div>
   </section>
 
   <ReviewsSection compact={true} maxReviews={4} />
-  <CTABand heading="Ready to Partner with a Team That Delivers?" />
+
+  <HandwrittenCTA
+    heading="Ready to Partner with a Team That Delivers?"
+    buttonText="Schedule Your Strategy Call"
+    annotation="No obligation. Just a quick call."
+  />
+
   <Footer slot="footer" />
 </Base>
 
 <style>
-  .page-hero { background: var(--color-dark); padding: var(--space-3xl) 0 var(--space-2xl); color: var(--color-white); }
-  .hero-split { display: grid; grid-template-columns: 1fr; gap: var(--space-xl); align-items: center; }
-  @media (min-width: 1024px) { .hero-split { grid-template-columns: 1.2fr 0.8fr; } }
-  .page-hero h1 { color: var(--color-white); font-size: var(--text-4xl); margin-bottom: var(--space-sm); }
-  .page-hero-desc { color: rgba(255,255,255,0.75); font-size: var(--text-lg); max-width: 600px; font-style: italic; }
-  .hero-photo { display: none; }
-  @media (min-width: 1024px) { .hero-photo { display: block; } }
-  .hero-photo img { width: 100%; height: auto; border-radius: 12px; box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
+  .about-hero {
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    background: var(--color-dark);
+    color: var(--color-white);
+    position: relative;
+    overflow: hidden;
+    padding: var(--space-4xl) 0;
+  }
+  .about-hero-texture {
+    position: absolute; inset: 0;
+    background:
+      repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.02) 10px, rgba(255,255,255,0.02) 11px),
+      radial-gradient(circle at 20% 80%, rgba(192,57,43,0.12) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  .about-hero-inner {
+    position: relative; z-index: 1;
+    display: grid; grid-template-columns: 1fr; gap: var(--space-xl); align-items: center;
+  }
+  @media (min-width: 1024px) { .about-hero-inner { grid-template-columns: 1.2fr 0.8fr; } }
+  .about-hero-eyebrow {
+    display: inline-block;
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--color-primary);
+    margin-bottom: var(--space-md);
+  }
+  .about-hero h1 { color: var(--color-white); margin-bottom: var(--space-sm); }
+  .about-hero-desc { color: rgba(255,255,255,0.75); font-size: var(--text-lg); font-style: italic; }
+  .about-hero-photo { display: none; }
+  @media (min-width: 1024px) { .about-hero-photo { display: block; } }
+  .about-hero-photo img { width: 100%; height: auto; border-radius: 12px; box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
+
+  .about-trust {
+    background: var(--color-dark);
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding: var(--space-md) 0 var(--space-lg);
+  }
+
+  .about-section { padding: var(--space-4xl) 0; }
+  @media (min-width: 768px) { .about-section { padding: var(--space-5xl) 0; } }
+
+  .about-dark {
+    background: var(--color-dark); color: var(--color-white); position: relative;
+  }
+  .about-dark::before {
+    content: ''; position: absolute; inset: 0;
+    background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.02) 10px, rgba(255,255,255,0.02) 11px);
+    pointer-events: none;
+  }
+  .about-dark > * { position: relative; z-index: 1; }
 
   .about-grid { display: grid; grid-template-columns: 1fr; gap: var(--space-2xl); }
   @media (min-width: 1024px) { .about-grid { grid-template-columns: 1fr 320px; } }
 
-  .about-content h2 { font-size: var(--text-2xl); margin-top: var(--space-2xl); margin-bottom: var(--space-md); }
-  .about-content h2:first-child { margin-top: 0; }
+  .about-content h2 { margin-top: var(--space-2xl); margin-bottom: var(--space-md); }
+  .about-content h2:first-of-type { margin-top: 0; }
   .about-content p { color: var(--color-text-light); line-height: var(--leading-relaxed); margin-bottom: var(--space-md); }
 
   .about-sidebar { display: flex; flex-direction: column; gap: var(--space-lg); }
   .about-card { background: var(--color-white); border: 1px solid var(--color-gray-200); border-radius: 10px; padding: var(--space-lg); }
-  .about-card h3 { font-size: var(--text-base); margin-bottom: var(--space-md); }
+  .about-card h3 { font-size: var(--text-base); margin-bottom: var(--space-md); text-transform: none; }
   .about-details { display: grid; grid-template-columns: auto 1fr; gap: 0.5rem var(--space-md); }
   .about-details dt { font-size: var(--text-sm); color: var(--color-text-light); font-weight: 600; }
   .about-details dd { font-size: var(--text-sm); margin: 0; }
@@ -149,15 +219,15 @@ const breadcrumbItems = [
   .cta-card p { color: rgba(255,255,255,0.7); margin-bottom: var(--space-md); font-size: var(--text-sm); }
   .btn-block { display: block; width: 100%; text-align: center; }
 
-  .section-alt { background: var(--color-gray-50, #fafafa); }
-  .values-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: var(--space-lg); margin-top: var(--space-xl); }
-  .value-card { padding: var(--space-xl); background: var(--color-white); border: 1px solid var(--color-gray-200); border-radius: 10px; }
-  .value-card h3 { font-size: var(--text-lg); margin-bottom: var(--space-sm); }
-  .value-card p { font-size: var(--text-sm); color: var(--color-text-light); line-height: var(--leading-relaxed); }
-
-  .partners-strip { text-align: center; }
-  .partners-inner { display: flex; flex-direction: column; align-items: center; gap: var(--space-lg); }
-  .partners-label { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--color-text-muted); }
-  .partners-img { max-width: 700px; width: 100%; height: auto; opacity: 0.7; filter: grayscale(30%); transition: opacity 0.3s; }
-  .partners-img:hover { opacity: 1; filter: none; }
+  .values-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: var(--space-lg); }
+  .value-card-dark {
+    padding: var(--space-xl);
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 10px;
+    transition: transform 0.2s, background 0.2s;
+  }
+  .value-card-dark:hover { transform: translateY(-2px); background: rgba(255,255,255,0.07); }
+  .value-card-dark h3 { font-size: var(--text-lg); margin-bottom: var(--space-sm); color: var(--color-white); text-transform: none; }
+  .value-card-dark p { font-size: var(--text-sm); color: rgba(255,255,255,0.6); line-height: var(--leading-relaxed); }
 </style>

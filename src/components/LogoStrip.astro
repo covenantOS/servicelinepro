@@ -1,0 +1,68 @@
+---
+interface Props {
+  items: string[];
+  label?: string;
+  variant?: 'dark' | 'light';
+}
+
+const { items, label = "Trusted by Home Service Businesses", variant = 'dark' } = Astro.props;
+---
+
+<div class={`logo-strip ${variant}`}>
+  {label && <span class="logo-strip-label">{label}</span>}
+  <div class="logo-strip-row">
+    {items.map(name => (
+      <span class="logo-strip-item">{name}</span>
+    ))}
+  </div>
+</div>
+
+<style>
+  .logo-strip {
+    padding: var(--space-lg) 0;
+    text-align: center;
+  }
+  .logo-strip-label {
+    display: block;
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: var(--space-md);
+  }
+  .dark .logo-strip-label {
+    color: rgba(255,255,255,0.3);
+  }
+  .light .logo-strip-label {
+    color: var(--color-text-muted);
+  }
+  .logo-strip-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--space-xl);
+  }
+  .logo-strip-item {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: var(--text-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .dark .logo-strip-item {
+    color: rgba(255,255,255,0.25);
+  }
+  .light .logo-strip-item {
+    color: var(--color-gray-400);
+  }
+
+  @media (max-width: 767px) {
+    .logo-strip-row {
+      gap: var(--space-lg);
+    }
+    .logo-strip-item {
+      font-size: var(--text-xs);
+    }
+  }
+</style>

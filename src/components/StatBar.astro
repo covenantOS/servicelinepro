@@ -1,0 +1,80 @@
+---
+interface Props {
+  stats: { value: string; label: string }[];
+  variant?: 'dark' | 'light';
+}
+
+const { stats, variant = 'dark' } = Astro.props;
+---
+
+<div class={`stat-bar ${variant}`}>
+  {stats.map((stat, i) => (
+    <>
+      <div class="stat-bar-item">
+        <span class="stat-bar-value">{stat.value}</span>
+        <span class="stat-bar-label">{stat.label}</span>
+      </div>
+      {i < stats.length - 1 && <div class="stat-bar-divider" />}
+    </>
+  ))}
+</div>
+
+<style>
+  .stat-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2xl);
+    flex-wrap: wrap;
+    padding: var(--space-xl) 0;
+  }
+  .stat-bar-item {
+    text-align: center;
+  }
+  .stat-bar-value {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: var(--text-3xl);
+    font-weight: 800;
+    line-height: 1;
+  }
+  .dark .stat-bar-value {
+    color: var(--color-white);
+  }
+  .light .stat-bar-value {
+    color: var(--color-dark);
+  }
+  .stat-bar-label {
+    display: block;
+    font-size: var(--text-sm);
+    margin-top: var(--space-xs);
+  }
+  .dark .stat-bar-label {
+    color: rgba(255,255,255,0.5);
+  }
+  .light .stat-bar-label {
+    color: var(--color-text-muted);
+  }
+  .stat-bar-divider {
+    width: 1px;
+    height: 40px;
+  }
+  .dark .stat-bar-divider {
+    background: rgba(255,255,255,0.1);
+  }
+  .light .stat-bar-divider {
+    background: var(--color-gray-300);
+  }
+
+  @media (max-width: 767px) {
+    .stat-bar {
+      gap: var(--space-lg);
+    }
+    .stat-bar-value {
+      font-size: var(--text-2xl);
+    }
+    .stat-bar-divider {
+      display: none;
+    }
+  }
+</style>

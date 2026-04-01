@@ -1,0 +1,52 @@
+---
+interface Props {
+  variant?: 'dark' | 'light';
+  reverse?: boolean;
+}
+
+const { variant = 'dark', reverse = false } = Astro.props;
+---
+
+<div class={`split-section split-${variant} ${reverse ? 'split-reverse' : ''}`}>
+  <div class="split-left">
+    <slot name="left" />
+  </div>
+  <div class="split-right">
+    <slot name="right" />
+  </div>
+</div>
+
+<style>
+  .split-section {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-2xl);
+    align-items: center;
+  }
+  @media (min-width: 1024px) {
+    .split-section {
+      grid-template-columns: 1fr 1fr;
+    }
+    .split-reverse .split-left {
+      order: 2;
+    }
+    .split-reverse .split-right {
+      order: 1;
+    }
+  }
+
+  .split-dark {
+    color: var(--color-white);
+  }
+  .split-dark :global(h2),
+  .split-dark :global(h3) {
+    color: var(--color-white);
+  }
+  .split-dark :global(p) {
+    color: rgba(255,255,255,0.7);
+  }
+
+  .split-light :global(p) {
+    color: var(--color-text-light);
+  }
+</style>

@@ -1,11 +1,13 @@
 ---
 import Base from '../../layouts/Base.astro';
 import Header from '../../components/Header.astro';
-import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import ReviewsSection from '../../components/ReviewsSection.astro';
 import CTABand from '../../components/CTABand.astro';
 import Footer from '../../components/Footer.astro';
-import LeadMagnet from '../../components/LeadMagnet.astro';
+import IconBulletList from '../../components/IconBulletList.astro';
+import StatBar from '../../components/StatBar.astro';
+import FeatureGrid from '../../components/FeatureGrid.astro';
+import HandwrittenCTA from '../../components/HandwrittenCTA.astro';
 import config from '../../lib/config';
 import { renderMarkdown, splitMarkdownSections } from '../../lib/markdown';
 import InlineTestimonial from '../../components/InlineTestimonial.astro';
@@ -17,25 +19,14 @@ import YAML from 'yaml';
 
 export function getStaticPaths() {
   const paths: any[] = [];
-
   for (const service of config.services) {
-    // Main service page: /services/local-seo/
-    paths.push({
-      params: { slug: service.slug },
-      props: { service, type: 'service' },
-    });
-
-    // Sub-service pages: /services/ppc/google-ads/
+    paths.push({ params: { slug: service.slug }, props: { service, type: 'service' } });
     if (service.sub_services) {
       for (const sub of service.sub_services) {
-        paths.push({
-          params: { slug: `${service.slug}/${sub.slug}` },
-          props: { service, subService: sub, type: 'sub-service' },
-        });
+        paths.push({ params: { slug: `${service.slug}/${sub.slug}` }, props: { service, subService: sub, type: 'sub-service' } });
       }
     }
   }
-
   return paths;
 }
 
@@ -67,7 +58,6 @@ if (type === 'sub-service' && subService) {
 
 const displayName = type === 'sub-service' && subService ? subService.name : service.name;
 const displayDesc = type === 'sub-service' && subService ? (subService.short_description || service.short_description) : service.short_description;
-
 const pageTitle = frontmatter.title || `${displayName} for Home Service Businesses`;
 const pageDescription = frontmatter.description || `${displayDesc} ${config.business.name} delivers performance-driven results.`;
 
@@ -75,7 +65,6 @@ const breadcrumbItems = [
   { label: 'Home', href: '/' },
   { label: 'Services', href: '/services/' },
 ];
-
 if (type === 'sub-service' && subService) {
   breadcrumbItems.push({ label: service.name, href: `/services/${service.slug}/` });
   breadcrumbItems.push({ label: subService.name });
@@ -86,12 +75,10 @@ if (type === 'sub-service' && subService) {
 const pricingTiers = service.pricing?.tiers || [];
 const faqQuestions = frontmatter.faq || [];
 const processSteps = frontmatter.process_steps || [];
-
 const isLocalSEO = service.slug === 'local-seo';
 const isPPC = service.slug === 'ppc';
 const isTV = service.slug === 'tv-streaming-advertising';
 
-// Find relevant case studies for this service - prioritize Isaac & Mark (remodeling)
 const allServiceCases = config.case_studies.filter(cs => {
   const cat = cs.category.toLowerCase();
   if (service.slug === 'local-seo') return cat.includes('seo');
@@ -99,268 +86,236 @@ const allServiceCases = config.case_studies.filter(cs => {
   if (service.slug === 'website-design') return cat.includes('design') || cat.includes('website');
   return false;
 });
-// Put Isaac & Mark (slug: remodeling) first if present
 const serviceCaseStudies = allServiceCases.sort((a, b) => {
   if (a.slug === 'remodeling') return -1;
   if (b.slug === 'remodeling') return 1;
   return 0;
 });
 
-// Split content into sections for CRO module injection
 const contentSections = content ? splitMarkdownSections(content) : [];
-
-// Find a review to use as inline testimonial
 const inlineReview = config.reviews?.[0];
 
-// Qualifier data per service
 const qualifiers: Record<string, { good: string[]; not: string[] }> = {
   'local-seo': {
-    good: [
-      'You have a physical Google Business Profile',
-      'You want more phone calls from local searches',
-      'You have 15+ Google reviews and a 4.5+ rating',
-      'You generate $1M+ in annual revenue',
-      'You want a marketing partner, not a vendor',
-    ],
-    not: [
-      'You need leads by tomorrow (try Google Ads instead)',
-      'You have no physical business location',
-      'You serve customers nationwide, not locally',
-      'You want to do it all yourself with no help',
-    ],
+    good: ['You have a physical Google Business Profile', 'You want more phone calls from local searches', 'You have 15+ Google reviews and a 4.5+ rating', 'You generate $1M+ in annual revenue', 'You want a marketing partner, not a vendor'],
+    not: ['You need leads by tomorrow (try Google Ads instead)', 'You have no physical business location', 'You serve customers nationwide, not locally', 'You want to do it all yourself with no help'],
   },
   'ppc': {
-    good: [
-      'You want leads within 48 hours of launch',
-      'You can invest $5K+/month in ad spend',
-      'You want $0 agency fees on your campaigns',
-      'You want ads across Google, Bing, AND Yahoo',
-      'You want first-party data targeting, not guesswork',
-    ],
-    not: [
-      'Your monthly ad budget is under $2,000',
-      'You want to manage campaigns yourself',
-      'You only want organic traffic, not paid',
-    ],
+    good: ['You want leads within 48 hours of launch', 'You can invest $5K+/month in ad spend', 'You want $0 agency fees on your campaigns', 'You want ads across Google, Bing, AND Yahoo', 'You want first-party data targeting, not guesswork'],
+    not: ['Your monthly ad budget is under $2,000', 'You want to manage campaigns yourself', 'You only want organic traffic, not paid'],
   },
   'website-design': {
-    good: [
-      'Your current site takes more than 3 seconds to load',
-      'Your site looks good but does not generate calls',
-      'You want a site you own, not one held hostage',
-      'You want sub-2-second load times and mobile-first design',
-      'You want to pay monthly instead of a big lump sum',
-    ],
-    not: [
-      'You just need a basic landing page',
-      'You want to build it yourself on Wix or Squarespace',
-      'You do not have an established service business yet',
-    ],
+    good: ['Your current site takes more than 3 seconds to load', 'Your site looks good but does not generate calls', 'You want a site you own, not one held hostage', 'You want sub-2-second load times and mobile-first design', 'You want to pay monthly instead of a big lump sum'],
+    not: ['You just need a basic landing page', 'You want to build it yourself on Wix or Squarespace', 'You do not have an established service business yet'],
   },
   'tv-streaming-advertising': {
-    good: [
-      'You want to build brand awareness beyond search',
-      'You want professional video production at no extra cost',
-      'You are ready to reach 30M+ households across 36 states',
-      'You want TV, streaming, AND connected TV coverage',
-      'You want full attribution and reporting on every dollar',
-    ],
-    not: [
-      'You only want search-based leads',
-      'Your total marketing budget is under $3,000/month',
-      'You already have a TV production team and media buyer',
-    ],
+    good: ['You want to build brand awareness beyond search', 'You want professional video production at no extra cost', 'You are ready to reach 30M+ households across 36 states', 'You want TV, streaming, AND connected TV coverage', 'You want full attribution and reporting on every dollar'],
+    not: ['You only want search-based leads', 'Your total marketing budget is under $3,000/month', 'You already have a TV production team and media buyer'],
   },
 };
 const qualifier = qualifiers[service.slug];
+
+const heroProofPoints: Record<string, { icon: string; text: string }[]> = {
+  'local-seo': [
+    { icon: 'map', text: '<strong>Map Pack Guarantee</strong> — Top 3 in 90 days or you don\'t pay' },
+    { icon: 'zap', text: '<strong>10 Days Free</strong> — No credit card, no commitment' },
+    { icon: 'bar', text: '<strong>Geo-Grid Tracking</strong> — See exactly where you rank' },
+  ],
+  'ppc': [
+    { icon: 'money', text: '<strong>$0 Agency Fee</strong> on $5K+ monthly ad spend' },
+    { icon: 'target', text: '<strong>First-Party Data</strong> from 30M+ households' },
+    { icon: 'bar', text: '<strong>30-50% Higher CTR</strong>, 33% lower CPC' },
+  ],
+  'website-design': [
+    { icon: 'zap', text: '<strong>Sub-2-Second Loads</strong> — Performance-first builds' },
+    { icon: 'phone', text: '<strong>Conversion-Focused</strong> — Turn visitors into booked jobs' },
+    { icon: 'shield', text: '<strong>You Own It</strong> — Your site, your data, always' },
+  ],
+  'tv-streaming-advertising': [
+    { icon: 'tv', text: '<strong>Free Video Production</strong> included with every campaign' },
+    { icon: 'globe', text: '<strong>30M+ Households</strong> across 36 states' },
+    { icon: 'eye', text: '<strong>Full Attribution</strong> — Track every dollar' },
+  ],
+};
+const proofPoints = heroProofPoints[service.slug] || heroProofPoints['local-seo'];
+
+const eyebrows: Record<string, string> = {
+  'local-seo': 'Proven Local SEO',
+  'ppc': 'Performance-Driven PPC',
+  'website-design': 'Conversion-Focused Design',
+  'tv-streaming-advertising': 'TV & Streaming Advertising',
+};
 
 const schema = {
   '@context': 'https://schema.org',
   '@type': 'Service',
   name: displayName,
   description: pageDescription,
-  provider: {
-    '@type': 'ProfessionalService',
-    name: config.business.name,
-  },
+  provider: { '@type': 'ProfessionalService', name: config.business.name },
 };
 ---
 
 <Base title={pageTitle} description={pageDescription} schema={schema}>
   <Header slot="header" />
 
-  <section class="service-hero">
-    <div class="hero-bg-pattern"></div>
-    <div class="container service-hero-inner">
-      <div class="hero-text">
-        <Breadcrumbs items={breadcrumbItems} />
-        {isTV && <span class="hero-partner-badge">Spectrum Reach Partner</span>}
-        {isPPC && <span class="hero-partner-badge">$0 Agency Fee on $5K+ Spend</span>}
-        {isLocalSEO && <span class="hero-partner-badge">Map Pack Guarantee</span>}
-        <h1>{pageTitle}</h1>
-        <p class="service-hero-desc">{displayDesc}</p>
-        <div class="service-hero-ctas">
-          <a href="/contact" class="btn btn-primary">Get Your Free Strategy Call</a>
-          <a href="/pricing/" class="btn btn-outline">View Pricing</a>
-        </div>
-        {/* Always show Isaac & Mark first, then service-specific results */}
-        {(() => {
-          const isaacMark = config.case_studies.find(cs => cs.slug === 'remodeling');
-          const others = serviceCaseStudies.filter(cs => cs.slug !== 'remodeling').slice(0, 2);
-          const heroResults = isaacMark ? [isaacMark, ...others] : serviceCaseStudies.slice(0, 3);
-          return heroResults.length > 0 ? (
-            <div class="hero-results-strip">
-              {heroResults.map(cs => (
-                <div class="hero-result-chip">
-                  <span class="hero-result-value">{cs.result}</span>
-                  <span class="hero-result-client">{cs.title}</span>
-                </div>
-              ))}
-            </div>
-          ) : null;
-        })()}
-      </div>
-      <div class="hero-visual">
-        {isLocalSEO && <img src="/media/local-seo-graphic.webp" alt="Local SEO results dashboard" width="520" height="400" />}
-        {isPPC && <img src="/media/ppc-graphic.webp" alt="PPC campaign performance" width="520" height="400" />}
-        {isTV && <img src="/media/seo-ppc-presentation.webp" alt="TV & streaming advertising" width="520" height="400" />}
-        {!isLocalSEO && !isPPC && !isTV && <img src="/media/service-presentation.webp" alt={`${displayName} services`} width="520" height="400" />}
+  <!-- ===== HERO — Full-Width Dark, Hook Agency Style ===== -->
+  <section class="svc-hero">
+    <div class="svc-hero-texture"></div>
+    <div class="container svc-hero-inner">
+      <span class="svc-hero-eyebrow">{eyebrows[service.slug] || displayName}</span>
+      <h1>{pageTitle}</h1>
+      <IconBulletList items={proofPoints} variant="dark" />
+      <div class="svc-hero-ctas">
+        <a href="/contact" class="btn btn-ghost btn-lg">Get In Touch</a>
       </div>
     </div>
   </section>
 
-  {/* === FULL-WIDTH CONTENT SECTIONS — NO SIDEBAR === */}
+  <!-- ===== TRUST STRIP ===== -->
+  <section class="svc-trust-strip">
+    <div class="container">
+      {serviceCaseStudies.length > 0 ? (
+        <div class="trust-proof-bar">
+          {serviceCaseStudies.slice(0, 3).map(cs => (
+            <div class="trust-proof-item">
+              <span class="trust-proof-val">{cs.metrics?.primary || cs.result}</span>
+              <span class="trust-proof-client">{cs.title}</span>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <StatBar stats={[
+          { value: '5.0 ★', label: 'Google Rating' },
+          { value: '$2M+', label: 'Revenue Generated' },
+          { value: '300+', label: 'Leads Delivered' },
+        ]} variant="dark" />
+      )}
+    </div>
+  </section>
 
-  {/* Qualifier Block - full width */}
+  <!-- ===== VALUE PROPOSITION — Dark Split ===== -->
+  {contentSections.length > 0 && (
+    <section class="svc-section svc-dark">
+      <div class="container svc-split-grid">
+        <div class="svc-split-text">
+          <div class="prose" set:html={contentSections[0].html} />
+        </div>
+        <div class="svc-split-visual">
+          {isLocalSEO && <img src="/media/local-seo-graphic.webp" alt="Local SEO results" width="520" height="400" loading="lazy" />}
+          {isPPC && <img src="/media/ppc-graphic.webp" alt="PPC campaign performance" width="520" height="400" loading="lazy" />}
+          {isTV && <img src="/media/seo-ppc-presentation.webp" alt="TV advertising" width="520" height="400" loading="lazy" />}
+          {!isLocalSEO && !isPPC && !isTV && <img src="/media/service-presentation.webp" alt={displayName} width="520" height="400" loading="lazy" />}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- ===== TESTIMONIAL 1 ===== -->
+  {inlineReview && (
+    <section class="svc-section" style="background: var(--color-gray-100);">
+      <div class="container" style="max-width: 800px;">
+        <InlineTestimonial quote={inlineReview.text} author={inlineReview.author} company={inlineReview.company} rating={inlineReview.rating} />
+      </div>
+    </section>
+  )}
+
+  <!-- ===== QUALIFIER BLOCK — White ===== -->
   {qualifier && (
-    <section class="fw-section">
+    <section class="svc-section">
       <div class="container">
         <QualifierBlock goodFit={qualifier.good} notFit={qualifier.not} />
       </div>
     </section>
   )}
 
-  {/* Content sections rendered as full-width alternating modules */}
-  {contentSections.length > 0 ? (
-    contentSections.map((section, i) => (
-      <>
-        <section class={`fw-section ${i % 3 === 1 ? 'fw-alt' : ''} ${i % 5 === 3 ? 'fw-dark' : ''} ${i % 7 === 5 ? 'fw-accent' : ''}`}>
-          <div class="container fw-narrow">
-            <div class="prose" set:html={section.html} />
-          </div>
-        </section>
+  <!-- ===== FEATURE GRID — Dark ===== -->
+  {contentSections.length > 1 && (
+    <section class="svc-section svc-dark">
+      <div class="container">
+        <span class="section-eyebrow" style="color: var(--color-primary);">Key Capabilities</span>
+        <h2 style="color: var(--color-white); margin-bottom: var(--space-xl);">What You Get</h2>
+        <div class="prose" set:html={contentSections[1].html} />
+      </div>
+    </section>
+  )}
 
-        {/* CRO modules as their own full-width sections */}
-        {i === 0 && inlineReview && (
-          <section class="fw-section fw-alt">
-            <div class="container fw-narrow">
-              <InlineTestimonial
-                quote={inlineReview.text}
-                author={inlineReview.author}
-                company={inlineReview.company}
-                rating={inlineReview.rating}
-              />
-            </div>
-          </section>
-        )}
+  <!-- ===== MID-CTA ===== -->
+  <section class="svc-section svc-dark svc-cta-band">
+    <div class="container">
+      <div class="svc-cta-inner">
+        <div class="svc-cta-text">
+          <h3>{isLocalSEO ? '10 Days Free. No Credit Card.' : isPPC ? '$0 Agency Fee on $5K+ Spend' : isTV ? 'Free Video Production Included' : 'Get Started Today'}</h3>
+          <p>{isLocalSEO ? 'We boost your Google Business Profile for 10 days at zero cost.' : isPPC ? '100% of your ad budget funds your campaign.' : isTV ? 'Every campaign includes professional video production.' : 'Book a 15-minute strategy call. No pressure.'}</p>
+        </div>
+        <a href="/contact" class="btn btn-primary">{isLocalSEO ? 'Apply for Free Boost' : 'Get Your Free Strategy Call'}</a>
+      </div>
+    </div>
+  </section>
 
-        {i === 1 && (
-          <section class="fw-section fw-dark fw-cta-band">
-            <div class="container">
-              <div class="mid-cta-inner">
-                <div class="mid-cta-text">
-                  <h3>{isLocalSEO ? '10 Days Free. No Credit Card.' : isPPC ? '$0 Agency Fee on $5K+ Spend' : isTV ? 'Free Video Production Included' : 'Get Started Today'}</h3>
-                  <p>{isLocalSEO ? 'We boost your Google Business Profile for 10 days at zero cost. Keep every improvement even if you walk away.' : isPPC ? '100% of your ad budget funds your campaign. We get paid through our Spectrum Reach partnership.' : isTV ? 'Every TV and streaming campaign includes professional video production at no extra charge.' : 'Book a 15-minute strategy call. No pressure, no pitch deck.'}</p>
+  <!-- ===== COMPARISON TABLE — White ===== -->
+  {type === 'service' && (
+    <section class="svc-section">
+      <div class="container" style="max-width: 900px;">
+        <ComparisonTable />
+      </div>
+    </section>
+  )}
+
+  <!-- ===== MORE CONTENT — Intentional Dark/White Rhythm ===== -->
+  {contentSections.slice(2).map((section, i) => (
+    <section class={`svc-section ${i % 2 === 0 ? 'svc-dark' : ''}`}>
+      <div class="container" style="max-width: 800px;">
+        <div class="prose" set:html={section.html} />
+      </div>
+    </section>
+  ))}
+
+  <!-- ===== CASE STUDIES — Dark ===== -->
+  {serviceCaseStudies.length > 0 && (
+    <section class="svc-section svc-dark">
+      <div class="container">
+        <span class="section-eyebrow" style="color: var(--color-primary);">Proven Results</span>
+        <h2 style="color: var(--color-white); margin-bottom: var(--space-xl);">Real {displayName} Results</h2>
+        <div class="svc-cases-grid">
+          {serviceCaseStudies.slice(0, 3).map(cs => (
+            <a href={`/case-studies/${cs.slug}/`} class="svc-case-card">
+              {cs.image && (
+                <div class="svc-case-img">
+                  <img src={`/media/case-studies/${cs.image}`} alt={cs.title} loading="lazy" width="400" height="225" />
                 </div>
-                <a href="/contact" class="btn btn-primary">{isLocalSEO ? 'Apply for Free Boost' : 'Get Your Free Strategy Call'}</a>
+              )}
+              <div class="svc-case-body">
+                <span class="svc-case-tag">{cs.category}</span>
+                <h3>{cs.metrics?.primary || cs.result}</h3>
+                <span class="svc-case-client">{cs.title}</span>
+                <span class="card-link">Read Case Study &rarr;</span>
               </div>
-            </div>
-          </section>
-        )}
-
-        {i === 2 && serviceCaseStudies.length > 0 && (
-          <section class="fw-section fw-dark">
-            <div class="container">
-              <span class="section-label section-label-light">Proven Results</span>
-              <h2 class="fw-heading-light">Real {displayName} Results</h2>
-              <div class="inline-cases-grid">
-                {serviceCaseStudies.slice(0, 3).map(cs => (
-                  <a href={`/case-studies/${cs.slug}/`} class="inline-case-card inline-case-dark">
-                    {cs.image && (
-                      <div class="inline-case-img">
-                        <img src={`/media/case-studies/${cs.image}`} alt={cs.title} loading="lazy" width="400" height="225" />
-                      </div>
-                    )}
-                    <div class="inline-case-body">
-                      <span class="inline-case-tag">{cs.category}</span>
-                      <h3>{cs.metrics?.primary || cs.result}</h3>
-                      <span class="inline-case-client">{cs.title}</span>
-                      <span class="card-link">Read Case Study &rarr;</span>
-                    </div>
-                  </a>
-                ))}
-              </div>
-            </div>
-          </section>
-        )}
-
-        {i === 3 && type === 'service' && (
-          <section class="fw-section fw-alt">
-            <div class="container fw-narrow">
-              <ComparisonTable />
-            </div>
-          </section>
-        )}
-
-        {i === 4 && config.reviews?.[1] && (
-          <section class="fw-section">
-            <div class="container fw-narrow">
-              <InlineTestimonial
-                quote={config.reviews[1].text}
-                author={config.reviews[1].author}
-                company={config.reviews[1].company}
-                rating={config.reviews[1].rating}
-              />
-            </div>
-          </section>
-        )}
-
-        {i === 6 && (
-          <section class="fw-section fw-dark fw-cta-band">
-            <div class="container">
-              <div class="mid-cta-inner">
-                <div class="mid-cta-text">
-                  <h3>Ready to Talk?</h3>
-                  <p>15-minute strategy call. We analyze your market, identify the gaps, and show you the plan. No pressure.</p>
-                </div>
-                <a href="/contact" class="btn btn-primary">Book Your Free Call</a>
-              </div>
-            </div>
-          </section>
-        )}
-      </>
-    ))
-  ) : (
-    <section class="fw-section">
-      <div class="container fw-narrow">
-        <div class="prose">
-          <h2>{displayName}</h2>
-          <p>{config.business.name} provides {displayName.toLowerCase()} services designed to grow home service businesses.</p>
+            </a>
+          ))}
         </div>
       </div>
     </section>
   )}
 
-  {/* Sub-service cards - full width */}
+  <!-- ===== SECOND TESTIMONIAL ===== -->
+  {config.reviews?.[1] && (
+    <section class="svc-section">
+      <div class="container" style="max-width: 800px;">
+        <InlineTestimonial quote={config.reviews[1].text} author={config.reviews[1].author} company={config.reviews[1].company} rating={config.reviews[1].rating} />
+      </div>
+    </section>
+  )}
+
+  <!-- ===== SUB-SERVICES ===== -->
   {type === 'service' && service.sub_services && service.sub_services.length > 0 && (
-    <section class="fw-section fw-alt">
+    <section class="svc-section" style="background: var(--color-gray-100);">
       <div class="container">
-        <span class="section-label">{service.name} Specializations</span>
+        <span class="section-eyebrow">{service.name} Specializations</span>
         <h2>{service.name} Services</h2>
-        <div class="sub-services-grid">
+        <div class="svc-sub-grid">
           {service.sub_services.map((sub: any) => (
-            <a href={`/services/${service.slug}/${sub.slug}/`} class="sub-service-card card">
-              <div class="sub-service-body">
+            <a href={`/services/${service.slug}/${sub.slug}/`} class="svc-sub-card card">
+              <div class="svc-sub-body">
                 <h3>{sub.name}</h3>
                 <p>{sub.short_description}</p>
                 <span class="card-link">Learn More &rarr;</span>
@@ -372,13 +327,13 @@ const schema = {
     </section>
   )}
 
-  {/* Process Steps - full width */}
+  <!-- ===== PROCESS STEPS — White ===== -->
   {processSteps.length > 0 && (
-    <section class="fw-section">
+    <section class="svc-section">
       <div class="container">
-        <span class="section-label">How It Works</span>
+        <span class="section-eyebrow">How It Works</span>
         <h2>Your {displayName} Journey</h2>
-        <div class="process-timeline">
+        <div class="svc-timeline">
           {processSteps.map((step: any, i: number) => (
             <div class="timeline-step">
               <div class="timeline-marker">
@@ -396,27 +351,27 @@ const schema = {
     </section>
   )}
 
-  {/* Industries - full width dark */}
-  <section class="fw-section fw-dark">
+  <!-- ===== INDUSTRIES — Dark ===== -->
+  <section class="svc-section svc-dark">
     <div class="container">
-      <span class="section-label section-label-light">Who We Work With</span>
-      <h2 class="fw-heading-light">Industries We Serve with {displayName}</h2>
-      <div class="industries-chip-grid">
+      <span class="section-eyebrow" style="color: var(--color-primary);">Who We Work With</span>
+      <h2 style="color: var(--color-white); margin-bottom: var(--space-lg);">Industries We Serve with {displayName}</h2>
+      <div class="svc-chips">
         {config.industries.slice(0, 12).map(ind => (
-          <a href={`/industries/${ind.slug}/${service.slug}/`} class="industry-chip">{ind.full_name}</a>
+          <a href={`/industries/${ind.slug}/${service.slug}/`} class="svc-chip">{ind.full_name}</a>
         ))}
       </div>
-      <a href="/industries/" class="see-all-link-light">See All {config.industries.length} Industries &rarr;</a>
+      <a href="/industries/" class="see-all-light">See All {config.industries.length} Industries &rarr;</a>
     </div>
   </section>
 
-  {/* FAQ - full width */}
+  <!-- ===== FAQ — White ===== -->
   {faqQuestions.length > 0 && (
-    <section class="fw-section fw-alt">
-      <div class="container fw-narrow">
-        <span class="section-label">Common Questions</span>
+    <section class="svc-section" style="background: var(--color-gray-100);">
+      <div class="container" style="max-width: 800px;">
+        <span class="section-eyebrow">Common Questions</span>
         <h2>Frequently Asked Questions About {displayName}</h2>
-        <div class="faq-grid">
+        <div class="svc-faq">
           {faqQuestions.map((q: any) => (
             <details class="faq-item">
               <summary>{q.question}</summary>
@@ -428,18 +383,20 @@ const schema = {
     </section>
   )}
 
-  {/* Pricing - full width section */}
+  <!-- ===== PRICING ===== -->
   {pricingTiers.length > 0 && (
-    <section class="pricing-section section section-alt">
+    <section class="svc-section">
       <div class="container">
-        <span class="section-label">{isLocalSEO ? 'Map Pack Guarantee' : 'Transparent Pricing'}</span>
-        <h2>{displayName} Pricing</h2>
-        <div class="pricing-grid">
+        <div style="text-align: center; margin-bottom: var(--space-xl);">
+          <span class="section-eyebrow">{isLocalSEO ? 'Map Pack Guarantee' : 'Transparent Pricing'}</span>
+          <h2>{displayName} Pricing</h2>
+        </div>
+        <div class="svc-pricing-grid">
           {pricingTiers.map((tier: any) => (
-            <div class={`pricing-card ${tier.featured ? 'pricing-featured' : ''}`}>
-              {tier.featured && <div class="pricing-badge">Most Popular</div>}
+            <div class={`svc-pricing-card ${tier.featured ? 'svc-pricing-featured' : ''}`}>
+              {tier.featured && <div class="svc-pricing-badge">Most Popular</div>}
               <h3>{tier.name}</h3>
-              <div class="pricing-price">
+              <div class="svc-pricing-price">
                 {tier.price === 0 ? (
                   <span class="price-amount">{tier.price_label || 'Custom'}</span>
                 ) : (
@@ -452,28 +409,23 @@ const schema = {
                   </>
                 )}
               </div>
-              <p class="pricing-desc">{tier.description}</p>
-              <ul class="pricing-features">
-                {tier.features.map((f: string) => (
-                  <li>{f}</li>
-                ))}
+              <p class="svc-pricing-desc">{tier.description}</p>
+              <ul class="svc-pricing-features">
+                {tier.features.map((f: string) => <li>{f}</li>)}
               </ul>
               <a href="/contact" class={`btn ${tier.featured ? 'btn-primary' : 'btn-outline'} btn-block`}>Get Started</a>
             </div>
           ))}
         </div>
-        {service.pricing?.setup_fee && (
-          <p class="setup-note">One-time setup fee: ${service.pricing.setup_fee.toLocaleString()}</p>
-        )}
+        {service.pricing?.setup_fee && <p class="setup-note">One-time setup fee: ${service.pricing.setup_fee.toLocaleString()}</p>}
       </div>
     </section>
   )}
 
-  {/* Quote-based pricing - full width */}
   {service.pricing?.quote_based && (
-    <section class="pricing-section section section-alt">
+    <section class="svc-section">
       <div class="container" style="max-width: 600px; text-align: center;">
-        <span class="section-label">Custom Pricing</span>
+        <span class="section-eyebrow">Custom Pricing</span>
         <h2>{displayName} Pricing</h2>
         <p style="color: var(--color-text-light); margin-bottom: var(--space-xl);">{service.pricing.description}</p>
         <a href="/contact" class="btn btn-primary btn-lg">Request a Custom Quote</a>
@@ -481,261 +433,231 @@ const schema = {
     </section>
   )}
 
-  {/* Free 10-Day Boost - Local SEO only */}
+  <!-- ===== 10-DAY BOOST — Local SEO Only ===== -->
   {isLocalSEO && (
-    <section class="boost-band section-dark">
-      <div class="boost-band-pattern"></div>
-      <div class="container boost-band-grid">
-        <div class="boost-band-content">
-          <span class="boost-band-label">Limited Offer</span>
-          <h2>Free 10-Day Local SEO Boost</h2>
-          <p>We will optimize your Google Business Profile, fix your citations, and boost your local signals for 10 days. No charge. No commitment. If you see results, we talk.</p>
-          <div class="boost-band-reqs">
-            <span>Requirements:</span>
-            <ul>
-              <li>Physical Google Business Profile</li>
-              <li>15+ existing Google reviews</li>
-              <li>4.5+ star rating</li>
-              <li>Existing website</li>
-            </ul>
-          </div>
-          <a href="/contact?service=10-day-boost" class="btn btn-primary">Apply for Free Boost &rarr;</a>
+    <section class="svc-section svc-dark">
+      <div class="container boost-grid">
+        <div class="boost-content">
+          <span class="section-eyebrow" style="color: var(--color-primary);">Limited Offer</span>
+          <h2 style="color: var(--color-white);">Free 10-Day Local SEO Boost</h2>
+          <p style="color: rgba(255,255,255,0.65); line-height: 1.7; margin-bottom: var(--space-lg);">We will optimize your Google Business Profile, fix your citations, and boost your local signals for 10 days. No charge. No commitment.</p>
+          <a href="/contact?service=10-day-boost" class="btn btn-primary">Apply for Free Boost</a>
         </div>
-        <div class="boost-band-stats">
-          <div class="boost-stat">
-            <span class="boost-stat-val">+47%</span>
-            <span class="boost-stat-desc">Search Appearances</span>
-          </div>
-          <div class="boost-stat">
-            <span class="boost-stat-val">+23%</span>
-            <span class="boost-stat-desc">Discovery Searches</span>
-          </div>
-          <div class="boost-stat">
-            <span class="boost-stat-val">+15%</span>
-            <span class="boost-stat-desc">Direction Requests</span>
-          </div>
+        <div class="boost-stats">
+          <div class="boost-stat"><span class="boost-stat-val">+47%</span><span class="boost-stat-desc">Search Appearances</span></div>
+          <div class="boost-stat"><span class="boost-stat-val">+23%</span><span class="boost-stat-desc">Discovery Searches</span></div>
+          <div class="boost-stat"><span class="boost-stat-val">+15%</span><span class="boost-stat-desc">Direction Requests</span></div>
         </div>
       </div>
     </section>
   )}
 
-  {/* Spectrum Partnership callout - PPC and TV pages */}
+  <!-- ===== SPECTRUM — PPC & TV ===== -->
   {(isPPC || isTV) && (
-    <section class="spectrum-band section">
-      <div class="container spectrum-band-inner">
-        <span class="section-label">Exclusive Partnership</span>
+    <section class="svc-section">
+      <div class="container" style="text-align: center;">
+        <span class="section-eyebrow">Exclusive Partnership</span>
         <h2>Powered by Spectrum Reach</h2>
-        <p class="spectrum-desc">Your campaigns run across Google AND Yahoo, powered by first-party data from 30M+ households. Not just search. TV, streaming, display, and connected devices.</p>
-        <div class="spectrum-band-grid">
-          <div class="spectrum-band-stat">
-            <span class="spectrum-num">30M+</span>
-            <span>Households of First-Party Data</span>
-          </div>
-          <div class="spectrum-band-stat">
-            <span class="spectrum-num">Google + Yahoo</span>
-            <span>Multi-Platform Search Coverage</span>
-          </div>
-          <div class="spectrum-band-stat">
-            <span class="spectrum-num">36</span>
-            <span>States Covered</span>
-          </div>
-          <div class="spectrum-band-stat">
-            <span class="spectrum-num">$0</span>
-            <span>Agency Fee on $5K+ Spend</span>
-          </div>
-        </div>
+        <p style="color: var(--color-text-light); max-width: 600px; margin: 0 auto var(--space-xl);">Your campaigns run across Google AND Yahoo, powered by first-party data from 30M+ households.</p>
+        <StatBar stats={[
+          { value: '30M+', label: 'Households' },
+          { value: 'Google + Yahoo', label: 'Multi-Platform' },
+          { value: '36', label: 'States' },
+          { value: '$0', label: 'Agency Fee' },
+        ]} variant="light" />
       </div>
     </section>
   )}
 
-  <CTABand heading={`Ready to Get Started with ${displayName}?`} />
+  <!-- ===== FINAL CTA ===== -->
+  <HandwrittenCTA
+    heading={`Ready to Get Started with ${displayName}?`}
+    buttonText="Schedule Your Strategy Call"
+    annotation="No obligation. Just a quick call."
+  />
+
   <ReviewsSection compact={true} maxReviews={3} />
   <Footer slot="footer" />
 </Base>
 
 <style>
-  .service-hero {
+  /* ===== HERO ===== */
+  .svc-hero {
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
     background: var(--color-dark);
-    padding: var(--space-3xl) 0 var(--space-2xl);
     color: var(--color-white);
     position: relative;
     overflow: hidden;
+    padding: var(--space-4xl) 0;
   }
-  .hero-bg-pattern {
+  .svc-hero-texture {
     position: absolute; inset: 0;
     background:
-      radial-gradient(circle at 20% 80%, rgba(192,57,43,0.12) 0%, transparent 45%),
-      radial-gradient(circle at 80% 20%, rgba(192,57,43,0.06) 0%, transparent 35%);
+      repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.02) 10px, rgba(255,255,255,0.02) 11px),
+      radial-gradient(circle at 20% 80%, rgba(192,57,43,0.15) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(192,57,43,0.08) 0%, transparent 40%);
     pointer-events: none;
   }
-  .service-hero-inner {
+  .svc-hero-inner {
     position: relative; z-index: 1;
-    display: grid; grid-template-columns: 1fr; gap: var(--space-xl); align-items: center;
+    max-width: 780px;
+  }
+  .svc-hero-eyebrow {
+    display: inline-block;
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--color-primary);
+    margin-bottom: var(--space-lg);
+  }
+  .svc-hero h1 {
+    color: var(--color-white);
+    margin-bottom: var(--space-md);
+  }
+  .svc-hero-ctas { margin-top: var(--space-xl); }
+
+  /* ===== TRUST STRIP ===== */
+  .svc-trust-strip {
+    background: var(--color-dark);
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding: var(--space-lg) 0 var(--space-xl);
+  }
+  .trust-proof-bar {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-3xl);
+    flex-wrap: wrap;
+  }
+  .trust-proof-item { text-align: center; }
+  .trust-proof-val {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: var(--text-xl);
+    font-weight: 800;
+    color: var(--color-primary);
+  }
+  .trust-proof-client {
+    display: block;
+    font-size: var(--text-sm);
+    color: rgba(255,255,255,0.4);
+    margin-top: 2px;
+  }
+
+  /* ===== GENERIC SECTION SPACING ===== */
+  .svc-section {
+    padding: var(--space-4xl) 0;
+  }
+  @media (min-width: 768px) {
+    .svc-section { padding: var(--space-5xl) 0; }
+  }
+  .svc-dark {
+    background: var(--color-dark);
+    color: var(--color-white);
+    position: relative;
+  }
+  .svc-dark::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.02) 10px, rgba(255,255,255,0.02) 11px);
+    pointer-events: none;
+  }
+  .svc-dark > * { position: relative; z-index: 1; }
+  .svc-dark h2, .svc-dark h3, .svc-dark h4 { color: var(--color-white); }
+  .svc-dark p, .svc-dark li { color: rgba(255,255,255,0.7); }
+  .svc-dark strong { color: var(--color-white); }
+  .svc-dark a { color: var(--color-primary-light); }
+  .svc-dark .prose h2::before { background: var(--color-primary); }
+  .svc-dark h3 { text-transform: none; }
+
+  /* ===== SPLIT GRID ===== */
+  .svc-split-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-2xl);
+    align-items: center;
   }
   @media (min-width: 1024px) {
-    .service-hero-inner { grid-template-columns: 1.1fr 0.9fr; }
+    .svc-split-grid { grid-template-columns: 1.1fr 0.9fr; }
   }
-  .hero-visual {
-    display: none;
-  }
-  @media (min-width: 1024px) {
-    .hero-visual { display: block; }
-  }
-  .hero-visual img {
+  .svc-split-visual img {
     width: 100%; height: auto; border-radius: 12px;
     box-shadow: 0 20px 60px rgba(0,0,0,0.3);
   }
+  .svc-split-visual { display: none; }
+  @media (min-width: 1024px) { .svc-split-visual { display: block; } }
 
-  .hero-partner-badge {
-    display: inline-block; font-size: 0.65rem; font-weight: 700; text-transform: uppercase;
-    letter-spacing: 0.08em; color: var(--color-primary); background: rgba(192,57,43,0.15);
-    padding: 0.25rem 0.75rem; border-radius: 4px; margin-bottom: var(--space-md);
-  }
-
-  .service-hero h1 {
-    color: var(--color-white);
-    font-size: var(--text-4xl);
-    margin-bottom: var(--space-sm);
-    max-width: 700px;
-  }
-
-  .service-hero-desc {
-    color: rgba(255, 255, 255, 0.7);
-    font-size: var(--text-lg);
-    max-width: 600px;
-    margin-bottom: var(--space-lg);
-    line-height: 1.6;
-  }
-
-  .service-hero-ctas {
-    display: flex;
-    gap: var(--space-md);
-    flex-wrap: wrap;
-  }
-
-  .service-hero .btn-outline {
-    border-color: rgba(255,255,255,0.3);
-    color: var(--color-white);
-  }
-  .service-hero .btn-outline:hover {
-    background: var(--color-white);
-    color: var(--color-dark);
-    border-color: var(--color-white);
-  }
-
-  .hero-results-strip {
-    display: flex; gap: var(--space-xl); margin-top: var(--space-xl);
-    padding-top: var(--space-lg); border-top: 1px solid rgba(255,255,255,0.08);
-  }
-  .hero-result-chip { display: flex; flex-direction: column; }
-  .hero-result-value { font-family: var(--font-heading); font-size: var(--text-base); font-weight: 700; color: var(--color-primary); }
-  .hero-result-client { font-size: 0.7rem; color: rgba(255,255,255,0.4); }
-
-  /* === FULL-WIDTH SECTION SYSTEM (Hook Agency inspired: generous spacing) === */
-  .fw-section {
-    padding: 4rem 0;
-  }
-  @media (min-width: 768px) {
-    .fw-section { padding: 5rem 0; }
-  }
-  .fw-alt {
-    background: var(--color-gray-100);
-  }
-  .fw-dark {
-    background: var(--color-dark);
-    color: var(--color-white);
-  }
-  .fw-dark h2, .fw-dark h3, .fw-dark h4 { color: var(--color-white); }
-  .fw-dark h2::before { background: var(--color-primary); }
-  .fw-dark p, .fw-dark li { color: rgba(255,255,255,0.7); }
-  .fw-dark strong { color: var(--color-white); }
-  .fw-dark a { color: var(--color-primary-light); }
-  .fw-accent {
-    border-left: 4px solid var(--color-primary);
-  }
-  .fw-narrow {
-    max-width: 800px;
-  }
-  .fw-heading-light { color: var(--color-white); margin-bottom: var(--space-xl); }
-  .fw-heading-light::before { background: var(--color-primary); }
-
-  /* CTA Band inside dark sections */
-  .fw-cta-band { padding: var(--space-2xl) 0; position: relative; overflow: hidden; }
-  .fw-cta-band::before {
+  /* ===== CTA BAND ===== */
+  .svc-cta-band { padding: var(--space-2xl) 0 !important; }
+  .svc-cta-band::after {
     content: '';
     position: absolute; top: 0; right: 0; width: 300px; height: 100%;
     background: radial-gradient(circle at 100% 50%, rgba(192,57,43,0.15) 0%, transparent 70%);
     pointer-events: none;
   }
-  .mid-cta-inner {
+  .svc-cta-inner {
     display: flex; align-items: center; justify-content: space-between;
-    gap: var(--space-lg); flex-wrap: wrap; position: relative; z-index: 1;
+    gap: var(--space-lg); flex-wrap: wrap;
   }
-  .mid-cta-text h3 { color: var(--color-white); font-size: var(--text-xl); margin-bottom: var(--space-xs); }
-  .mid-cta-text h3::before { display: none; }
-  .mid-cta-text p { color: rgba(255,255,255,0.6); font-size: var(--text-base); margin-bottom: 0; max-width: 550px; }
+  .svc-cta-text h3 { font-size: var(--text-xl); margin-bottom: var(--space-xs); text-transform: none; }
+  .svc-cta-text h3::before { display: none; }
+  .svc-cta-text p { color: rgba(255,255,255,0.6); margin-bottom: 0; max-width: 550px; }
 
-  .section-label-light { color: rgba(255,255,255,0.4); }
+  /* ===== CASE STUDIES ===== */
+  .svc-cases-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: var(--space-lg); }
+  .svc-case-card {
+    display: flex; flex-direction: column; overflow: hidden;
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px;
+    text-decoration: none; color: inherit; transition: transform 0.15s, background 0.15s;
+  }
+  .svc-case-card:hover { transform: translateY(-3px); background: rgba(255,255,255,0.08); }
+  .svc-case-img { aspect-ratio: 16/9; overflow: hidden; background: rgba(255,255,255,0.03); }
+  .svc-case-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
+  .svc-case-card:hover .svc-case-img img { transform: scale(1.04); }
+  .svc-case-body { padding: var(--space-lg); display: flex; flex-direction: column; flex: 1; }
+  .svc-case-tag { font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-primary); margin-bottom: var(--space-xs); }
+  .svc-case-card h3 { font-size: var(--text-lg); margin-bottom: var(--space-xs); color: var(--color-white); text-transform: none; }
+  .svc-case-client { font-size: var(--text-sm); color: rgba(255,255,255,0.5); }
+  .card-link { font-size: var(--text-sm); font-weight: 600; color: var(--color-primary); margin-top: auto; padding-top: var(--space-sm); }
 
-  .prose { max-width: none; }
+  /* ===== SUB-SERVICES ===== */
+  .svc-sub-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: var(--space-lg); margin-top: var(--space-xl); }
+  .svc-sub-card { text-decoration: none; color: inherit; }
+  .svc-sub-body { padding: var(--space-lg); }
+  .svc-sub-body h3 { font-size: var(--text-lg); margin-bottom: var(--space-sm); text-transform: none; }
+  .svc-sub-body p { font-size: var(--text-sm); color: var(--color-text-light); margin-bottom: var(--space-sm); }
 
-  /* Sub-services */
-  .sub-services-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: var(--space-lg); margin-top: var(--space-xl); }
-  .sub-service-card { text-decoration: none; color: inherit; transition: transform 0.15s, box-shadow 0.15s; }
-  .sub-service-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
-  .sub-service-body { padding: var(--space-lg); }
-  .sub-service-body h3 { font-size: var(--text-lg); margin-bottom: var(--space-sm); }
-  .sub-service-body p { font-size: var(--text-sm); color: var(--color-text-light); margin-bottom: var(--space-sm); }
-  .card-link { font-size: var(--text-sm); font-weight: 600; color: var(--color-primary); }
-
-  /* Timeline Process Steps */
-  .process-timeline { margin-top: var(--space-xl); max-width: 700px; }
+  /* ===== TIMELINE ===== */
+  .svc-timeline { margin-top: var(--space-xl); max-width: 700px; }
   .timeline-step { display: flex; gap: var(--space-lg); }
   .timeline-marker { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
   .timeline-number {
-    width: 48px; height: 48px; border-radius: 50%;
+    width: 56px; height: 56px; border-radius: 50%;
     background: var(--color-primary); color: var(--color-white);
     display: flex; align-items: center; justify-content: center;
-    font-weight: 800; font-size: var(--text-lg); font-family: var(--font-heading);
+    font-weight: 800; font-size: var(--text-xl); font-family: var(--font-heading);
   }
   .timeline-line { width: 2px; flex: 1; background: var(--color-gray-200); min-height: 24px; }
   .timeline-content { padding-bottom: var(--space-xl); }
-  .timeline-content h3 { font-size: var(--text-lg); margin-bottom: var(--space-xs); }
+  .timeline-content h3 { font-size: var(--text-lg); margin-bottom: var(--space-xs); text-transform: none; }
   .timeline-content p { font-size: var(--text-sm); color: var(--color-text-light); line-height: var(--leading-relaxed); }
 
-  /* Industries chips */
-  .industries-chip-grid { display: flex; flex-wrap: wrap; gap: var(--space-sm); margin-top: var(--space-lg); }
-  .industry-chip {
+  /* ===== CHIPS ===== */
+  .svc-chips { display: flex; flex-wrap: wrap; gap: var(--space-sm); }
+  .svc-chip {
     display: inline-block; padding: 0.5rem 1.25rem;
     border: 1px solid rgba(255,255,255,0.15); border-radius: 6px;
     font-size: var(--text-sm); color: rgba(255,255,255,0.7);
     text-decoration: none; transition: all 0.15s;
   }
-  .industry-chip:hover { border-color: var(--color-primary); color: var(--color-white); background: rgba(192,57,43,0.15); }
-  .see-all-link-light { display: inline-block; margin-top: var(--space-lg); font-size: var(--text-sm); font-weight: 600; color: var(--color-primary); }
+  .svc-chip:hover { border-color: var(--color-primary); color: var(--color-white); background: rgba(192,57,43,0.15); }
+  .see-all-light { display: inline-block; margin-top: var(--space-lg); font-size: var(--text-sm); font-weight: 600; color: var(--color-primary); }
 
-  /* Inline Case Studies */
-  .inline-cases-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: var(--space-lg); margin-top: var(--space-lg); }
-  .inline-case-card {
-    display: flex; flex-direction: column; overflow: hidden;
-    background: var(--color-white); border: 1px solid var(--color-gray-200); border-radius: 10px;
-    text-decoration: none; color: inherit; transition: transform 0.15s, box-shadow 0.15s;
-  }
-  .inline-case-card:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,0.12); }
-  .inline-case-dark { background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); }
-  .inline-case-dark:hover { background: rgba(255,255,255,0.08); box-shadow: 0 12px 32px rgba(0,0,0,0.3); }
-  .inline-case-dark h3 { color: var(--color-white); }
-  .inline-case-dark .inline-case-client { color: rgba(255,255,255,0.5); }
-  .inline-case-img { aspect-ratio: 16/9; overflow: hidden; background: var(--color-gray-100); }
-  .inline-case-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
-  .inline-case-card:hover .inline-case-img img { transform: scale(1.04); }
-  .inline-case-body { padding: var(--space-lg); display: flex; flex-direction: column; flex: 1; }
-  .inline-case-tag { font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-primary); margin-bottom: var(--space-xs); }
-  .inline-case-card h3 { font-size: var(--text-lg); margin-bottom: var(--space-xs); }
-  .inline-case-client { font-size: var(--text-sm); color: var(--color-text-muted); }
-
-  /* FAQ */
-  .faq-grid { margin-top: var(--space-lg); }
+  /* ===== FAQ ===== */
+  .svc-faq { margin-top: var(--space-lg); }
   .faq-item { border: 1px solid var(--color-gray-200); border-radius: var(--radius-md); padding: var(--space-md) var(--space-lg); margin-bottom: var(--space-sm); background: var(--color-white); transition: box-shadow 0.15s; }
   .faq-item[open] { box-shadow: var(--shadow-sm); border-color: var(--color-primary); }
   .faq-item summary { font-weight: 600; cursor: pointer; font-size: var(--text-base); list-style: none; display: flex; justify-content: space-between; align-items: center; }
@@ -744,53 +666,35 @@ const schema = {
   .faq-item summary::-webkit-details-marker { display: none; }
   .faq-answer { padding-top: var(--space-md); color: var(--color-text-light); border-top: 1px solid var(--color-gray-100); margin-top: var(--space-md); }
 
-  /* Pricing section */
-  .pricing-section .section-label { text-align: center; display: block; }
-  .pricing-section h2 { text-align: center; margin-bottom: var(--space-xl); }
-  .pricing-section h2::before { display: none; }
-  .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: var(--space-lg); margin-top: var(--space-lg); }
-  .pricing-card { background: var(--color-white); border: 1px solid var(--color-gray-200); border-radius: var(--radius-md); padding: var(--space-xl); position: relative; }
-  .pricing-featured { border-color: var(--color-primary); box-shadow: 0 0 0 1px var(--color-primary); }
-  .pricing-badge { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--color-primary); color: var(--color-white); padding: 0.25rem 1rem; border-radius: 999px; font-size: var(--text-xs); font-weight: 700; text-transform: uppercase; white-space: nowrap; }
-  .pricing-card h3 { font-size: var(--text-lg); margin-bottom: var(--space-sm); }
-  .pricing-price { margin-bottom: var(--space-sm); }
+  /* ===== PRICING ===== */
+  .svc-pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: var(--space-lg); }
+  .svc-pricing-card { background: var(--color-white); border: 1px solid var(--color-gray-200); border-radius: var(--radius-md); padding: var(--space-xl); position: relative; }
+  .svc-pricing-featured { border-color: var(--color-primary); box-shadow: 0 0 0 1px var(--color-primary); }
+  .svc-pricing-badge { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--color-primary); color: var(--color-white); padding: 0.25rem 1rem; border-radius: 999px; font-size: var(--text-xs); font-weight: 700; text-transform: uppercase; white-space: nowrap; }
+  .svc-pricing-card h3 { font-size: var(--text-lg); margin-bottom: var(--space-sm); text-transform: none; }
+  .svc-pricing-price { margin-bottom: var(--space-sm); }
   .price-label { display: block; font-size: var(--text-xs); color: var(--color-text-light); text-transform: uppercase; letter-spacing: 0.05em; }
   .price-currency { font-size: var(--text-xl); font-weight: 700; vertical-align: top; }
   .price-amount { font-size: var(--text-3xl); font-weight: 800; line-height: 1; }
   .price-period { font-size: var(--text-sm); color: var(--color-text-light); }
-  .pricing-desc { font-size: var(--text-sm); color: var(--color-text-light); margin-bottom: var(--space-md); }
-  .pricing-features { list-style: none; padding: 0; margin-bottom: var(--space-lg); }
-  .pricing-features li { padding: 0.375rem 0; font-size: var(--text-sm); border-bottom: 1px solid var(--color-gray-100); }
-  .pricing-features li::before { content: '✓ '; color: var(--color-primary); font-weight: 700; }
+  .svc-pricing-desc { font-size: var(--text-sm); color: var(--color-text-light); margin-bottom: var(--space-md); }
+  .svc-pricing-features { list-style: none; padding: 0; margin-bottom: var(--space-lg); }
+  .svc-pricing-features li { padding: 0.375rem 0; font-size: var(--text-sm); border-bottom: 1px solid var(--color-gray-100); }
+  .svc-pricing-features li::before { content: '\2713 '; color: var(--color-primary); font-weight: 700; }
   .setup-note { text-align: center; color: var(--color-text-light); font-size: var(--text-sm); margin-top: var(--space-md); }
-  .btn-block { display: block; text-align: center; width: 100%; padding: 0.75rem 1rem; font-weight: 700; }
+  .btn-block { display: block; text-align: center; width: 100%; }
 
-  /* === 10-Day Boost Band === */
-  .boost-band { padding: var(--space-3xl) 0; position: relative; overflow: hidden; }
-  .boost-band-pattern { position: absolute; inset: 0; background: radial-gradient(ellipse at 70% 50%, rgba(192,57,43,0.2) 0%, transparent 60%); pointer-events: none; }
-  .boost-band-grid { display: grid; grid-template-columns: 1fr; gap: var(--space-2xl); position: relative; z-index: 1; }
-  @media (min-width: 1024px) { .boost-band-grid { grid-template-columns: 1.3fr 1fr; align-items: center; } }
-  .boost-band-label { display: inline-block; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.4); margin-bottom: var(--space-sm); }
-  .boost-band-content h2 { color: var(--color-white); margin-bottom: var(--space-md); }
-  .boost-band-content h2::after { display: none; }
-  .boost-band-content p { color: rgba(255,255,255,0.65); line-height: 1.7; margin-bottom: var(--space-lg); }
-  .boost-band-reqs { margin-bottom: var(--space-xl); }
-  .boost-band-reqs span { display: block; font-size: var(--text-sm); font-weight: 700; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: var(--space-sm); }
-  .boost-band-reqs ul { list-style: none; padding: 0; }
-  .boost-band-reqs li { padding: 0.25rem 0; padding-left: 1.25rem; position: relative; font-size: var(--text-sm); color: rgba(255,255,255,0.6); }
-  .boost-band-reqs li::before { content: ''; position: absolute; left: 0; top: 0.5rem; width: 8px; height: 8px; border-radius: 50%; background: var(--color-primary); }
-  .boost-band-stats { display: flex; flex-direction: column; gap: var(--space-lg); background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: var(--space-xl); }
+  /* ===== BOOST ===== */
+  .boost-grid {
+    display: grid; grid-template-columns: 1fr; gap: var(--space-2xl); align-items: center;
+  }
+  @media (min-width: 1024px) { .boost-grid { grid-template-columns: 1.3fr 1fr; } }
+  .boost-stats {
+    display: flex; flex-direction: column; gap: var(--space-lg);
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px; padding: var(--space-xl);
+  }
   .boost-stat { text-align: center; }
   .boost-stat-val { display: block; font-family: var(--font-heading); font-size: var(--text-2xl); font-weight: 800; color: var(--color-primary); }
   .boost-stat-desc { font-size: var(--text-sm); color: rgba(255,255,255,0.5); }
-
-  /* === Spectrum Band === */
-  .spectrum-band { text-align: center; }
-  .spectrum-band h2::after { margin-left: auto; margin-right: auto; }
-  .spectrum-band-grid { display: flex; justify-content: center; gap: var(--space-3xl); margin-top: var(--space-xl); flex-wrap: wrap; }
-  .spectrum-band-stat { text-align: center; }
-  .spectrum-num { display: block; font-family: var(--font-heading); font-size: var(--text-3xl); font-weight: 800; color: var(--color-dark); }
-  .spectrum-band-stat span:last-child { display: block; font-size: 0.75rem; color: var(--color-text-muted); }
-  .spectrum-desc { max-width: 600px; margin: 0 auto var(--space-lg); color: var(--color-text-light); }
-  .spectrum-num { white-space: nowrap; }
 </style>

@@ -1,11 +1,14 @@
 ---
 import Base from '../../layouts/Base.astro';
 import Header from '../../components/Header.astro';
-import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import ReviewsSection from '../../components/ReviewsSection.astro';
 import CTABand from '../../components/CTABand.astro';
 import Footer from '../../components/Footer.astro';
 import LeadMagnet from '../../components/LeadMagnet.astro';
+import IconBulletList from '../../components/IconBulletList.astro';
+import StatBar from '../../components/StatBar.astro';
+import FeatureGrid from '../../components/FeatureGrid.astro';
+import HandwrittenCTA from '../../components/HandwrittenCTA.astro';
 import config from '../../lib/config';
 import { renderMarkdown, splitMarkdownSections } from '../../lib/markdown';
 import InlineTestimonial from '../../components/InlineTestimonial.astro';
@@ -38,21 +41,12 @@ if (fs.existsSync(filePath)) {
 }
 
 const pageTitle = frontmatter.title || `Marketing for ${industry.full_name}`;
-const pageDescription = frontmatter.description || `${config.business.name} provides local SEO, Google Ads, and website design for ${industry.full_name.toLowerCase()}. Scale your ${industry.name.toLowerCase()} business with performance-driven marketing.`;
-
-const breadcrumbItems = [
-  { label: 'Home', href: '/' },
-  { label: 'Who We Work With', href: '/industries/' },
-  { label: industry.full_name },
-];
+const pageDescription = frontmatter.description || `${config.business.name} provides local SEO, Google Ads, and website design for ${industry.full_name.toLowerCase()}.`;
 
 const faqQuestions = frontmatter.faq || [];
-
-// Split content into sections for CRO module injection
 const contentSections = content ? splitMarkdownSections(content) : [];
 const inlineReview = config.reviews?.[0];
 
-// Find case studies matching this industry
 const industryCases = config.case_studies.filter(cs =>
   cs.industry && cs.industry.toLowerCase().includes(industry.name.toLowerCase().split('/')[0].trim().toLowerCase())
 ).slice(0, 3);
@@ -69,78 +63,86 @@ const schema = {
 <Base title={pageTitle} description={pageDescription} schema={schema}>
   <Header slot="header" />
 
-  <section class="industry-hero">
-    <div class="industry-hero-bg"></div>
-    <div class="container industry-hero-inner">
-      <Breadcrumbs items={breadcrumbItems} />
-      <div class="industry-hero-badge">{industry.name} Marketing</div>
+  <!-- ===== HERO — Dark, Full-Width ===== -->
+  <section class="ind-hero">
+    <div class="ind-hero-texture"></div>
+    <div class="container ind-hero-inner">
+      <span class="ind-hero-eyebrow">{industry.name} Marketing</span>
       <h1>{pageTitle}</h1>
-      <p class="industry-hero-desc">{industry.description}</p>
-      <div class="industry-hero-ctas">
-        <a href="/contact" class="btn btn-primary">Get Your Free Strategy Call</a>
-        <a href={`tel:${config.business.phone_raw}`} class="btn btn-outline">{config.business.phone}</a>
+      <p class="ind-hero-desc">{industry.description}</p>
+      <div class="ind-hero-ctas">
+        <a href="/contact" class="btn btn-ghost btn-lg">Get In Touch</a>
+        <a href={`tel:${config.business.phone_raw}`} class="btn btn-ghost btn-lg" style="border-color: rgba(255,255,255,0.2);">{config.business.phone}</a>
       </div>
     </div>
   </section>
 
-  {/* === FULL-WIDTH CONTENT SECTIONS — NO SIDEBAR === */}
+  <!-- ===== TRUST STRIP ===== -->
+  <section class="ind-trust-strip">
+    <div class="container">
+      <StatBar stats={[
+        { value: '5.0 ★', label: 'Google Rating' },
+        { value: '20+', label: 'Reviews' },
+        { value: '$2M+', label: 'Revenue Generated' },
+      ]} variant="dark" />
+    </div>
+  </section>
+
+  <!-- ===== CONTENT SECTIONS — Designed Rhythm ===== -->
   {contentSections.length > 0 ? (
-    contentSections.map((section, i) => (
-      <>
-        <section class={`fw-section ${i % 3 === 1 ? 'fw-alt' : ''} ${i % 5 === 3 ? 'fw-dark' : ''} ${i % 7 === 5 ? 'fw-accent' : ''}`}>
-          <div class="container fw-narrow">
-            <div class="prose" set:html={section.html} />
+    <>
+      {/* First section — Dark */}
+      <section class="ind-section ind-dark">
+        <div class="container" style="max-width: 800px;">
+          <div class="prose" set:html={contentSections[0].html} />
+        </div>
+      </section>
+
+      {/* Testimonial */}
+      {inlineReview && (
+        <section class="ind-section" style="background: var(--color-gray-100);">
+          <div class="container" style="max-width: 800px;">
+            <InlineTestimonial quote={inlineReview.text} author={inlineReview.author} company={inlineReview.company} rating={inlineReview.rating} />
           </div>
         </section>
+      )}
 
-        {i === 0 && inlineReview && (
-          <section class="fw-section fw-alt">
-            <div class="container fw-narrow">
-              <InlineTestimonial quote={inlineReview.text} author={inlineReview.author} company={inlineReview.company} rating={inlineReview.rating} />
+      {/* Remaining sections with intentional dark/white rhythm */}
+      {contentSections.slice(1).map((section, i) => (
+        <>
+          <section class={`ind-section ${i % 2 === 0 ? '' : 'ind-dark'}`}>
+            <div class="container" style="max-width: 800px;">
+              <div class="prose" set:html={section.html} />
             </div>
           </section>
-        )}
 
-        {i === 1 && (
-          <section class="fw-section fw-dark fw-cta-band">
-            <div class="container">
-              <div class="fw-cta-inner">
-                <div>
-                  <h3>Ready to Grow Your {industry.name} Business?</h3>
-                  <p>15-minute strategy call. We analyze your market, your competition, and show you exactly where the money is.</p>
+          {i === 0 && (
+            <section class="ind-section ind-dark ind-cta-band">
+              <div class="container">
+                <div class="ind-cta-inner">
+                  <div>
+                    <h3>Ready to Grow Your {industry.name} Business?</h3>
+                    <p>15-minute strategy call. We analyze your market and show you where the money is.</p>
+                  </div>
+                  <a href="/contact" class="btn btn-primary">Free Strategy Call</a>
                 </div>
-                <a href="/contact" class="btn btn-primary">Free Strategy Call</a>
               </div>
-            </div>
-          </section>
-        )}
+            </section>
+          )}
 
-        {i === 3 && (
-          <section class="fw-section fw-dark fw-cta-band">
-            <div class="container">
-              <div class="fw-cta-inner">
-                <div>
-                  <h3>10 Days Free. Prove It Before You Pay.</h3>
-                  <p>We boost your local SEO for 10 days at zero cost. No credit card, no account access, no commitment.</p>
-                </div>
-                <a href="/contact?service=10-day-boost" class="btn btn-primary">Apply for Free Boost</a>
+          {i === 2 && config.reviews?.[1] && (
+            <section class="ind-section">
+              <div class="container" style="max-width: 800px;">
+                <InlineTestimonial quote={config.reviews[1].text} author={config.reviews[1].author} company={config.reviews[1].company} rating={config.reviews[1].rating} />
               </div>
-            </div>
-          </section>
-        )}
-
-        {i === 4 && config.reviews?.[1] && (
-          <section class="fw-section">
-            <div class="container fw-narrow">
-              <InlineTestimonial quote={config.reviews[1].text} author={config.reviews[1].author} company={config.reviews[1].company} rating={config.reviews[1].rating} />
-            </div>
-          </section>
-        )}
-      </>
-    ))
+            </section>
+          )}
+        </>
+      ))}
+    </>
   ) : (
-    <section class="fw-section">
-      <div class="container fw-narrow">
+    <section class="ind-section">
+      <div class="container" style="max-width: 800px;">
         <div class="prose">
           <h2>Digital Marketing Built for {industry.full_name}</h2>
           <p>{config.business.name} specializes in performance-driven marketing for {industry.full_name.toLowerCase()}.</p>
@@ -149,20 +151,55 @@ const schema = {
     </section>
   )}
 
-  {/* Lead Magnet - full width */}
-  <section class="fw-section fw-alt">
-    <div class="container fw-narrow">
-      <LeadMagnet variant="inline" />
+  <!-- ===== SERVICES FOR THIS INDUSTRY — White ===== -->
+  <section class="ind-section" style="background: var(--color-gray-100);">
+    <div class="container">
+      <span class="section-eyebrow">{industry.name} Solutions</span>
+      <h2>Our Services for {industry.full_name}</h2>
+      <FeatureGrid items={config.services.map(svc => ({
+        icon: svc.slug === 'local-seo' ? 'map' : svc.slug === 'ppc' ? 'target' : svc.slug === 'website-design' ? 'code' : 'tv',
+        heading: `${svc.name}`,
+        description: svc.short_description.split('.')[0] + '.',
+      }))} variant="light" columns={4} />
+      <div style="text-align: center; margin-top: var(--space-xl);">
+        {config.services.map(svc => (
+          <a href={`/industries/${industry.slug}/${svc.slug}/`} class="btn btn-outline" style="margin: 0.25rem;">{svc.name}</a>
+        ))}
+      </div>
     </div>
   </section>
 
-  {/* FAQ - full width */}
+  <!-- ===== CASE STUDIES — Dark ===== -->
+  {industryCases.length > 0 && (
+    <section class="ind-section ind-dark">
+      <div class="container">
+        <span class="section-eyebrow" style="color: var(--color-primary);">{industry.name} Results</span>
+        <h2 style="color: var(--color-white); margin-bottom: var(--space-xl);">Real Results for {industry.full_name}</h2>
+        <div class="ind-cases-grid">
+          {industryCases.map(cs => (
+            <a href={`/case-studies/${cs.slug}/`} class="ind-case-card">
+              <span class="ind-case-tag">{cs.category}</span>
+              <h3>{cs.metrics?.primary || cs.result}</h3>
+              <span class="ind-case-client">{cs.title}</span>
+              {cs.metrics?.secondary && <span class="ind-case-secondary">{cs.metrics.secondary}</span>}
+              <span class="card-link">Read Case Study &rarr;</span>
+            </a>
+          ))}
+        </div>
+        <div style="text-align: center; margin-top: var(--space-xl);">
+          <a href="/case-studies/" class="btn btn-ghost">See All {config.case_studies.length} Case Studies</a>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- ===== FAQ ===== -->
   {faqQuestions.length > 0 && (
-    <section class="fw-section">
-      <div class="container fw-narrow">
-        <span class="section-label">Common Questions</span>
-        <h2>Frequently Asked Questions About {industry.name} Marketing</h2>
-        <div class="faq-grid">
+    <section class="ind-section">
+      <div class="container" style="max-width: 800px;">
+        <span class="section-eyebrow">Common Questions</span>
+        <h2>FAQ About {industry.name} Marketing</h2>
+        <div class="ind-faq">
           {faqQuestions.map((q: any) => (
             <details class="faq-item">
               <summary>{q.question}</summary>
@@ -174,163 +211,129 @@ const schema = {
     </section>
   )}
 
-  {/* Areas - full width dark */}
-  <section class="fw-section fw-dark">
+  <!-- ===== AREAS — Dark ===== -->
+  <section class="ind-section ind-dark">
     <div class="container">
-      <span class="section-label section-label-light">Markets We Serve</span>
-      <h2 class="fw-heading-light">{industry.name} Marketing Across the United States</h2>
-      <div class="fw-chip-grid">
+      <span class="section-eyebrow" style="color: var(--color-primary);">Markets We Serve</span>
+      <h2 style="color: var(--color-white); margin-bottom: var(--space-lg);">{industry.name} Marketing Across the United States</h2>
+      <div class="ind-chips">
         {config.areas.slice(0, 10).map(a => (
-          <a href={`/areas/${a.slug}/`} class="fw-chip">{a.name}</a>
+          <a href={`/areas/${a.slug}/`} class="ind-chip">{a.name}</a>
         ))}
       </div>
-      <a href="/areas/" class="see-all-link-light">See All {config.areas.length} Areas</a>
+      <a href="/areas/" class="see-all-light">See All {config.areas.length} Areas</a>
     </div>
   </section>
 
-  {/* Services for this industry - full width module */}
-  <section class="industry-services-section section section-alt">
-    <div class="container">
-      <span class="section-label">{industry.name} Solutions</span>
-      <h2>Our Services for {industry.full_name}</h2>
-      <div class="industry-services-grid-fw">
-        {config.services.map(service => (
-          <a href={`/industries/${industry.slug}/${service.slug}/`} class="industry-service-card-fw">
-            <div class="isvc-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-            </div>
-            <h3>{service.name} for {industry.full_name}</h3>
-            <p>{service.short_description.split('.')[0]}.</p>
-            <span class="card-link">Learn More &rarr;</span>
-          </a>
-        ))}
-      </div>
-    </div>
-  </section>
+  <!-- ===== FINAL CTA ===== -->
+  <HandwrittenCTA
+    heading={`Ready to Dominate ${industry.name} Marketing?`}
+    buttonText="Schedule Your Strategy Call"
+    annotation="No obligation. Just a quick call."
+  />
 
-  {/* Case Studies for this industry */}
-  {industryCases.length > 0 && (
-    <section class="industry-cases-section section section-dark">
-      <div class="container">
-        <span class="section-label section-label-light">{industry.name} Results</span>
-        <h2>Real Results for {industry.full_name}</h2>
-        <div class="industry-cases-grid-fw">
-          {industryCases.map(cs => (
-            <a href={`/case-studies/${cs.slug}/`} class="ind-case-card-fw">
-              <span class="ind-case-tag">{cs.category}</span>
-              <h3>{cs.metrics?.primary || cs.result}</h3>
-              <span class="ind-case-client">{cs.title}</span>
-              {cs.metrics?.secondary && <span class="ind-case-secondary">{cs.metrics.secondary}</span>}
-              <span class="card-link">Read Case Study &rarr;</span>
-            </a>
-          ))}
-        </div>
-        <div style="text-align: center; margin-top: var(--space-xl);">
-          <a href="/case-studies/" class="btn btn-outline-light">See All {config.case_studies.length} Case Studies &rarr;</a>
-        </div>
-      </div>
-    </section>
-  )}
-
-  <CTABand heading={`Ready to Dominate ${industry.name} Marketing?`} />
   <ReviewsSection compact={true} maxReviews={3} />
   <Footer slot="footer" />
 </Base>
 
 <style>
-  .industry-hero {
+  /* ===== HERO ===== */
+  .ind-hero {
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
     background: var(--color-dark);
-    padding: var(--space-3xl) 0 var(--space-2xl);
     color: var(--color-white);
     position: relative;
     overflow: hidden;
+    padding: var(--space-4xl) 0;
   }
-  .industry-hero-bg {
+  .ind-hero-texture {
     position: absolute; inset: 0;
     background:
+      repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.02) 10px, rgba(255,255,255,0.02) 11px),
       radial-gradient(circle at 15% 85%, rgba(192,57,43,0.1) 0%, transparent 40%),
-      radial-gradient(circle at 85% 15%, rgba(59,130,246,0.06) 0%, transparent 35%);
+      radial-gradient(circle at 85% 15%, rgba(192,57,43,0.06) 0%, transparent 35%);
     pointer-events: none;
   }
-  .industry-hero-inner { position: relative; z-index: 1; }
-
-  .industry-hero-badge {
+  .ind-hero-inner { position: relative; z-index: 1; max-width: 700px; }
+  .ind-hero-eyebrow {
     display: inline-block;
-    background: rgba(192,57,43,0.15);
-    color: var(--color-primary);
-    padding: 0.25rem 0.75rem;
-    border-radius: 4px;
-    font-size: 0.65rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    margin-bottom: var(--space-md);
-    border: 1px solid rgba(192,57,43,0.2);
-  }
-
-  .industry-hero h1 {
-    color: var(--color-white);
-    font-size: var(--text-4xl);
-    margin-bottom: var(--space-sm);
-    max-width: 700px;
-  }
-
-  .industry-hero-desc {
-    color: rgba(255, 255, 255, 0.7);
-    font-size: var(--text-lg);
-    max-width: 600px;
-    margin-bottom: var(--space-lg);
-    line-height: 1.6;
-  }
-
-  .industry-hero-ctas {
-    display: flex;
-    gap: var(--space-md);
-    flex-wrap: wrap;
-  }
-
-  .industry-hero .btn-outline {
-    border-color: var(--color-white);
-    color: var(--color-white);
-  }
-
-  .industry-hero .btn-outline:hover {
-    background: var(--color-white);
-    color: var(--color-dark);
-  }
-
-  .card-link {
-    font-size: var(--text-sm);
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
     font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
     color: var(--color-primary);
+    margin-bottom: var(--space-lg);
+  }
+  .ind-hero h1 { color: var(--color-white); margin-bottom: var(--space-sm); }
+  .ind-hero-desc { color: rgba(255,255,255,0.7); font-size: var(--text-lg); margin-bottom: var(--space-lg); line-height: 1.6; }
+  .ind-hero-ctas { display: flex; gap: var(--space-md); flex-wrap: wrap; }
+
+  /* ===== TRUST STRIP ===== */
+  .ind-trust-strip {
+    background: var(--color-dark);
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding: var(--space-md) 0 var(--space-lg);
   }
 
-  /* Full-width section system */
-  .fw-section { padding: var(--space-3xl) 0; }
-  .fw-alt { background: var(--color-gray-100); }
-  .fw-dark { background: var(--color-dark); color: var(--color-white); }
-  .fw-dark h2, .fw-dark h3 { color: var(--color-white); }
-  .fw-dark h2::before { background: var(--color-primary); }
-  .fw-dark p, .fw-dark li { color: rgba(255,255,255,0.7); }
-  .fw-dark strong { color: var(--color-white); }
-  .fw-dark a { color: var(--color-primary-light); }
-  .fw-accent { border-left: 4px solid var(--color-primary); }
-  .fw-narrow { max-width: 800px; }
-  .fw-heading-light { color: var(--color-white); margin-bottom: var(--space-xl); }
-  .fw-heading-light::before { background: var(--color-primary); }
-  .fw-cta-band { padding: var(--space-2xl) 0; position: relative; overflow: hidden; }
-  .fw-cta-band::before { content: ''; position: absolute; top: 0; right: 0; width: 300px; height: 100%; background: radial-gradient(circle at 100% 50%, rgba(192,57,43,0.15) 0%, transparent 70%); pointer-events: none; }
-  .fw-cta-band h3 { color: var(--color-white); font-size: var(--text-xl); margin-bottom: var(--space-xs); }
-  .fw-cta-band h3::before { display: none; }
-  .fw-cta-band p { color: rgba(255,255,255,0.6); margin-bottom: 0; max-width: 550px; }
-  .fw-cta-inner { display: flex; align-items: center; justify-content: space-between; gap: var(--space-lg); flex-wrap: wrap; position: relative; z-index: 1; }
-  .fw-chip-grid { display: flex; flex-wrap: wrap; gap: var(--space-sm); margin-top: var(--space-lg); }
-  .fw-chip { display: inline-block; padding: 0.5rem 1.25rem; border: 1px solid rgba(255,255,255,0.15); border-radius: 6px; font-size: var(--text-sm); color: rgba(255,255,255,0.7); text-decoration: none; transition: all 0.15s; }
-  .fw-chip:hover { border-color: var(--color-primary); color: var(--color-white); background: rgba(192,57,43,0.15); }
-  .see-all-link-light { display: inline-block; margin-top: var(--space-lg); font-size: var(--text-sm); font-weight: 600; color: var(--color-primary); }
-  .section-label-light { color: rgba(255,255,255,0.4); }
+  /* ===== SECTION SYSTEM ===== */
+  .ind-section { padding: var(--space-4xl) 0; }
+  @media (min-width: 768px) { .ind-section { padding: var(--space-5xl) 0; } }
 
-  .faq-grid { margin-top: var(--space-lg); }
+  .ind-dark {
+    background: var(--color-dark); color: var(--color-white); position: relative;
+  }
+  .ind-dark::before {
+    content: ''; position: absolute; inset: 0;
+    background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.02) 10px, rgba(255,255,255,0.02) 11px);
+    pointer-events: none;
+  }
+  .ind-dark > * { position: relative; z-index: 1; }
+  .ind-dark h2, .ind-dark h3, .ind-dark h4 { color: var(--color-white); }
+  .ind-dark p, .ind-dark li { color: rgba(255,255,255,0.7); }
+  .ind-dark strong { color: var(--color-white); }
+  .ind-dark a { color: var(--color-primary-light); }
+  .ind-dark .prose h2::before { background: var(--color-primary); }
+
+  /* ===== CTA BAND ===== */
+  .ind-cta-band { padding: var(--space-2xl) 0 !important; }
+  .ind-cta-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: var(--space-lg); flex-wrap: wrap;
+  }
+  .ind-cta-inner h3 { font-size: var(--text-xl); margin-bottom: var(--space-xs); text-transform: none; }
+  .ind-cta-inner h3::before { display: none; }
+  .ind-cta-inner p { color: rgba(255,255,255,0.6); margin-bottom: 0; max-width: 550px; }
+
+  /* ===== CASE STUDIES ===== */
+  .ind-cases-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: var(--space-lg); }
+  .ind-case-card {
+    display: flex; flex-direction: column; padding: var(--space-lg);
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px;
+    text-decoration: none; color: inherit; transition: background 0.15s, transform 0.15s;
+  }
+  .ind-case-card:hover { background: rgba(255,255,255,0.08); transform: translateY(-2px); }
+  .ind-case-tag { font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-primary); margin-bottom: var(--space-xs); }
+  .ind-case-card h3 { font-size: var(--text-xl); margin-bottom: var(--space-xs); color: var(--color-white); text-transform: none; }
+  .ind-case-client { font-size: var(--text-sm); color: rgba(255,255,255,0.5); margin-bottom: 0.25rem; }
+  .ind-case-secondary { font-size: var(--text-sm); color: rgba(255,255,255,0.4); margin-bottom: var(--space-sm); display: block; }
+  .card-link { font-size: var(--text-sm); font-weight: 600; color: var(--color-primary); }
+
+  /* ===== CHIPS ===== */
+  .ind-chips { display: flex; flex-wrap: wrap; gap: var(--space-sm); }
+  .ind-chip {
+    display: inline-block; padding: 0.5rem 1.25rem;
+    border: 1px solid rgba(255,255,255,0.15); border-radius: 6px;
+    font-size: var(--text-sm); color: rgba(255,255,255,0.7);
+    text-decoration: none; transition: all 0.15s;
+  }
+  .ind-chip:hover { border-color: var(--color-primary); color: var(--color-white); background: rgba(192,57,43,0.15); }
+  .see-all-light { display: inline-block; margin-top: var(--space-lg); font-size: var(--text-sm); font-weight: 600; color: var(--color-primary); }
+
+  /* ===== FAQ ===== */
+  .ind-faq { margin-top: var(--space-lg); }
   .faq-item { border: 1px solid var(--color-gray-200); border-radius: var(--radius-md); padding: var(--space-md) var(--space-lg); margin-bottom: var(--space-sm); background: var(--color-white); transition: box-shadow 0.15s; }
   .faq-item[open] { box-shadow: var(--shadow-sm); border-color: var(--color-primary); }
   .faq-item summary { font-weight: 600; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; }
@@ -339,105 +342,5 @@ const schema = {
   .faq-item summary::-webkit-details-marker { display: none; }
   .faq-answer { padding-top: var(--space-md); color: var(--color-text-light); border-top: 1px solid var(--color-gray-100); margin-top: var(--space-md); }
 
-  /* Dark feature cards inside dark sections */
-  .fw-dark .feature-card { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.1); }
-  .fw-dark .feature-card:hover { border-color: var(--color-primary); background: rgba(255,255,255,0.1); }
-  .fw-dark .feature-card-title { color: var(--color-white); }
-  .fw-dark .feature-card-desc { color: rgba(255,255,255,0.6); }
-  .fw-dark .callout-box { background: rgba(255,255,255,0.06); border-left-color: var(--color-primary); }
-  .fw-dark .callout-title { color: var(--color-white); }
-  .fw-dark .callout-desc { color: rgba(255,255,255,0.6); }
-  .fw-dark .visual-list { border-color: rgba(255,255,255,0.1); }
-  .fw-dark .visual-list li { border-color: rgba(255,255,255,0.06); color: rgba(255,255,255,0.7); }
-
-  /* Mid-content CTA */
-  .mid-cta-module {
-    margin: var(--space-2xl) 0;
-    background: var(--color-dark);
-    border-radius: var(--radius-lg);
-    padding: var(--space-xl);
-    position: relative;
-    overflow: hidden;
-  }
-  .mid-cta-module::before {
-    content: '';
-    position: absolute;
-    top: 0; right: 0;
-    width: 200px; height: 100%;
-    background: radial-gradient(circle at 100% 50%, rgba(192,57,43,0.2) 0%, transparent 70%);
-    pointer-events: none;
-  }
-  .mid-cta-inner {
-    display: flex; align-items: center; justify-content: space-between;
-    gap: var(--space-lg); flex-wrap: wrap; position: relative; z-index: 1;
-  }
-  .mid-cta-text h3 { color: var(--color-white); font-size: var(--text-lg); margin-bottom: var(--space-xs); }
-  .mid-cta-text h3::before { display: none; }
-  .mid-cta-text p { color: rgba(255,255,255,0.6); font-size: var(--text-sm); margin-bottom: 0; max-width: 500px; }
-
-  /* Full-width services section */
-  .industry-services-section h2 { margin-bottom: var(--space-xl); }
-  .industry-services-section h2::before { display: none; }
-  .industry-services-grid-fw {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: var(--space-lg);
-  }
-  .industry-service-card-fw {
-    text-decoration: none; color: inherit;
-    padding: var(--space-xl);
-    background: var(--color-white);
-    border: 1px solid var(--color-gray-200);
-    border-radius: var(--radius-card);
-    transition: transform 0.15s, box-shadow 0.15s;
-  }
-  .industry-service-card-fw:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
-  .isvc-icon {
-    width: 48px; height: 48px;
-    display: flex; align-items: center; justify-content: center;
-    background: rgba(192,57,43,0.08); border-radius: 10px;
-    color: var(--color-primary); margin-bottom: var(--space-md);
-  }
-  .industry-service-card-fw h3 { font-size: var(--text-lg); margin-bottom: var(--space-sm); }
-  .industry-service-card-fw p { font-size: var(--text-sm); color: var(--color-text-light); margin-bottom: var(--space-md); }
-
-  /* Full-width case studies section */
-  .industry-cases-section h2 { color: var(--color-white); margin-bottom: var(--space-xl); }
-  .industry-cases-section h2::before { display: none; }
   .section-label-light { color: rgba(255,255,255,0.4); }
-  .industry-cases-grid-fw { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: var(--space-lg); }
-  .ind-case-card-fw {
-    display: flex; flex-direction: column; padding: var(--space-lg);
-    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px;
-    text-decoration: none; color: inherit; transition: background 0.15s;
-  }
-  .ind-case-card-fw:hover { background: rgba(255,255,255,0.08); }
-  .ind-case-tag { font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-primary); margin-bottom: var(--space-xs); }
-  .ind-case-card-fw h3 { font-size: var(--text-xl); margin-bottom: var(--space-xs); color: var(--color-white); }
-  .ind-case-client { font-size: var(--text-sm); color: rgba(255,255,255,0.5); margin-bottom: 0.25rem; }
-  .ind-case-secondary { font-size: var(--text-sm); color: rgba(255,255,255,0.4); margin-bottom: var(--space-sm); display: block; }
-  .btn-outline-light { border: 2px solid rgba(255,255,255,0.3); color: var(--color-white); background: transparent; }
-  .btn-outline-light:hover { background: var(--color-white); color: var(--color-dark); border-color: var(--color-white); }
-
-  .see-all-link { display: inline-block; margin-top: var(--space-md); font-size: var(--text-sm); font-weight: 600; color: var(--color-primary); }
-
-  /* Industry Areas */
-  .industry-areas { margin-top: var(--space-2xl); }
-  .industry-areas-grid { display: flex; flex-wrap: wrap; gap: var(--space-sm); margin-top: var(--space-md); }
-  .industry-area-link {
-    display: inline-block; padding: 0.5rem 1rem;
-    background: var(--color-gray-100); border-radius: 6px; font-size: var(--text-sm);
-    text-decoration: none; color: var(--color-text-light);
-    transition: background 0.15s, color 0.15s;
-  }
-  .industry-area-link:hover { background: var(--color-primary); color: var(--color-white); }
-
-  .faq-section { margin-top: var(--space-2xl); }
-  .faq-item { border: 1px solid var(--color-gray-200); border-radius: var(--radius-md); padding: var(--space-md) var(--space-lg); margin-bottom: var(--space-sm); background: var(--color-white); transition: box-shadow 0.15s; }
-  .faq-item[open] { box-shadow: var(--shadow-sm); border-color: var(--color-primary); }
-  .faq-item summary { font-weight: 600; cursor: pointer; font-size: var(--text-base); list-style: none; display: flex; justify-content: space-between; align-items: center; }
-  .faq-item summary::after { content: '+'; font-size: var(--text-xl); color: var(--color-primary); font-weight: 300; flex-shrink: 0; }
-  .faq-item[open] summary::after { content: '\2212'; }
-  .faq-item summary::-webkit-details-marker { display: none; }
-  .faq-answer { padding-top: var(--space-md); color: var(--color-text-light); border-top: 1px solid var(--color-gray-100); margin-top: var(--space-md); }
 </style>
