@@ -5,8 +5,12 @@ import YAML from 'yaml';
 
 const siteConfig = YAML.parse(fs.readFileSync('./site.config.yaml', 'utf8'));
 
+// When using custom domain (servicelinepro.com), remove the base line below
+const isGitHubPages = process.env.GITHUB_ACTIONS === 'true';
+
 export default defineConfig({
-  site: `https://${siteConfig.seo.domain}`,
+  site: isGitHubPages ? 'https://covenantos.github.io' : `https://${siteConfig.seo.domain}`,
+  base: isGitHubPages ? '/servicelinepro/' : '/',
   output: 'static',
   prefetch: {
     prefetchAll: true,
