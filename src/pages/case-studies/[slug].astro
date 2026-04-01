@@ -120,9 +120,21 @@ const schema = {
           <div class="prose" set:html={renderMarkdown(content)} />
         ) : (
           <div class="prose">
-            <h2>About This Campaign</h2>
-            <p>ServiceLine Pro partnered with {caseStudy.title} to deliver measurable results through our {caseStudy.category} services. The campaign achieved {caseStudy.result}, demonstrating the power of targeted digital marketing for {caseStudy.industry?.toLowerCase() || 'local'} businesses.</p>
-            <p>Want to see results like these for your business? <a href="/contact">Book a free strategy call</a> and we'll show you exactly what we can do.</p>
+            <h2>How {caseStudy.title} Achieved {caseStudy.result} with {caseStudy.category}</h2>
+            <p>ServiceLine Pro partnered with {caseStudy.title} to deliver measurable {caseStudy.category} results for their {caseStudy.industry?.toLowerCase() || 'local'} business{caseStudy.location ? ` in ${caseStudy.location}` : ''}. The campaign achieved {caseStudy.result}{caseStudy.metrics?.secondary ? ` along with ${caseStudy.metrics.secondary}` : ''}.</p>
+            <h2>What {caseStudy.category} Can Do for {caseStudy.industry || 'Your'} Businesses</h2>
+            <p>Every campaign starts with a 15-minute strategy call where William Hamilton reviews your current online presence, identifies the gaps, and maps out a plan to get results like these. No pitch deck. No pressure. <a href="/contact">Book your strategy call</a> and see what we can do for your business.</p>
+            <h2>Services Used in This Campaign</h2>
+            <ul>
+              {config.services.filter(s =>
+                (caseStudy.category === 'Local SEO' && s.slug === 'local-seo') ||
+                (caseStudy.category === 'Google Ads' && s.slug === 'ppc') ||
+                (caseStudy.category === 'Website Design' && s.slug === 'website-design') ||
+                (caseStudy.category === 'TV & Streaming' && s.slug === 'tv-streaming-advertising')
+              ).map(s => (
+                <li><a href={`/services/${s.slug}/`}>{s.name}</a>: {s.short_description}</li>
+              ))}
+            </ul>
           </div>
         )}
 

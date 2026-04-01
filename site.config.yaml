@@ -20,13 +20,24 @@ business:
     latitude: 28.0542
     longitude: -82.5796
   hours_schema: "Mo-Fr 07:00-19:00"
+  origin: "Started as Paradigm in 2020, rebranded to ServiceLine Pro to focus exclusively on home service businesses."
   team:
     - name: "William Hamilton"
       role: "CEO & Founder"
     - name: "Victoria Hamilton"
       role: "Director of Operations"
+      relation: "sister"
     - name: "Daniel Gomez"
       role: "Director of Fulfillment"
+    - name: "Kevin Morales"
+      role: "SEO Manager"
+    - name: "Jonah Galobardi"
+      role: "Regional Sales Director"
+    - name: "Rayssa Hamilton"
+      role: "Client Experience Manager"
+      relation: "wife"
+    - name: "Cade Hansen"
+      role: "Video Director"
 
 brand:
   theme: "agency"
@@ -96,7 +107,7 @@ services:
 
   - slug: "ppc"
     name: "PPC & Paid Advertising"
-    short_description: "No agency fee Google Ads through our exclusive Spectrum Reach partnership. Your budget goes to ads, not agency pockets."
+    short_description: "No agency fee on $5K+ ad spend across Google, Bing, and Yahoo through our Spectrum Reach partnership. 100% of your budget funds your campaigns."
     image: "media/ppc-hero.webp"
     icon: "target"
     sub_services:
@@ -174,12 +185,12 @@ services:
 
   - slug: "tv-streaming-advertising"
     name: "TV & Streaming Advertising"
-    short_description: "Precision-targeted streaming and connected TV campaigns through Spectrum Reach. No agency fee on top of your media spend."
+    short_description: "Precision-targeted streaming and connected TV campaigns through Spectrum Reach. Free professional video production included with every campaign."
     image: "media/tv-streaming-hero.webp"
     icon: "tv"
     pricing:
       quote_based: true
-      description: "Every TV & streaming campaign is custom-built around your market, audience, and goals. No agency fee. Your budget goes directly to media placement."
+      description: "Every TV & streaming campaign is custom-built around your market, audience, and goals. No agency fee. Free video production included. Your budget goes directly to media placement."
 
 industries:
   - slug: "hvac"

@@ -13,6 +13,29 @@ const breadcrumbItems = [
   { label: 'Home', href: '/' },
   { label: 'Services' },
 ];
+
+const serviceHighlights: Record<string, { hook: string; value: string; valueSub: string }> = {
+  'local-seo': {
+    hook: 'Top 3 Map Pack ranking in 90 days or you don\'t pay. Start with 10 free days.',
+    value: '10 Days Free',
+    valueSub: 'No credit card required',
+  },
+  'ppc': {
+    hook: '100% of your ad budget funds your campaign. We get paid through our Spectrum Reach partnership, not your pocket.',
+    value: '$0 Agency Fee',
+    valueSub: 'On $5K+ monthly spend',
+  },
+  'website-design': {
+    hook: 'Sub-2-second load times. Built to convert visitors into booked jobs. Pay monthly over 12 months.',
+    value: 'Starting $250/mo',
+    valueSub: 'Includes 1 year free hosting',
+  },
+  'tv-streaming-advertising': {
+    hook: 'Precision-targeted streaming and connected TV campaigns with free professional video production included.',
+    value: 'Free Video Production',
+    valueSub: 'Included with every campaign',
+  },
+};
 ---
 
 <Base title={pageTitle} description={pageDescription}>
@@ -21,58 +44,61 @@ const breadcrumbItems = [
   <section class="page-hero">
     <div class="container">
       <Breadcrumbs items={breadcrumbItems} />
-      <h1>{pageTitle}</h1>
-      <p class="page-hero-desc">Four ways to grow your home service business. Each one built for performance, priced for transparency, and proven with real results.</p>
+      <h1>Marketing That Grows Home Service Businesses</h1>
+      <p class="page-hero-desc">Four services. One goal: more booked jobs. Every service is performance-based, transparently priced, and proven with real client results.</p>
     </div>
   </section>
 
   <section class="services-section section">
     <div class="container">
       <div class="services-list">
-        {config.services.map((service, index) => (
-          <div class={`service-row ${index % 2 === 1 ? 'service-row-alt' : ''}`}>
-            <div class="service-info">
+        {config.services.map((service, index) => {
+          const highlight = serviceHighlights[service.slug];
+          return (
+            <div class={`service-row ${index % 2 === 1 ? 'service-row-alt' : ''}`}>
               <div class="service-img-wrapper">
-                {service.slug === 'local-seo' && <img src="/media/local-seo-graphic.webp" alt="Local SEO dashboard" loading="lazy" width="600" height="400" />}
-                {service.slug === 'ppc' && <img src="/media/ppc-graphic.webp" alt="PPC campaign results" loading="lazy" width="600" height="400" />}
+                {service.slug === 'local-seo' && <img src="/media/local-seo-graphic.webp" alt="Local SEO geo-grid ranking dashboard" loading="lazy" width="600" height="400" />}
+                {service.slug === 'ppc' && <img src="/media/ppc-graphic.webp" alt="PPC campaign performance" loading="lazy" width="600" height="400" />}
                 {service.slug === 'website-design' && <img src="/media/service-presentation.webp" alt="Website design showcase" loading="lazy" width="600" height="400" />}
-                {service.slug === 'tv-streaming-advertising' && <img src="/media/seo-ppc-presentation.webp" alt="TV & streaming advertising" loading="lazy" width="600" height="400" />}
+                {service.slug === 'tv-streaming-advertising' && <img src="/media/seo-ppc-presentation.webp" alt="TV and streaming advertising" loading="lazy" width="600" height="400" />}
               </div>
-              <h2>{service.name}</h2>
-              <p class="service-desc">{service.short_description}</p>
-              {service.sub_services && service.sub_services.length > 0 && (
-                <div class="service-subs">
-                  {service.sub_services.map(sub => (
-                    <a href={`/services/${service.slug}/${sub.slug}/`} class="sub-link">{sub.name} &rarr;</a>
-                  ))}
-                </div>
-              )}
-              <a href={`/services/${service.slug}/`} class="btn btn-primary">Learn More</a>
-            </div>
-            <div class="service-highlights">
-              {service.pricing?.tiers ? (
-                <div class="price-preview">
-                  {service.pricing.tiers.map(tier => (
-                    <div class="price-preview-item">
-                      <span class="price-preview-name">{tier.name}</span>
-                      <span class="price-preview-amount">
-                        {tier.price === 0 ? (tier.price_label || 'Custom') : `$${tier.price.toLocaleString()}`}
-                        {tier.price > 0 && !tier.price_label && '/mo'}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              ) : service.pricing?.quote_based ? (
-                <div class="price-preview">
-                  <div class="price-preview-item">
-                    <span class="price-preview-name">Custom Strategy</span>
-                    <span class="price-preview-amount">Quote-Based</span>
+              <div class="service-info">
+                <h2>{service.name}</h2>
+                <p class="service-hook">{highlight?.hook || service.short_description}</p>
+                {service.sub_services && service.sub_services.length > 0 && (
+                  <div class="service-subs">
+                    <span class="subs-label">Includes:</span>
+                    {service.sub_services.map(sub => (
+                      <a href={`/services/${service.slug}/${sub.slug}/`} class="sub-link">{sub.name}</a>
+                    ))}
                   </div>
+                )}
+                <div class="service-value-block">
+                  <span class="service-value">{highlight?.value}</span>
+                  <span class="service-value-sub">{highlight?.valueSub}</span>
                 </div>
-              ) : null}
+                <a href={`/services/${service.slug}/`} class="btn btn-primary">Learn More</a>
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
+      </div>
+    </div>
+  </section>
+
+  <section class="guarantee-strip">
+    <div class="container guarantee-inner">
+      <div class="guarantee-item">
+        <strong>SEO Guarantee</strong>
+        <span>Top 3 Map Pack in 90 days or you don't pay</span>
+      </div>
+      <div class="guarantee-item">
+        <strong>PPC Guarantee</strong>
+        <span>$0 agency fee on $5K+ monthly spend</span>
+      </div>
+      <div class="guarantee-item">
+        <strong>Full Transparency</strong>
+        <span>You own your accounts, data, and website</span>
       </div>
     </div>
   </section>
@@ -87,46 +113,44 @@ const breadcrumbItems = [
     padding: var(--space-3xl) 0 var(--space-2xl);
     color: var(--color-white);
   }
-
-  .page-hero h1 { color: var(--color-white); font-size: var(--text-4xl); margin-bottom: var(--space-sm); }
+  .page-hero h1 { color: var(--color-white); font-size: var(--text-3xl); margin-bottom: var(--space-sm); max-width: 700px; }
   .page-hero-desc { color: rgba(255, 255, 255, 0.75); font-size: var(--text-lg); max-width: 600px; }
 
-  .services-list { display: flex; flex-direction: column; gap: var(--space-2xl); }
+  .services-list { display: flex; flex-direction: column; gap: 0; }
 
   .service-row {
     display: grid;
     grid-template-columns: 1fr;
     gap: var(--space-xl);
-    padding: var(--space-xl) 0;
+    padding: var(--space-2xl) 0;
     border-bottom: 1px solid var(--color-gray-200);
+    align-items: center;
   }
 
   @media (min-width: 768px) {
-    .service-row { grid-template-columns: 1.5fr 1fr; align-items: start; }
+    .service-row { grid-template-columns: 1fr 1fr; gap: var(--space-2xl); }
+    .service-row-alt .service-img-wrapper { order: 2; }
+    .service-row-alt .service-info { order: 1; }
   }
 
-  .service-img-wrapper { margin-bottom: var(--space-lg); border-radius: 10px; overflow: hidden; }
+  .service-img-wrapper { border-radius: 10px; overflow: hidden; }
   .service-img-wrapper img { width: 100%; height: auto; display: block; }
+
   .service-info h2 { font-size: var(--text-2xl); margin-bottom: var(--space-sm); }
-  .service-desc { color: var(--color-text-light); margin-bottom: var(--space-md); line-height: var(--leading-relaxed); }
+  .service-hook { color: var(--color-text-light); margin-bottom: var(--space-md); line-height: var(--leading-relaxed); font-size: var(--text-base); }
 
-  .service-subs { display: flex; flex-wrap: wrap; gap: var(--space-sm); margin-bottom: var(--space-lg); }
-  .sub-link { font-size: var(--text-sm); color: var(--color-primary); font-weight: 600; }
+  .service-subs { display: flex; flex-wrap: wrap; gap: var(--space-sm); margin-bottom: var(--space-lg); align-items: center; }
+  .subs-label { font-size: var(--text-xs); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-text-muted); }
+  .sub-link { font-size: var(--text-sm); color: var(--color-primary); font-weight: 600; text-decoration: none; padding: 0.25rem 0.75rem; background: rgba(192,57,43,0.06); border-radius: 4px; }
+  .sub-link:hover { background: rgba(192,57,43,0.12); }
 
-  .price-preview {
-    background: var(--color-gray-50, #fafafa);
-    border-radius: var(--radius-md);
-    padding: var(--space-lg);
-  }
+  .service-value-block { margin-bottom: var(--space-lg); padding: var(--space-md); background: var(--color-gray-100); border-radius: 8px; border-left: 3px solid var(--color-primary); }
+  .service-value { display: block; font-family: var(--font-heading); font-size: var(--text-xl); font-weight: 800; color: var(--color-dark); }
+  .service-value-sub { display: block; font-size: var(--text-sm); color: var(--color-text-light); }
 
-  .price-preview-item {
-    display: flex;
-    justify-content: space-between;
-    padding: 0.5rem 0;
-    border-bottom: 1px solid var(--color-gray-200);
-  }
-
-  .price-preview-item:last-child { border-bottom: none; }
-  .price-preview-name { font-size: var(--text-sm); color: var(--color-text-light); }
-  .price-preview-amount { font-weight: 700; font-size: var(--text-sm); }
+  .guarantee-strip { background: var(--color-dark); padding: var(--space-xl) 0; }
+  .guarantee-inner { display: grid; grid-template-columns: 1fr; gap: var(--space-lg); text-align: center; }
+  @media (min-width: 768px) { .guarantee-inner { grid-template-columns: repeat(3, 1fr); } }
+  .guarantee-item strong { display: block; font-size: var(--text-sm); color: var(--color-primary); font-family: var(--font-heading); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.25rem; }
+  .guarantee-item span { font-size: var(--text-sm); color: rgba(255,255,255,0.7); }
 </style>

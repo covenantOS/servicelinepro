@@ -1,7 +1,7 @@
 ---
 import config from '../lib/config';
 
-const topCaseStudy = config.case_studies[0];
+const topCaseStudy = config.case_studies.find(cs => cs.slug === 'remodeling') || config.case_studies[0];
 const featuredAreas = config.areas.slice(0, 6);
 
 // Service icons as inline SVG paths for the mega menu

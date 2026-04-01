@@ -102,13 +102,16 @@ const localBusinessSchema = {
     <link rel="preload" href="/fonts/Inter-Regular.woff2" as="font" type="font/woff2" crossorigin />
 
     <!-- CSS Custom Properties from config -->
-    <style define:vars={{
-      'color-primary': config.brand.colors.primary,
-      'color-secondary': config.brand.colors.secondary,
-      'color-dark': config.brand.colors.dark,
-      'color-light': config.brand.colors.light,
-      'color-white': config.brand.colors.white,
-    }}></style>
+    <style is:inline set:html={`:root {
+      --color-primary: ${config.brand.colors.primary};
+      --color-primary-dark: ${config.brand.colors.primary}dd;
+      --color-primary-light: ${config.brand.colors.accent || config.brand.colors.primary};
+      --color-secondary: ${config.brand.colors.secondary};
+      --color-accent: ${config.brand.colors.accent || config.brand.colors.primary};
+      --color-dark: ${config.brand.colors.dark};
+      --color-light: ${config.brand.colors.light};
+      --color-white: ${config.brand.colors.white};
+    }`}></style>
 
     <!-- Schema Markup -->
     <script type="application/ld+json" set:html={JSON.stringify(localBusinessSchema)} />
