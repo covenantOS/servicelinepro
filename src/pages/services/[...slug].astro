@@ -115,25 +115,34 @@ const schema = {
   <section class="service-hero">
     <div class="hero-bg-pattern"></div>
     <div class="container service-hero-inner">
-      <Breadcrumbs items={breadcrumbItems} />
-      {isTV && <span class="hero-partner-badge">Spectrum Reach Partner</span>}
-      {isPPC && <span class="hero-partner-badge">$0 Agency Fee on $5K+ Spend</span>}
-      <h1>{pageTitle}</h1>
-      <p class="service-hero-desc">{displayDesc}</p>
-      <div class="service-hero-ctas">
-        <a href="/contact" class="btn btn-primary">Get Your Free Strategy Call</a>
-        <a href="/pricing/" class="btn btn-outline">View Pricing</a>
-      </div>
-      {serviceCaseStudies.length > 0 && (
-        <div class="hero-results-strip">
-          {serviceCaseStudies.slice(0, 3).map(cs => (
-            <div class="hero-result-chip">
-              <span class="hero-result-value">{cs.result}</span>
-              <span class="hero-result-client">{cs.title}</span>
-            </div>
-          ))}
+      <div class="hero-text">
+        <Breadcrumbs items={breadcrumbItems} />
+        {isTV && <span class="hero-partner-badge">Spectrum Reach Partner</span>}
+        {isPPC && <span class="hero-partner-badge">$0 Agency Fee on $5K+ Spend</span>}
+        {isLocalSEO && <span class="hero-partner-badge">Map Pack Guarantee</span>}
+        <h1>{pageTitle}</h1>
+        <p class="service-hero-desc">{displayDesc}</p>
+        <div class="service-hero-ctas">
+          <a href="/contact" class="btn btn-primary">Get Your Free Strategy Call</a>
+          <a href="/pricing/" class="btn btn-outline">View Pricing</a>
         </div>
-      )}
+        {serviceCaseStudies.length > 0 && (
+          <div class="hero-results-strip">
+            {serviceCaseStudies.slice(0, 3).map(cs => (
+              <div class="hero-result-chip">
+                <span class="hero-result-value">{cs.result}</span>
+                <span class="hero-result-client">{cs.title}</span>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+      <div class="hero-visual">
+        {isLocalSEO && <img src="/media/local-seo-graphic.webp" alt="Local SEO results dashboard" width="520" height="400" />}
+        {isPPC && <img src="/media/ppc-graphic.webp" alt="PPC campaign performance" width="520" height="400" />}
+        {isTV && <img src="/media/seo-ppc-presentation.webp" alt="TV & streaming advertising" width="520" height="400" />}
+        {!isLocalSEO && !isPPC && !isTV && <img src="/media/service-presentation.webp" alt={`${displayName} services`} width="520" height="400" />}
+      </div>
     </div>
   </section>
 
@@ -244,11 +253,18 @@ const schema = {
             <div class="inline-cases-grid">
               {serviceCaseStudies.slice(0, 4).map(cs => (
                 <a href={`/case-studies/${cs.slug}/`} class="inline-case-card">
-                  <span class="inline-case-tag">{cs.category}</span>
-                  <h3>{cs.metrics?.primary || cs.result}</h3>
-                  <span class="inline-case-client">{cs.title}</span>
-                  {cs.metrics?.secondary && <span class="inline-case-secondary">{cs.metrics.secondary}</span>}
-                  <span class="card-link">Read Full Case Study &rarr;</span>
+                  {cs.image && (
+                    <div class="inline-case-img">
+                      <img src={`/media/case-studies/${cs.image}`} alt={cs.title} loading="lazy" width="400" height="225" />
+                    </div>
+                  )}
+                  <div class="inline-case-body">
+                    <span class="inline-case-tag">{cs.category}</span>
+                    <h3>{cs.metrics?.primary || cs.result}</h3>
+                    <span class="inline-case-client">{cs.title}</span>
+                    {cs.metrics?.secondary && <span class="inline-case-secondary">{cs.metrics.secondary}</span>}
+                    <span class="card-link">Read Full Case Study &rarr;</span>
+                  </div>
                 </a>
               ))}
             </div>
@@ -354,10 +370,15 @@ const schema = {
       <div class="container spectrum-band-inner">
         <span class="section-label">Exclusive Partnership</span>
         <h2>Powered by Spectrum Reach</h2>
+        <p class="spectrum-desc">Your campaigns run across Google AND Yahoo, powered by first-party data from 30M+ households. Not just search. TV, streaming, display, and connected devices.</p>
         <div class="spectrum-band-grid">
           <div class="spectrum-band-stat">
             <span class="spectrum-num">30M+</span>
             <span>Households of First-Party Data</span>
+          </div>
+          <div class="spectrum-band-stat">
+            <span class="spectrum-num">Google + Yahoo</span>
+            <span>Multi-Platform Search Coverage</span>
           </div>
           <div class="spectrum-band-stat">
             <span class="spectrum-num">36</span>
@@ -392,7 +413,23 @@ const schema = {
       radial-gradient(circle at 80% 20%, rgba(192,57,43,0.06) 0%, transparent 35%);
     pointer-events: none;
   }
-  .service-hero-inner { position: relative; z-index: 1; }
+  .service-hero-inner {
+    position: relative; z-index: 1;
+    display: grid; grid-template-columns: 1fr; gap: var(--space-xl); align-items: center;
+  }
+  @media (min-width: 1024px) {
+    .service-hero-inner { grid-template-columns: 1.1fr 0.9fr; }
+  }
+  .hero-visual {
+    display: none;
+  }
+  @media (min-width: 1024px) {
+    .hero-visual { display: block; }
+  }
+  .hero-visual img {
+    width: 100%; height: auto; border-radius: 12px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  }
 
   .hero-partner-badge {
     display: inline-block; font-size: 0.65rem; font-weight: 700; text-transform: uppercase;
@@ -438,18 +475,6 @@ const schema = {
   .hero-result-chip { display: flex; flex-direction: column; }
   .hero-result-value { font-family: var(--font-heading); font-size: var(--text-base); font-weight: 700; color: var(--color-primary); }
   .hero-result-client { font-size: 0.7rem; color: rgba(255,255,255,0.4); }
-
-  .content-layout {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: var(--space-2xl);
-  }
-
-  @media (min-width: 1024px) {
-    .content-layout {
-      grid-template-columns: 1fr 300px;
-    }
-  }
 
   .prose { max-width: none; }
   .prose :global(h2) { font-size: var(--text-2xl); margin-top: var(--space-2xl); margin-bottom: var(--space-md); }
@@ -506,28 +531,63 @@ const schema = {
   .inline-case-studies { margin-top: var(--space-2xl); }
   .inline-cases-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: var(--space-md); margin-top: var(--space-lg); }
   .inline-case-card {
-    display: flex; flex-direction: column; padding: var(--space-lg);
+    display: flex; flex-direction: column; overflow: hidden;
     background: var(--color-white); border: 1px solid var(--color-gray-200); border-radius: 10px;
     text-decoration: none; color: inherit; transition: transform 0.15s, box-shadow 0.15s;
   }
-  .inline-case-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.1); }
+  .inline-case-card:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,0.12); }
+  .inline-case-img { aspect-ratio: 16/9; overflow: hidden; background: var(--color-gray-100); }
+  .inline-case-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
+  .inline-case-card:hover .inline-case-img img { transform: scale(1.04); }
+  .inline-case-body { padding: var(--space-lg); display: flex; flex-direction: column; flex: 1; }
   .inline-case-tag { font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-primary); margin-bottom: var(--space-xs); }
   .inline-case-card h3 { font-size: var(--text-lg); margin-bottom: var(--space-xs); }
   .inline-case-client { font-size: var(--text-sm); color: var(--color-text-muted); margin-bottom: 0.25rem; }
   .inline-case-secondary { font-size: var(--text-sm); color: var(--color-text-light); margin-bottom: var(--space-sm); }
 
-  .sidebar { display: flex; flex-direction: column; gap: var(--space-lg); }
-  .sidebar-card { background: var(--color-white); border: 1px solid var(--color-gray-200); border-radius: var(--radius-md); padding: var(--space-lg); position: sticky; top: var(--space-lg); }
+  .sidebar {
+    min-width: 0;
+  }
+
+  @media (min-width: 1024px) {
+    .sidebar {
+      position: sticky;
+      top: calc(72px + var(--space-lg));
+      max-height: calc(100vh - 72px - var(--space-lg) - var(--space-lg));
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+      scrollbar-width: thin;
+      scrollbar-color: var(--color-gray-200) transparent;
+    }
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--color-gray-200); border-radius: 4px; }
+  }
+
+  .sidebar-card {
+    background: var(--color-white);
+    border: 1px solid var(--color-gray-200);
+    border-radius: 10px;
+    padding: var(--space-md);
+  }
   .sidebar-card h3 { font-size: var(--text-base); margin-bottom: var(--space-md); }
   .sidebar-nav { list-style: none; padding: 0; margin: 0; }
-  .sidebar-nav li a { display: block; padding: 0.5rem 0.75rem; font-size: var(--text-sm); color: var(--color-text-light); border-radius: var(--radius-sm); transition: background var(--transition-fast); }
+  .sidebar-nav li a { display: block; padding: 0.5rem 0.75rem; font-size: var(--text-sm); color: var(--color-text-light); border-radius: var(--radius-sm); transition: background var(--transition-fast); text-decoration: none; }
   .sidebar-nav li a:hover, .sidebar-nav li.active > a { background: var(--color-gray-100); color: var(--color-primary); font-weight: 600; }
   .sidebar-sub-nav { list-style: none; padding: 0 0 0 var(--space-md); margin: 0; }
   .sidebar-sub-nav li a { font-size: var(--text-xs); padding: 0.375rem 0.5rem; }
-  .sidebar-cta { background: var(--color-dark); color: var(--color-white); border: none; }
-  .sidebar-cta h3 { color: var(--color-white); }
-  .sidebar-cta p { color: rgba(255, 255, 255, 0.7); margin-bottom: var(--space-md); font-size: var(--text-sm); }
-  .btn-block { display: block; text-align: center; width: 100%; }
+  .sidebar-cta {
+    background: var(--color-dark);
+    color: var(--color-white);
+    border: none;
+    text-align: center;
+    padding: var(--space-lg) var(--space-md) var(--space-md);
+  }
+  .sidebar-cta h3 { color: var(--color-white); font-size: var(--text-lg); margin-bottom: var(--space-xs); }
+  .sidebar-cta p { color: rgba(255, 255, 255, 0.65); margin-bottom: var(--space-md); font-size: var(--text-sm); line-height: 1.5; }
+  .btn-block { display: block; text-align: center; width: 100%; padding: 0.75rem 1rem; font-weight: 700; }
 
   .faq-section { margin-top: var(--space-2xl); }
   .faq-item { border-bottom: 1px solid var(--color-gray-200); padding: var(--space-md) 0; }
@@ -560,4 +620,6 @@ const schema = {
   .spectrum-band-stat { text-align: center; }
   .spectrum-num { display: block; font-family: var(--font-heading); font-size: var(--text-3xl); font-weight: 800; color: var(--color-dark); }
   .spectrum-band-stat span:last-child { display: block; font-size: 0.75rem; color: var(--color-text-muted); }
+  .spectrum-desc { max-width: 600px; margin: 0 auto var(--space-lg); color: var(--color-text-light); }
+  .spectrum-num { white-space: nowrap; }
 </style>

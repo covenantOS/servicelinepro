@@ -40,10 +40,10 @@ brand:
   fonts:
     heading: "Montserrat"
     body: "Inter"
-  logo: "media/logo.svg"
+  logo: "media/slp-logo.png"
 
 trust_signals:
-  rating: "4.9"
+  rating: "5.0"
   review_count: 20
   review_platform: "Google"
   badges:

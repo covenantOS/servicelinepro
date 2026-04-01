@@ -20,10 +20,15 @@ const breadcrumbItems = [
   <Header slot="header" />
 
   <section class="page-hero">
-    <div class="container">
-      <Breadcrumbs items={breadcrumbItems} />
-      <h1>The ServiceLine Story</h1>
-      <p class="page-hero-desc">Most agencies are built to extract. We are built to partner. If our clients do not grow, we do not grow.</p>
+    <div class="container hero-split">
+      <div class="hero-text">
+        <Breadcrumbs items={breadcrumbItems} />
+        <h1>The ServiceLine Story</h1>
+        <p class="page-hero-desc">Most agencies are built to extract. We are built to partner. If our clients do not grow, we do not grow.</p>
+      </div>
+      <div class="hero-photo">
+        <img src="/media/team.webp" alt="ServiceLine Pro team" width="480" height="360" />
+      </div>
     </div>
   </section>
 
@@ -101,6 +106,13 @@ const breadcrumbItems = [
     </div>
   </section>
 
+  <section class="partners-strip section">
+    <div class="container partners-inner">
+      <span class="partners-label">Trusted Partnerships</span>
+      <img src="/media/partner-logos.webp" alt="ServiceLine Pro partner logos including Spectrum Reach and Google" width="900" height="120" class="partners-img" loading="lazy" />
+    </div>
+  </section>
+
   <ReviewsSection compact={true} maxReviews={4} />
   <CTABand heading="Ready to Partner with a Team That Delivers?" />
   <Footer slot="footer" />
@@ -108,8 +120,13 @@ const breadcrumbItems = [
 
 <style>
   .page-hero { background: var(--color-dark); padding: var(--space-3xl) 0 var(--space-2xl); color: var(--color-white); }
+  .hero-split { display: grid; grid-template-columns: 1fr; gap: var(--space-xl); align-items: center; }
+  @media (min-width: 1024px) { .hero-split { grid-template-columns: 1.2fr 0.8fr; } }
   .page-hero h1 { color: var(--color-white); font-size: var(--text-4xl); margin-bottom: var(--space-sm); }
   .page-hero-desc { color: rgba(255,255,255,0.75); font-size: var(--text-lg); max-width: 600px; font-style: italic; }
+  .hero-photo { display: none; }
+  @media (min-width: 1024px) { .hero-photo { display: block; } }
+  .hero-photo img { width: 100%; height: auto; border-radius: 12px; box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
 
   .about-grid { display: grid; grid-template-columns: 1fr; gap: var(--space-2xl); }
   @media (min-width: 1024px) { .about-grid { grid-template-columns: 1fr 320px; } }
@@ -138,4 +155,10 @@ const breadcrumbItems = [
   .value-card { padding: var(--space-xl); background: var(--color-white); border: 1px solid var(--color-gray-200); border-radius: 10px; }
   .value-card h3 { font-size: var(--text-lg); margin-bottom: var(--space-sm); }
   .value-card p { font-size: var(--text-sm); color: var(--color-text-light); line-height: var(--leading-relaxed); }
+
+  .partners-strip { text-align: center; }
+  .partners-inner { display: flex; flex-direction: column; align-items: center; gap: var(--space-lg); }
+  .partners-label { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--color-text-muted); }
+  .partners-img { max-width: 700px; width: 100%; height: auto; opacity: 0.7; filter: grayscale(30%); transition: opacity 0.3s; }
+  .partners-img:hover { opacity: 1; filter: none; }
 </style>
