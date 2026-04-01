@@ -1,6 +1,6 @@
 ---
 title: "Local SEO Services for Home Service Businesses"
-description: "Dominate the Google Map Pack and generate consistent leads with local SEO built for plumbers, HVAC companies, roofers, and home service businesses. Top 3 in 90 days or you don't pay."
+description: "Dominate the Google Map Pack and generate consistent leads with monthly retainer local SEO built for plumbers, HVAC companies, roofers, and home service businesses. Start with a free 10-day boost."
 process_steps:
   - title: "Audit & Entity Foundation"
     description: "We run a full diagnostic on your Google Business Profile, citation ecosystem, review velocity, and competitive landscape. Then we build your Entity Fortress, aligning every signal Google uses to validate your business as a real, authoritative local provider."
@@ -12,7 +12,7 @@ process_steps:
     description: "You get transparent monthly reporting on Map Pack rankings, GBP insights, call volume, and lead attribution. We adjust strategy based on data, not guesswork, and expand your footprint as you grow into new territories."
 faq:
   - question: "How long does it take to rank in the Google Map Pack?"
-    answer: "Most home service businesses see measurable movement within 30 days and land in the top 3 Map Pack positions within 90 days. The exact timeline depends on your starting point, competition density, and how many service areas you need to dominate. Businesses with an established GBP and some review history tend to move faster. New profiles or those recovering from penalties take closer to the full 90 days. Our guarantee covers this: if you are not in the top 3 within 90 days, you do not pay."
+    answer: "Most home service businesses see measurable movement within 30 days and land in the top 3 Map Pack positions within 90 days. The exact timeline depends on your starting point, competition density, and how many service areas you need to dominate. Businesses with an established GBP and some review history tend to move faster. New profiles or those recovering from penalties take closer to the full 90 days. We offer a free 10-day boost so you can see results before committing to a monthly retainer."
   - question: "What is the difference between local SEO and regular SEO?"
     answer: "Regular SEO focuses on ranking your website in the traditional organic search results, the ten blue links below the ads. Local SEO targets the Map Pack, the three-business panel that appears for searches with local intent like 'plumber near me' or 'HVAC repair.' For home service businesses, the Map Pack generates the highest-converting traffic because it shows your phone number, reviews, hours, and location right in the search results. Most homeowners call directly from the Map Pack without ever visiting a website. That is why local SEO delivers faster ROI than traditional SEO for service businesses."
   - question: "Do I need a website to do local SEO?"
@@ -175,7 +175,7 @@ Built for multi-truck operations serving large metropolitan areas or multiple ci
 
 The Metro plan is designed for businesses doing $5M+ that need to dominate across a sprawling service territory with aggressive competition.
 
-Every plan includes our 90-day Map Pack guarantee. If you are not ranking in the top 3 for your primary service keywords within 90 days, you do not pay until you are.
+Every plan starts with our free 10-day Local SEO Boost so you can see real movement before committing. Our monthly retainer model means consistent, compounding results with no hidden fees.
 
 ## Who This Is For
 

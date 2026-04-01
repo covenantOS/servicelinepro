@@ -68,7 +68,7 @@ trust_signals:
 services:
   - slug: "local-seo"
     name: "Local SEO"
-    short_description: "Rank in the Top 3 of Google's Map Pack in 90 days or you don't pay. Full GBP optimization, citation building, and local authority domination."
+    short_description: "Monthly retainer Map Pack SEO that dominates local search. Full GBP optimization, citation building, and local authority domination. Start with a free 10-day boost."
     image: "media/local-seo-hero.webp"
     icon: "map-pin"
     pricing:
@@ -78,7 +78,7 @@ services:
           price: 1800
           description: "Dominate a 5x5 mile radius around your location"
           features:
-            - "Top 3 Map Pack Guarantee (90 Days)"
+            - "Free 10-Day Local SEO Boost"
             - "Full GBP Optimization"
             - "Citation Management"
             - "Local Area Pages"

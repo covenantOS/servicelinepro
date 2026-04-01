@@ -16,7 +16,7 @@ const breadcrumbItems = [
 
 const serviceHighlights: Record<string, { hook: string; value: string; valueSub: string }> = {
   'local-seo': {
-    hook: 'Top 3 Map Pack ranking in 90 days or you don\'t pay. Start with 10 free days.',
+    hook: 'Monthly retainer Map Pack SEO that dominates local search. Start with a free 10-day boost.',
     value: '10 Days Free',
     valueSub: 'No credit card required',
   },
@@ -60,7 +60,7 @@ const serviceHighlights: Record<string, { hook: string; value: string; valueSub:
                 {service.slug === 'local-seo' && <img src="/media/local-seo-graphic.webp" alt="Local SEO geo-grid ranking dashboard" loading="lazy" width="600" height="400" />}
                 {service.slug === 'ppc' && <img src="/media/ppc-graphic.webp" alt="PPC campaign performance" loading="lazy" width="600" height="400" />}
                 {service.slug === 'website-design' && <img src="/media/service-presentation.webp" alt="Website design showcase" loading="lazy" width="600" height="400" />}
-                {service.slug === 'tv-streaming-advertising' && <img src="/media/seo-ppc-presentation.webp" alt="TV and streaming advertising" loading="lazy" width="600" height="400" />}
+                {service.slug === 'tv-streaming-advertising' && <div class="tv-text-hero"><span class="tv-hero-icon"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="15" rx="2" ry="2"/><polyline points="17 2 12 7 7 2"/></svg></span><span class="tv-hero-label">Free Video Production Included</span></div>}
               </div>
               <div class="service-info">
                 <h2>{service.name}</h2>
@@ -89,8 +89,8 @@ const serviceHighlights: Record<string, { hook: string; value: string; valueSub:
   <section class="guarantee-strip">
     <div class="container guarantee-inner">
       <div class="guarantee-item">
-        <strong>SEO Guarantee</strong>
-        <span>Top 3 Map Pack in 90 days or you don't pay</span>
+        <strong>SEO Offer</strong>
+        <span>Free 10-Day Local SEO Boost — No credit card required</span>
       </div>
       <div class="guarantee-item">
         <strong>PPC Guarantee</strong>
@@ -147,6 +147,27 @@ const serviceHighlights: Record<string, { hook: string; value: string; valueSub:
   .service-value-block { margin-bottom: var(--space-lg); padding: var(--space-md); background: var(--color-gray-100); border-radius: 8px; border-left: 3px solid var(--color-primary); }
   .service-value { display: block; font-family: var(--font-heading); font-size: var(--text-xl); font-weight: 800; color: var(--color-dark); }
   .service-value-sub { display: block; font-size: var(--text-sm); color: var(--color-text-light); }
+
+  .tv-text-hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 280px;
+    background: var(--color-dark);
+    border-radius: 10px;
+    color: var(--color-white);
+    text-align: center;
+    padding: var(--space-2xl);
+  }
+  .tv-hero-icon { color: var(--color-primary); margin-bottom: var(--space-md); }
+  .tv-hero-label {
+    font-family: var(--font-heading);
+    font-size: var(--text-xl);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
 
   .guarantee-strip { background: var(--color-dark); padding: var(--space-xl) 0; }
   .guarantee-inner { display: grid; grid-template-columns: 1fr; gap: var(--space-lg); text-align: center; }

@@ -14,7 +14,7 @@ faq:
   - question: "How much does TV and streaming advertising cost?"
     answer: "Pricing is quote-based and depends on your target geography, audience size, campaign duration, and the mix of platforms you want to reach. We build a custom strategy for every client. There is no minimum spend requirement from ServiceLine Pro, though Spectrum Reach has its own campaign minimums that vary by market."
   - question: "Do I need to have a commercial already produced?"
-    answer: "No. We handle creative development as part of the campaign process. Our team produces broadcast-quality video spots designed for connected TV and streaming environments. If you already have existing video assets, we can evaluate them for use or adapt them to meet platform specifications."
+    answer: "No. For Florida clients, professional video production is included FREE with every TV and streaming campaign. Our Video Director Cade Hansen and his team produce broadcast-quality 15 and 30-second spots designed for connected TV and streaming environments. Nationwide clients can access our production team at cost. If you already have existing video assets, we can evaluate them for use or adapt them to meet platform specifications."
   - question: "How is streaming TV advertising different from Google Ads or SEO?"
     answer: "Google Ads and SEO target people who are actively searching for a service right now. Streaming TV advertising reaches people before they have a problem. It builds brand recognition so that when a homeowner does need a plumber, HVAC technician, or electrician, your company is the first name they think of. The two strategies work best together."
   - question: "How do I know if my campaign is working?"
@@ -54,6 +54,18 @@ We evaluated dozens of connected TV advertising platforms before choosing Spectr
 **Targeting granularity.** Spectrum Reach lets us build audience segments using geographic, demographic, behavioral, and contextual data. We can target homeowners within your service radius who match specific income brackets, home values, and lifestyle indicators. This level of targeting eliminates waste and puts your ad spend where it counts.
 
 **Transparent reporting.** Every campaign comes with detailed performance metrics. Impressions, reach, frequency, completion rates, and audience demographics are all visible and verifiable. No black-box reporting. No vanity metrics. You see exactly what your investment produced.
+
+## Free Video Production for Florida Clients
+
+This is the game-changer. Most agencies charge $5,000 to $15,000 or more for a single broadcast-quality commercial. With ServiceLine Pro, **professional video production is included at no extra cost for Florida clients** running TV and streaming campaigns.
+
+Our Video Director, Cade Hansen, leads every production from concept to final cut. His team handles script development, on-location or studio filming, post-production editing, and platform-specific formatting. You get broadcast-quality 15 and 30-second spots ready for connected TV and streaming environments.
+
+**Florida clients:** Video production is FREE with any TV and streaming campaign. No additional fees. No hidden costs. This alone saves most businesses $10,000 or more compared to hiring a separate production company.
+
+**Nationwide clients:** Professional video production is available at cost for clients outside Florida. Even at cost, our rates are significantly below what standalone production houses charge because we handle everything in-house.
+
+This is a massive competitive advantage. Most local contractors cannot afford broadcast-quality commercials on top of their media spend. With ServiceLine Pro, Florida businesses get both for the price of one.
 
 ## No Agency Fee: Your Budget Goes to Media
 
