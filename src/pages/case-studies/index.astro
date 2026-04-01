@@ -84,18 +84,27 @@ const categories = [...new Set(config.case_studies.map(cs => cs.category))];
         <div class="cases-grid">
           {config.case_studies.filter(cs => cs.category === category).map(cs => (
             <a href={`/case-studies/${cs.slug}/`} class="case-card-full">
-              <div class="case-card-header">
-                <div class="case-card-tags">
+              <div class="case-card-image">
+                {cs.image && (
+                  <img src={`/media/case-studies/${cs.image}`} alt={`${cs.title} case study results`} loading="lazy" width="600" height="340" />
+                )}
+                <div class="case-card-image-overlay">
                   <span class="case-category-tag">{cs.category}</span>
                   {cs.industry && <span class="case-industry-tag">{cs.industry}</span>}
                 </div>
-                <h3 class="case-metric">{cs.metrics?.primary || cs.result}</h3>
-                <span class="case-client">{cs.title}</span>
-                {cs.location && <span class="case-location">{cs.location}</span>}
+                <div class="case-card-metric-overlay">
+                  <span class="case-metric-big">{cs.metrics?.primary || cs.result}</span>
+                </div>
+              </div>
+              <div class="case-card-body">
+                <h3 class="case-client-name">{cs.title}</h3>
+                <div class="case-card-meta">
+                  {cs.location && <span class="case-location">{cs.location}</span>}
+                  {cs.metrics?.secondary && <span class="case-secondary">{cs.metrics.secondary}</span>}
+                </div>
               </div>
               <div class="case-card-footer">
-                {cs.metrics?.secondary && <span class="case-secondary">{cs.metrics.secondary}</span>}
-                <span class="card-link">Read Case Study &rarr;</span>
+                <span class="card-link">View Case Study &rarr;</span>
               </div>
             </a>
           ))}
@@ -211,42 +220,133 @@ const categories = [...new Set(config.case_studies.map(cs => cs.category))];
 
   /* Case study category sections */
   .cases-category:nth-child(odd) { background: var(--color-white); }
-  .cases-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: var(--space-lg); margin-top: var(--space-xl); }
+  .cases-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: var(--space-xl); margin-top: var(--space-xl); }
 
   .case-card-full {
     background: var(--color-white);
     border: 1px solid var(--color-gray-200);
-    border-radius: 12px;
+    border-radius: 10px;
     overflow: hidden;
-    transition: transform 0.2s, box-shadow 0.2s;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
     text-decoration: none;
     color: inherit;
     display: flex;
     flex-direction: column;
   }
-  .case-card-full:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,0.1); }
-
-  .case-card-header {
-    padding: var(--space-xl);
-    flex: 1;
-    background: linear-gradient(135deg, rgba(192,57,43,0.04) 0%, transparent 100%);
+  .case-card-full:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.12);
   }
-  .case-card-tags { display: flex; gap: 0.4rem; margin-bottom: var(--space-sm); flex-wrap: wrap; }
-  .case-category-tag { display: inline-block; font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-primary); background: rgba(192,57,43,0.1); padding: 0.2rem 0.5rem; border-radius: 3px; }
-  .case-industry-tag { display: inline-block; font-size: 0.6rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--color-text-muted); background: var(--color-gray-100); padding: 0.2rem 0.5rem; border-radius: 3px; }
-  .case-metric { font-size: var(--text-2xl); margin-bottom: var(--space-xs); color: var(--color-dark); }
-  .case-client { display: block; font-size: var(--text-sm); color: var(--color-text-muted); font-weight: 500; }
-  .case-location { display: block; font-size: 0.75rem; color: var(--color-text-muted); margin-top: 0.15rem; }
+
+  /* Card image area */
+  .case-card-image {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: var(--color-dark);
+  }
+  .case-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease, filter 0.4s ease;
+  }
+  .case-card-full:hover .case-card-image img {
+    transform: scale(1.05);
+    filter: brightness(0.85);
+  }
+  .case-card-image-overlay {
+    position: absolute;
+    top: var(--space-sm);
+    left: var(--space-sm);
+    display: flex;
+    gap: 0.35rem;
+    z-index: 2;
+  }
+  .case-category-tag {
+    display: inline-block;
+    font-size: 0.6rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-white);
+    background: var(--color-primary);
+    padding: 0.25rem 0.6rem;
+    border-radius: 4px;
+    backdrop-filter: blur(4px);
+  }
+  .case-industry-tag {
+    display: inline-block;
+    font-size: 0.6rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-white);
+    background: rgba(0,0,0,0.5);
+    padding: 0.25rem 0.6rem;
+    border-radius: 4px;
+    backdrop-filter: blur(4px);
+  }
+  .case-card-metric-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: var(--space-lg) var(--space-md) var(--space-sm);
+    background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 100%);
+    z-index: 2;
+  }
+  .case-metric-big {
+    font-family: var(--font-heading);
+    font-size: var(--text-xl);
+    font-weight: 800;
+    color: var(--color-white);
+    line-height: 1.2;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.3);
+  }
+
+  /* Card body */
+  .case-card-body {
+    padding: var(--space-md) var(--space-lg);
+    flex: 1;
+  }
+  .case-client-name {
+    font-size: var(--text-base);
+    font-weight: 700;
+    color: var(--color-dark);
+    margin-bottom: 0.35rem;
+  }
+  .case-card-meta {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+  .case-location {
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+  }
+  .case-secondary {
+    font-size: 0.75rem;
+    color: var(--color-text-light);
+    font-weight: 500;
+  }
 
   .case-card-footer {
-    padding: var(--space-md) var(--space-xl);
-    border-top: 1px solid var(--color-gray-100);
+    padding: var(--space-sm) var(--space-lg) var(--space-md);
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
   }
-  .case-secondary { font-size: var(--text-sm); color: var(--color-text-light); font-weight: 500; }
-  .card-link { font-size: var(--text-sm); font-weight: 600; color: var(--color-primary); white-space: nowrap; }
+  .card-link {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--color-primary);
+    white-space: nowrap;
+    transition: gap 0.2s;
+  }
+  .case-card-full:hover .card-link {
+    text-decoration: underline;
+  }
 
   /* Reviews section */
   .section-alt { background: #fafafa; }

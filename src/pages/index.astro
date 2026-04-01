@@ -29,51 +29,81 @@ const description = config.business.description;
         <div class="hero-proof">
           <div class="hero-stat">
             <span class="hero-stat-value">$2M+</span>
-            <span class="hero-stat-label">Generated for Clients</span>
+            <span class="hero-stat-label">Revenue Generated</span>
           </div>
           <div class="hero-stat-divider"></div>
           <div class="hero-stat">
-            <span class="hero-stat-value">4.9&#9733;</span>
+            <span class="hero-stat-value">5.0&#9733;</span>
             <span class="hero-stat-label">Google Rating</span>
           </div>
           <div class="hero-stat-divider"></div>
           <div class="hero-stat">
             <span class="hero-stat-value">300+</span>
-            <span class="hero-stat-label">Leads (Single Client)</span>
+            <span class="hero-stat-label">Leads Generated</span>
           </div>
         </div>
       </div>
-      <div class="hero-form-wrap">
-        <div class="hero-form-header">
-          <h2>Get Your Free Market Analysis</h2>
-          <p>See exactly where you rank and where the opportunities are.</p>
-        </div>
-        <form class="hero-form" action={config.form.action} method="POST">
-          <div class="form-group">
-            <input type="text" name="name" placeholder="Full Name" required />
-          </div>
-          <div class="form-group">
-            <input type="email" name="email" placeholder="Email" required />
-          </div>
-          <div class="form-group">
-            <input type="tel" name="phone" placeholder="Phone Number" required />
-          </div>
-          <div class="form-group">
-            <input type="text" name="company" placeholder="Company Name" required />
-          </div>
-          <div class="form-group">
-            <input type="url" name="website" placeholder="Current Website (optional)" />
-          </div>
-          <div class="hp-field" aria-hidden="true">
-            <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" />
-          </div>
-          <button type="submit" class="btn btn-primary btn-lg btn-block">Get My Free Analysis</button>
-        </form>
+      <div class="hero-image-wrap">
+        <img src="/media/hero-collage.webp" alt="ServiceLine Pro marketing results for home service businesses" class="hero-image" width="600" height="500" loading="eager" />
+        <div class="hero-image-glow"></div>
       </div>
     </div>
   </section>
 
-  <TrustBar />
+  <!-- PARTNER LOGOS -->
+  <section class="partners-strip">
+    <div class="container">
+      <p class="partners-label">Trusted Partnership</p>
+      <img src="/media/partner-logos.webp" alt="ServiceLine Pro partner logos including Spectrum Reach, Google, Yahoo" class="partners-image" width="900" height="80" loading="eager" />
+    </div>
+  </section>
+
+  <!-- FREE 10-DAY BOOST - SIGNATURE OFFER -->
+  <section class="boost-hero section">
+    <div class="boost-hero-bg"></div>
+    <div class="container boost-hero-grid">
+      <div class="boost-hero-content">
+        <span class="boost-badge">Signature Offer</span>
+        <h2>Free 10-Day<br/>Local SEO Boost</h2>
+        <p class="boost-hero-lead">We optimize your Google Business Profile, fix your citations, and boost your local signals for 10 full days. No charge. No contract. No catch.</p>
+        <p class="boost-hero-lead">If the results speak for themselves, we talk about what a full campaign looks like. If not, you keep every improvement we made. Free.</p>
+        <div class="boost-hero-metrics">
+          <div class="boost-hero-metric">
+            <span class="boost-hero-metric-val">+47%</span>
+            <span class="boost-hero-metric-lbl">Search Appearances</span>
+          </div>
+          <div class="boost-hero-metric">
+            <span class="boost-hero-metric-val">+23%</span>
+            <span class="boost-hero-metric-lbl">Discovery Searches</span>
+          </div>
+          <div class="boost-hero-metric">
+            <span class="boost-hero-metric-val">+15%</span>
+            <span class="boost-hero-metric-lbl">Direction Requests</span>
+          </div>
+        </div>
+        <div class="boost-hero-reqs">
+          <span class="boost-hero-reqs-title">Requirements to Qualify:</span>
+          <div class="boost-hero-reqs-grid">
+            <span class="boost-req-chip">Physical Google Business Profile</span>
+            <span class="boost-req-chip">15+ Five-Star Reviews</span>
+            <span class="boost-req-chip">4.5+ Average Rating</span>
+            <span class="boost-req-chip">Existing Website</span>
+          </div>
+        </div>
+        <a href="/contact?service=10-day-boost" class="btn btn-primary btn-lg boost-cta-btn">Apply for Your Free Boost &rarr;</a>
+      </div>
+      <div class="boost-hero-visual">
+        <img src="/media/local-seo-graphic.webp" alt="Local SEO ranking improvement geo-grid results" class="boost-hero-img" width="550" height="450" loading="lazy" />
+        <div class="boost-hero-card">
+          <span class="boost-card-label">Average Result After 10 Days</span>
+          <div class="boost-card-stat">
+            <span class="boost-card-num">2,784%</span>
+            <span class="boost-card-desc">More Search Appearances</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- PROBLEM -->
   <section class="problems section">
@@ -111,8 +141,8 @@ const description = config.business.description;
         <!-- LOCAL SEO -->
         <div class="service-mega-card service-featured">
           <div class="service-mega-badge">Most Popular</div>
-          <div class="service-mega-icon">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <div class="service-card-image">
+            <img src="/media/local-seo-graphic.webp" alt="Local SEO geo-grid tracking and ranking results" width="400" height="220" loading="lazy" />
           </div>
           <h3>Local Ranking SEO</h3>
           <p class="service-mega-tagline">Top 3 in the Map Pack in 90 days or you don't pay.</p>
@@ -131,8 +161,8 @@ const description = config.business.description;
 
         <!-- PPC -->
         <div class="service-mega-card">
-          <div class="service-mega-icon">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+          <div class="service-card-image">
+            <img src="/media/ppc-graphic.webp" alt="PPC and Google Ads campaign performance dashboard" width="400" height="220" loading="lazy" />
           </div>
           <h3>Google Ads (PPC)</h3>
           <p class="service-mega-tagline">No agency fee. Your entire budget funds your campaigns.</p>
@@ -151,8 +181,8 @@ const description = config.business.description;
 
         <!-- WEB DESIGN -->
         <div class="service-mega-card">
-          <div class="service-mega-icon">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          <div class="service-card-image">
+            <img src="/media/service-presentation.webp" alt="Website design and development showcase" width="400" height="220" loading="lazy" />
           </div>
           <h3>Website Design</h3>
           <p class="service-mega-tagline">Sub-2-second loads. Built to convert visitors into booked jobs.</p>
@@ -172,8 +202,8 @@ const description = config.business.description;
         <!-- TV & STREAMING -->
         <div class="service-mega-card service-spectrum">
           <div class="service-mega-badge spectrum-badge">Spectrum Reach Partner</div>
-          <div class="service-mega-icon">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="15" rx="2"/><polyline points="17 2 12 7 7 2"/></svg>
+          <div class="service-card-image">
+            <img src="/media/seo-ppc-hero.webp" alt="TV and streaming advertising campaign across platforms" width="400" height="220" loading="lazy" />
           </div>
           <h3>TV & Streaming</h3>
           <p class="service-mega-tagline">Precision-targeted streaming campaigns. No agency fee on media spend.</p>
@@ -200,6 +230,7 @@ const description = config.business.description;
         <span class="section-label">Exclusive Partnership</span>
         <h2>Powered by Spectrum Reach</h2>
         <p class="spectrum-lead">We are one of the only agencies in the country with a direct Spectrum Reach partnership. That means our clients get access to tools and data that other agencies cannot offer at any price.</p>
+        <p class="spectrum-lead">This partnership covers advertising across <strong>Google, Bing, Yahoo, Connected TV, and Streaming</strong>. Not just Google. The entire search and viewing landscape.</p>
         <div class="spectrum-stats">
           <div class="spectrum-stat">
             <span class="spectrum-stat-value">30M+</span>
@@ -221,6 +252,7 @@ const description = config.business.description;
         </div>
       </div>
       <div class="spectrum-visual">
+        <img src="/media/seo-ppc-presentation.webp" alt="Spectrum Reach advertising platform capabilities and reach" class="spectrum-img" width="560" height="400" loading="lazy" />
         <div class="spectrum-card-stack">
           <div class="spectrum-feature-card">
             <h4>First-Party Data</h4>
@@ -239,60 +271,168 @@ const description = config.business.description;
     </div>
   </section>
 
-  <!-- FREE 10-DAY BOOST -->
-  <section class="boost-section section section-dark">
-    <div class="container boost-grid">
-      <div class="boost-content">
-        <span class="section-label section-label-light">Limited Offer</span>
-        <h2>Free 10-Day Local SEO Boost</h2>
-        <p class="boost-lead">We will optimize your Google Business Profile, fix your citations, and boost your local signals for 10 days. No charge. No commitment. If you see results, we talk about what a full campaign looks like.</p>
-        <div class="boost-requirements">
-          <span class="boost-req-title">Requirements:</span>
-          <ul>
-            <li>Physical Google Business Profile (not virtual/PO Box)</li>
-            <li>15+ existing Google reviews</li>
-            <li>4.5+ star rating</li>
-            <li>Existing website</li>
-          </ul>
-        </div>
-        <a href="/contact?service=10-day-boost" class="btn btn-primary btn-lg">Apply for Free Boost &rarr;</a>
+  <!-- CASE STUDIES / RESULTS -->
+  <section class="results-section section section-dark">
+    <div class="container">
+      <span class="section-label section-label-light">Real Results</span>
+      <h2>What We Do for Our Clients</h2>
+      <div class="results-grid">
+        {config.case_studies.slice(0, 6).map(cs => (
+          <div class="result-card">
+            <span class="result-category">{cs.category}</span>
+            <h3 class="result-metric">{cs.result}</h3>
+            <span class="result-client">{cs.title}</span>
+            <span class="result-detail">{cs.metrics.secondary}</span>
+          </div>
+        ))}
       </div>
-      <div class="boost-results">
-        <div class="boost-result-card">
-          <span class="boost-result-label">Average Result After 10 Days</span>
-          <div class="boost-metric">
-            <span class="boost-metric-value">+47%</span>
-            <span class="boost-metric-label">Increase in Search Appearances</span>
+      <div class="results-more">
+        <a href="/case-studies/" class="btn btn-outline-light btn-lg">View All {config.case_studies.length} Case Studies &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PORTFOLIO / PROJECT SHOWCASE -->
+  <section class="portfolio-section section">
+    <div class="container">
+      <span class="section-label">Our Work</span>
+      <h2>Websites That Generate Revenue</h2>
+      <p class="portfolio-subtitle">Every site we build is a conversion machine. Sub-2-second load times. SEO-optimized from day one. Designed to turn searches into booked jobs.</p>
+      <div class="portfolio-grid">
+        <div class="portfolio-item portfolio-large">
+          <img src="/media/project-1.webp" alt="Client website project - conversion-focused design" width="600" height="400" loading="lazy" />
+          <div class="portfolio-overlay">
+            <span class="portfolio-tag">Website Design</span>
           </div>
-          <div class="boost-metric">
-            <span class="boost-metric-value">+23%</span>
-            <span class="boost-metric-label">More Discovery Searches</span>
+        </div>
+        <div class="portfolio-item">
+          <img src="/media/project-2.webp" alt="Client website project" width="400" height="300" loading="lazy" />
+          <div class="portfolio-overlay">
+            <span class="portfolio-tag">Website Design</span>
           </div>
-          <div class="boost-metric">
-            <span class="boost-metric-value">+15%</span>
-            <span class="boost-metric-label">More Direction Requests</span>
+        </div>
+        <div class="portfolio-item">
+          <img src="/media/project-3.webp" alt="Client website project" width="400" height="300" loading="lazy" />
+          <div class="portfolio-overlay">
+            <span class="portfolio-tag">Website Design</span>
+          </div>
+        </div>
+        <div class="portfolio-item">
+          <img src="/media/project-4.webp" alt="Client website project" width="400" height="300" loading="lazy" />
+          <div class="portfolio-overlay">
+            <span class="portfolio-tag">Website Design</span>
+          </div>
+        </div>
+        <div class="portfolio-item portfolio-large">
+          <img src="/media/project-5.webp" alt="Client website project - lead generation design" width="600" height="400" loading="lazy" />
+          <div class="portfolio-overlay">
+            <span class="portfolio-tag">Website Design</span>
+          </div>
+        </div>
+        <div class="portfolio-item">
+          <img src="/media/project-6.webp" alt="Client website project" width="400" height="300" loading="lazy" />
+          <div class="portfolio-overlay">
+            <span class="portfolio-tag">Website Design</span>
+          </div>
+        </div>
+        <div class="portfolio-item">
+          <img src="/media/project-7.webp" alt="Client website project" width="400" height="300" loading="lazy" />
+          <div class="portfolio-overlay">
+            <span class="portfolio-tag">Website Design</span>
+          </div>
+        </div>
+        <div class="portfolio-item">
+          <img src="/media/project-8.webp" alt="Client website project" width="400" height="300" loading="lazy" />
+          <div class="portfolio-overlay">
+            <span class="portfolio-tag">Website Design</span>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- CASE STUDIES / RESULTS -->
-  <section class="results-section section">
-    <div class="container">
-      <span class="section-label">Real Results</span>
-      <h2>What We Do for Our Clients</h2>
-      <div class="results-grid">
-        {config.case_studies.slice(0, 4).map(cs => (
-          <div class="result-card">
-            <span class="result-category">{cs.category}</span>
-            <h3 class="result-metric">{cs.result}</h3>
-            <span class="result-client">{cs.title}</span>
+  <!-- EDUCATION / LEARN IT YOURSELF -->
+  <section class="education-section section section-dark">
+    <div class="education-bg"></div>
+    <div class="container education-grid">
+      <div class="education-content">
+        <span class="section-label section-label-light">Our Philosophy</span>
+        <h2>We Teach You Everything</h2>
+        <p class="education-lead">Most agencies hide their methods so you stay dependent. We do the opposite. We teach you exactly what we are doing, why it works, and how to maintain it yourself.</p>
+        <p class="education-lead">Want to learn local SEO? We will walk you through it. Want to understand your ad campaigns? We break down every metric. You should never feel trapped by an agency that keeps secrets.</p>
+        <div class="education-points">
+          <div class="education-point">
+            <div class="education-point-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+            </div>
+            <div>
+              <h4>Full Transparency</h4>
+              <p>You see every report, every ranking change, every dollar spent. Real-time dashboards. No black boxes.</p>
+            </div>
           </div>
-        ))}
+          <div class="education-point">
+            <div class="education-point-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+            </div>
+            <div>
+              <h4>DIY Resources</h4>
+              <p>Free guides, walkthroughs, and training materials. If you want to do it yourself, we give you the playbook.</p>
+            </div>
+          </div>
+          <div class="education-point">
+            <div class="education-point-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <div>
+              <h4>Ownership Mindset</h4>
+              <p>You own your accounts, your data, your website. Everything. If you leave, it all goes with you. No hostage situations.</p>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="results-more">
-        <a href="/case-studies/" class="btn btn-outline">View All {config.case_studies.length} Case Studies &rarr;</a>
+      <div class="education-visual">
+        <img src="/media/video-thumb.webp" alt="ServiceLine Pro educational content and marketing training" class="education-img" width="560" height="380" loading="lazy" />
+        <div class="education-play-badge">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          <span>Watch How We Work</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEAM -->
+  <section class="team-section section">
+    <div class="container team-grid">
+      <div class="team-image-wrap">
+        <img src="/media/team.webp" alt="ServiceLine Pro team - William Hamilton, Victoria Hamilton, and Daniel Gomez" class="team-image" width="560" height="420" loading="lazy" />
+        <div class="team-image-accent"></div>
+      </div>
+      <div class="team-content">
+        <span class="section-label">Meet the Team</span>
+        <h2>Real People. Real Results.</h2>
+        <p class="team-lead">ServiceLine Pro is not a faceless agency. We are a focused team of marketing specialists who only work with home service businesses. That specialization is why our clients see results in weeks, not months.</p>
+        <div class="team-members">
+          {config.business.team.map(member => (
+            <div class="team-member">
+              <span class="team-member-name">{member.name}</span>
+              <span class="team-member-role">{member.role}</span>
+            </div>
+          ))}
+        </div>
+        <div class="team-trust">
+          <div class="team-trust-item">
+            <span class="team-trust-val">5.0&#9733;</span>
+            <span class="team-trust-lbl">Google Rating</span>
+          </div>
+          <div class="team-trust-item">
+            <span class="team-trust-val">22+</span>
+            <span class="team-trust-lbl">Industries Served</span>
+          </div>
+          <div class="team-trust-item">
+            <span class="team-trust-val">Since 2020</span>
+            <span class="team-trust-lbl">Tampa, FL</span>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -346,6 +486,49 @@ const description = config.business.description;
 
   <ReviewsSection compact={true} maxReviews={4} />
 
+  <!-- LEAD MAGNET / FORM CTA -->
+  <section class="leadmag-section section section-dark">
+    <div class="leadmag-bg"></div>
+    <div class="container leadmag-grid">
+      <div class="leadmag-content">
+        <span class="section-label section-label-light">Free Resource</span>
+        <h2>Get Your Free Market Analysis</h2>
+        <p class="leadmag-lead">See exactly where you rank in your local market, what your competitors are doing, and where the biggest opportunities are. No pitch. No obligation. Just data.</p>
+        <ul class="leadmag-includes">
+          <li>Your current Google Map Pack position</li>
+          <li>Top 5 competitor breakdown</li>
+          <li>Citation audit and NAP consistency check</li>
+          <li>Website speed and conversion analysis</li>
+          <li>Recommended strategy with estimated ROI</li>
+        </ul>
+      </div>
+      <div class="leadmag-form-wrap">
+        <form class="leadmag-form" action={config.form.action} method="POST">
+          <div class="form-group">
+            <input type="text" name="name" placeholder="Full Name" required />
+          </div>
+          <div class="form-group">
+            <input type="email" name="email" placeholder="Email" required />
+          </div>
+          <div class="form-group">
+            <input type="tel" name="phone" placeholder="Phone Number" required />
+          </div>
+          <div class="form-group">
+            <input type="text" name="company" placeholder="Company Name" required />
+          </div>
+          <div class="form-group">
+            <input type="url" name="website" placeholder="Current Website (optional)" />
+          </div>
+          <div class="hp-field" aria-hidden="true">
+            <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" />
+          </div>
+          <button type="submit" class="btn btn-primary btn-lg btn-block">Get My Free Analysis</button>
+          <p class="leadmag-disclaimer">No spam. No sales calls unless you want one. Just your analysis.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
   <CTABand
     heading="Stop Losing Jobs to Competitors Who Showed Up First"
     text="Book a 15-minute strategy call. No pressure. No pitch deck. Just straight answers about what it takes to dominate your local market."
@@ -366,12 +549,13 @@ const description = config.business.description;
   .hero-bg-pattern {
     position: absolute; inset: 0;
     background:
-      radial-gradient(circle at 20% 80%, rgba(192,57,43,0.15) 0%, transparent 50%),
-      radial-gradient(circle at 80% 20%, rgba(192,57,43,0.08) 0%, transparent 40%);
+      radial-gradient(circle at 20% 80%, rgba(192,57,43,0.18) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(192,57,43,0.1) 0%, transparent 40%),
+      radial-gradient(circle at 50% 0%, rgba(192,57,43,0.06) 0%, transparent 60%);
     pointer-events: none;
   }
-  .hero-grid { display: grid; grid-template-columns: 1fr; gap: var(--space-2xl); align-items: start; position: relative; z-index: 1; }
-  @media (min-width: 1024px) { .hero-grid { grid-template-columns: 1.3fr 1fr; } }
+  .hero-grid { display: grid; grid-template-columns: 1fr; gap: var(--space-2xl); align-items: center; position: relative; z-index: 1; }
+  @media (min-width: 1024px) { .hero-grid { grid-template-columns: 1.2fr 1fr; } }
 
   .hero-eyebrow { display: inline-block; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--color-primary); margin-bottom: var(--space-md); border: 1px solid rgba(192,57,43,0.3); padding: 0.25rem 0.75rem; border-radius: 4px; }
   .hero h1 { font-size: var(--text-3xl); line-height: 1.1; margin-bottom: var(--space-md); color: var(--color-white); }
@@ -389,17 +573,210 @@ const description = config.business.description;
   .hero-stat-label { display: block; font-size: 0.7rem; color: rgba(255,255,255,0.45); }
   .hero-stat-divider { width: 1px; height: 32px; background: rgba(255,255,255,0.15); }
 
-  /* === HERO FORM === */
-  .hero-form-wrap { background: rgba(255,255,255,0.04); border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); overflow: hidden; backdrop-filter: blur(8px); }
-  .hero-form-header { padding: var(--space-lg) var(--space-xl) 0; }
-  .hero-form-header h2 { font-size: var(--text-lg); color: var(--color-white); margin-bottom: var(--space-xs); }
-  .hero-form-header p { font-size: var(--text-sm); color: rgba(255,255,255,0.5); margin-bottom: 0; }
-  .hero-form { display: flex; flex-direction: column; gap: var(--space-sm); padding: var(--space-lg) var(--space-xl) var(--space-xl); }
-  .hero-form input { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); border-radius: 6px; padding: 0.7rem 0.875rem; color: var(--color-white); font-size: var(--text-sm); transition: border-color 0.15s; width: 100%; font-family: var(--font-body); }
-  .hero-form input::placeholder { color: rgba(255,255,255,0.3); }
-  .hero-form input:focus { outline: none; border-color: var(--color-primary); background: rgba(255,255,255,0.1); }
-  .hp-field { position: absolute; left: -9999px; }
-  .btn-block { display: block; width: 100%; text-align: center; }
+  /* === HERO IMAGE === */
+  .hero-image-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .hero-image {
+    width: 100%;
+    max-width: 560px;
+    height: auto;
+    border-radius: 12px;
+    position: relative;
+    z-index: 2;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.05);
+  }
+  .hero-image-glow {
+    position: absolute;
+    width: 80%;
+    height: 80%;
+    background: radial-gradient(circle, rgba(192,57,43,0.3) 0%, transparent 70%);
+    filter: blur(60px);
+    z-index: 1;
+    top: 10%;
+    left: 10%;
+  }
+
+  /* === PARTNER LOGOS === */
+  .partners-strip {
+    background: var(--color-white);
+    border-bottom: 1px solid var(--color-gray-200);
+    padding: var(--space-lg) 0;
+  }
+  .partners-strip .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-md);
+  }
+  .partners-label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--color-text-muted);
+  }
+  .partners-image {
+    max-width: 100%;
+    height: auto;
+    max-height: 60px;
+    object-fit: contain;
+    opacity: 0.7;
+    filter: grayscale(20%);
+    transition: opacity 0.3s;
+  }
+  .partners-image:hover { opacity: 1; filter: none; }
+
+  /* === FREE 10-DAY BOOST HERO === */
+  .boost-hero {
+    background: linear-gradient(135deg, #0f1923 0%, #1a1a2e 40%, #16213e 100%);
+    color: var(--color-white);
+    position: relative;
+    overflow: hidden;
+    padding: var(--space-4xl) 0;
+  }
+  .boost-hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 30% 50%, rgba(192,57,43,0.2) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 80%, rgba(59,130,246,0.1) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  .boost-hero-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-2xl);
+    position: relative;
+    z-index: 1;
+  }
+  @media (min-width: 1024px) {
+    .boost-hero-grid { grid-template-columns: 1.2fr 1fr; align-items: center; }
+  }
+  .boost-badge {
+    display: inline-block;
+    font-size: 0.65rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #fff;
+    background: linear-gradient(135deg, var(--color-primary) 0%, #e74c3c 100%);
+    padding: 0.35rem 1rem;
+    border-radius: 4px;
+    margin-bottom: var(--space-lg);
+  }
+  .boost-hero h2 {
+    font-size: var(--text-3xl);
+    line-height: 1.1;
+    margin-bottom: var(--space-lg);
+    color: var(--color-white);
+  }
+  @media (min-width: 768px) { .boost-hero h2 { font-size: var(--text-4xl); } }
+  .boost-hero-lead {
+    font-size: var(--text-base);
+    color: rgba(255,255,255,0.7);
+    line-height: 1.7;
+    margin-bottom: var(--space-md);
+    max-width: 520px;
+  }
+  .boost-hero-metrics {
+    display: flex;
+    gap: var(--space-xl);
+    margin: var(--space-xl) 0;
+    padding: var(--space-lg) 0;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .boost-hero-metric-val {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: var(--text-xl);
+    font-weight: 800;
+    color: var(--color-primary);
+  }
+  .boost-hero-metric-lbl {
+    display: block;
+    font-size: 0.7rem;
+    color: rgba(255,255,255,0.45);
+    margin-top: 2px;
+  }
+  .boost-hero-reqs {
+    margin-bottom: var(--space-xl);
+  }
+  .boost-hero-reqs-title {
+    display: block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: var(--space-sm);
+  }
+  .boost-hero-reqs-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+  }
+  .boost-req-chip {
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 0.3rem 0.75rem;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 4px;
+    color: rgba(255,255,255,0.65);
+  }
+  .boost-cta-btn {
+    font-size: var(--text-base);
+  }
+  .boost-hero-visual {
+    position: relative;
+  }
+  .boost-hero-img {
+    width: 100%;
+    max-width: 550px;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  }
+  .boost-hero-card {
+    position: absolute;
+    bottom: -20px;
+    left: -20px;
+    background: linear-gradient(135deg, rgba(26,26,26,0.95) 0%, rgba(26,26,46,0.95) 100%);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px;
+    padding: var(--space-lg);
+    backdrop-filter: blur(12px);
+    max-width: 260px;
+  }
+  @media (max-width: 767px) { .boost-hero-card { position: relative; bottom: auto; left: auto; margin-top: var(--space-md); max-width: 100%; } }
+  .boost-card-label {
+    display: block;
+    font-size: 0.6rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: var(--space-sm);
+  }
+  .boost-card-num {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: var(--text-2xl);
+    font-weight: 800;
+    color: var(--color-primary);
+    line-height: 1;
+  }
+  .boost-card-desc {
+    display: block;
+    font-size: var(--text-sm);
+    color: rgba(255,255,255,0.5);
+    margin-top: 4px;
+  }
 
   /* === PROBLEMS === */
   .section-label { display: inline-block; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-primary); margin-bottom: var(--space-sm); }
@@ -420,43 +797,77 @@ const description = config.business.description;
     background: rgba(255,255,255,0.04);
     border: 1px solid rgba(255,255,255,0.08);
     border-radius: 12px;
-    padding: var(--space-xl);
+    padding: 0;
     position: relative;
     transition: border-color 0.2s, transform 0.2s;
+    overflow: hidden;
   }
   .service-mega-card:hover { border-color: rgba(255,255,255,0.2); transform: translateY(-2px); }
   .service-featured { border-color: rgba(192,57,43,0.4); background: linear-gradient(135deg, rgba(192,57,43,0.08) 0%, rgba(255,255,255,0.02) 100%); }
   .service-spectrum { border-color: rgba(59,130,246,0.3); background: linear-gradient(135deg, rgba(59,130,246,0.06) 0%, rgba(255,255,255,0.02) 100%); }
 
-  .service-mega-badge { position: absolute; top: var(--space-lg); right: var(--space-lg); font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-primary); background: rgba(192,57,43,0.15); padding: 0.25rem 0.625rem; border-radius: 4px; }
+  .service-card-image {
+    width: 100%;
+    height: 180px;
+    overflow: hidden;
+    position: relative;
+  }
+  .service-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+  .service-mega-card:hover .service-card-image img {
+    transform: scale(1.05);
+  }
+  .service-card-image::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background: linear-gradient(to top, rgba(26,26,26,1) 0%, transparent 100%);
+  }
+
+  .service-mega-badge { position: absolute; top: var(--space-md); right: var(--space-md); font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-primary); background: rgba(192,57,43,0.15); padding: 0.25rem 0.625rem; border-radius: 4px; z-index: 3; backdrop-filter: blur(8px); }
   .spectrum-badge { color: #3b82f6; background: rgba(59,130,246,0.15); }
 
-  .service-mega-icon { margin-bottom: var(--space-md); color: var(--color-primary); }
-  .service-spectrum .service-mega-icon { color: #3b82f6; }
-  .service-mega-card h3 { font-size: var(--text-xl); color: var(--color-white); margin-bottom: var(--space-xs); }
-  .service-mega-tagline { font-size: var(--text-sm); color: rgba(255,255,255,0.55); margin-bottom: var(--space-lg); }
+  .service-mega-card h3 { font-size: var(--text-xl); color: var(--color-white); margin-bottom: var(--space-xs); padding: 0 var(--space-xl); }
+  .service-mega-tagline { font-size: var(--text-sm); color: rgba(255,255,255,0.55); margin-bottom: var(--space-lg); padding: 0 var(--space-xl); }
 
-  .service-mega-features { list-style: none; padding: 0; margin-bottom: var(--space-lg); }
+  .service-mega-features { list-style: none; padding: 0 var(--space-xl); margin-bottom: var(--space-lg); }
   .service-mega-features li { padding: 0.375rem 0; padding-left: 1.25rem; position: relative; font-size: var(--text-sm); color: rgba(255,255,255,0.7); }
   .service-mega-features li::before { content: ''; position: absolute; left: 0; top: 0.65rem; width: 6px; height: 6px; border-radius: 50%; background: var(--color-primary); }
   .service-spectrum .service-mega-features li::before { background: #3b82f6; }
 
-  .service-mega-pricing { margin-bottom: var(--space-lg); padding: var(--space-sm) 0; border-top: 1px solid rgba(255,255,255,0.06); }
+  .service-mega-pricing { margin-bottom: var(--space-lg); padding: var(--space-sm) var(--space-xl); border-top: 1px solid rgba(255,255,255,0.06); }
   .service-price-from { display: block; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.35); }
   .service-price-amount { font-family: var(--font-heading); font-size: var(--text-2xl); font-weight: 800; color: var(--color-white); }
   .service-price-amount span { font-size: var(--text-sm); font-weight: 600; color: rgba(255,255,255,0.5); }
 
+  .service-mega-card .btn-block { margin: 0 var(--space-xl) var(--space-xl); width: calc(100% - var(--space-xl) * 2); }
+
   /* === SPECTRUM SECTION === */
   .spectrum-section { background: linear-gradient(180deg, var(--color-white) 0%, #fafafa 100%); }
   .spectrum-grid { display: grid; grid-template-columns: 1fr; gap: var(--space-2xl); }
-  @media (min-width: 1024px) { .spectrum-grid { grid-template-columns: 1fr 1fr; align-items: center; } }
-  .spectrum-lead { font-size: var(--text-base); color: var(--color-text-light); line-height: 1.7; margin-bottom: var(--space-xl); max-width: 480px; }
-  .spectrum-stats { display: flex; gap: var(--space-xl); margin-bottom: var(--space-lg); }
+  @media (min-width: 1024px) { .spectrum-grid { grid-template-columns: 1fr 1fr; align-items: start; } }
+  .spectrum-lead { font-size: var(--text-base); color: var(--color-text-light); line-height: 1.7; margin-bottom: var(--space-md); max-width: 480px; }
+  .spectrum-lead strong { color: var(--color-text); }
+  .spectrum-stats { display: flex; gap: var(--space-xl); margin-bottom: var(--space-lg); margin-top: var(--space-md); }
   .spectrum-stat-value { display: block; font-family: var(--font-heading); font-size: var(--text-2xl); font-weight: 800; color: var(--color-dark); }
   .spectrum-stat-label { display: block; font-size: 0.7rem; color: var(--color-text-muted); }
   .spectrum-certs { display: flex; flex-wrap: wrap; gap: var(--space-sm); }
   .spectrum-cert { font-size: 0.7rem; font-weight: 600; padding: 0.25rem 0.75rem; border: 1px solid var(--color-gray-200); border-radius: 4px; color: var(--color-text-muted); }
 
+  .spectrum-img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+    margin-bottom: var(--space-lg);
+  }
   .spectrum-card-stack { display: flex; flex-direction: column; gap: var(--space-md); }
   .spectrum-feature-card {
     padding: var(--space-lg);
@@ -470,44 +881,251 @@ const description = config.business.description;
   .spectrum-feature-card h4 { font-size: var(--text-base); margin-bottom: var(--space-xs); }
   .spectrum-feature-card p { font-size: var(--text-sm); color: var(--color-text-light); line-height: 1.6; margin-bottom: 0; }
 
-  /* === FREE 10-DAY BOOST === */
-  .boost-section { position: relative; overflow: hidden; }
-  .boost-section::before {
-    content: ''; position: absolute; inset: 0;
-    background: radial-gradient(ellipse at 70% 50%, rgba(192,57,43,0.2) 0%, transparent 60%);
-    pointer-events: none;
-  }
-  .boost-grid { display: grid; grid-template-columns: 1fr; gap: var(--space-2xl); position: relative; z-index: 1; }
-  @media (min-width: 1024px) { .boost-grid { grid-template-columns: 1.2fr 1fr; align-items: center; } }
-  .boost-lead { font-size: var(--text-base); color: rgba(255,255,255,0.7); line-height: 1.7; margin-bottom: var(--space-lg); max-width: 520px; }
-  .boost-requirements { margin-bottom: var(--space-xl); }
-  .boost-req-title { display: block; font-size: var(--text-sm); font-weight: 700; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: var(--space-sm); }
-  .boost-requirements ul { list-style: none; padding: 0; }
-  .boost-requirements li { padding: 0.25rem 0; padding-left: 1.25rem; position: relative; font-size: var(--text-sm); color: rgba(255,255,255,0.65); }
-  .boost-requirements li::before { content: ''; position: absolute; left: 0; top: 0.5rem; width: 8px; height: 8px; border-radius: 50%; background: var(--color-primary); }
-
-  .boost-result-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: var(--space-xl); }
-  .boost-result-label { display: block; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.4); margin-bottom: var(--space-lg); }
-  .boost-metric { padding: var(--space-sm) 0; border-bottom: 1px solid rgba(255,255,255,0.06); }
-  .boost-metric:last-child { border-bottom: none; }
-  .boost-metric-value { display: block; font-family: var(--font-heading); font-size: var(--text-2xl); font-weight: 800; color: var(--color-primary); }
-  .boost-metric-label { display: block; font-size: var(--text-sm); color: rgba(255,255,255,0.5); }
-
   /* === RESULTS === */
+  .results-section h2 { color: var(--color-white); }
   .results-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: var(--space-lg); margin-top: var(--space-xl); }
   .result-card {
     padding: var(--space-xl);
-    background: var(--color-white);
+    background: rgba(255,255,255,0.04);
     border-left: 3px solid var(--color-primary);
     border-radius: 0 10px 10px 0;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
-    transition: transform 0.2s, box-shadow 0.2s;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-left: 3px solid var(--color-primary);
+    transition: transform 0.2s, border-color 0.2s;
   }
-  .result-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+  .result-card:hover { transform: translateY(-2px); border-color: rgba(255,255,255,0.2); border-left-color: var(--color-primary); }
   .result-category { display: block; font-size: 0.625rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-primary); margin-bottom: var(--space-xs); }
-  .result-metric { font-size: var(--text-xl); margin-bottom: var(--space-xs); }
-  .result-client { font-size: var(--text-sm); color: var(--color-text-muted); }
+  .result-metric { font-size: var(--text-xl); margin-bottom: var(--space-xs); color: var(--color-white); }
+  .result-client { display: block; font-size: var(--text-sm); color: rgba(255,255,255,0.5); }
+  .result-detail { display: block; font-size: 0.7rem; color: rgba(255,255,255,0.35); margin-top: var(--space-xs); }
   .results-more { text-align: center; margin-top: var(--space-xl); }
+
+  /* === PORTFOLIO === */
+  .portfolio-subtitle {
+    font-size: var(--text-base);
+    color: var(--color-text-light);
+    margin-top: var(--space-sm);
+    max-width: 560px;
+    line-height: 1.6;
+  }
+  .portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-md);
+    margin-top: var(--space-xl);
+  }
+  @media (min-width: 768px) {
+    .portfolio-grid { grid-template-columns: repeat(4, 1fr); }
+  }
+  .portfolio-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    aspect-ratio: 4/3;
+    cursor: pointer;
+  }
+  .portfolio-item.portfolio-large {
+    grid-column: span 2;
+  }
+  .portfolio-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+  .portfolio-item:hover img {
+    transform: scale(1.08);
+  }
+  .portfolio-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(26,26,26,0.8) 0%, transparent 60%);
+    display: flex;
+    align-items: flex-end;
+    padding: var(--space-lg);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  .portfolio-item:hover .portfolio-overlay { opacity: 1; }
+  .portfolio-tag {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-white);
+    background: var(--color-primary);
+    padding: 0.25rem 0.625rem;
+    border-radius: 4px;
+  }
+
+  /* === EDUCATION === */
+  .education-section {
+    position: relative;
+    overflow: hidden;
+  }
+  .education-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 80% 20%, rgba(192,57,43,0.12) 0%, transparent 50%),
+      radial-gradient(ellipse at 20% 80%, rgba(59,130,246,0.06) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  .education-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-2xl);
+    position: relative;
+    z-index: 1;
+  }
+  @media (min-width: 1024px) {
+    .education-grid { grid-template-columns: 1.2fr 1fr; align-items: center; }
+  }
+  .education-lead {
+    font-size: var(--text-base);
+    color: rgba(255,255,255,0.7);
+    line-height: 1.7;
+    margin-bottom: var(--space-md);
+    max-width: 520px;
+  }
+  .education-points {
+    margin-top: var(--space-xl);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+  .education-point {
+    display: flex;
+    gap: var(--space-md);
+    align-items: flex-start;
+  }
+  .education-point-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    background: rgba(192,57,43,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--color-primary);
+  }
+  .education-point h4 {
+    font-size: var(--text-base);
+    color: var(--color-white);
+    margin-bottom: 4px;
+  }
+  .education-point p {
+    font-size: var(--text-sm);
+    color: rgba(255,255,255,0.55);
+    line-height: 1.6;
+  }
+  .education-visual {
+    position: relative;
+  }
+  .education-img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 16px 48px rgba(0,0,0,0.3);
+  }
+  .education-play-badge {
+    position: absolute;
+    bottom: var(--space-lg);
+    left: var(--space-lg);
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    background: rgba(192,57,43,0.9);
+    color: var(--color-white);
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-size: var(--text-sm);
+    font-weight: 600;
+    backdrop-filter: blur(8px);
+  }
+  .education-play-badge svg { width: 18px; height: 18px; }
+
+  /* === TEAM === */
+  .team-section { background: linear-gradient(180deg, #fafafa 0%, var(--color-white) 100%); }
+  .team-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-2xl);
+  }
+  @media (min-width: 1024px) {
+    .team-grid { grid-template-columns: 1fr 1.1fr; align-items: center; }
+  }
+  .team-image-wrap {
+    position: relative;
+  }
+  .team-image {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+    position: relative;
+    z-index: 2;
+  }
+  .team-image-accent {
+    position: absolute;
+    top: -12px;
+    right: -12px;
+    width: 100%;
+    height: 100%;
+    border: 2px solid var(--color-primary);
+    border-radius: 10px;
+    z-index: 1;
+    opacity: 0.3;
+  }
+  @media (max-width: 767px) { .team-image-accent { display: none; } }
+  .team-lead {
+    font-size: var(--text-base);
+    color: var(--color-text-light);
+    line-height: 1.7;
+    margin-bottom: var(--space-xl);
+    max-width: 480px;
+  }
+  .team-members {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    margin-bottom: var(--space-xl);
+    padding: var(--space-lg) 0;
+    border-top: 1px solid var(--color-gray-200);
+    border-bottom: 1px solid var(--color-gray-200);
+  }
+  .team-member {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+  }
+  .team-member-name {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: var(--text-base);
+    color: var(--color-dark);
+  }
+  .team-member-role {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+  .team-trust {
+    display: flex;
+    gap: var(--space-xl);
+  }
+  .team-trust-val {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: var(--text-lg);
+    font-weight: 800;
+    color: var(--color-dark);
+  }
+  .team-trust-lbl {
+    display: block;
+    font-size: 0.7rem;
+    color: var(--color-text-muted);
+  }
 
   /* === PROCESS === */
   .section-alt { background: #fafafa; }
@@ -523,4 +1141,118 @@ const description = config.business.description;
   .industry-chip { display: inline-block; padding: 0.5rem 1rem; background: var(--color-white); border: 1px solid var(--color-gray-200); border-radius: 999px; font-size: var(--text-sm); color: var(--color-text); text-decoration: none; transition: all 0.15s; }
   .industry-chip:hover { background: var(--color-primary); color: var(--color-white); border-color: var(--color-primary); }
   .section-link { font-size: var(--text-sm); font-weight: 600; color: var(--color-primary); text-decoration: none; }
+
+  /* === LEAD MAGNET === */
+  .leadmag-section {
+    position: relative;
+    overflow: hidden;
+  }
+  .leadmag-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 30% 70%, rgba(192,57,43,0.15) 0%, transparent 50%),
+      radial-gradient(ellipse at 70% 30%, rgba(59,130,246,0.08) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  .leadmag-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-2xl);
+    position: relative;
+    z-index: 1;
+  }
+  @media (min-width: 1024px) {
+    .leadmag-grid { grid-template-columns: 1fr 1fr; align-items: start; }
+  }
+  .leadmag-section h2 { color: var(--color-white); }
+  .leadmag-lead {
+    font-size: var(--text-base);
+    color: rgba(255,255,255,0.7);
+    line-height: 1.7;
+    margin-bottom: var(--space-lg);
+    max-width: 480px;
+  }
+  .leadmag-includes {
+    list-style: none;
+    padding: 0;
+  }
+  .leadmag-includes li {
+    padding: 0.4rem 0;
+    padding-left: 1.5rem;
+    position: relative;
+    font-size: var(--text-sm);
+    color: rgba(255,255,255,0.65);
+    line-height: 1.5;
+  }
+  .leadmag-includes li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.6rem;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--color-primary);
+  }
+  .leadmag-form-wrap {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    padding: var(--space-xl);
+    backdrop-filter: blur(8px);
+  }
+  .leadmag-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+  .leadmag-form input {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 6px;
+    padding: 0.75rem 0.875rem;
+    color: var(--color-white);
+    font-size: var(--text-sm);
+    transition: border-color 0.15s;
+    width: 100%;
+    font-family: var(--font-body);
+  }
+  .leadmag-form input::placeholder { color: rgba(255,255,255,0.3); }
+  .leadmag-form input:focus { outline: none; border-color: var(--color-primary); background: rgba(255,255,255,0.1); }
+  .leadmag-disclaimer {
+    font-size: 0.7rem;
+    color: rgba(255,255,255,0.3);
+    text-align: center;
+    margin-top: var(--space-xs);
+  }
+  .hp-field { position: absolute; left: -9999px; }
+  .btn-block { display: block; width: 100%; text-align: center; }
+
+  /* === ANIMATIONS === */
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-image {
+      animation: heroFloat 6s ease-in-out infinite;
+    }
+    @keyframes heroFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    .boost-hero-card {
+      animation: cardSlideIn 0.8s ease-out;
+    }
+    @keyframes cardSlideIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-image-glow {
+      animation: glowPulse 4s ease-in-out infinite;
+    }
+    @keyframes glowPulse {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 0.8; }
+    }
+  }
 </style>

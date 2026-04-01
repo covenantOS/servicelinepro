@@ -32,6 +32,12 @@ const breadcrumbItems = [
         {config.services.map((service, index) => (
           <div class={`service-row ${index % 2 === 1 ? 'service-row-alt' : ''}`}>
             <div class="service-info">
+              <div class="service-img-wrapper">
+                {service.slug === 'local-seo' && <img src="/media/local-seo-graphic.webp" alt="Local SEO dashboard" loading="lazy" width="600" height="400" />}
+                {service.slug === 'ppc' && <img src="/media/ppc-graphic.webp" alt="PPC campaign results" loading="lazy" width="600" height="400" />}
+                {service.slug === 'website-design' && <img src="/media/service-presentation.webp" alt="Website design showcase" loading="lazy" width="600" height="400" />}
+                {service.slug === 'tv-streaming-advertising' && <img src="/media/seo-ppc-presentation.webp" alt="TV & streaming advertising" loading="lazy" width="600" height="400" />}
+              </div>
               <h2>{service.name}</h2>
               <p class="service-desc">{service.short_description}</p>
               {service.sub_services && service.sub_services.length > 0 && (
@@ -99,6 +105,8 @@ const breadcrumbItems = [
     .service-row { grid-template-columns: 1.5fr 1fr; align-items: start; }
   }
 
+  .service-img-wrapper { margin-bottom: var(--space-lg); border-radius: 10px; overflow: hidden; }
+  .service-img-wrapper img { width: 100%; height: auto; display: block; }
   .service-info h2 { font-size: var(--text-2xl); margin-bottom: var(--space-sm); }
   .service-desc { color: var(--color-text-light); margin-bottom: var(--space-md); line-height: var(--leading-relaxed); }
 

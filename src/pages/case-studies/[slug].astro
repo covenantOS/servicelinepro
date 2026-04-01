@@ -71,6 +71,11 @@ const schema = {
 
   <section class="cs-hero">
     <div class="cs-hero-bg"></div>
+    {caseStudy.image && (
+      <div class="cs-hero-image-bg">
+        <img src={`/media/case-studies/${caseStudy.image}`} alt="" aria-hidden="true" />
+      </div>
+    )}
     <div class="container cs-hero-inner">
       <Breadcrumbs items={breadcrumbItems} />
       <div class="cs-hero-tags">
@@ -97,6 +102,17 @@ const schema = {
     </div>
   </section>
 
+  <!-- Featured Image -->
+  {caseStudy.image && (
+    <section class="cs-featured-image">
+      <div class="container">
+        <div class="cs-image-wrapper">
+          <img src={`/media/case-studies/${caseStudy.image}`} alt={`${caseStudy.title} case study results`} loading="eager" width="1200" height="680" />
+        </div>
+      </div>
+    </section>
+  )}
+
   <section class="cs-content section">
     <div class="container content-layout">
       <div class="main-content">
@@ -117,10 +133,17 @@ const schema = {
             <div class="related-grid">
               {relatedStudies.map(cs => (
                 <a href={`/case-studies/${cs.slug}/`} class="related-card">
-                  <span class="related-category">{cs.category}</span>
-                  <h3>{cs.metrics?.primary || cs.result}</h3>
-                  <span class="related-client">{cs.title}</span>
-                  <span class="card-link">Read Case Study &rarr;</span>
+                  {cs.image && (
+                    <div class="related-card-image">
+                      <img src={`/media/case-studies/${cs.image}`} alt={`${cs.title} results`} loading="lazy" width="400" height="225" />
+                    </div>
+                  )}
+                  <div class="related-card-body">
+                    <span class="related-category">{cs.category}</span>
+                    <h3>{cs.metrics?.primary || cs.result}</h3>
+                    <span class="related-client">{cs.title}</span>
+                    <span class="card-link">Read Case Study &rarr;</span>
+                  </div>
                 </a>
               ))}
             </div>
@@ -150,8 +173,38 @@ const schema = {
       radial-gradient(circle at 15% 85%, rgba(192,57,43,0.12) 0%, transparent 45%),
       radial-gradient(circle at 85% 15%, rgba(59,130,246,0.06) 0%, transparent 35%);
     pointer-events: none;
+    z-index: 1;
   }
-  .cs-hero-inner { position: relative; z-index: 1; }
+  .cs-hero-image-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+  .cs-hero-image-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.08;
+    filter: grayscale(100%);
+  }
+  .cs-hero-inner { position: relative; z-index: 2; }
+
+  /* Featured image section */
+  .cs-featured-image {
+    background: var(--color-white);
+    padding: var(--space-xl) 0 0;
+  }
+  .cs-image-wrapper {
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    border: 1px solid var(--color-gray-200);
+  }
+  .cs-image-wrapper img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
 
   .cs-hero-tags { display: flex; gap: 0.5rem; margin-bottom: var(--space-md); flex-wrap: wrap; }
   .cs-badge {
@@ -211,31 +264,33 @@ const schema = {
   .cs-result-primary .cs-result-value { color: var(--color-primary); font-size: var(--text-2xl); }
   .cs-result-label { font-size: 0.7rem; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 0.25rem; }
 
-  .content-layout {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: var(--space-2xl);
-  }
-  @media (min-width: 1024px) {
-    .content-layout {
-      grid-template-columns: 1fr 300px;
-    }
-  }
-
   .related-studies { margin-top: var(--space-3xl); }
   .related-studies h2 { margin-bottom: var(--space-lg); }
   .related-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: var(--space-lg); }
   .related-card {
     display: block;
-    padding: var(--space-lg);
     background: var(--color-white);
     border: 1px solid var(--color-gray-200);
     border-radius: 10px;
+    overflow: hidden;
     text-decoration: none;
     color: inherit;
-    transition: transform 0.15s, box-shadow 0.15s;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
   }
-  .related-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.1); }
+  .related-card:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(0,0,0,0.1); }
+  .related-card-image {
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: var(--color-dark);
+  }
+  .related-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+  .related-card:hover .related-card-image img { transform: scale(1.04); }
+  .related-card-body { padding: var(--space-md) var(--space-lg) var(--space-lg); }
   .related-category { display: inline-block; font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-primary); margin-bottom: var(--space-sm); }
   .related-card h3 { font-size: var(--text-lg); margin-bottom: var(--space-xs); }
   .related-client { display: block; font-size: var(--text-sm); color: var(--color-text-muted); margin-bottom: var(--space-sm); }

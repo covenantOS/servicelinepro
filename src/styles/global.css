@@ -407,9 +407,14 @@ strong {
   gap: var(--space-2xl);
 }
 
+.content-layout > * {
+  min-width: 0;
+}
+
 @media (min-width: 1024px) {
   .content-layout {
     grid-template-columns: 1fr var(--sidebar-width);
+    align-items: start;
   }
 
   .content-layout > .main-content {

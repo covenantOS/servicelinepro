@@ -381,10 +381,6 @@ const nearbyAreas = config.areas.filter(a => a.slug !== area.slug);
   .area-hero-stat-val { font-family: var(--font-heading); font-size: var(--text-lg); font-weight: 800; color: var(--color-primary); }
   .area-hero-stat-label { font-size: 0.7rem; color: rgba(255,255,255,0.4); }
 
-  /* Content Layout */
-  .content-layout { display: grid; grid-template-columns: 1fr; gap: var(--space-2xl); }
-  @media (min-width: 1024px) { .content-layout { grid-template-columns: 1fr 300px; } }
-
   .prose :global(h2) { font-size: var(--text-2xl); margin-top: var(--space-2xl); margin-bottom: var(--space-md); }
   .prose :global(h3) { font-size: var(--text-xl); margin-top: var(--space-xl); margin-bottom: var(--space-sm); }
   .prose :global(p) { color: var(--color-text-light); line-height: var(--leading-relaxed); }
