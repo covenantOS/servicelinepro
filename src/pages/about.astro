@@ -25,7 +25,7 @@ const pageDescription = "ServiceLine Pro is a Tampa-based marketing agency speci
         <p class="about-hero-desc">Most agencies are built to extract. We are built to partner. If our clients do not grow, we do not grow.</p>
       </div>
       <div class="about-hero-photo">
-        <img src="/media/team.webp" alt="ServiceLine Pro team" width="480" height="360" loading="eager" />
+        <img src="/media/about-hero.webp" alt="ServiceLine Pro team" width="480" height="360" loading="eager" />
       </div>
     </div>
   </section>
@@ -76,12 +76,35 @@ const pageDescription = "ServiceLine Pro is a Tampa-based marketing agency speci
 
         <div class="about-card team-card">
           <h3>Leadership</h3>
-          {config.business.team?.map(member => (
-            <div class="team-member">
-              <strong>{member.name}</strong>
-              <span>{member.role}</span>
+          <div class="team-member">
+            <img src="/media/team-will-opt.webp" alt="William Hamilton" class="team-thumb" width="48" height="48" />
+            <div>
+              <strong>William Hamilton</strong>
+              <span>CEO & Founder</span>
             </div>
-          ))}
+          </div>
+          <div class="team-member">
+            <img src="/media/team-member-2-opt.webp" alt="Victoria Hamilton" class="team-thumb" width="48" height="48" />
+            <div>
+              <strong>Victoria Hamilton</strong>
+              <span>Director of Operations</span>
+            </div>
+          </div>
+          <div class="team-member">
+            <img src="/media/team-member-3-opt.webp" alt="Daniel Gomez" class="team-thumb" width="48" height="48" />
+            <div>
+              <strong>Daniel Gomez</strong>
+              <span>Director of Fulfillment</span>
+            </div>
+          </div>
+          <div class="team-member">
+            <img src="/media/team-member-4-opt.webp" alt="Kevin Morales" class="team-thumb" width="48" height="48" />
+            <div>
+              <strong>Kevin Morales</strong>
+              <span>SEO Manager</span>
+            </div>
+          </div>
+          <a href="#team" class="team-see-all">See Full Team &darr;</a>
         </div>
 
         <div class="about-card cta-card">
@@ -90,6 +113,82 @@ const pageDescription = "ServiceLine Pro is a Tampa-based marketing agency speci
           <a href="/contact" class="btn btn-primary btn-block">Book Now</a>
         </div>
       </aside>
+    </div>
+  </section>
+
+  <!-- ===== TEAM SECTION ===== -->
+  <section class="about-section" id="team">
+    <div class="container">
+      <div class="section-header-center">
+        <span class="section-eyebrow">The People</span>
+        <h2>Meet the Team</h2>
+        <p class="section-sub">A lean, senior team where every person touches your account directly. No junior handoffs.</p>
+      </div>
+      <div class="team-grid">
+        <div class="team-card-full">
+          <div class="team-card-photo">
+            <img src="/media/team-will-opt.webp" alt="William Hamilton" width="400" height="471" loading="lazy" />
+          </div>
+          <div class="team-card-info">
+            <h3>William Hamilton</h3>
+            <span class="team-card-role">CEO & Founder</span>
+          </div>
+        </div>
+        <div class="team-card-full">
+          <div class="team-card-photo">
+            <img src="/media/team-member-2-opt.webp" alt="Victoria Hamilton" width="400" height="471" loading="lazy" />
+          </div>
+          <div class="team-card-info">
+            <h3>Victoria Hamilton</h3>
+            <span class="team-card-role">Director of Operations</span>
+          </div>
+        </div>
+        <div class="team-card-full">
+          <div class="team-card-photo">
+            <img src="/media/team-member-3-opt.webp" alt="Daniel Gomez" width="400" height="471" loading="lazy" />
+          </div>
+          <div class="team-card-info">
+            <h3>Daniel Gomez</h3>
+            <span class="team-card-role">Director of Fulfillment</span>
+          </div>
+        </div>
+        <div class="team-card-full">
+          <div class="team-card-photo">
+            <img src="/media/team-member-4-opt.webp" alt="Kevin Morales" width="400" height="471" loading="lazy" />
+          </div>
+          <div class="team-card-info">
+            <h3>Kevin Morales</h3>
+            <span class="team-card-role">SEO Manager</span>
+          </div>
+        </div>
+        <div class="team-card-full team-card-text">
+          <div class="team-card-no-photo">
+            <span class="team-card-initials">JG</span>
+          </div>
+          <div class="team-card-info">
+            <h3>Jonah Galobardi</h3>
+            <span class="team-card-role">Regional Sales Director</span>
+          </div>
+        </div>
+        <div class="team-card-full team-card-text">
+          <div class="team-card-no-photo">
+            <span class="team-card-initials">RH</span>
+          </div>
+          <div class="team-card-info">
+            <h3>Rayssa Hamilton</h3>
+            <span class="team-card-role">Client Experience Manager</span>
+          </div>
+        </div>
+        <div class="team-card-full team-card-text">
+          <div class="team-card-no-photo">
+            <span class="team-card-initials">CH</span>
+          </div>
+          <div class="team-card-info">
+            <h3>Cade Hansen</h3>
+            <span class="team-card-role">Video Director</span>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -210,10 +309,30 @@ const pageDescription = "ServiceLine Pro is a Tampa-based marketing agency speci
   .about-details { display: grid; grid-template-columns: auto 1fr; gap: 0.5rem var(--space-md); }
   .about-details dt { font-size: var(--text-sm); color: var(--color-text-light); font-weight: 600; }
   .about-details dd { font-size: var(--text-sm); margin: 0; }
-  .team-member { display: flex; flex-direction: column; padding: 0.5rem 0; border-bottom: 1px solid var(--color-gray-100); }
+  .team-member { display: flex; align-items: center; gap: 0.75rem; padding: 0.5rem 0; border-bottom: 1px solid var(--color-gray-100); }
   .team-member:last-child { border-bottom: none; }
-  .team-member strong { font-size: var(--text-sm); }
+  .team-member strong { font-size: var(--text-sm); display: block; }
   .team-member span { font-size: var(--text-xs); color: var(--color-text-light); }
+  .team-thumb { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; flex-shrink: 0; }
+  .team-see-all { display: block; text-align: center; font-size: var(--text-sm); font-weight: 600; color: var(--color-primary); text-decoration: none; margin-top: var(--space-sm); padding-top: var(--space-sm); border-top: 1px solid var(--color-gray-100); }
+  .team-see-all:hover { text-decoration: underline; }
+
+  /* Full team grid */
+  .section-header-center { text-align: center; max-width: 600px; margin: 0 auto var(--space-2xl); }
+  .section-sub { color: var(--color-text-light); font-size: var(--text-base); margin-top: var(--space-sm); }
+  .team-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-lg); }
+  @media (min-width: 768px) { .team-grid { grid-template-columns: repeat(3, 1fr); } }
+  @media (min-width: 1024px) { .team-grid { grid-template-columns: repeat(4, 1fr); } }
+  .team-card-full { background: var(--color-white); border: 1px solid var(--color-gray-200); border-radius: 10px; overflow: hidden; transition: transform 0.2s, box-shadow 0.2s; }
+  .team-card-full:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(0,0,0,0.1); }
+  .team-card-photo { aspect-ratio: 400/471; overflow: hidden; background: var(--color-gray-100); }
+  .team-card-photo img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
+  .team-card-full:hover .team-card-photo img { transform: scale(1.03); }
+  .team-card-info { padding: var(--space-md); }
+  .team-card-info h3 { font-size: var(--text-base); margin-bottom: 2px; text-transform: none; }
+  .team-card-role { font-size: var(--text-sm); color: var(--color-text-light); }
+  .team-card-no-photo { aspect-ratio: 400/471; overflow: hidden; background: linear-gradient(135deg, var(--color-dark) 0%, #2c2c2c 100%); display: flex; align-items: center; justify-content: center; }
+  .team-card-initials { font-family: var(--font-heading); font-size: 3rem; font-weight: 800; color: rgba(255,255,255,0.15); letter-spacing: 0.05em; }
   .cta-card { background: var(--color-dark); color: var(--color-white); border: none; }
   .cta-card h3 { color: var(--color-white); }
   .cta-card p { color: rgba(255,255,255,0.7); margin-bottom: var(--space-md); font-size: var(--text-sm); }
