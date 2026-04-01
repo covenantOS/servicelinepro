@@ -1,0 +1,93 @@
+---
+interface Props {
+  stats: Array<{value: string, label: string}>;
+  variant?: 'primary' | 'dark' | 'light';
+}
+const { stats, variant = 'primary' } = Astro.props;
+---
+
+<section class={`stat-callout stat-callout-${variant}`}>
+  <div class="container stat-callout-inner">
+    {stats.map(stat => (
+      <div class="stat-callout-item">
+        <span class="stat-callout-value">{stat.value}</span>
+        <span class="stat-callout-label">{stat.label}</span>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  .stat-callout {
+    padding: var(--space-2xl) 0;
+  }
+  .stat-callout-inner {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-3xl);
+    flex-wrap: wrap;
+  }
+  .stat-callout-item {
+    text-align: center;
+    min-width: 140px;
+  }
+  .stat-callout-value {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: var(--text-3xl);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: var(--space-xs);
+  }
+  .stat-callout-label {
+    display: block;
+    font-size: var(--text-sm);
+    font-weight: 500;
+    letter-spacing: 0.02em;
+  }
+
+  /* Primary variant: brand red background */
+  .stat-callout-primary {
+    background: var(--color-primary);
+  }
+  .stat-callout-primary .stat-callout-value {
+    color: #ffffff;
+  }
+  .stat-callout-primary .stat-callout-label {
+    color: rgba(255,255,255,0.85);
+  }
+
+  /* Dark variant */
+  .stat-callout-dark {
+    background: var(--color-dark);
+  }
+  .stat-callout-dark .stat-callout-value {
+    color: var(--color-primary);
+  }
+  .stat-callout-dark .stat-callout-label {
+    color: rgba(255,255,255,0.65);
+  }
+
+  /* Light variant */
+  .stat-callout-light {
+    background: var(--color-gray-100);
+  }
+  .stat-callout-light .stat-callout-value {
+    color: var(--color-dark);
+  }
+  .stat-callout-light .stat-callout-label {
+    color: var(--color-text-muted);
+  }
+
+  @media (max-width: 768px) {
+    .stat-callout-inner {
+      gap: var(--space-xl);
+    }
+    .stat-callout-value {
+      font-size: var(--text-2xl);
+    }
+    .stat-callout-item {
+      min-width: 120px;
+    }
+  }
+</style>

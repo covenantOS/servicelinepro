@@ -40,9 +40,9 @@ const description = config.business.description;
     <div class="container">
       <StatBar stats={[
         { value: '5.0 ★', label: 'Google Rating' },
-        { value: '20+', label: 'Five-Star Reviews' },
-        { value: '$2M+', label: 'Revenue Generated' },
-        { value: '300+', label: 'Leads Delivered' },
+        { value: '5.0\u2605', label: 'Google Rating' },
+        { value: '$10M+', label: 'Revenue Generated for Clients' },
+        { value: '2,500+', label: 'Leads Delivered' },
       ]} variant="dark" />
       <LogoStrip items={['Spectrum Reach', 'Google Partner', 'Yahoo', 'TAG Certified']} variant="dark" label="Trusted Partnerships" />
     </div>
@@ -403,7 +403,7 @@ const description = config.business.description;
     .boost-grid { grid-template-columns: 1.2fr 1fr; }
   }
   .boost-content h2 { color: var(--color-white); margin-bottom: var(--space-md); }
-  .boost-lead { color: rgba(255,255,255,0.7); line-height: 1.7; margin-bottom: var(--space-xl); max-width: 520px; }
+  .boost-lead { color: rgba(255,255,255,0.85); line-height: 1.7; margin-bottom: var(--space-xl); max-width: 520px; }
   .boost-metrics {
     display: flex; gap: var(--space-xl); margin-bottom: var(--space-xl);
     padding: var(--space-lg) 0; border-top: 1px solid rgba(255,255,255,0.08);
@@ -424,7 +424,7 @@ const description = config.business.description;
   .spectrum-grid { display: grid; grid-template-columns: 1fr; gap: var(--space-2xl); }
   @media (min-width: 1024px) { .spectrum-grid { grid-template-columns: 1fr 1fr; align-items: center; } }
   .spectrum-content h2 { color: var(--color-white); margin-bottom: var(--space-md); }
-  .spectrum-lead { color: rgba(255,255,255,0.7); line-height: 1.7; max-width: 480px; }
+  .spectrum-lead { color: rgba(255,255,255,0.85); line-height: 1.7; max-width: 480px; }
   .spectrum-lead :global(strong) { color: var(--color-white); }
   .spectrum-certs { display: flex; flex-wrap: wrap; gap: var(--space-sm); margin-top: var(--space-md); }
   .spectrum-cert { font-size: 0.7rem; font-weight: 600; padding: 0.25rem 0.75rem; border: 1px solid rgba(255,255,255,0.15); border-radius: 4px; color: rgba(255,255,255,0.5); }
@@ -478,7 +478,7 @@ const description = config.business.description;
   .industry-chip {
     display: inline-block; padding: 0.5rem 1.25rem;
     border: 1px solid rgba(255,255,255,0.15); border-radius: 6px;
-    font-size: var(--text-sm); color: rgba(255,255,255,0.7);
+    font-size: var(--text-sm); color: rgba(255,255,255,0.85);
     text-decoration: none; transition: all 0.15s;
   }
   .industry-chip:hover { border-color: var(--color-primary); color: var(--color-white); background: rgba(192,57,43,0.15); }
@@ -487,7 +487,7 @@ const description = config.business.description;
   .leadmag-grid { display: grid; grid-template-columns: 1fr; gap: var(--space-2xl); }
   @media (min-width: 1024px) { .leadmag-grid { grid-template-columns: 1fr 1fr; align-items: start; } }
   .leadmag-content h2 { color: var(--color-white); }
-  .leadmag-lead { color: rgba(255,255,255,0.7); line-height: 1.7; margin-bottom: var(--space-lg); max-width: 480px; }
+  .leadmag-lead { color: rgba(255,255,255,0.85); line-height: 1.7; margin-bottom: var(--space-lg); max-width: 480px; }
   .leadmag-includes { list-style: none; padding: 0; }
   .leadmag-includes li { padding: 0.4rem 0; padding-left: 1.5rem; position: relative; font-size: var(--text-sm); color: rgba(255,255,255,0.65); }
   .leadmag-includes li::before { content: ''; position: absolute; left: 0; top: 0.6rem; width: 8px; height: 8px; border-radius: 50%; background: var(--color-primary); }

@@ -1,0 +1,75 @@
+---
+interface Props {
+  imagePosition?: 'left' | 'right';
+  imageSrc: string;
+  imageAlt?: string;
+  darkBg?: boolean;
+}
+const { imagePosition = 'right', imageSrc, imageAlt = '', darkBg = false } = Astro.props;
+---
+
+<div class={`split-content ${darkBg ? 'split-content-dark' : 'split-content-light'} ${imagePosition === 'left' ? 'split-content-img-left' : ''}`}>
+  <div class="split-content-text">
+    <slot />
+  </div>
+  <div class="split-content-image">
+    <img src={imageSrc} alt={imageAlt} width="520" height="400" loading="lazy" />
+  </div>
+</div>
+
+<style>
+  .split-content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-2xl);
+    align-items: center;
+  }
+  @media (min-width: 1024px) {
+    .split-content {
+      grid-template-columns: 1.1fr 0.9fr;
+    }
+    .split-content-img-left {
+      grid-template-columns: 0.9fr 1.1fr;
+    }
+    .split-content-img-left .split-content-image {
+      order: -1;
+    }
+  }
+
+  .split-content-text {
+    max-width: 560px;
+  }
+
+  .split-content-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+  }
+  .split-content-dark .split-content-image img {
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  }
+
+  /* Hide image on mobile */
+  .split-content-image { display: none; }
+  @media (min-width: 1024px) {
+    .split-content-image { display: block; }
+  }
+
+  /* Dark variant text styles */
+  .split-content-dark :global(h2),
+  .split-content-dark :global(h3),
+  .split-content-dark :global(h4) {
+    color: #ffffff;
+  }
+  .split-content-dark :global(p),
+  .split-content-dark :global(li) {
+    color: rgba(255,255,255,0.85);
+  }
+  .split-content-dark :global(strong) {
+    color: #ffffff;
+  }
+  .split-content-dark :global(a) {
+    color: var(--color-primary-light);
+  }
+</style>

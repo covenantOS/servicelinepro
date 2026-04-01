@@ -940,7 +940,7 @@ strong {
 .fw-dark .callout-title { color: var(--color-white); }
 .fw-dark .callout-desc { color: rgba(255,255,255,0.6); }
 .fw-dark .visual-list { border-color: rgba(255,255,255,0.1); }
-.fw-dark .visual-list li { border-color: rgba(255,255,255,0.06); color: rgba(255,255,255,0.7); }
+.fw-dark .visual-list li { border-color: rgba(255,255,255,0.06); color: rgba(255,255,255,0.85); }
 
 /* --- Link Arrow --- */
 .link-arrow {

@@ -8,6 +8,9 @@ import IconBulletList from '../../components/IconBulletList.astro';
 import StatBar from '../../components/StatBar.astro';
 import FeatureGrid from '../../components/FeatureGrid.astro';
 import HandwrittenCTA from '../../components/HandwrittenCTA.astro';
+import StatCallout from '../../components/StatCallout.astro';
+import SplitContent from '../../components/SplitContent.astro';
+import IconCardGrid from '../../components/IconCardGrid.astro';
 import config from '../../lib/config';
 import { renderMarkdown, splitMarkdownSections } from '../../lib/markdown';
 import InlineTestimonial from '../../components/InlineTestimonial.astro';
@@ -146,6 +149,79 @@ const eyebrows: Record<string, string> = {
   'tv-streaming-advertising': 'TV & Streaming Advertising',
 };
 
+const serviceIconCards: Record<string, Array<{icon: string, title: string, description: string}>> = {
+  'local-seo': [
+    { icon: 'map', title: 'Google Business Profile', description: 'Full optimization of your GBP listing with weekly updates, photo uploads, and review management.' },
+    { icon: 'target', title: 'Citation Building', description: 'Consistent NAP across 60+ directories. We fix existing errors and build authority signals.' },
+    { icon: 'bar', title: 'Geo-Grid Tracking', description: 'See exactly where you rank across your service area with visual geo-grid reports every month.' },
+    { icon: 'zap', title: '10-Day Free Boost', description: 'No credit card required. We optimize your profile and boost local signals at zero cost.' },
+    { icon: 'star', title: 'Review Strategy', description: 'Automated review request flows and reputation monitoring to build social proof.' },
+    { icon: 'chart', title: 'Monthly Reporting', description: 'Transparent dashboards showing rankings, calls, and direction requests month over month.' },
+  ],
+  'ppc': [
+    { icon: 'money', title: '$0 Agency Fee', description: 'On ad spend of $5K+/month, 100% of your budget funds your campaigns. Zero management fees.' },
+    { icon: 'target', title: 'First-Party Data', description: 'Access to 30M+ household records for precision targeting that third-party cookies cannot match.' },
+    { icon: 'globe', title: 'Multi-Platform Ads', description: 'Your campaigns run across Google, Bing, AND Yahoo simultaneously from one dashboard.' },
+    { icon: 'chart', title: '30-50% Higher CTR', description: 'First-party data targeting delivers dramatically better click-through rates than standard campaigns.' },
+    { icon: 'zap', title: '1-2 Week Launch', description: 'From strategy call to live campaigns in under two weeks. No months-long onboarding.' },
+    { icon: 'eye', title: 'Full Attribution', description: 'Track every call, form fill, and booked job back to the exact ad and keyword.' },
+  ],
+  'website-design': [
+    { icon: 'zap', title: 'Sub-2s Load Times', description: 'Performance-first architecture. Every site loads in under 2 seconds on mobile and desktop.' },
+    { icon: 'phone', title: 'Conversion Focused', description: 'Every element is designed to convert visitors into phone calls and booked appointments.' },
+    { icon: 'shield', title: 'You Own Everything', description: 'Your site, your domain, your data. No hostage situations. Leave anytime with everything.' },
+    { icon: 'code', title: 'Mobile-First Design', description: 'Built for the 70%+ of your customers who find you on their phones first.' },
+    { icon: 'chart', title: '100/100 PageSpeed', description: 'Perfect Google PageSpeed scores mean better rankings and better user experience.' },
+    { icon: 'globe', title: 'SEO Built In', description: 'Schema markup, meta tags, sitemap, and technical SEO configured from day one.' },
+  ],
+  'tv-streaming-advertising': [
+    { icon: 'tv', title: 'Free Video Production', description: 'Professional broadcast-quality commercials included at no extra cost for Florida clients.' },
+    { icon: 'globe', title: '30M+ Households', description: 'Reach audiences across 36 states through connected TV, streaming, and linear TV.' },
+    { icon: 'eye', title: 'Full Attribution', description: 'Track every impression, view, and conversion with complete campaign attribution.' },
+    { icon: 'target', title: 'Precision Targeting', description: 'Target by geography, demographics, interests, and viewing habits for maximum efficiency.' },
+    { icon: 'chart', title: 'Cross-Platform', description: 'Connected TV, streaming apps, and linear TV combined into one cohesive campaign.' },
+    { icon: 'zap', title: 'Fast Turnaround', description: 'From concept to on-air in weeks, not months. Quick iteration on creative and targeting.' },
+  ],
+};
+const iconCards = serviceIconCards[service.slug] || serviceIconCards['local-seo'];
+
+const serviceStatCallouts: Record<string, Array<{value: string, label: string}>> = {
+  'local-seo': [
+    { value: '+47%', label: 'Search Appearances' },
+    { value: 'Top 3', label: 'Map Pack Rankings' },
+    { value: '10 Days', label: 'Free SEO Boost' },
+    { value: '5.0\u2605', label: 'Google Rating' },
+  ],
+  'ppc': [
+    { value: '$0', label: 'Agency Fee' },
+    { value: '30M+', label: 'Households' },
+    { value: '33%', label: 'Lower CPC' },
+    { value: '1-2 Weeks', label: 'To Launch' },
+  ],
+  'website-design': [
+    { value: 'Sub-2s', label: 'Load Time' },
+    { value: '100/100', label: 'PageSpeed' },
+    { value: 'Mobile-First', label: 'Every Build' },
+    { value: 'You Own It', label: 'Always' },
+  ],
+  'tv-streaming-advertising': [
+    { value: 'FREE', label: 'Video Production' },
+    { value: '30M+', label: 'Households' },
+    { value: '36', label: 'States' },
+    { value: '100%', label: 'Attribution' },
+  ],
+};
+const statCalloutData = serviceStatCallouts[service.slug] || serviceStatCallouts['local-seo'];
+
+const serviceImages: Record<string, string[]> = {
+  'local-seo': ['/media/local-seo-graphic.webp', '/media/live-local-map-ranker.webp', '/media/seo-ppc-presentation.webp'],
+  'ppc': ['/media/ppc-graphic.webp', '/media/live-pay-per-result.webp', '/media/live-presentation.png'],
+  'website-design': ['/media/live-website-designs.webp', '/media/case-studies/Website-Design-1.webp', '/media/service-presentation.webp'],
+  'tv-streaming-advertising': ['/media/service-presentation.webp', '/media/live-presentation.png', '/media/seo-ppc-presentation.webp'],
+};
+const images = serviceImages[service.slug] || ['/media/service-presentation.webp', '/media/live-presentation.png', '/media/seo-ppc-presentation.webp'];
+const isWebDesign = service.slug === 'website-design';
+
 const schema = {
   '@context': 'https://schema.org',
   '@type': 'Service',
@@ -194,29 +270,27 @@ const schema = {
         </div>
       ) : (
         <StatBar stats={[
-          { value: '5.0 ★', label: 'Google Rating' },
-          { value: '$2M+', label: 'Revenue Generated' },
-          { value: '300+', label: 'Leads Delivered' },
+          { value: '5.0 \u2605', label: 'Google Rating' },
+          { value: '$10M+', label: 'Revenue Generated for Clients' },
+          { value: '2,500+', label: 'Leads Delivered' },
         ]} variant="dark" />
       )}
     </div>
   </section>
 
-  <!-- ===== VALUE PROPOSITION — Dark Split ===== -->
+  <!-- ===== VALUE PROPOSITION — Split Layout with Image ===== -->
   {contentSections.length > 0 && (
-    <section class="svc-section svc-dark">
-      <div class="container svc-split-grid">
-        <div class="svc-split-text">
-          <div class="prose" set:html={contentSections[0].html} />
-        </div>
-        <div class="svc-split-visual">
-          {isLocalSEO && <img src="/media/local-seo-graphic.webp" alt="Local SEO results" width="520" height="400" loading="lazy" />}
-          {isPPC && <img src="/media/ppc-graphic.webp" alt="PPC campaign performance" width="520" height="400" loading="lazy" />}
-          {!isLocalSEO && !isPPC && !isTV && <img src="/media/service-presentation.webp" alt={displayName} width="520" height="400" loading="lazy" />}
-        </div>
+    <section class="svc-section">
+      <div class="container">
+        <SplitContent imageSrc={images[0]} imageAlt={`${displayName} results`} imagePosition="right">
+          <div class="prose svc-prose-short" set:html={contentSections[0].html} />
+        </SplitContent>
       </div>
     </section>
   )}
+
+  <!-- ===== STAT CALLOUT BAR ===== -->
+  <StatCallout stats={statCalloutData} variant="primary" />
 
   <!-- ===== TESTIMONIAL 1 ===== -->
   {inlineReview && (
@@ -236,16 +310,14 @@ const schema = {
     </section>
   )}
 
-  <!-- ===== FEATURE GRID — Dark ===== -->
-  {contentSections.length > 1 && (
-    <section class="svc-section svc-dark">
-      <div class="container">
-        <span class="section-eyebrow" style="color: var(--color-primary);">Key Capabilities</span>
-        <h2 style="color: var(--color-white); margin-bottom: var(--space-xl);">What You Get</h2>
-        <div class="prose" set:html={contentSections[1].html} />
-      </div>
-    </section>
-  )}
+  <!-- ===== KEY CAPABILITIES — Icon Card Grid ===== -->
+  <section class="svc-section svc-dark">
+    <div class="container">
+      <span class="section-eyebrow" style="color: var(--color-primary);">Key Capabilities</span>
+      <h2 style="color: #ffffff; margin-bottom: var(--space-xl);">What You Get</h2>
+      <IconCardGrid cards={iconCards} columns={3} darkBg={true} />
+    </div>
+  </section>
 
   <!-- ===== VIDEO PRODUCTION — TV Only ===== -->
   {isTV && (
@@ -255,7 +327,7 @@ const schema = {
           <div class="video-prod-content">
             <span class="section-eyebrow" style="color: var(--color-primary);">Major Differentiator</span>
             <h2 style="color: var(--color-white); margin-bottom: var(--space-md);">Free Professional Video Production</h2>
-            <p style="color: rgba(255,255,255,0.7); line-height: 1.7; margin-bottom: var(--space-lg); max-width: 520px;">Most agencies charge $5,000 to $15,000+ for a single commercial. We include broadcast-quality video production at <strong style="color: var(--color-white);">no extra cost</strong> for Florida clients running TV & streaming campaigns.</p>
+            <p style="color: rgba(255,255,255,0.85); line-height: 1.7; margin-bottom: var(--space-lg); max-width: 520px;">Most agencies charge $5,000 to $15,000+ for a single commercial. We include broadcast-quality video production at <strong style="color: var(--color-white);">no extra cost</strong> for Florida clients running TV & streaming campaigns.</p>
             <div class="video-prod-highlights">
               <div class="vp-highlight">
                 <span class="vp-highlight-val">FREE</span>
@@ -314,11 +386,18 @@ const schema = {
     </section>
   )}
 
-  <!-- ===== MORE CONTENT — Intentional Dark/White Rhythm ===== -->
-  {contentSections.slice(2).map((section, i) => (
-    <section class={`svc-section ${i % 2 === 0 ? 'svc-dark' : ''}`}>
-      <div class="container" style="max-width: 800px;">
-        <div class="prose" set:html={section.html} />
+  <!-- ===== MORE CONTENT — Alternating Split Layouts ===== -->
+  {contentSections.slice(1).map((section, i) => (
+    <section class={`svc-section ${i % 2 === 0 ? '' : 'svc-dark'}`}>
+      <div class="container">
+        <SplitContent
+          imageSrc={images[(i + 1) % images.length]}
+          imageAlt={displayName}
+          imagePosition={i % 2 === 0 ? 'left' : 'right'}
+          darkBg={i % 2 !== 0}
+        >
+          <div class="prose svc-prose-short" set:html={section.html} />
+        </SplitContent>
       </div>
     </section>
   ))}
@@ -652,9 +731,9 @@ const schema = {
     pointer-events: none;
   }
   .svc-dark > * { position: relative; z-index: 1; }
-  .svc-dark h2, .svc-dark h3, .svc-dark h4 { color: var(--color-white); }
-  .svc-dark p, .svc-dark li { color: rgba(255,255,255,0.7); }
-  .svc-dark strong { color: var(--color-white); }
+  .svc-dark h2, .svc-dark h3, .svc-dark h4 { color: #ffffff; }
+  .svc-dark p, .svc-dark li { color: rgba(255,255,255,0.85); }
+  .svc-dark strong { color: #ffffff; }
   .svc-dark a { color: var(--color-primary-light); }
   .svc-dark .prose h2::before { background: var(--color-primary); }
   .svc-dark h3 { text-transform: none; }
@@ -736,7 +815,7 @@ const schema = {
   .svc-chip {
     display: inline-block; padding: 0.5rem 1.25rem;
     border: 1px solid rgba(255,255,255,0.15); border-radius: 6px;
-    font-size: var(--text-sm); color: rgba(255,255,255,0.7);
+    font-size: var(--text-sm); color: rgba(255,255,255,0.85);
     text-decoration: none; transition: all 0.15s;
   }
   .svc-chip:hover { border-color: var(--color-primary); color: var(--color-white); background: rgba(192,57,43,0.15); }
@@ -846,7 +925,7 @@ const schema = {
     padding-left: 1.5rem;
     position: relative;
     font-size: var(--text-sm);
-    color: rgba(255,255,255,0.7);
+    color: rgba(255,255,255,0.85);
     border-bottom: 1px solid rgba(255,255,255,0.06);
   }
   .vp-card-list li::before {
@@ -856,4 +935,52 @@ const schema = {
     color: var(--color-primary);
     font-weight: 700;
   }
+
+  /* ===== PROSE SHORT — Collapse long content ===== */
+  .svc-prose-short {
+    max-width: 560px;
+  }
+  .svc-prose-short :global(p:nth-child(n+4)),
+  .svc-prose-short :global(ul:nth-child(n+5)),
+  .svc-prose-short :global(ol:nth-child(n+5)) {
+    display: none;
+  }
+  .svc-prose-short.expanded :global(p:nth-child(n+4)),
+  .svc-prose-short.expanded :global(ul:nth-child(n+5)),
+  .svc-prose-short.expanded :global(ol:nth-child(n+5)) {
+    display: block;
+  }
+  .read-more-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    margin-top: var(--space-md);
+    font-family: var(--font-heading);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--color-primary);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem 0;
+    transition: color 0.15s;
+  }
+  .read-more-btn:hover { color: var(--color-primary-dark); }
+  .svc-dark .read-more-btn { color: var(--color-primary-light); }
 </style>
+
+<script>
+  document.querySelectorAll('.svc-prose-short').forEach(prose => {
+    const hiddenEls = prose.querySelectorAll('p:nth-child(n+4), ul:nth-child(n+5), ol:nth-child(n+5)');
+    if (hiddenEls.length > 0) {
+      const btn = document.createElement('button');
+      btn.className = 'read-more-btn';
+      btn.textContent = 'Read More \u2193';
+      btn.addEventListener('click', () => {
+        prose.classList.toggle('expanded');
+        btn.textContent = prose.classList.contains('expanded') ? 'Show Less \u2191' : 'Read More \u2193';
+      });
+      prose.appendChild(btn);
+    }
+  });
+</script>
