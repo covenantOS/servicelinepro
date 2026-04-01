@@ -94,8 +94,8 @@ const schema = {
     <div class="container">
       <StatBar stats={[
         { value: '5.0 ★', label: 'Google Rating' },
-        { value: '$2M+', label: 'Revenue Generated' },
-        { value: '300+', label: 'Leads Delivered' },
+        { value: 'No Contracts', label: 'Month-to-Month' },
+        { value: 'Tampa, FL', label: 'Headquartered' },
       ]} variant="dark" />
     </div>
   </section>
@@ -249,7 +249,7 @@ const schema = {
 
 <style>
   .combo-hero {
-    min-height: 60vh;
+    min-height: auto;
     display: flex;
     align-items: center;
     background: var(--color-dark);
@@ -271,7 +271,7 @@ const schema = {
   .badge { display: inline-block; padding: 0.25rem 0.75rem; border-radius: 4px; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; }
   .badge-industry { background: rgba(192,57,43,0.15); color: var(--color-primary); border: 1px solid rgba(192,57,43,0.2); }
   .badge-service { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.8); border: 1px solid rgba(255,255,255,0.15); }
-  .combo-hero h1 { color: var(--color-white); margin-bottom: var(--space-sm); }
+  .combo-hero h1 { color: var(--color-white); margin-bottom: var(--space-sm); font-size: var(--text-4xl); }
   .combo-hero-desc { color: rgba(255,255,255,0.7); font-size: var(--text-lg); margin-bottom: var(--space-lg); line-height: 1.6; }
   .combo-hero-ctas { display: flex; gap: var(--space-md); flex-wrap: wrap; }
 

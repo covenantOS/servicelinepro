@@ -144,19 +144,19 @@ const nearbyAreas = config.areas.filter(a => a.slug !== area.slug);
         <a href={`tel:${config.business.phone_raw}`} class="btn btn-outline-light">{config.business.phone}</a>
       </div>
 
-      {/* Results preview strip */}
+      {/* Trust signals */}
       <div class="area-hero-stats">
         <div class="area-hero-stat">
-          <span class="area-hero-stat-val">{config.case_studies.length}+</span>
-          <span class="area-hero-stat-label">Client Campaigns</span>
-        </div>
-        <div class="area-hero-stat">
-          <span class="area-hero-stat-val">$2M+</span>
-          <span class="area-hero-stat-label">Revenue Generated</span>
-        </div>
-        <div class="area-hero-stat">
           <span class="area-hero-stat-val">5.0★</span>
-          <span class="area-hero-stat-label">Client Rating</span>
+          <span class="area-hero-stat-label">Google Rating</span>
+        </div>
+        <div class="area-hero-stat">
+          <span class="area-hero-stat-val">No Contracts</span>
+          <span class="area-hero-stat-label">Month-to-Month</span>
+        </div>
+        <div class="area-hero-stat">
+          <span class="area-hero-stat-val">Tampa HQ</span>
+          <span class="area-hero-stat-label">Local Team</span>
         </div>
       </div>
     </div>
@@ -381,8 +381,9 @@ const nearbyAreas = config.areas.filter(a => a.slug !== area.slug);
   .area-hero-stat-val { font-family: var(--font-heading); font-size: var(--text-lg); font-weight: 800; color: var(--color-primary); }
   .area-hero-stat-label { font-size: 0.7rem; color: rgba(255,255,255,0.4); }
 
-  .prose :global(h2) { font-size: var(--text-2xl); margin-top: var(--space-2xl); margin-bottom: var(--space-md); }
-  .prose :global(h3) { font-size: var(--text-xl); margin-top: var(--space-xl); margin-bottom: var(--space-sm); }
+  .prose :global(h1) { font-size: var(--text-2xl); margin-top: var(--space-2xl); margin-bottom: var(--space-md); }
+  .prose :global(h2) { font-size: var(--text-xl); margin-top: var(--space-2xl); margin-bottom: var(--space-md); }
+  .prose :global(h3) { font-size: var(--text-lg); margin-top: var(--space-xl); margin-bottom: var(--space-sm); }
   .prose :global(p) { color: var(--color-text-light); line-height: var(--leading-relaxed); }
   .prose :global(ul), .prose :global(ol) { margin-bottom: 1em; color: var(--color-text-light); }
   .prose :global(li) { margin-bottom: 0.375rem; line-height: var(--leading-relaxed); }

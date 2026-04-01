@@ -584,6 +584,14 @@ strong {
 
 /* --- Prose Content (long-form markdown) --- */
 
+/* Constrain markdown h1 inside prose content so it doesn't inherit the massive global h1 size */
+.prose h1 {
+  font-size: var(--text-2xl);
+  margin-top: var(--space-3xl);
+  margin-bottom: var(--space-lg);
+  padding-top: var(--space-2xl);
+}
+
 .prose h2 {
   font-size: var(--text-2xl);
   margin-top: var(--space-3xl);
