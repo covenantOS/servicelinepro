@@ -161,12 +161,21 @@ const schema = {
   <!-- ===== HERO — Full-Width Dark, Hook Agency Style ===== -->
   <section class="svc-hero">
     <div class="svc-hero-texture"></div>
-    <div class="container svc-hero-inner">
-      <span class="svc-hero-eyebrow">{eyebrows[service.slug] || displayName}</span>
-      <h1>{pageTitle}</h1>
-      <IconBulletList items={proofPoints} variant="dark" />
-      <div class="svc-hero-ctas">
-        <a href="/contact" class="btn btn-ghost btn-lg">Get In Touch</a>
+    <div class="container svc-hero-split">
+      <div class="svc-hero-inner">
+        <span class="svc-hero-eyebrow">{eyebrows[service.slug] || displayName}</span>
+        <h1>{displayName}</h1>
+        <p class="svc-hero-subtitle">{displayDesc}</p>
+        <IconBulletList items={proofPoints} variant="dark" />
+        <div class="svc-hero-ctas">
+          <a href="/contact" class="btn btn-ghost btn-lg">Get In Touch</a>
+        </div>
+      </div>
+      <div class="svc-hero-image">
+        {service.slug === 'ppc' && <img src="/media/ppc-service.webp" alt="No Fee Google Ads Management" width="520" height="400" />}
+        {service.slug === 'local-seo' && <img src="/media/local-seo-graphic.webp" alt="Local SEO Map Pack Rankings" width="520" height="400" />}
+        {service.slug === 'website-design' && <img src="/media/case-studies/Website-Design-1.webp" alt="Custom Website Design" width="520" height="400" />}
+        {service.slug === 'tv-streaming-advertising' && <img src="/media/service-presentation.webp" alt="TV & Streaming Advertising" width="520" height="400" />}
       </div>
     </div>
   </section>
@@ -558,9 +567,42 @@ const schema = {
     color: var(--color-primary);
     margin-bottom: var(--space-lg);
   }
+  .svc-hero-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-2xl);
+    align-items: center;
+  }
+  @media (max-width: 768px) {
+    .svc-hero-split {
+      grid-template-columns: 1fr;
+    }
+    .svc-hero-image { display: none; }
+  }
   .svc-hero h1 {
     color: var(--color-white);
-    margin-bottom: var(--space-md);
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    line-height: 1.1;
+    margin-bottom: var(--space-sm);
+  }
+  .svc-hero-subtitle {
+    color: rgba(255,255,255,0.65);
+    font-size: var(--text-lg);
+    line-height: 1.5;
+    margin-bottom: var(--space-lg);
+    max-width: 520px;
+  }
+  .svc-hero-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .svc-hero-image img {
+    width: 100%;
+    max-width: 520px;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
   }
   .svc-hero-ctas { margin-top: var(--space-xl); }
 
