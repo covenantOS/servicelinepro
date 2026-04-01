@@ -11,8 +11,18 @@ const { items, label = "Trusted by Home Service Businesses", variant = 'dark' } 
 <div class={`logo-strip ${variant}`}>
   {label && <span class="logo-strip-label">{label}</span>}
   <div class="logo-strip-row">
+    <img
+      src="/media/partner-logos-real.webp"
+      alt={items.join(', ')}
+      class="logo-strip-img"
+      width="600"
+      height="60"
+      loading="lazy"
+    />
+  </div>
+  <div class="logo-strip-badges">
     {items.map(name => (
-      <span class="logo-strip-item">{name}</span>
+      <span class="logo-strip-badge">{name}</span>
     ))}
   </div>
 </div>
@@ -40,29 +50,53 @@ const { items, label = "Trusted by Home Service Businesses", variant = 'dark' } 
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-wrap: wrap;
-    gap: var(--space-xl);
+    margin-bottom: var(--space-md);
   }
-  .logo-strip-item {
+  .logo-strip-img {
+    max-width: 100%;
+    height: auto;
+    max-height: 50px;
+    object-fit: contain;
+  }
+  .dark .logo-strip-img {
+    filter: brightness(0) invert(1);
+    opacity: 0.4;
+  }
+  .light .logo-strip-img {
+    opacity: 0.5;
+  }
+  .logo-strip-badges {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+  }
+  .logo-strip-badge {
     font-family: var(--font-heading);
-    font-weight: 700;
-    font-size: var(--text-sm);
+    font-weight: 600;
+    font-size: 0.7rem;
     text-transform: uppercase;
     letter-spacing: 0.06em;
+    padding: 0.3rem 0.75rem;
+    border-radius: 4px;
   }
-  .dark .logo-strip-item {
-    color: rgba(255,255,255,0.25);
+  .dark .logo-strip-badge {
+    color: rgba(255,255,255,0.4);
+    border: 1px solid rgba(255,255,255,0.1);
   }
-  .light .logo-strip-item {
-    color: var(--color-gray-400);
+  .light .logo-strip-badge {
+    color: var(--color-text-muted);
+    border: 1px solid var(--color-gray-200);
   }
 
   @media (max-width: 767px) {
-    .logo-strip-row {
-      gap: var(--space-lg);
+    .logo-strip-img {
+      max-height: 35px;
     }
-    .logo-strip-item {
-      font-size: var(--text-xs);
+    .logo-strip-badge {
+      font-size: 0.6rem;
+      padding: 0.2rem 0.5rem;
     }
   }
 </style>
