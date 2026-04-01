@@ -631,9 +631,12 @@ const schema = {
   .hero-result-value { font-family: var(--font-heading); font-size: var(--text-base); font-weight: 700; color: var(--color-primary); }
   .hero-result-client { font-size: 0.7rem; color: rgba(255,255,255,0.4); }
 
-  /* === FULL-WIDTH SECTION SYSTEM === */
+  /* === FULL-WIDTH SECTION SYSTEM (Hook Agency inspired: generous spacing) === */
   .fw-section {
-    padding: var(--space-3xl) 0;
+    padding: 4rem 0;
+  }
+  @media (min-width: 768px) {
+    .fw-section { padding: 5rem 0; }
   }
   .fw-alt {
     background: var(--color-gray-100);

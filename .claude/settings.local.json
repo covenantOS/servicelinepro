@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__Claude_Preview__preview_start",
+      "Bash(npx astro:*)",
+      "Bash(xxd public/media/hero-collage.webp)",
+      "Bash(curl -sL -o /tmp/stripe.html -w %{http_code} https://stripe.com/payments -H \"User-Agent: Mozilla/5.0 \\(Windows NT 10.0; Win64; x64\\) AppleWebKit/537.36\")",
+      "Bash(curl -sL -o /tmp/linear.html -w %{http_code} https://linear.app/features -H \"User-Agent: Mozilla/5.0 \\(Windows NT 10.0; Win64; x64\\) AppleWebKit/537.36\")",
+      "Bash(curl -sL -o /tmp/vercel.html -w %{http_code} https://vercel.com/products/next-js -H \"User-Agent: Mozilla/5.0 \\(Windows NT 10.0; Win64; x64\\) AppleWebKit/537.36\")",
+      "Bash(curl -sL -o /tmp/hubspot.html -w %{http_code} https://www.hubspot.com/products/marketing -H \"User-Agent: Mozilla/5.0 \\(Windows NT 10.0; Win64; x64\\) AppleWebKit/537.36\")",
+      "WebFetch(domain:stripe.com)",
+      "WebFetch(domain:linear.app)",
+      "WebFetch(domain:vercel.com)",
+      "WebFetch(domain:www.hubspot.com)"
+    ]
+  }
+}

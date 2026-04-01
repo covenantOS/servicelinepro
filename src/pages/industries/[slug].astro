@@ -5,7 +5,6 @@ import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import ReviewsSection from '../../components/ReviewsSection.astro';
 import CTABand from '../../components/CTABand.astro';
 import Footer from '../../components/Footer.astro';
-import Sidebar from '../../components/Sidebar.astro';
 import LeadMagnet from '../../components/LeadMagnet.astro';
 import config from '../../lib/config';
 import { renderMarkdown, splitMarkdownSections } from '../../lib/markdown';
@@ -84,86 +83,108 @@ const schema = {
     </div>
   </section>
 
-  <section class="industry-content section">
-    <div class="container content-layout">
-      <div class="main-content">
-        {contentSections.length > 0 ? (
-          contentSections.map((section, i) => (
-            <>
-              <div class="prose content-section" set:html={section.html} />
-
-              {/* After first section: Mid-content CTA */}
-              {i === 0 && (
-                <div class="mid-cta-module">
-                  <div class="mid-cta-inner">
-                    <div class="mid-cta-text">
-                      <h3>Ready to Grow Your {industry.name} Business?</h3>
-                      <p>Free 15-minute strategy call. We analyze your market, your competition, and show you where the opportunities are.</p>
-                    </div>
-                    <a href="/contact" class="btn btn-primary">Free Strategy Call</a>
-                  </div>
-                </div>
-              )}
-
-              {/* After second section: Inline Testimonial */}
-              {i === 1 && inlineReview && (
-                <InlineTestimonial
-                  quote={inlineReview.text}
-                  author={inlineReview.author}
-                  company={inlineReview.company}
-                  rating={inlineReview.rating}
-                />
-              )}
-
-              {/* After fourth section: Another CTA */}
-              {i === 3 && (
-                <div class="mid-cta-module">
-                  <div class="mid-cta-inner">
-                    <div class="mid-cta-text">
-                      <h3>10 Days Free. Prove It Before You Pay.</h3>
-                      <p>We will boost your local SEO for 10 days at zero cost. No credit card, no account access, no commitment required.</p>
-                    </div>
-                    <a href="/contact?service=10-day-boost" class="btn btn-primary">Apply for Free Boost</a>
-                  </div>
-                </div>
-              )}
-            </>
-          ))
-        ) : (
-          <div class="prose">
-            <h2>Digital Marketing Built for {industry.full_name}</h2>
-            <p>{config.business.name} specializes in performance-driven marketing for {industry.full_name.toLowerCase()}. We understand the unique challenges of your industry and build campaigns that generate real leads, not vanity metrics.</p>
+  {/* === FULL-WIDTH CONTENT SECTIONS — NO SIDEBAR === */}
+  {contentSections.length > 0 ? (
+    contentSections.map((section, i) => (
+      <>
+        <section class={`fw-section ${i % 3 === 1 ? 'fw-alt' : ''} ${i % 5 === 3 ? 'fw-dark' : ''} ${i % 7 === 5 ? 'fw-accent' : ''}`}>
+          <div class="container fw-narrow">
+            <div class="prose" set:html={section.html} />
           </div>
+        </section>
+
+        {i === 0 && inlineReview && (
+          <section class="fw-section fw-alt">
+            <div class="container fw-narrow">
+              <InlineTestimonial quote={inlineReview.text} author={inlineReview.author} company={inlineReview.company} rating={inlineReview.rating} />
+            </div>
+          </section>
         )}
 
-        {/* Lead Magnet */}
-        <LeadMagnet variant="inline" />
+        {i === 1 && (
+          <section class="fw-section fw-dark fw-cta-band">
+            <div class="container">
+              <div class="fw-cta-inner">
+                <div>
+                  <h3>Ready to Grow Your {industry.name} Business?</h3>
+                  <p>15-minute strategy call. We analyze your market, your competition, and show you exactly where the money is.</p>
+                </div>
+                <a href="/contact" class="btn btn-primary">Free Strategy Call</a>
+              </div>
+            </div>
+          </section>
+        )}
 
-        {/* Areas served */}
-        <div class="industry-areas">
-          <h2>{industry.name} Marketing Across the United States</h2>
-          <div class="industry-areas-grid">
-            {config.areas.slice(0, 10).map(a => (
-              <a href={`/areas/${a.slug}/`} class="industry-area-link">{a.name}</a>
-            ))}
-          </div>
-          <a href="/areas/" class="see-all-link">See All {config.areas.length} Areas &rarr;</a>
+        {i === 3 && (
+          <section class="fw-section fw-dark fw-cta-band">
+            <div class="container">
+              <div class="fw-cta-inner">
+                <div>
+                  <h3>10 Days Free. Prove It Before You Pay.</h3>
+                  <p>We boost your local SEO for 10 days at zero cost. No credit card, no account access, no commitment.</p>
+                </div>
+                <a href="/contact?service=10-day-boost" class="btn btn-primary">Apply for Free Boost</a>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {i === 4 && config.reviews?.[1] && (
+          <section class="fw-section">
+            <div class="container fw-narrow">
+              <InlineTestimonial quote={config.reviews[1].text} author={config.reviews[1].author} company={config.reviews[1].company} rating={config.reviews[1].rating} />
+            </div>
+          </section>
+        )}
+      </>
+    ))
+  ) : (
+    <section class="fw-section">
+      <div class="container fw-narrow">
+        <div class="prose">
+          <h2>Digital Marketing Built for {industry.full_name}</h2>
+          <p>{config.business.name} specializes in performance-driven marketing for {industry.full_name.toLowerCase()}.</p>
         </div>
-
-        {faqQuestions.length > 0 && (
-          <div class="faq-section">
-            <h2>Frequently Asked Questions About {industry.name} Marketing</h2>
-            {faqQuestions.map((q: any) => (
-              <details class="faq-item">
-                <summary>{q.question}</summary>
-                <div class="faq-answer" set:html={renderMarkdown(q.answer)} />
-              </details>
-            ))}
-          </div>
-        )}
       </div>
+    </section>
+  )}
 
-      <Sidebar currentIndustry={industry.slug} />
+  {/* Lead Magnet - full width */}
+  <section class="fw-section fw-alt">
+    <div class="container fw-narrow">
+      <LeadMagnet variant="inline" />
+    </div>
+  </section>
+
+  {/* FAQ - full width */}
+  {faqQuestions.length > 0 && (
+    <section class="fw-section">
+      <div class="container fw-narrow">
+        <span class="section-label">Common Questions</span>
+        <h2>Frequently Asked Questions About {industry.name} Marketing</h2>
+        <div class="faq-grid">
+          {faqQuestions.map((q: any) => (
+            <details class="faq-item">
+              <summary>{q.question}</summary>
+              <div class="faq-answer" set:html={renderMarkdown(q.answer)} />
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  {/* Areas - full width dark */}
+  <section class="fw-section fw-dark">
+    <div class="container">
+      <span class="section-label section-label-light">Markets We Serve</span>
+      <h2 class="fw-heading-light">{industry.name} Marketing Across the United States</h2>
+      <div class="fw-chip-grid">
+        {config.areas.slice(0, 10).map(a => (
+          <a href={`/areas/${a.slug}/`} class="fw-chip">{a.name}</a>
+        ))}
+      </div>
+      <a href="/areas/" class="see-all-link-light">See All {config.areas.length} Areas</a>
     </div>
   </section>
 
@@ -284,13 +305,50 @@ const schema = {
     color: var(--color-primary);
   }
 
-  .content-section.section-highlighted {
-    background: var(--color-gray-100);
-    margin-left: calc(-1 * var(--space-xl));
-    margin-right: calc(-1 * var(--space-xl));
-    padding: var(--space-xl);
-    border-radius: var(--radius-md);
-  }
+  /* Full-width section system */
+  .fw-section { padding: var(--space-3xl) 0; }
+  .fw-alt { background: var(--color-gray-100); }
+  .fw-dark { background: var(--color-dark); color: var(--color-white); }
+  .fw-dark h2, .fw-dark h3 { color: var(--color-white); }
+  .fw-dark h2::before { background: var(--color-primary); }
+  .fw-dark p, .fw-dark li { color: rgba(255,255,255,0.7); }
+  .fw-dark strong { color: var(--color-white); }
+  .fw-dark a { color: var(--color-primary-light); }
+  .fw-accent { border-left: 4px solid var(--color-primary); }
+  .fw-narrow { max-width: 800px; }
+  .fw-heading-light { color: var(--color-white); margin-bottom: var(--space-xl); }
+  .fw-heading-light::before { background: var(--color-primary); }
+  .fw-cta-band { padding: var(--space-2xl) 0; position: relative; overflow: hidden; }
+  .fw-cta-band::before { content: ''; position: absolute; top: 0; right: 0; width: 300px; height: 100%; background: radial-gradient(circle at 100% 50%, rgba(192,57,43,0.15) 0%, transparent 70%); pointer-events: none; }
+  .fw-cta-band h3 { color: var(--color-white); font-size: var(--text-xl); margin-bottom: var(--space-xs); }
+  .fw-cta-band h3::before { display: none; }
+  .fw-cta-band p { color: rgba(255,255,255,0.6); margin-bottom: 0; max-width: 550px; }
+  .fw-cta-inner { display: flex; align-items: center; justify-content: space-between; gap: var(--space-lg); flex-wrap: wrap; position: relative; z-index: 1; }
+  .fw-chip-grid { display: flex; flex-wrap: wrap; gap: var(--space-sm); margin-top: var(--space-lg); }
+  .fw-chip { display: inline-block; padding: 0.5rem 1.25rem; border: 1px solid rgba(255,255,255,0.15); border-radius: 6px; font-size: var(--text-sm); color: rgba(255,255,255,0.7); text-decoration: none; transition: all 0.15s; }
+  .fw-chip:hover { border-color: var(--color-primary); color: var(--color-white); background: rgba(192,57,43,0.15); }
+  .see-all-link-light { display: inline-block; margin-top: var(--space-lg); font-size: var(--text-sm); font-weight: 600; color: var(--color-primary); }
+  .section-label-light { color: rgba(255,255,255,0.4); }
+
+  .faq-grid { margin-top: var(--space-lg); }
+  .faq-item { border: 1px solid var(--color-gray-200); border-radius: var(--radius-md); padding: var(--space-md) var(--space-lg); margin-bottom: var(--space-sm); background: var(--color-white); transition: box-shadow 0.15s; }
+  .faq-item[open] { box-shadow: var(--shadow-sm); border-color: var(--color-primary); }
+  .faq-item summary { font-weight: 600; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; }
+  .faq-item summary::after { content: '+'; font-size: var(--text-xl); color: var(--color-primary); font-weight: 300; flex-shrink: 0; }
+  .faq-item[open] summary::after { content: '\2212'; }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-answer { padding-top: var(--space-md); color: var(--color-text-light); border-top: 1px solid var(--color-gray-100); margin-top: var(--space-md); }
+
+  /* Dark feature cards inside dark sections */
+  .fw-dark .feature-card { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.1); }
+  .fw-dark .feature-card:hover { border-color: var(--color-primary); background: rgba(255,255,255,0.1); }
+  .fw-dark .feature-card-title { color: var(--color-white); }
+  .fw-dark .feature-card-desc { color: rgba(255,255,255,0.6); }
+  .fw-dark .callout-box { background: rgba(255,255,255,0.06); border-left-color: var(--color-primary); }
+  .fw-dark .callout-title { color: var(--color-white); }
+  .fw-dark .callout-desc { color: rgba(255,255,255,0.6); }
+  .fw-dark .visual-list { border-color: rgba(255,255,255,0.1); }
+  .fw-dark .visual-list li { border-color: rgba(255,255,255,0.06); color: rgba(255,255,255,0.7); }
 
   /* Mid-content CTA */
   .mid-cta-module {

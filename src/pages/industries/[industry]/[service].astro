@@ -5,7 +5,6 @@ import Breadcrumbs from '../../../components/Breadcrumbs.astro';
 import ReviewsSection from '../../../components/ReviewsSection.astro';
 import CTABand from '../../../components/CTABand.astro';
 import Footer from '../../../components/Footer.astro';
-import Sidebar from '../../../components/Sidebar.astro';
 import LeadMagnet from '../../../components/LeadMagnet.astro';
 import config from '../../../lib/config';
 import { renderMarkdown, splitMarkdownSections } from '../../../lib/markdown';
@@ -108,146 +107,140 @@ const schema = {
     </div>
   </section>
 
-  <section class="combo-content section">
-    <div class="container content-layout">
-      <div class="main-content">
-        {contentSections.length > 0 ? (
-          contentSections.map((section, i) => (
-            <>
-              <div class="prose content-section" set:html={section.html} />
-              {i === 1 && inlineReview && (
-                <InlineTestimonial quote={inlineReview.text} author={inlineReview.author} company={inlineReview.company} rating={inlineReview.rating} />
-              )}
-              {i === 2 && (
-                <div class="mid-cta-module">
-                  <div class="mid-cta-inner">
-                    <div class="mid-cta-text">
-                      <h3>Ready to Grow Your {industry.name} Business?</h3>
-                      <p>15-minute strategy call. We analyze your market, your competition, and show you where the money is.</p>
-                    </div>
-                    <a href="/contact" class="btn btn-primary">Free Strategy Call</a>
-                  </div>
-                </div>
-              )}
-            </>
-          ))
-        ) : (
-          <div class="prose">
-            <h2>{service.name} Built for the {industry.name} Industry</h2>
-            <p>{config.business.name} delivers {service.name.toLowerCase()} campaigns designed specifically for {industry.full_name.toLowerCase()}. We understand how {industry.name.toLowerCase()} customers search, what triggers them to call, and how to position your business as the obvious choice.</p>
-            <p>Every {industry.name.toLowerCase()} company has a different competitive landscape. Your <a href={`/services/${service.slug}/`}>{service.name.toLowerCase()} strategy</a> needs to account for seasonal demand, local search patterns, and the specific language your customers use when they need your services.</p>
-            <p>We have worked with <a href={`/industries/${industry.slug}/`}>{industry.full_name.toLowerCase()}</a> across Central Florida and know what moves the needle. No cookie-cutter campaigns. No vanity metrics. Just leads that turn into revenue.</p>
+  {/* === FULL-WIDTH CONTENT SECTIONS — NO SIDEBAR === */}
+  {contentSections.length > 0 ? (
+    contentSections.map((section, i) => (
+      <>
+        <section class={`fw-section ${i % 3 === 1 ? 'fw-alt' : ''} ${i % 5 === 3 ? 'fw-dark' : ''}`}>
+          <div class="container fw-narrow">
+            <div class="prose" set:html={section.html} />
           </div>
-        )}
+        </section>
 
-        {/* Case Studies */}
-        {relevantCases.length > 0 && (
-          <div class="combo-cases">
-            <h2>{service.name} Results in {industry.name}</h2>
-            <div class="combo-cases-grid">
-              {relevantCases.map(cs => (
-                <a href={`/case-studies/${cs.slug}/`} class="combo-case-card">
-                  <span class="combo-case-tag">{cs.category}</span>
-                  <h3>{cs.metrics?.primary || cs.result}</h3>
-                  <span class="combo-case-client">{cs.title}</span>
-                  <span class="card-link">Read Case Study &rarr;</span>
-                </a>
-              ))}
+        {i === 0 && inlineReview && (
+          <section class="fw-section fw-alt">
+            <div class="container fw-narrow">
+              <InlineTestimonial quote={inlineReview.text} author={inlineReview.author} company={inlineReview.company} rating={inlineReview.rating} />
             </div>
-            <a href="/case-studies/" class="see-all-link">See All {config.case_studies.length} Case Studies &rarr;</a>
-          </div>
+          </section>
         )}
 
-        {pricingTiers.length > 0 && (
-          <div class="inline-pricing">
-            <h2>{service.name} Pricing for {industry.full_name}</h2>
-            <div class="pricing-grid">
-              {pricingTiers.map((tier: any) => (
-                <div class={`pricing-card ${tier.featured ? 'pricing-featured' : ''}`}>
-                  {tier.featured && <div class="pricing-badge">Most Popular</div>}
-                  <h3>{tier.name}</h3>
-                  <div class="pricing-price">
-                    {tier.price === 0 ? (
-                      <span class="price-amount">{tier.price_label || 'Custom'}</span>
-                    ) : (
-                      <>
-                        <span class="price-currency">$</span>
-                        <span class="price-amount">{tier.price.toLocaleString()}</span>
-                        <span class="price-period">{tier.price_label || '/mo'}</span>
-                      </>
-                    )}
-                  </div>
-                  <p class="pricing-desc">{tier.description}</p>
-                  <ul class="pricing-features">
-                    {tier.features.map((f: string) => (
-                      <li>{f}</li>
-                    ))}
-                  </ul>
-                  <a href="/contact" class={`btn ${tier.featured ? 'btn-primary' : 'btn-outline'} btn-block`}>Get Started</a>
+        {i === 1 && (
+          <section class="fw-section fw-dark fw-cta-band">
+            <div class="container">
+              <div class="fw-cta-inner">
+                <div>
+                  <h3>Ready to Grow Your {industry.name} Business?</h3>
+                  <p>15-minute strategy call. No pitch deck. We show you where the money is.</p>
                 </div>
-              ))}
+                <a href="/contact" class="btn btn-primary">Free Strategy Call</a>
+              </div>
             </div>
-            {service.pricing?.setup_fee && (
-              <p class="setup-note">One-time setup fee: ${service.pricing.setup_fee.toLocaleString()}</p>
-            )}
-          </div>
+          </section>
         )}
 
-        {/* Lead Magnet */}
-        <LeadMagnet service={service.slug} variant="dark" />
-
-        {/* Other services for this industry */}
-        <div class="combo-cross-links">
-          <h2>Other Services for {industry.full_name}</h2>
-          <div class="cross-link-grid">
-            {otherServices.map(svc => (
-              <a href={`/industries/${industry.slug}/${svc.slug}/`} class="cross-link-card">
-                <h3>{svc.name}</h3>
-                <p>{svc.short_description}</p>
-                <span class="card-link">{svc.name} for {industry.name} &rarr;</span>
-              </a>
-            ))}
-          </div>
-        </div>
-
-        {/* This service for other industries */}
-        <div class="combo-industries">
-          <h2>{service.name} for Other Industries</h2>
-          <div class="industry-chips">
-            {otherIndustries.map(ind => (
-              <a href={`/industries/${ind.slug}/${service.slug}/`} class="industry-chip">{ind.full_name}</a>
-            ))}
-          </div>
-          <a href="/industries/" class="see-all-link">See All {config.industries.length} Industries &rarr;</a>
-        </div>
-
-        {/* Areas served */}
-        <div class="combo-areas">
-          <h2>{service.name} for {industry.name} in Central Florida</h2>
-          <div class="area-chips">
-            {topAreas.map(a => (
-              <a href={`/areas/${a.slug}/${service.slug}/`} class="area-chip">{a.name}</a>
-            ))}
-          </div>
-          <a href="/areas/" class="see-all-link">See All {config.areas.length} Areas &rarr;</a>
-        </div>
-
-        {faqQuestions.length > 0 && (
-          <div class="faq-section">
-            <h2>{service.name} FAQ for {industry.full_name}</h2>
-            {faqQuestions.map((q: any) => (
-              <details class="faq-item">
-                <summary>{q.question}</summary>
-                <div class="faq-answer" set:html={renderMarkdown(q.answer)} />
-              </details>
-            ))}
-          </div>
+        {i === 3 && config.reviews?.[1] && (
+          <section class="fw-section">
+            <div class="container fw-narrow">
+              <InlineTestimonial quote={config.reviews[1].text} author={config.reviews[1].author} company={config.reviews[1].company} rating={config.reviews[1].rating} />
+            </div>
+          </section>
         )}
+      </>
+    ))
+  ) : (
+    <section class="fw-section">
+      <div class="container fw-narrow">
+        <div class="prose">
+          <h2>{service.name} Built for the {industry.name} Industry</h2>
+          <p>{config.business.name} delivers {service.name.toLowerCase()} campaigns designed specifically for {industry.full_name.toLowerCase()}.</p>
+          <p>Your <a href={`/services/${service.slug}/`}>{service.name.toLowerCase()} strategy</a> needs to account for seasonal demand, local search patterns, and the specific language your customers use.</p>
+          <p>We have worked with <a href={`/industries/${industry.slug}/`}>{industry.full_name.toLowerCase()}</a> and know what moves the needle.</p>
+        </div>
       </div>
+    </section>
+  )}
 
-      <Sidebar currentService={service.slug} currentIndustry={industry.slug} />
+  {/* Case Studies - full width dark */}
+  {relevantCases.length > 0 && (
+    <section class="fw-section fw-dark">
+      <div class="container">
+        <span class="section-label section-label-light">Proven Results</span>
+        <h2 class="fw-heading-light">{service.name} Results in {industry.name}</h2>
+        <div class="combo-cases-grid">
+          {relevantCases.map(cs => (
+            <a href={`/case-studies/${cs.slug}/`} class="combo-case-card combo-case-dark">
+              <span class="combo-case-tag">{cs.category}</span>
+              <h3>{cs.metrics?.primary || cs.result}</h3>
+              <span class="combo-case-client">{cs.title}</span>
+              <span class="card-link">Read Case Study</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  {/* Other services - full width alt */}
+  <section class="fw-section fw-alt">
+    <div class="container">
+      <span class="section-label">More for {industry.full_name}</span>
+      <h2>Other Services for {industry.full_name}</h2>
+      <div class="cross-link-grid">
+        {otherServices.map(svc => (
+          <a href={`/industries/${industry.slug}/${svc.slug}/`} class="cross-link-card">
+            <h3>{svc.name}</h3>
+            <p>{svc.short_description.split('.')[0]}.</p>
+            <span class="card-link">{svc.name} for {industry.name}</span>
+          </a>
+        ))}
+      </div>
     </div>
   </section>
+
+  {/* Industries + Areas chips - full width dark */}
+  <section class="fw-section fw-dark">
+    <div class="container">
+      <div class="combo-links-grid">
+        <div>
+          <span class="section-label section-label-light">{service.name} by Industry</span>
+          <h3 class="fw-heading-light">{service.name} for Other Industries</h3>
+          <div class="fw-chip-grid">
+            {otherIndustries.map(ind => (
+              <a href={`/industries/${ind.slug}/${service.slug}/`} class="fw-chip">{ind.full_name}</a>
+            ))}
+          </div>
+        </div>
+        <div>
+          <span class="section-label section-label-light">{industry.name} by Area</span>
+          <h3 class="fw-heading-light">{service.name} for {industry.name} Near You</h3>
+          <div class="fw-chip-grid">
+            {topAreas.map(a => (
+              <a href={`/areas/${a.slug}/`} class="fw-chip">{a.name}</a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* FAQ - full width */}
+  {faqQuestions.length > 0 && (
+    <section class="fw-section fw-alt">
+      <div class="container fw-narrow">
+        <span class="section-label">Common Questions</span>
+        <h2>{service.name} FAQ for {industry.full_name}</h2>
+        <div class="faq-grid">
+          {faqQuestions.map((q: any) => (
+            <details class="faq-item">
+              <summary>{q.question}</summary>
+              <div class="faq-answer" set:html={renderMarkdown(q.answer)} />
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
 
   <CTABand heading={`Get ${service.name} Results for Your ${industry.name} Business`} />
   <ReviewsSection compact={true} maxReviews={3} />
@@ -329,124 +322,78 @@ const schema = {
     color: var(--color-dark);
   }
 
-  /* Case Studies */
-  .combo-cases { margin-top: var(--space-2xl); }
-  .combo-cases-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: var(--space-md); margin-top: var(--space-lg); }
+  /* Full-width section system */
+  .fw-section { padding: var(--space-3xl) 0; }
+  .fw-alt { background: var(--color-gray-100); }
+  .fw-dark { background: var(--color-dark); color: var(--color-white); }
+  .fw-dark h2, .fw-dark h3 { color: var(--color-white); }
+  .fw-dark h2::before { background: var(--color-primary); }
+  .fw-dark p, .fw-dark li { color: rgba(255,255,255,0.7); }
+  .fw-dark strong { color: var(--color-white); }
+  .fw-dark a { color: var(--color-primary-light); }
+  .fw-narrow { max-width: 800px; }
+  .fw-heading-light { color: var(--color-white); margin-bottom: var(--space-xl); }
+  .fw-heading-light::before { background: var(--color-primary); }
+  .fw-cta-band { padding: var(--space-2xl) 0; position: relative; overflow: hidden; }
+  .fw-cta-band::before { content: ''; position: absolute; top: 0; right: 0; width: 300px; height: 100%; background: radial-gradient(circle at 100% 50%, rgba(192,57,43,0.15) 0%, transparent 70%); pointer-events: none; }
+  .fw-cta-band h3 { color: var(--color-white); font-size: var(--text-xl); margin-bottom: var(--space-xs); }
+  .fw-cta-band h3::before { display: none; }
+  .fw-cta-band p { color: rgba(255,255,255,0.6); margin-bottom: 0; max-width: 550px; }
+  .fw-cta-inner { display: flex; align-items: center; justify-content: space-between; gap: var(--space-lg); flex-wrap: wrap; position: relative; z-index: 1; }
+  .section-label-light { color: rgba(255,255,255,0.4); }
+  .card-link { font-size: var(--text-sm); font-weight: 600; color: var(--color-primary); }
+
+  /* Case studies (dark variant) */
+  .combo-cases-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: var(--space-lg); margin-top: var(--space-lg); }
   .combo-case-card {
     display: flex; flex-direction: column; padding: var(--space-lg);
     background: var(--color-white); border: 1px solid var(--color-gray-200); border-radius: 10px;
     text-decoration: none; color: inherit; transition: transform 0.15s, box-shadow 0.15s;
   }
   .combo-case-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.1); }
+  .combo-case-dark { background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); }
+  .combo-case-dark:hover { background: rgba(255,255,255,0.08); }
+  .combo-case-dark h3 { color: var(--color-white); }
+  .combo-case-dark .combo-case-client { color: rgba(255,255,255,0.5); }
   .combo-case-tag { font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-primary); margin-bottom: var(--space-xs); }
   .combo-case-card h3 { font-size: var(--text-lg); margin-bottom: var(--space-xs); }
   .combo-case-client { font-size: var(--text-sm); color: var(--color-text-muted); margin-bottom: var(--space-sm); }
-  .card-link { font-size: var(--text-sm); font-weight: 600; color: var(--color-primary); }
-  .see-all-link { display: inline-block; margin-top: var(--space-md); font-size: var(--text-sm); font-weight: 600; color: var(--color-primary); }
-
-  /* Pricing */
-  .inline-pricing { margin-top: var(--space-2xl); }
-
-  .pricing-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: var(--space-lg);
-    margin-top: var(--space-lg);
-  }
-
-  .pricing-card {
-    background: var(--color-white);
-    border: 1px solid var(--color-gray-200);
-    border-radius: 10px;
-    padding: var(--space-xl);
-    position: relative;
-  }
-
-  .pricing-featured {
-    border-color: var(--color-primary);
-    box-shadow: 0 0 0 1px var(--color-primary);
-  }
-
-  .pricing-badge {
-    position: absolute;
-    top: -12px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: var(--color-primary);
-    color: var(--color-white);
-    padding: 0.25rem 1rem;
-    border-radius: 999px;
-    font-size: var(--text-xs);
-    font-weight: 700;
-    text-transform: uppercase;
-    white-space: nowrap;
-  }
-
-  .pricing-card h3 { font-size: var(--text-lg); margin-bottom: var(--space-sm); }
-  .pricing-price { margin-bottom: var(--space-sm); }
-  .price-currency { font-size: var(--text-xl); font-weight: 700; vertical-align: top; }
-  .price-amount { font-size: var(--text-3xl); font-weight: 800; line-height: 1; }
-  .price-period { font-size: var(--text-sm); color: var(--color-text-light); }
-  .pricing-desc { font-size: var(--text-sm); color: var(--color-text-light); margin-bottom: var(--space-md); }
-
-  .pricing-features {
-    list-style: none;
-    padding: 0;
-    margin-bottom: var(--space-lg);
-  }
-
-  .pricing-features li {
-    padding: 0.375rem 0;
-    font-size: var(--text-sm);
-    border-bottom: 1px solid var(--color-gray-100);
-  }
-
-  .pricing-features li::before {
-    content: '✓ ';
-    color: var(--color-primary);
-    font-weight: 700;
-  }
-
-  .setup-note { text-align: center; color: var(--color-text-light); font-size: var(--text-sm); margin-top: var(--space-md); }
-  .btn-block { display: block; text-align: center; width: 100%; }
 
   /* Cross-links */
-  .combo-cross-links { margin-top: var(--space-2xl); }
-  .cross-link-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: var(--space-md); margin-top: var(--space-lg); }
+  .cross-link-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: var(--space-lg); margin-top: var(--space-xl); }
   .cross-link-card {
     display: block; padding: var(--space-lg);
     background: var(--color-white); border: 1px solid var(--color-gray-200); border-radius: 10px;
-    text-decoration: none; color: inherit; transition: transform 0.15s, box-shadow 0.15s;
+    text-decoration: none; color: inherit; transition: transform 0.15s, border-color 0.15s, box-shadow 0.15s;
   }
-  .cross-link-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+  .cross-link-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); border-color: var(--color-primary); }
   .cross-link-card h3 { font-size: var(--text-base); margin-bottom: var(--space-xs); }
   .cross-link-card p { font-size: var(--text-sm); color: var(--color-text-light); margin-bottom: var(--space-sm); }
 
-  /* Industry chips */
-  .combo-industries { margin-top: var(--space-2xl); }
-  .industry-chips { display: flex; flex-wrap: wrap; gap: var(--space-sm); margin-top: var(--space-md); }
-  .industry-chip {
-    display: inline-block; padding: 0.5rem 1rem;
-    background: rgba(192,57,43,0.06); border: 1px solid rgba(192,57,43,0.12); border-radius: 6px;
-    font-size: var(--text-sm); text-decoration: none; color: var(--color-text-light);
-    transition: background 0.15s, color 0.15s, border-color 0.15s;
-  }
-  .industry-chip:hover { background: var(--color-primary); color: var(--color-white); border-color: var(--color-primary); }
-
-  /* Area chips */
-  .combo-areas { margin-top: var(--space-2xl); }
-  .area-chips { display: flex; flex-wrap: wrap; gap: var(--space-sm); margin-top: var(--space-md); }
-  .area-chip {
-    display: inline-block; padding: 0.5rem 1rem;
-    background: var(--color-gray-100); border-radius: 6px; font-size: var(--text-sm);
-    text-decoration: none; color: var(--color-text-light);
-    transition: background 0.15s, color 0.15s;
-  }
-  .area-chip:hover { background: var(--color-primary); color: var(--color-white); }
+  /* Chip grids */
+  .fw-chip-grid { display: flex; flex-wrap: wrap; gap: var(--space-sm); margin-top: var(--space-md); }
+  .fw-chip { display: inline-block; padding: 0.5rem 1.25rem; border: 1px solid rgba(255,255,255,0.15); border-radius: 6px; font-size: var(--text-sm); color: rgba(255,255,255,0.7); text-decoration: none; transition: all 0.15s; }
+  .fw-chip:hover { border-color: var(--color-primary); color: var(--color-white); background: rgba(192,57,43,0.15); }
+  .combo-links-grid { display: grid; grid-template-columns: 1fr; gap: var(--space-2xl); }
+  @media (min-width: 768px) { .combo-links-grid { grid-template-columns: 1fr 1fr; } }
 
   /* FAQ */
-  .faq-section { margin-top: var(--space-2xl); }
-  .faq-item { border-bottom: 1px solid var(--color-gray-200); padding: var(--space-md) 0; }
-  .faq-item summary { font-weight: 600; cursor: pointer; font-size: var(--text-base); }
-  .faq-answer { padding-top: var(--space-sm); color: var(--color-text-light); }
+  .faq-grid { margin-top: var(--space-lg); }
+  .faq-item { border: 1px solid var(--color-gray-200); border-radius: var(--radius-md); padding: var(--space-md) var(--space-lg); margin-bottom: var(--space-sm); background: var(--color-white); transition: box-shadow 0.15s; }
+  .faq-item[open] { box-shadow: var(--shadow-sm); border-color: var(--color-primary); }
+  .faq-item summary { font-weight: 600; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; }
+  .faq-item summary::after { content: '+'; font-size: var(--text-xl); color: var(--color-primary); font-weight: 300; flex-shrink: 0; }
+  .faq-item[open] summary::after { content: '\2212'; }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-answer { padding-top: var(--space-md); color: var(--color-text-light); border-top: 1px solid var(--color-gray-100); margin-top: var(--space-md); }
+
+  /* Dark section variants for feature cards */
+  .fw-dark .feature-card { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.1); }
+  .fw-dark .feature-card:hover { border-color: var(--color-primary); }
+  .fw-dark .feature-card-title { color: var(--color-white); }
+  .fw-dark .feature-card-desc { color: rgba(255,255,255,0.6); }
+  .fw-dark .callout-box { background: rgba(255,255,255,0.06); }
+  .fw-dark .callout-title { color: var(--color-white); }
+  .fw-dark .visual-list { border-color: rgba(255,255,255,0.1); }
+  .fw-dark .visual-list li { border-color: rgba(255,255,255,0.06); color: rgba(255,255,255,0.7); }
 </style>

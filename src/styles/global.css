@@ -55,7 +55,7 @@
 /* --- CSS Custom Properties ---
    ServiceLine Pro brand colors. */
 :root {
-  /* Colors - SLP Brand (Red/Dark) */
+  /* Colors - SLP Brand (Red/Dark) - 4-tier text system */
   --color-primary: #c0392b;
   --color-primary-dark: #a5311f;
   --color-primary-light: #e74c3c;
@@ -75,6 +75,7 @@
   --color-text: #2a2724;
   --color-text-light: #5c5750;
   --color-text-muted: #78736b;
+  --color-text-faint: #a39e96;
 
   /* Typography - Major Third Scale (1.25) */
   --font-heading: 'Montserrat', system-ui, -apple-system, sans-serif;
@@ -157,24 +158,28 @@ body {
   overflow-x: hidden;
 }
 
-/* --- Typography --- */
+/* --- Typography (Premium: tight letter-spacing, balanced wrapping) --- */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
   color: var(--color-dark);
   line-height: var(--leading-tight);
   font-weight: 700;
+  text-wrap: balance;
 }
 
 h1 {
   font-size: var(--text-4xl);
+  letter-spacing: -0.025em;
 }
 
 h2 {
   font-size: var(--text-3xl);
+  letter-spacing: -0.02em;
 }
 
 h3 {
   font-size: var(--text-2xl);
+  letter-spacing: -0.01em;
 }
 
 h4 {
@@ -247,8 +252,8 @@ strong {
 }
 
 /* --- Section Spacing ---
-   Vary spacing based on content relationship per design skill.
-   Related sections: 48px. Distinct sections: 64-80px. */
+   Premium sites use 64-96px section padding on desktop.
+   Related: 48px. Distinct: 80-96px. */
 .section {
   padding-block: var(--space-3xl);
 }
@@ -258,7 +263,12 @@ strong {
 }
 
 .section-wide {
-  padding-block: var(--space-4xl);
+  padding-block: 6rem;
+}
+
+@media (min-width: 768px) {
+  .section { padding-block: 5rem; }
+  .section-wide { padding-block: 6rem; }
 }
 
 /* Alternating section backgrounds */
@@ -280,12 +290,30 @@ strong {
 /* --- Section Label (Pattern A heading treatment) --- */
 .section-label {
   font-family: var(--font-heading);
-  font-size: var(--text-sm);
+  font-size: 0.8125rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: var(--color-primary);
   margin-bottom: var(--space-sm);
+  display: block;
+}
+
+/* Centered section header pattern (label + heading + subtitle) */
+.section-header-center {
+  text-align: center;
+  max-width: 640px;
+  margin-inline: auto;
+  margin-bottom: var(--space-2xl);
+}
+.section-header-center .section-label { margin-inline: auto; }
+.section-header-center h2 { margin-bottom: var(--space-sm); }
+.section-header-center h2::before { margin-inline: auto; }
+.section-header-center p {
+  font-size: var(--text-lg);
+  color: var(--color-text-light);
+  line-height: 1.6;
+  max-width: 100%;
 }
 
 /* --- Accent Line (Pattern C heading treatment) --- */
@@ -809,128 +837,41 @@ strong {
 }
 
 /* --- Content Section Visual Variety ---
-   Each H2 section gets a distinct visual treatment
-   to create dynamism and prevent wall-of-text feel. */
+   Applied when content sections are inside fw-section wrappers.
+   The fw-section handles backgrounds; these handle internal spacing. */
 
-/* Alternating section backgrounds */
-.content-section:nth-child(4n+3) {
-  background: var(--color-gray-100);
-  margin-left: calc(-1 * var(--space-xl));
-  margin-right: calc(-1 * var(--space-xl));
-  padding: var(--space-xl);
-  border-radius: var(--radius-lg);
+/* fw-dark variant support for feature cards, callouts, lists */
+.fw-dark .feature-card { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.1); }
+.fw-dark .feature-card:hover { border-color: var(--color-primary); background: rgba(255,255,255,0.1); }
+.fw-dark .feature-card-title { color: var(--color-white); }
+.fw-dark .feature-card-desc { color: rgba(255,255,255,0.6); }
+.fw-dark .callout-box { background: rgba(255,255,255,0.06); border-left-color: var(--color-primary); }
+.fw-dark .callout-title { color: var(--color-white); }
+.fw-dark .callout-desc { color: rgba(255,255,255,0.6); }
+.fw-dark .visual-list { border-color: rgba(255,255,255,0.1); }
+.fw-dark .visual-list li { border-color: rgba(255,255,255,0.06); color: rgba(255,255,255,0.7); }
+
+/* --- Link Arrow Micro-Interaction (Stripe pattern) --- */
+.link-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 600;
+  transition: gap 0.15s ease;
 }
-
-/* Dark accent sections every 5th */
-.content-section:nth-child(5n+4) {
-  background: var(--color-dark);
-  color: rgba(255,255,255,0.85);
-  margin-left: calc(-1 * var(--space-xl));
-  margin-right: calc(-1 * var(--space-xl));
-  padding: var(--space-xl);
-  border-radius: var(--radius-lg);
+.link-arrow:hover { gap: 8px; }
+.link-arrow::after {
+  content: '\2192';
+  transition: transform 0.15s ease;
 }
+.link-arrow:hover::after { transform: translateX(3px); }
 
-.content-section:nth-child(5n+4) h2,
-.content-section:nth-child(5n+4) h3,
-.content-section:nth-child(5n+4) h4 {
-  color: var(--color-white);
-}
-
-.content-section:nth-child(5n+4) h2::before {
-  background: var(--color-primary);
-}
-
-.content-section:nth-child(5n+4) p,
-.content-section:nth-child(5n+4) li {
-  color: rgba(255,255,255,0.7);
-}
-
-.content-section:nth-child(5n+4) strong {
-  color: var(--color-white);
-}
-
-.content-section:nth-child(5n+4) a {
-  color: var(--color-primary-light);
-}
-
-.content-section:nth-child(5n+4) .feature-card {
-  background: rgba(255,255,255,0.06);
-  border-color: rgba(255,255,255,0.1);
-}
-
-.content-section:nth-child(5n+4) .feature-card:hover {
-  border-color: var(--color-primary);
-  background: rgba(255,255,255,0.1);
-}
-
-.content-section:nth-child(5n+4) .feature-card-title {
-  color: var(--color-white);
-}
-
-.content-section:nth-child(5n+4) .feature-card-desc {
-  color: rgba(255,255,255,0.6);
-}
-
-.content-section:nth-child(5n+4) .callout-box {
-  background: rgba(255,255,255,0.06);
-  border-left-color: var(--color-primary);
-}
-
-.content-section:nth-child(5n+4) .callout-title {
-  color: var(--color-white);
-}
-
-.content-section:nth-child(5n+4) .callout-desc {
-  color: rgba(255,255,255,0.6);
-}
-
-.content-section:nth-child(5n+4) .visual-list {
-  border-color: rgba(255,255,255,0.1);
-}
-
-.content-section:nth-child(5n+4) .visual-list li {
-  border-color: rgba(255,255,255,0.06);
-  color: rgba(255,255,255,0.7);
-}
-
-/* Bordered accent sections */
-.content-section:nth-child(6n+5) {
-  border: 2px solid var(--color-gray-200);
-  margin-left: calc(-1 * var(--space-xl));
-  margin-right: calc(-1 * var(--space-xl));
-  padding: var(--space-xl);
-  border-radius: var(--radius-lg);
-  border-left: 4px solid var(--color-primary);
-}
-
-/* Stats-like pull quote for specific section patterns */
-.content-section p:first-of-type:has(+ .feature-grid) {
-  font-size: 1.1rem;
-  color: var(--color-text);
-  font-weight: 500;
-  line-height: 1.7;
-}
-
-/* --- Section Spacers Between Content Sections --- */
-.content-section + .content-section {
-  margin-top: var(--space-2xl);
-}
-
-.content-section + .qualifier-block,
-.content-section + .inline-testimonial,
-.content-section + .mid-cta-module,
-.content-section + .inline-case-studies,
-.content-section + .comparison-wrapper {
-  margin-top: var(--space-xl);
-}
-
-.qualifier-block + .content-section,
-.inline-testimonial + .content-section,
-.mid-cta-module + .content-section,
-.inline-case-studies + .content-section,
-.comparison-wrapper + .content-section {
-  margin-top: var(--space-xl);
+/* --- Gradient Text (for hero accents) --- */
+.gradient-text {
+  background: linear-gradient(135deg, var(--color-primary), #e74c3c);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 /* --- Focus Styles for Accessibility --- */

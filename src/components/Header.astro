@@ -235,10 +235,13 @@ const serviceIcons: Record<string, string> = {
     top: 0;
     z-index: 1000;
     background: var(--color-white);
-    transition: box-shadow 0.2s ease;
+    transition: box-shadow 0.2s ease, background 0.2s ease;
   }
   .site-header.scrolled {
-    box-shadow: 0 1px 16px rgba(0,0,0,0.08);
+    box-shadow: 0 2px 4px rgba(33, 51, 67, 0.12);
+    background: hsla(0, 0%, 100%, 0.9);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
   }
   .site-header.scrolled .top-bar { display: none; }
   .main-header { border-bottom: 1px solid var(--color-gray-200); }
