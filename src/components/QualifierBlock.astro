@@ -1,0 +1,93 @@
+---
+interface Props {
+  goodFit: string[];
+  notFit: string[];
+}
+
+const { goodFit, notFit } = Astro.props;
+---
+
+<div class="qualifier-block">
+  <div class="qualifier-col qualifier-good">
+    <h3>This Is For You If...</h3>
+    <ul>
+      {goodFit.map(item => (
+        <li><span class="qualifier-icon good">&#10003;</span> {item}</li>
+      ))}
+    </ul>
+  </div>
+  <div class="qualifier-col qualifier-not">
+    <h3>This Is NOT For You If...</h3>
+    <ul>
+      {notFit.map(item => (
+        <li><span class="qualifier-icon not">&#10007;</span> {item}</li>
+      ))}
+    </ul>
+  </div>
+</div>
+
+<style>
+  .qualifier-block {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+    margin: var(--space-2xl) 0;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    border: 1px solid var(--color-gray-200);
+  }
+  @media (min-width: 768px) {
+    .qualifier-block { grid-template-columns: 1fr 1fr; }
+  }
+  .qualifier-col {
+    padding: var(--space-xl);
+  }
+  .qualifier-good {
+    background: rgba(34, 197, 94, 0.04);
+    border-bottom: 1px solid var(--color-gray-200);
+  }
+  @media (min-width: 768px) {
+    .qualifier-good { border-bottom: none; border-right: 1px solid var(--color-gray-200); }
+  }
+  .qualifier-not {
+    background: rgba(239, 68, 68, 0.03);
+  }
+  .qualifier-col h3 {
+    font-size: var(--text-base);
+    margin-bottom: var(--space-md);
+  }
+  .qualifier-col ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .qualifier-col li {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-sm);
+    padding: 0.5rem 0;
+    font-size: var(--text-sm);
+    color: var(--color-text-light);
+    line-height: 1.5;
+  }
+  .qualifier-icon {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 0.65rem;
+    font-weight: 700;
+    margin-top: 1px;
+  }
+  .qualifier-icon.good {
+    background: rgba(34, 197, 94, 0.12);
+    color: #16a34a;
+  }
+  .qualifier-icon.not {
+    background: rgba(239, 68, 68, 0.1);
+    color: #dc2626;
+  }
+</style>

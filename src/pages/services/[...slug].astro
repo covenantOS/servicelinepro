@@ -7,7 +7,10 @@ import CTABand from '../../components/CTABand.astro';
 import Footer from '../../components/Footer.astro';
 import LeadMagnet from '../../components/LeadMagnet.astro';
 import config from '../../lib/config';
-import { renderMarkdown } from '../../lib/markdown';
+import { renderMarkdown, splitMarkdownSections } from '../../lib/markdown';
+import InlineTestimonial from '../../components/InlineTestimonial.astro';
+import QualifierBlock from '../../components/QualifierBlock.astro';
+import ComparisonTable from '../../components/ComparisonTable.astro';
 import fs from 'node:fs';
 import path from 'node:path';
 import YAML from 'yaml';
@@ -88,14 +91,88 @@ const isLocalSEO = service.slug === 'local-seo';
 const isPPC = service.slug === 'ppc';
 const isTV = service.slug === 'tv-streaming-advertising';
 
-// Find relevant case studies for this service
-const serviceCaseStudies = config.case_studies.filter(cs => {
+// Find relevant case studies for this service - prioritize Isaac & Mark (remodeling)
+const allServiceCases = config.case_studies.filter(cs => {
   const cat = cs.category.toLowerCase();
   if (service.slug === 'local-seo') return cat.includes('seo');
   if (service.slug === 'ppc') return cat.includes('ads') || cat.includes('ppc');
   if (service.slug === 'website-design') return cat.includes('design') || cat.includes('website');
   return false;
 });
+// Put Isaac & Mark (slug: remodeling) first if present
+const serviceCaseStudies = allServiceCases.sort((a, b) => {
+  if (a.slug === 'remodeling') return -1;
+  if (b.slug === 'remodeling') return 1;
+  return 0;
+});
+
+// Split content into sections for CRO module injection
+const contentSections = content ? splitMarkdownSections(content) : [];
+
+// Find a review to use as inline testimonial
+const inlineReview = config.reviews?.[0];
+
+// Qualifier data per service
+const qualifiers: Record<string, { good: string[]; not: string[] }> = {
+  'local-seo': {
+    good: [
+      'You have a physical Google Business Profile',
+      'You want more phone calls from local searches',
+      'You have 15+ Google reviews and a 4.5+ rating',
+      'You generate $1M+ in annual revenue',
+      'You want a marketing partner, not a vendor',
+    ],
+    not: [
+      'You need leads by tomorrow (try Google Ads instead)',
+      'You have no physical business location',
+      'You serve customers nationwide, not locally',
+      'You want to do it all yourself with no help',
+    ],
+  },
+  'ppc': {
+    good: [
+      'You want leads within 48 hours of launch',
+      'You can invest $5K+/month in ad spend',
+      'You want $0 agency fees on your campaigns',
+      'You want ads across Google, Bing, AND Yahoo',
+      'You want first-party data targeting, not guesswork',
+    ],
+    not: [
+      'Your monthly ad budget is under $2,000',
+      'You want to manage campaigns yourself',
+      'You only want organic traffic, not paid',
+    ],
+  },
+  'website-design': {
+    good: [
+      'Your current site takes more than 3 seconds to load',
+      'Your site looks good but does not generate calls',
+      'You want a site you own, not one held hostage',
+      'You want sub-2-second load times and mobile-first design',
+      'You want to pay monthly instead of a big lump sum',
+    ],
+    not: [
+      'You just need a basic landing page',
+      'You want to build it yourself on Wix or Squarespace',
+      'You do not have an established service business yet',
+    ],
+  },
+  'tv-streaming-advertising': {
+    good: [
+      'You want to build brand awareness beyond search',
+      'You want professional video production at no extra cost',
+      'You are ready to reach 30M+ households across 36 states',
+      'You want TV, streaming, AND connected TV coverage',
+      'You want full attribution and reporting on every dollar',
+    ],
+    not: [
+      'You only want search-based leads',
+      'Your total marketing budget is under $3,000/month',
+      'You already have a TV production team and media buyer',
+    ],
+  },
+};
+const qualifier = qualifiers[service.slug];
 
 const schema = {
   '@context': 'https://schema.org',
@@ -126,16 +203,22 @@ const schema = {
           <a href="/contact" class="btn btn-primary">Get Your Free Strategy Call</a>
           <a href="/pricing/" class="btn btn-outline">View Pricing</a>
         </div>
-        {serviceCaseStudies.length > 0 && (
-          <div class="hero-results-strip">
-            {serviceCaseStudies.slice(0, 3).map(cs => (
-              <div class="hero-result-chip">
-                <span class="hero-result-value">{cs.result}</span>
-                <span class="hero-result-client">{cs.title}</span>
-              </div>
-            ))}
-          </div>
-        )}
+        {/* Always show Isaac & Mark first, then service-specific results */}
+        {(() => {
+          const isaacMark = config.case_studies.find(cs => cs.slug === 'remodeling');
+          const others = serviceCaseStudies.filter(cs => cs.slug !== 'remodeling').slice(0, 2);
+          const heroResults = isaacMark ? [isaacMark, ...others] : serviceCaseStudies.slice(0, 3);
+          return heroResults.length > 0 ? (
+            <div class="hero-results-strip">
+              {heroResults.map(cs => (
+                <div class="hero-result-chip">
+                  <span class="hero-result-value">{cs.result}</span>
+                  <span class="hero-result-client">{cs.title}</span>
+                </div>
+              ))}
+            </div>
+          ) : null;
+        })()}
       </div>
       <div class="hero-visual">
         {isLocalSEO && <img src="/media/local-seo-graphic.webp" alt="Local SEO results dashboard" width="520" height="400" />}
@@ -146,28 +229,91 @@ const schema = {
     </div>
   </section>
 
+  {/* === CONTENT WITH CRO MODULES INJECTED BETWEEN SECTIONS === */}
   <section class="service-content section">
     <div class="container content-layout">
       <div class="main-content">
-        {content ? (
-          <div class="prose" set:html={renderMarkdown(content)} />
+
+        {/* Render content in sections with CRO modules between them */}
+        {contentSections.length > 0 ? (
+          contentSections.map((section, i) => (
+            <>
+              <div class={`prose content-section ${i > 0 && i % 2 === 0 ? 'section-highlighted' : ''}`} set:html={section.html} />
+
+              {/* After first section: Qualifier Block */}
+              {i === 0 && qualifier && (
+                <QualifierBlock goodFit={qualifier.good} notFit={qualifier.not} />
+              )}
+
+              {/* After second section: Inline Testimonial */}
+              {i === 1 && inlineReview && (
+                <InlineTestimonial
+                  quote={inlineReview.text}
+                  author={inlineReview.author}
+                  company={inlineReview.company}
+                  rating={inlineReview.rating}
+                />
+              )}
+
+              {/* After third section: Mid-content CTA */}
+              {i === 2 && (
+                <div class="mid-cta-module">
+                  <div class="mid-cta-inner">
+                    <div class="mid-cta-text">
+                      <h3>{isLocalSEO ? '10 Days Free. No Credit Card.' : isPPC ? '$0 Agency Fee on $5K+ Spend' : isTV ? 'Free Video Production Included' : 'Get Started Today'}</h3>
+                      <p>{isLocalSEO ? 'We boost your Google Business Profile for 10 days at zero cost. Keep every improvement even if you walk away.' : isPPC ? '100% of your ad budget funds your campaign. We get paid through our Spectrum Reach partnership.' : isTV ? 'Every TV and streaming campaign includes professional video production at no extra charge.' : 'Book a 15-minute strategy call. No pressure, no pitch deck.'}</p>
+                    </div>
+                    <a href="/contact" class="btn btn-primary">{isLocalSEO ? 'Apply for Free Boost' : 'Get Your Free Strategy Call'}</a>
+                  </div>
+                </div>
+              )}
+
+              {/* After fourth section: Case Studies */}
+              {i === 3 && serviceCaseStudies.length > 0 && (
+                <div class="inline-case-studies">
+                  <h2>Real {displayName} Results</h2>
+                  <div class="inline-cases-grid">
+                    {serviceCaseStudies.slice(0, 3).map(cs => (
+                      <a href={`/case-studies/${cs.slug}/`} class="inline-case-card">
+                        {cs.image && (
+                          <div class="inline-case-img">
+                            <img src={`/media/case-studies/${cs.image}`} alt={cs.title} loading="lazy" width="400" height="225" />
+                          </div>
+                        )}
+                        <div class="inline-case-body">
+                          <span class="inline-case-tag">{cs.category}</span>
+                          <h3>{cs.metrics?.primary || cs.result}</h3>
+                          <span class="inline-case-client">{cs.title}</span>
+                          <span class="card-link">Read Case Study &rarr;</span>
+                        </div>
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* After fifth section: Comparison Table */}
+              {i === 4 && type === 'service' && (
+                <ComparisonTable />
+              )}
+
+              {/* After sixth section: Another testimonial if we have one */}
+              {i === 5 && config.reviews?.[1] && (
+                <InlineTestimonial
+                  quote={config.reviews[1].text}
+                  author={config.reviews[1].author}
+                  company={config.reviews[1].company}
+                  rating={config.reviews[1].rating}
+                />
+              )}
+            </>
+          ))
         ) : (
           <div class="prose">
             <h2>{displayName}</h2>
             <p>{config.business.name} provides {displayName.toLowerCase()} services designed to grow home service businesses. We focus on measurable results: more calls, more booked jobs, more revenue.</p>
           </div>
         )}
-
-        {/* Mid-content CTA band */}
-        <div class="mid-cta-module">
-          <div class="mid-cta-inner">
-            <div class="mid-cta-text">
-              <h3>{isLocalSEO ? '10 Days Free. No Credit Card.' : isPPC ? '$0 Agency Fee on $5K+ Spend' : isTV ? 'Free Video Production Included' : 'Get Started Today'}</h3>
-              <p>{isLocalSEO ? 'We boost your Google Business Profile for 10 days at zero cost. Keep every improvement even if you walk away.' : isPPC ? '100% of your ad budget funds your campaign. We get paid through our Spectrum Reach partnership.' : isTV ? 'Every TV and streaming campaign includes professional video production at no extra charge.' : 'Book a 15-minute strategy call. No pressure, no pitch deck.'}</p>
-            </div>
-            <a href="/contact" class="btn btn-primary">{isLocalSEO ? 'Apply for Free Boost' : 'Get Your Free Strategy Call'}</a>
-          </div>
-        </div>
 
         {/* Sub-service cards */}
         {type === 'service' && service.sub_services && service.sub_services.length > 0 && (
@@ -184,32 +330,6 @@ const schema = {
                 </a>
               ))}
             </div>
-          </div>
-        )}
-
-        {/* Case Studies for this service */}
-        {serviceCaseStudies.length > 0 && (
-          <div class="inline-case-studies">
-            <h2>Real {displayName} Results</h2>
-            <div class="inline-cases-grid">
-              {serviceCaseStudies.slice(0, 4).map(cs => (
-                <a href={`/case-studies/${cs.slug}/`} class="inline-case-card">
-                  {cs.image && (
-                    <div class="inline-case-img">
-                      <img src={`/media/case-studies/${cs.image}`} alt={cs.title} loading="lazy" width="400" height="225" />
-                    </div>
-                  )}
-                  <div class="inline-case-body">
-                    <span class="inline-case-tag">{cs.category}</span>
-                    <h3>{cs.metrics?.primary || cs.result}</h3>
-                    <span class="inline-case-client">{cs.title}</span>
-                    {cs.metrics?.secondary && <span class="inline-case-secondary">{cs.metrics.secondary}</span>}
-                    <span class="card-link">Read Full Case Study &rarr;</span>
-                  </div>
-                </a>
-              ))}
-            </div>
-            <a href="/case-studies/" class="see-all-link">See All {config.case_studies.length} Case Studies &rarr;</a>
           </div>
         )}
 
@@ -260,6 +380,18 @@ const schema = {
       </div>
 
       <aside class="sidebar">
+        <div class="sidebar-card sidebar-cta">
+          <h3>Free Strategy Call</h3>
+          <p>15 minutes. No pressure. We analyze your market and show you the gaps.</p>
+          <a href="/contact" class="btn btn-primary btn-block">Book Now</a>
+        </div>
+        <div class="sidebar-card sidebar-trust">
+          <div class="sidebar-trust-rating">
+            <span class="sidebar-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+            <span class="sidebar-rating-text">{config.trust_signals.rating} / 5 on {config.trust_signals.review_platform}</span>
+          </div>
+          <p class="sidebar-trust-count">{config.trust_signals.review_count} verified reviews</p>
+        </div>
         <div class="sidebar-card">
           <h3>Our Services</h3>
           <ul class="sidebar-nav">
@@ -278,18 +410,6 @@ const schema = {
               </li>
             ))}
           </ul>
-        </div>
-        <div class="sidebar-card sidebar-cta">
-          <h3>Free Strategy Call</h3>
-          <p>15 minutes. No pressure. We analyze your market and show you the gaps.</p>
-          <a href="/contact" class="btn btn-primary btn-block">Book Now</a>
-        </div>
-        <div class="sidebar-card sidebar-trust">
-          <div class="sidebar-trust-rating">
-            <span class="sidebar-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-            <span class="sidebar-rating-text">{config.trust_signals.rating} / 5 on {config.trust_signals.review_platform}</span>
-          </div>
-          <p class="sidebar-trust-count">{config.trust_signals.review_count} verified reviews</p>
         </div>
       </aside>
     </div>
@@ -499,12 +619,15 @@ const schema = {
   .hero-result-client { font-size: 0.7rem; color: rgba(255,255,255,0.4); }
 
   .prose { max-width: none; }
-  .prose :global(h2) { font-size: var(--text-2xl); margin-top: var(--space-2xl); margin-bottom: var(--space-md); }
-  .prose :global(h3) { font-size: var(--text-xl); margin-top: var(--space-xl); margin-bottom: var(--space-sm); }
-  .prose :global(p) { color: var(--color-text-light); line-height: var(--leading-relaxed); }
-  .prose :global(ul), .prose :global(ol) { margin-bottom: 1em; color: var(--color-text-light); }
-  .prose :global(li) { margin-bottom: 0.375rem; line-height: var(--leading-relaxed); }
-  .prose :global(strong) { color: var(--color-text); }
+
+  /* Highlighted alternating content sections */
+  .content-section.section-highlighted {
+    background: var(--color-gray-100);
+    margin-left: calc(-1 * var(--space-xl));
+    margin-right: calc(-1 * var(--space-xl));
+    padding: var(--space-xl);
+    border-radius: var(--radius-md);
+  }
 
   .sub-services { margin: var(--space-2xl) 0; }
   .sub-services-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: var(--space-lg); margin-top: var(--space-lg); }

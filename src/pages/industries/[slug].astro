@@ -8,7 +8,8 @@ import Footer from '../../components/Footer.astro';
 import Sidebar from '../../components/Sidebar.astro';
 import LeadMagnet from '../../components/LeadMagnet.astro';
 import config from '../../lib/config';
-import { renderMarkdown } from '../../lib/markdown';
+import { renderMarkdown, splitMarkdownSections } from '../../lib/markdown';
+import InlineTestimonial from '../../components/InlineTestimonial.astro';
 import fs from 'node:fs';
 import path from 'node:path';
 import YAML from 'yaml';
@@ -48,6 +49,10 @@ const breadcrumbItems = [
 
 const faqQuestions = frontmatter.faq || [];
 
+// Split content into sections for CRO module injection
+const contentSections = content ? splitMarkdownSections(content) : [];
+const inlineReview = config.reviews?.[0];
+
 // Find case studies matching this industry
 const industryCases = config.case_studies.filter(cs =>
   cs.industry && cs.industry.toLowerCase().includes(industry.name.toLowerCase().split('/')[0].trim().toLowerCase())
@@ -82,25 +87,54 @@ const schema = {
   <section class="industry-content section">
     <div class="container content-layout">
       <div class="main-content">
-        {content ? (
-          <div class="prose" set:html={renderMarkdown(content)} />
+        {contentSections.length > 0 ? (
+          contentSections.map((section, i) => (
+            <>
+              <div class={`prose content-section ${i > 0 && i % 2 === 0 ? 'section-highlighted' : ''}`} set:html={section.html} />
+
+              {/* After first section: Mid-content CTA */}
+              {i === 0 && (
+                <div class="mid-cta-module">
+                  <div class="mid-cta-inner">
+                    <div class="mid-cta-text">
+                      <h3>Ready to Grow Your {industry.name} Business?</h3>
+                      <p>Free 15-minute strategy call. We analyze your market, your competition, and show you where the opportunities are.</p>
+                    </div>
+                    <a href="/contact" class="btn btn-primary">Free Strategy Call</a>
+                  </div>
+                </div>
+              )}
+
+              {/* After second section: Inline Testimonial */}
+              {i === 1 && inlineReview && (
+                <InlineTestimonial
+                  quote={inlineReview.text}
+                  author={inlineReview.author}
+                  company={inlineReview.company}
+                  rating={inlineReview.rating}
+                />
+              )}
+
+              {/* After fourth section: Another CTA */}
+              {i === 3 && (
+                <div class="mid-cta-module">
+                  <div class="mid-cta-inner">
+                    <div class="mid-cta-text">
+                      <h3>10 Days Free. Prove It Before You Pay.</h3>
+                      <p>We will boost your local SEO for 10 days at zero cost. No credit card, no account access, no commitment required.</p>
+                    </div>
+                    <a href="/contact?service=10-day-boost" class="btn btn-primary">Apply for Free Boost</a>
+                  </div>
+                </div>
+              )}
+            </>
+          ))
         ) : (
           <div class="prose">
             <h2>Digital Marketing Built for {industry.full_name}</h2>
             <p>{config.business.name} specializes in performance-driven marketing for {industry.full_name.toLowerCase()}. We understand the unique challenges of your industry and build campaigns that generate real leads, not vanity metrics.</p>
           </div>
         )}
-
-        {/* Mid-content CTA */}
-        <div class="mid-cta-module">
-          <div class="mid-cta-inner">
-            <div class="mid-cta-text">
-              <h3>Ready to Grow Your {industry.name} Business?</h3>
-              <p>Free 15-minute strategy call. We analyze your market, your competition, and show you where the opportunities are.</p>
-            </div>
-            <a href="/contact" class="btn btn-primary">Free Strategy Call</a>
-          </div>
-        </div>
 
         {/* Lead Magnet */}
         <LeadMagnet variant="inline" />
@@ -248,6 +282,14 @@ const schema = {
     font-size: var(--text-sm);
     font-weight: 600;
     color: var(--color-primary);
+  }
+
+  .content-section.section-highlighted {
+    background: var(--color-gray-100);
+    margin-left: calc(-1 * var(--space-xl));
+    margin-right: calc(-1 * var(--space-xl));
+    padding: var(--space-xl);
+    border-radius: var(--radius-md);
   }
 
   /* Mid-content CTA */

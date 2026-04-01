@@ -8,7 +8,8 @@ import Footer from '../../../components/Footer.astro';
 import Sidebar from '../../../components/Sidebar.astro';
 import LeadMagnet from '../../../components/LeadMagnet.astro';
 import config from '../../../lib/config';
-import { renderMarkdown } from '../../../lib/markdown';
+import { renderMarkdown, splitMarkdownSections } from '../../../lib/markdown';
+import InlineTestimonial from '../../../components/InlineTestimonial.astro';
 import fs from 'node:fs';
 import path from 'node:path';
 import YAML from 'yaml';
@@ -54,6 +55,8 @@ const breadcrumbItems = [
 ];
 
 const faqQuestions = frontmatter.faq || [];
+const contentSections = content ? splitMarkdownSections(content) : [];
+const inlineReview = config.reviews?.[0];
 const pricingTiers = service.pricing?.tiers || [];
 
 // Find case studies matching this service category or industry
@@ -108,8 +111,26 @@ const schema = {
   <section class="combo-content section">
     <div class="container content-layout">
       <div class="main-content">
-        {content ? (
-          <div class="prose" set:html={renderMarkdown(content)} />
+        {contentSections.length > 0 ? (
+          contentSections.map((section, i) => (
+            <>
+              <div class={`prose content-section ${i > 0 && i % 2 === 0 ? 'section-highlighted' : ''}`} set:html={section.html} />
+              {i === 1 && inlineReview && (
+                <InlineTestimonial quote={inlineReview.text} author={inlineReview.author} company={inlineReview.company} rating={inlineReview.rating} />
+              )}
+              {i === 2 && (
+                <div class="mid-cta-module">
+                  <div class="mid-cta-inner">
+                    <div class="mid-cta-text">
+                      <h3>Ready to Grow Your {industry.name} Business?</h3>
+                      <p>15-minute strategy call. We analyze your market, your competition, and show you where the money is.</p>
+                    </div>
+                    <a href="/contact" class="btn btn-primary">Free Strategy Call</a>
+                  </div>
+                </div>
+              )}
+            </>
+          ))
         ) : (
           <div class="prose">
             <h2>{service.name} Built for the {industry.name} Industry</h2>
