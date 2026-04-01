@@ -162,7 +162,7 @@ Through Spectrum Reach, ServiceLine Pro eliminates the agency fee for clients sp
 
 ### First-Party Data From 30M+ Households
 
-Spectrum Reach is the advertising arm of Charter Communications. They collect first-party data from over 30 million households across 36 states. This data includes verified homeownership status, household income, property age and value, viewing habits, and purchase behavior.
+Spectrum Reach is the advertising arm of Charter Communications. They collect first-party data from over 30 million households across 48 states. This data includes verified homeownership status, household income, property age and value, viewing habits, and purchase behavior.
 
 We layer this data into your Google Ads campaigns through audience targeting. Instead of showing your ads to anyone who searches "AC repair," we prioritize homeowners in specific income brackets, in houses of specific ages, in neighborhoods where your services are most needed. This precision targeting drives 30% to 50% higher click-through rates and reduces cost-per-click by roughly 33% compared to standard campaigns.
 

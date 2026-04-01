@@ -1,6 +1,6 @@
 ---
 title: "TV & Streaming Advertising for Home Service Businesses"
-description: "ServiceLine Pro delivers TV and streaming advertising through our Spectrum Reach partnership. No agency fees. Your entire budget goes to media placement. Connected TV advertising reaches 30M+ households across 36 states."
+description: "ServiceLine Pro delivers TV and streaming advertising through our Spectrum Reach partnership. No agency fees. Your entire budget goes to media placement. Connected TV advertising reaches 30M+ households across 48 states."
 process_steps:
   - title: "Strategy & Audience Planning"
     description: "We define your ideal customer profile, select targeting parameters, and recommend the right mix of streaming platforms and connected TV placements for your trade and service area."
@@ -10,7 +10,7 @@ process_steps:
     description: "Your campaign goes live across connected TV and streaming platforms. We monitor performance metrics, adjust targeting in real time, and deliver transparent reporting on impressions, reach, and audience engagement."
 faq:
   - question: "What is Spectrum Reach and how does it work?"
-    answer: "Spectrum Reach is the advertising arm of Charter Communications, the second-largest cable operator in the United States. It provides access to connected TV and streaming ad inventory across 30 million-plus households in 36 states. When you work with ServiceLine Pro, we place your ads through the Spectrum Reach platform with no agency markup on your media spend."
+    answer: "Spectrum Reach is the advertising arm of Charter Communications, the second-largest cable operator in the United States. It provides access to connected TV and streaming ad inventory across 30 million-plus households in 48 states. When you work with ServiceLine Pro, we place your ads through the Spectrum Reach platform with no agency markup on your media spend."
   - question: "How much does TV and streaming advertising cost?"
     answer: "Pricing is quote-based and depends on your target geography, audience size, campaign duration, and the mix of platforms you want to reach. We build a custom strategy for every client. There is no minimum spend requirement from ServiceLine Pro, though Spectrum Reach has its own campaign minimums that vary by market."
   - question: "Do I need to have a commercial already produced?"
@@ -41,7 +41,7 @@ The shift from linear TV to streaming is accelerating every quarter. Millions of
 
 ## The Spectrum Reach Advantage
 
-Spectrum Reach is the advertising arm of Charter Communications, the second-largest cable operator in the United States. Their network reaches more than 30 million households across 36 states. That scale translates into ad inventory across hundreds of streaming platforms and connected TV environments.
+Spectrum Reach is the advertising arm of Charter Communications, the second-largest cable operator in the United States. Their network reaches more than 30 million households across 48 states. That scale translates into ad inventory across hundreds of streaming platforms and connected TV environments.
 
 Working with Spectrum Reach through ServiceLine Pro gives your business access to advertising infrastructure that was previously reserved for national brands with six-figure budgets. The platform has evolved to serve local and regional businesses with the same targeting precision and reporting transparency that major advertisers demand.
 

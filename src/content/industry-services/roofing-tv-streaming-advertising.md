@@ -40,7 +40,7 @@ Your roofing company's commercial plays within this content. A homeowner watchin
 
 Traditional cable TV advertising forces you to buy time slots on specific channels and hope your target audience is watching. You pay to reach apartment renters, college students, and everyone else who will never hire a roofer. Streaming TV advertising through Spectrum Reach eliminates this waste.
 
-Spectrum Reach accesses behavioral and demographic data on over 30 million households across 36 states. For roofing companies, we build targeting profiles that include:
+Spectrum Reach accesses behavioral and demographic data on over 30 million households across 48 states. For roofing companies, we build targeting profiles that include:
 
 **Homeowners only.** Renters are excluded because they do not make roofing decisions.
 

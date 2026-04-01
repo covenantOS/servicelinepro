@@ -142,6 +142,6 @@ The goal is continuous improvement in brand awareness, which translates into con
 
 HVAC companies that dominate their markets all share one thing: homeowners know their name. That brand awareness was built intentionally, over time, through consistent advertising that reaches homeowners before they need service.
 
-Streaming TV advertising through ServiceLine Pro and Spectrum Reach is the most cost-effective way to build that brand. No agency fee. Household-level targeting. Broadcast-quality creative. Professional campaign management. And a direct line to 30 million-plus streaming households across 36 states.
+Streaming TV advertising through ServiceLine Pro and Spectrum Reach is the most cost-effective way to build that brand. No agency fee. Household-level targeting. Broadcast-quality creative. Professional campaign management. And a direct line to 30 million-plus streaming households across 48 states.
 
 Your competitors are fighting over Google Ads clicks today. Build the brand that makes homeowners skip the search entirely and call you first. That is the HVAC advantage streaming TV creates.

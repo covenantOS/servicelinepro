@@ -14,7 +14,7 @@ faq:
   - question: "How does ServiceLine Pro offer Google Ads management with no agency fee?"
     answer: "We hold an exclusive partnership with Spectrum Reach, the advertising arm of Charter Communications. When your monthly ad spend is $5,000 or more, Spectrum Reach absorbs the management cost because of the volume our agency routes through their platform. You pay Google for your clicks. You pay us nothing on top. For budgets under $5,000, we charge a flat $500/month management fee, which is still a fraction of the 15-20% most agencies take."
   - question: "What is first-party data and how does it improve my Google Ads campaigns?"
-    answer: "First-party data is information collected directly from real consumers, not estimated or modeled from browsing behavior. Through Spectrum Reach, we access verified household data from over 30 million homes across 36 states. This includes viewing habits, purchase behavior, and demographic details tied to actual addresses. We use this to build targeting profiles that reach homeowners who are statistically likely to need your services, which is why our campaigns consistently deliver 30-50% higher click-through rates than industry averages."
+    answer: "First-party data is information collected directly from real consumers, not estimated or modeled from browsing behavior. Through Spectrum Reach, we access verified household data from over 30 million homes across 48 states. This includes viewing habits, purchase behavior, and demographic details tied to actual addresses. We use this to build targeting profiles that reach homeowners who are statistically likely to need your services, which is why our campaigns consistently deliver 30-50% higher click-through rates than industry averages."
   - question: "How long does it take to start getting leads from PPC?"
     answer: "Most clients see their first qualified leads within 1-2 weeks of campaign launch. Google Ads delivers traffic the moment your campaigns go live. The $1,500 setup period takes 5-7 business days and includes keyword research, campaign architecture, landing page creation, call tracking configuration, and conversion tracking setup. Once we flip the switch, your ads appear immediately for your target searches."
   - question: "Do you run ads on platforms other than Google?"
@@ -35,7 +35,7 @@ For contractors and home service businesses, this changes the math on paid adver
 
 ## How the Spectrum Reach Partnership Works
 
-Spectrum Reach is the advertising arm of Charter Communications, one of the largest telecommunications companies in the United States. They operate advertising infrastructure across 36 states and collect first-party data from more than 30 million households. Their platform powers ad campaigns across digital, streaming, and [connected TV](/services/tv-streaming-advertising/) channels.
+Spectrum Reach is the advertising arm of Charter Communications, one of the largest telecommunications companies in the United States. They operate advertising infrastructure across 48 states and collect first-party data from more than 30 million households. Their platform powers ad campaigns across digital, streaming, and [connected TV](/services/tv-streaming-advertising/) channels.
 
 ServiceLine Pro is an authorized Spectrum Reach partner. This relationship gives our clients access to two things that are impossible to get through a standard Google Ads agency: zero agency fees on qualifying spend, and first-party household data that dramatically improves targeting accuracy.
 

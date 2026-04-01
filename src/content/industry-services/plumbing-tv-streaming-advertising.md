@@ -38,7 +38,7 @@ Your plumbing company's commercial plays within this content during natural comm
 
 ### Targeting for Plumbing Companies
 
-Spectrum Reach accesses household-level data on over 30 million homes across 36 states. For plumbing companies, we build targeting profiles that concentrate your budget on the households most likely to need plumbing services:
+Spectrum Reach accesses household-level data on over 30 million homes across 48 states. For plumbing companies, we build targeting profiles that concentrate your budget on the households most likely to need plumbing services:
 
 **Homeowners only.** Renters call their landlord when they have a plumbing problem. Homeowners call a plumber. We exclude renters entirely.
 
