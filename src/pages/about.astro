@@ -1,352 +1,766 @@
 ---
 import Base from '../layouts/Base.astro';
 import Header from '../components/Header.astro';
-import ReviewsSection from '../components/ReviewsSection.astro';
 import Footer from '../components/Footer.astro';
-import StatBar from '../components/StatBar.astro';
-import LogoStrip from '../components/LogoStrip.astro';
-import HandwrittenCTA from '../components/HandwrittenCTA.astro';
 import config from '../lib/config';
+import reviews from '../data/real-reviews.json';
 
-const pageTitle = "About ServiceLine Pro";
-const pageDescription = "ServiceLine Pro is a Tampa-based marketing agency specializing in local SEO, Google Ads, and website design for home service businesses generating $1M+ in annual revenue.";
+const pageTitle = "About ServiceLine Pro | Our Story & Team";
+const pageDescription = "Meet the team behind ServiceLine Pro — a Tampa-based marketing agency built exclusively for home service businesses. 5.0 Google Rating. Since 2020.";
+const topReviews = reviews.slice(0, 4);
+
+const teamImages: Record<string, string> = {
+  'William Hamilton': '/media/team-will-opt.webp',
+  'Victoria Hamilton': '/media/team-member-2-opt.webp',
+  'Daniel Gomez': '/media/team-member-3-opt.webp',
+  'Kevin Morales': '/media/team-member-4-opt.webp',
+};
 ---
 
 <Base title={pageTitle} description={pageDescription}>
   <Header slot="header" />
 
-  <!-- ===== HERO — Dark ===== -->
-  <section class="about-hero">
-    <div class="about-hero-texture"></div>
-    <div class="container about-hero-inner">
-      <div class="about-hero-text">
-        <span class="about-hero-eyebrow">Our Story</span>
-        <h1>The ServiceLine Story</h1>
-        <p class="about-hero-desc">Most agencies are built to extract. We are built to partner. If our clients do not grow, we do not grow.</p>
-      </div>
-      <div class="about-hero-photo">
-        <img src="/media/about-hero.webp" alt="ServiceLine Pro team" width="480" height="360" loading="eager" />
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== TRUST STRIP ===== -->
-  <section class="about-trust">
-    <div class="container">
-      <StatBar stats={[
-        { value: '5.0 ★', label: 'Google Rating' },
-        { value: 'Since 2020', label: 'Founded' },
-        { value: '50+', label: 'Clients Nationwide' },
-        { value: '22+', label: 'Industries Served' },
-      ]} variant="dark" />
-    </div>
-  </section>
-
-  <!-- ===== STORY — White ===== -->
-  <section class="about-section">
-    <div class="container about-grid">
-      <div class="about-content">
-        <span class="section-eyebrow">Built Different</span>
-        <h2>From Production to Performance Marketing</h2>
-        <p>William Hamilton started in production and filming at 16. By the time he entered the marketing world, he had already spent years learning what actually captures attention and drives action. That production background shapes everything we build.</p>
-        <p>In 2020, William launched Paradigm, a digital marketing firm. As the client base grew, a pattern emerged: the home service companies were the ones getting the best results. Plumbers, roofers, HVAC contractors. Their business model rewarded aggressive local marketing.</p>
-        <p>So in 2021, ServiceLine Pro was born to serve that industry exclusively. Not restaurants. Not e-commerce. Not SaaS. Home service companies generating $1M or more in annual revenue that need a marketing partner who understands their business model, their seasonal cycles, and their customers.</p>
-
-        <h2>What We Believe</h2>
-        <p>Your marketing budget should fund your growth, not someone else's overhead. That is why we charge no agency fee on PPC campaigns for clients spending $5,000 or more through our Spectrum Reach partnership. 100% of your budget funds your campaign.</p>
-        <p>That is why our SEO guarantee means 10 days free with no credit card required, and a top-3 Map Pack ranking within 90 days or you do not pay. Every client gets direct attention from people who know your business, your market, and your competition.</p>
-      </div>
-
-      <aside class="about-sidebar">
-        <div class="about-card">
-          <h3>Company Info</h3>
-          <dl class="about-details">
-            <dt>Founded</dt>
-            <dd>{config.business.founded_year}</dd>
-            <dt>Location</dt>
-            <dd>{config.business.address.city}, {config.business.address.state_full}</dd>
-            <dt>Specialization</dt>
-            <dd>Home Service Marketing</dd>
-            <dt>Clients Served</dt>
-            <dd>50+ nationwide</dd>
-            <dt>Google Rating</dt>
-            <dd>{config.trust_signals.rating}/5 ({config.trust_signals.review_count} reviews)</dd>
-          </dl>
+  <!-- ===== SECTION 1: HERO (dark) ===== -->
+  <section class="abt-hero">
+    <div class="abt-hero__bg"></div>
+    <div class="abt-container abt-hero__grid">
+      <div class="abt-hero__copy">
+        <span class="abt-eyebrow">Our Story</span>
+        <h1 class="abt-hero__h1">The ServiceLine Story</h1>
+        <p class="abt-hero__sub">Most agencies are built to extract. We are built to partner. If our clients don't grow, we don't grow.</p>
+        <div class="abt-hero__ctas">
+          <a href="/contact/" class="abt-btn abt-btn--red">Book a Strategy Call</a>
+          <a href="#team" class="abt-btn abt-btn--ghost">Meet the Team</a>
         </div>
+      </div>
+      <div class="abt-hero__photo">
+        <img src="/media/team-photo-gbp.jpg" alt="The ServiceLine Pro team" width="600" height="450" loading="eager" />
+      </div>
+    </div>
+  </section>
 
-        <div class="about-card team-card">
-          <h3>Leadership</h3>
-          <div class="team-member">
-            <img src="/media/team-will-opt.webp" alt="William Hamilton" class="team-thumb" width="48" height="48" />
-            <div>
-              <strong>William Hamilton</strong>
-              <span>CEO & Founder</span>
+  <!-- ===== SECTION 2: ORIGIN STORY (light contrast break) ===== -->
+  <section class="abt-section abt-section--light">
+    <div class="abt-container abt-origin__grid">
+      <div class="abt-origin__copy">
+        <span class="abt-eyebrow abt-eyebrow--dark">Built Different</span>
+        <h2 class="abt-h2 abt-h2--dark">From Production to Performance Marketing</h2>
+        <p class="abt-origin__text">William Hamilton started in production and filming at 16. By the time he entered the marketing world, he had already spent years learning what actually captures attention and drives action.</p>
+        <p class="abt-origin__text">In 2020, William launched Paradigm, a digital marketing firm. As the client base grew, a pattern emerged: the home service companies were the ones getting the best results. Plumbers, roofers, HVAC contractors — their business model rewarded aggressive local marketing.</p>
+        <p class="abt-origin__text">So ServiceLine Pro was born to serve that industry exclusively. Not restaurants. Not e-commerce. Not SaaS. Home service companies that need a marketing partner who understands their business model, their seasonal cycles, and their customers.</p>
+      </div>
+      <div class="abt-origin__photo">
+        <img src="/media/live-team-photo.webp" alt="ServiceLine Pro team in action" loading="lazy" />
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SECTION 3: STATS BAR (dark, thin) ===== -->
+  <section class="abt-stats-bar">
+    <div class="abt-container">
+      <div class="abt-stats-bar__inner">
+        <div class="abt-stat">
+          <span class="abt-stat__value">5.0</span>
+          <span class="abt-stat__label">Google Rating</span>
+        </div>
+        <div class="abt-stats-bar__divider"></div>
+        <div class="abt-stat">
+          <span class="abt-stat__value">Since 2020</span>
+          <span class="abt-stat__label">Founded</span>
+        </div>
+        <div class="abt-stats-bar__divider"></div>
+        <div class="abt-stat">
+          <span class="abt-stat__value">7</span>
+          <span class="abt-stat__label">Team Members</span>
+        </div>
+        <div class="abt-stats-bar__divider"></div>
+        <div class="abt-stat">
+          <span class="abt-stat__value">Tampa, FL</span>
+          <span class="abt-stat__label">Headquarters</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SECTION 4: TEAM (dark) ===== -->
+  <section class="abt-section abt-section--dark" id="team">
+    <div class="abt-container">
+      <div class="abt-section-header">
+        <span class="abt-eyebrow">The People</span>
+        <h2 class="abt-h2">Meet the Team</h2>
+        <p class="abt-section-sub">A lean, senior team where every person touches your account directly. No junior handoffs.</p>
+      </div>
+      <div class="abt-team-grid">
+        {config.business.team.map((member: { name: string; role: string }) => {
+          const img = teamImages[member.name];
+          const initials = member.name.split(' ').map((n: string) => n[0]).join('');
+          return (
+            <div class="abt-team-card">
+              {img ? (
+                <div class="abt-team-card__photo">
+                  <img src={img} alt={member.name} loading="lazy" />
+                </div>
+              ) : (
+                <div class="abt-team-card__placeholder">
+                  <span class="abt-team-card__initials">{initials}</span>
+                </div>
+              )}
+              <div class="abt-team-card__info">
+                <h3 class="abt-team-card__name">{member.name}</h3>
+                <span class="abt-team-card__role">{member.role}</span>
+              </div>
             </div>
-          </div>
-          <div class="team-member">
-            <img src="/media/team-member-2-opt.webp" alt="Victoria Hamilton" class="team-thumb" width="48" height="48" />
-            <div>
-              <strong>Victoria Hamilton</strong>
-              <span>Director of Operations</span>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SECTION 5: VALUES (light contrast break) ===== -->
+  <section class="abt-section abt-section--light">
+    <div class="abt-container">
+      <div class="abt-section-header abt-section-header--dark">
+        <span class="abt-eyebrow abt-eyebrow--dark">Our Values</span>
+        <h2 class="abt-h2 abt-h2--dark">What Drives Us</h2>
+      </div>
+      <div class="abt-values-grid">
+        <div class="abt-value-card">
+          <h3 class="abt-value-card__title">Partnership Over Extraction</h3>
+          <p class="abt-value-card__text">We grow when you grow. Period. Our pricing model is designed so our incentives align with yours.</p>
+        </div>
+        <div class="abt-value-card">
+          <h3 class="abt-value-card__title">Home Services Only</h3>
+          <p class="abt-value-card__text">Every strategy is built for your industry. We know your seasonal cycles, your customers, and your competition.</p>
+        </div>
+        <div class="abt-value-card">
+          <h3 class="abt-value-card__title">Transparency First</h3>
+          <p class="abt-value-card__text">No hidden fees, no mystery metrics. You see every dollar spent and every lead generated.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SECTION 6: GOOGLE REVIEWS (dark) ===== -->
+  <section class="abt-section abt-section--dark-alt" id="reviews">
+    <div class="abt-container">
+      <span class="abt-eyebrow">What Our Clients Say</span>
+      <div class="abt-reviews-layout">
+        <div class="abt-reviews-left">
+          <svg class="abt-google-g" width="48" height="48" viewBox="0 0 24 24" fill="none">
+            <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/>
+            <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+            <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18A10.96 10.96 0 001 12c0 1.77.42 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/>
+            <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+          </svg>
+          <div class="abt-reviews-left__rating">5.0</div>
+          <div class="abt-reviews-left__stars">★★★★★</div>
+          <p class="abt-reviews-left__count">{reviews.length} reviews on Google</p>
+          <a href="https://www.google.com/maps/place/ServiceLine+Pro" target="_blank" rel="noopener" class="abt-link-arrow">Read All Reviews on Google →</a>
+        </div>
+        <div class="abt-reviews-right">
+          {topReviews.map((review) => (
+            <div class="abt-review-card">
+              <div class="abt-review-card__header">
+                <div class="abt-review-card__avatar">{review.author.charAt(0)}</div>
+                <div>
+                  <div class="abt-review-card__name">{review.author}</div>
+                  <div class="abt-review-card__stars">★★★★★</div>
+                </div>
+              </div>
+              <p class="abt-review-card__text">{review.text.length > 180 ? review.text.slice(0, 180) + '…' : review.text}</p>
             </div>
-          </div>
-          <div class="team-member">
-            <img src="/media/team-member-3-opt.webp" alt="Daniel Gomez" class="team-thumb" width="48" height="48" />
-            <div>
-              <strong>Daniel Gomez</strong>
-              <span>Director of Fulfillment</span>
-            </div>
-          </div>
-          <div class="team-member">
-            <img src="/media/team-member-4-opt.webp" alt="Kevin Morales" class="team-thumb" width="48" height="48" />
-            <div>
-              <strong>Kevin Morales</strong>
-              <span>SEO Manager</span>
-            </div>
-          </div>
-          <a href="#team" class="team-see-all">See Full Team &darr;</a>
-        </div>
-
-        <div class="about-card cta-card">
-          <h3>Work With Us</h3>
-          <p>15-minute strategy call. No pressure.</p>
-          <a href="/contact" class="btn btn-primary btn-block">Book Now</a>
-        </div>
-      </aside>
-    </div>
-  </section>
-
-  <!-- ===== TEAM SECTION ===== -->
-  <section class="about-section" id="team">
-    <div class="container">
-      <div class="section-header-center">
-        <span class="section-eyebrow">The People</span>
-        <h2>Meet the Team</h2>
-        <p class="section-sub">A lean, senior team where every person touches your account directly. No junior handoffs.</p>
-      </div>
-      <div class="team-grid">
-        <div class="team-card-full">
-          <div class="team-card-photo">
-            <img src="/media/team-will-opt.webp" alt="William Hamilton" width="400" height="471" loading="lazy" />
-          </div>
-          <div class="team-card-info">
-            <h3>William Hamilton</h3>
-            <span class="team-card-role">CEO & Founder</span>
-          </div>
-        </div>
-        <div class="team-card-full">
-          <div class="team-card-photo">
-            <img src="/media/team-member-2-opt.webp" alt="Victoria Hamilton" width="400" height="471" loading="lazy" />
-          </div>
-          <div class="team-card-info">
-            <h3>Victoria Hamilton</h3>
-            <span class="team-card-role">Director of Operations</span>
-          </div>
-        </div>
-        <div class="team-card-full">
-          <div class="team-card-photo">
-            <img src="/media/team-member-3-opt.webp" alt="Daniel Gomez" width="400" height="471" loading="lazy" />
-          </div>
-          <div class="team-card-info">
-            <h3>Daniel Gomez</h3>
-            <span class="team-card-role">Director of Fulfillment</span>
-          </div>
-        </div>
-        <div class="team-card-full">
-          <div class="team-card-photo">
-            <img src="/media/team-member-4-opt.webp" alt="Kevin Morales" width="400" height="471" loading="lazy" />
-          </div>
-          <div class="team-card-info">
-            <h3>Kevin Morales</h3>
-            <span class="team-card-role">SEO Manager</span>
-          </div>
-        </div>
-        <div class="team-card-full team-card-text">
-          <div class="team-card-no-photo">
-            <span class="team-card-initials">JG</span>
-          </div>
-          <div class="team-card-info">
-            <h3>Jonah Galobardi</h3>
-            <span class="team-card-role">Regional Sales Director</span>
-          </div>
-        </div>
-        <div class="team-card-full team-card-text">
-          <div class="team-card-no-photo">
-            <span class="team-card-initials">RH</span>
-          </div>
-          <div class="team-card-info">
-            <h3>Rayssa Hamilton</h3>
-            <span class="team-card-role">Client Experience Manager</span>
-          </div>
-        </div>
-        <div class="team-card-full team-card-text">
-          <div class="team-card-no-photo">
-            <span class="team-card-initials">CH</span>
-          </div>
-          <div class="team-card-info">
-            <h3>Cade Hansen</h3>
-            <span class="team-card-role">Video Director</span>
-          </div>
+          ))}
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ===== VALUES — Dark ===== -->
-  <section class="about-section about-dark">
-    <div class="container">
-      <div class="section-header-center">
-        <span class="section-eyebrow" style="color: var(--color-primary);">Our Values</span>
-        <h2 style="color: var(--color-white);">What Drives Us</h2>
-      </div>
-      <div class="values-grid">
-        <div class="value-card-dark">
-          <h3>Results Over Reports</h3>
-          <p>We measure success by your revenue growth, not by impressions or click-through rates. If your phone is not ringing, we are not done.</p>
-        </div>
-        <div class="value-card-dark">
-          <h3>Radical Transparency</h3>
-          <p>You see every dollar spent, every keyword ranked, every lead generated. No black boxes. No jargon-filled reports.</p>
-        </div>
-        <div class="value-card-dark">
-          <h3>Partnership Over Extraction</h3>
-          <p>We grow when you grow. Our pricing model is designed so our incentives align with yours.</p>
-        </div>
-        <div class="value-card-dark">
-          <h3>Speed of Execution</h3>
-          <p>Google Ads campaigns launch in a week. SEO campaigns start generating movement in 10 days. We do not waste your time.</p>
-        </div>
-      </div>
+  <!-- ===== SECTION 7: FINAL CTA (dark, dramatic) ===== -->
+  <section class="abt-final-cta">
+    <div class="abt-container">
+      <h2 class="abt-final-cta__h2">Let's Talk About Your Growth</h2>
+      <p class="abt-final-cta__sub">Book a free 15-minute strategy call. No pressure, no obligation.</p>
+      <a href="/contact/" class="abt-btn abt-btn--red abt-btn--lg">Book Your Strategy Call</a>
+      <p class="abt-final-cta__phone"><a href="tel:+18135213199">(813) 521-3199</a></p>
     </div>
   </section>
-
-  <!-- ===== PARTNERS — White ===== -->
-  <section class="about-section">
-    <div class="container" style="text-align: center;">
-      <LogoStrip items={['Spectrum Reach', 'Google Partner', 'Yahoo', 'TAG Certified']} variant="light" label="Trusted Partnerships" />
-    </div>
-  </section>
-
-  <ReviewsSection compact={true} maxReviews={4} />
-
-  <HandwrittenCTA
-    heading="Ready to Partner with a Team That Delivers?"
-    buttonText="Schedule Your Strategy Call"
-    annotation="No obligation. Just a quick call."
-  />
 
   <Footer slot="footer" />
 </Base>
 
 <style>
-  .about-hero {
-    min-height: 60vh;
-    display: flex;
-    align-items: center;
-    background: var(--color-dark);
-    color: var(--color-white);
-    position: relative;
-    overflow: hidden;
-    padding: var(--space-4xl) 0;
+  /* ============================================
+     ABOUT PAGE — Complete Rebuild
+     Dark cinematic theme matching homepage
+     All classes prefixed with abt-
+     ============================================ */
+
+  /* --- Shared Utilities --- */
+  .abt-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
   }
-  .about-hero-texture {
-    position: absolute; inset: 0;
-    background:
-      repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.02) 10px, rgba(255,255,255,0.02) 11px),
-      radial-gradient(circle at 20% 80%, rgba(192,57,43,0.12) 0%, transparent 50%);
-    pointer-events: none;
-  }
-  .about-hero-inner {
-    position: relative; z-index: 1;
-    display: grid; grid-template-columns: 1fr; gap: var(--space-xl); align-items: center;
-  }
-  @media (min-width: 1024px) { .about-hero-inner { grid-template-columns: 1.2fr 0.8fr; } }
-  .about-hero-eyebrow {
+
+  .abt-eyebrow {
     display: inline-block;
     font-family: var(--font-heading);
     font-size: 0.75rem;
-    font-weight: 600;
-    text-transform: uppercase;
+    font-weight: 700;
     letter-spacing: 0.15em;
+    text-transform: uppercase;
     color: var(--color-primary);
-    margin-bottom: var(--space-md);
+    margin-bottom: 1rem;
   }
-  .about-hero h1 { color: var(--color-white); margin-bottom: var(--space-sm); }
-  .about-hero-desc { color: rgba(255,255,255,0.75); font-size: var(--text-lg); font-style: italic; }
-  .about-hero-photo { display: none; }
-  @media (min-width: 1024px) { .about-hero-photo { display: block; } }
-  .about-hero-photo img { width: 100%; height: auto; border-radius: 12px; box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
 
-  .about-trust {
+  .abt-eyebrow--dark {
+    color: var(--color-primary);
+  }
+
+  .abt-h2 {
+    font-family: var(--font-heading);
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    font-weight: 800;
+    color: #fff;
+    margin: 0 0 2.5rem;
+    line-height: 1.15;
+  }
+
+  .abt-h2--dark {
+    color: var(--color-dark);
+  }
+
+  .abt-section {
+    padding: 5rem 0;
+  }
+
+  .abt-section--dark {
     background: var(--color-dark);
-    border-top: 1px solid rgba(255,255,255,0.06);
-    padding: var(--space-md) 0 var(--space-lg);
   }
 
-  .about-section { padding: var(--space-4xl) 0; }
-  @media (min-width: 768px) { .about-section { padding: var(--space-5xl) 0; } }
-
-  .about-dark {
-    background: var(--color-dark); color: var(--color-white); position: relative;
+  .abt-section--dark-alt {
+    background: #151515;
   }
-  .about-dark::before {
-    content: ''; position: absolute; inset: 0;
-    background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.02) 10px, rgba(255,255,255,0.02) 11px);
+
+  .abt-section--light {
+    background: #f9f9f9;
+  }
+
+  .abt-section-header {
+    text-align: center;
+    max-width: 640px;
+    margin: 0 auto 3rem;
+  }
+
+  .abt-section-sub {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: rgba(255,255,255,0.55);
+    margin-top: 0;
+  }
+
+  /* --- Buttons --- */
+  .abt-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 0.85rem 2rem;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    border: 2px solid transparent;
+  }
+
+  .abt-btn--red {
+    background: var(--color-primary);
+    color: #fff;
+    border-color: var(--color-primary);
+  }
+
+  .abt-btn--red:hover {
+    background: #a5311f;
+    border-color: #a5311f;
+  }
+
+  .abt-btn--ghost {
+    background: transparent;
+    color: #fff;
+    border-color: rgba(255,255,255,0.3);
+  }
+
+  .abt-btn--ghost:hover {
+    border-color: #fff;
+    color: #fff;
+  }
+
+  .abt-btn--lg {
+    padding: 1.1rem 2.8rem;
+    font-size: 1rem;
+  }
+
+  .abt-link-arrow {
+    font-family: var(--font-heading);
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--color-primary);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .abt-link-arrow:hover {
+    color: #e74c3c;
+  }
+
+  /* ===== SECTION 1: HERO ===== */
+  .abt-hero {
+    position: relative;
+    background: #111;
+    padding: 6rem 0 5rem;
+    overflow: hidden;
+  }
+
+  .abt-hero__bg {
+    position: absolute;
+    inset: 0;
+    background:
+      repeating-linear-gradient(
+        135deg,
+        transparent,
+        transparent 40px,
+        rgba(255,255,255,0.015) 40px,
+        rgba(255,255,255,0.015) 41px
+      );
     pointer-events: none;
   }
-  .about-dark > * { position: relative; z-index: 1; }
 
-  .about-grid { display: grid; grid-template-columns: 1fr; gap: var(--space-2xl); }
-  @media (min-width: 1024px) { .about-grid { grid-template-columns: 1fr 320px; } }
+  .abt-hero__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
 
-  .about-content h2 { margin-top: var(--space-2xl); margin-bottom: var(--space-md); }
-  .about-content h2:first-of-type { margin-top: 0; }
-  .about-content p { color: var(--color-text-light); line-height: var(--leading-relaxed); margin-bottom: var(--space-md); }
+  .abt-hero__copy {
+    max-width: 540px;
+  }
 
-  .about-sidebar { display: flex; flex-direction: column; gap: var(--space-lg); }
-  .about-card { background: var(--color-white); border: 1px solid var(--color-gray-200); border-radius: 10px; padding: var(--space-lg); }
-  .about-card h3 { font-size: var(--text-base); margin-bottom: var(--space-md); text-transform: none; }
-  .about-details { display: grid; grid-template-columns: auto 1fr; gap: 0.5rem var(--space-md); }
-  .about-details dt { font-size: var(--text-sm); color: var(--color-text-light); font-weight: 600; }
-  .about-details dd { font-size: var(--text-sm); margin: 0; }
-  .team-member { display: flex; align-items: center; gap: 0.75rem; padding: 0.5rem 0; border-bottom: 1px solid var(--color-gray-100); }
-  .team-member:last-child { border-bottom: none; }
-  .team-member strong { font-size: var(--text-sm); display: block; }
-  .team-member span { font-size: var(--text-xs); color: var(--color-text-light); }
-  .team-thumb { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; flex-shrink: 0; }
-  .team-see-all { display: block; text-align: center; font-size: var(--text-sm); font-weight: 600; color: var(--color-primary); text-decoration: none; margin-top: var(--space-sm); padding-top: var(--space-sm); border-top: 1px solid var(--color-gray-100); }
-  .team-see-all:hover { text-decoration: underline; }
+  .abt-hero__h1 {
+    font-family: var(--font-heading);
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.1;
+    margin: 0 0 1.25rem;
+  }
 
-  /* Full team grid */
-  .section-header-center { text-align: center; max-width: 600px; margin: 0 auto var(--space-2xl); }
-  .section-sub { color: var(--color-text-light); font-size: var(--text-base); margin-top: var(--space-sm); }
-  .team-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-lg); }
-  @media (min-width: 768px) { .team-grid { grid-template-columns: repeat(3, 1fr); } }
-  @media (min-width: 1024px) { .team-grid { grid-template-columns: repeat(4, 1fr); } }
-  .team-card-full { background: var(--color-white); border: 1px solid var(--color-gray-200); border-radius: 10px; overflow: hidden; transition: transform 0.2s, box-shadow 0.2s; }
-  .team-card-full:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(0,0,0,0.1); }
-  .team-card-photo { aspect-ratio: 400/471; overflow: hidden; background: var(--color-gray-100); }
-  .team-card-photo img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
-  .team-card-full:hover .team-card-photo img { transform: scale(1.03); }
-  .team-card-info { padding: var(--space-md); }
-  .team-card-info h3 { font-size: var(--text-base); margin-bottom: 2px; text-transform: none; }
-  .team-card-role { font-size: var(--text-sm); color: var(--color-text-light); }
-  .team-card-no-photo { aspect-ratio: 400/471; overflow: hidden; background: linear-gradient(135deg, var(--color-dark) 0%, #2c2c2c 100%); display: flex; align-items: center; justify-content: center; }
-  .team-card-initials { font-family: var(--font-heading); font-size: 3rem; font-weight: 800; color: rgba(255,255,255,0.15); letter-spacing: 0.05em; }
-  .cta-card { background: var(--color-dark); color: var(--color-white); border: none; }
-  .cta-card h3 { color: var(--color-white); }
-  .cta-card p { color: rgba(255,255,255,0.7); margin-bottom: var(--space-md); font-size: var(--text-sm); }
-  .btn-block { display: block; width: 100%; text-align: center; }
+  .abt-hero__sub {
+    font-family: var(--font-body);
+    font-size: 1.15rem;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.65;
+    margin: 0 0 2rem;
+    font-style: italic;
+  }
 
-  .values-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: var(--space-lg); }
-  .value-card-dark {
-    padding: var(--space-xl);
-    background: rgba(255,255,255,0.04);
+  .abt-hero__ctas {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .abt-hero__photo img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  }
+
+  /* ===== SECTION 2: ORIGIN ===== */
+  .abt-origin__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+
+  .abt-origin__text {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.7;
+    margin: 0 0 1.25rem;
+  }
+
+  .abt-origin__text:last-child {
+    margin-bottom: 0;
+  }
+
+  .abt-origin__photo img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+  }
+
+  /* ===== SECTION 3: STATS BAR ===== */
+  .abt-stats-bar {
+    background: #0d0d0d;
+    padding: 2.5rem 0;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .abt-stats-bar__inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3rem;
+    flex-wrap: wrap;
+  }
+
+  .abt-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .abt-stat__value {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #fff;
+  }
+
+  .abt-stat__label {
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.45);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .abt-stats-bar__divider {
+    width: 1px;
+    height: 36px;
+    background: rgba(255,255,255,0.12);
+  }
+
+  /* ===== SECTION 4: TEAM ===== */
+  .abt-team-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+  }
+
+  .abt-team-card {
+    background: #1e1e1e;
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+
+  .abt-team-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255,255,255,0.12);
+  }
+
+  .abt-team-card__photo {
+    aspect-ratio: 4/5;
+    overflow: hidden;
+    background: #151515;
+  }
+
+  .abt-team-card__photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s;
+  }
+
+  .abt-team-card:hover .abt-team-card__photo img {
+    transform: scale(1.03);
+  }
+
+  .abt-team-card__placeholder {
+    aspect-ratio: 4/5;
+    background: linear-gradient(135deg, var(--color-dark) 0%, #2c2c2c 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .abt-team-card__initials {
+    font-family: var(--font-heading);
+    font-size: 3rem;
+    font-weight: 800;
+    color: rgba(255,255,255,0.12);
+    letter-spacing: 0.05em;
+  }
+
+  .abt-team-card__info {
+    padding: 1.25rem;
+  }
+
+  .abt-team-card__name {
+    font-family: var(--font-heading);
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #fff;
+    margin: 0 0 0.2rem;
+  }
+
+  .abt-team-card__role {
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.5);
+  }
+
+  /* ===== SECTION 5: VALUES ===== */
+  .abt-values-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .abt-value-card {
+    background: #fff;
+    border: 1px solid #e8e8e8;
+    border-radius: 12px;
+    padding: 2rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .abt-value-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+  }
+
+  .abt-value-card__title {
+    font-family: var(--font-heading);
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--color-dark);
+    margin: 0 0 0.75rem;
+  }
+
+  .abt-value-card__text {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: #666;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* ===== SECTION 6: REVIEWS ===== */
+  .abt-reviews-layout {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  .abt-reviews-left {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .abt-google-g {
+    margin-bottom: 0.5rem;
+  }
+
+  .abt-reviews-left__rating {
+    font-family: var(--font-heading);
+    font-size: 4rem;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1;
+  }
+
+  .abt-reviews-left__stars {
+    color: #fbbf24;
+    font-size: 1.5rem;
+    letter-spacing: 0.05em;
+  }
+
+  .abt-reviews-left__count {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.5);
+    margin: 0.25rem 0 1rem;
+  }
+
+  .abt-reviews-right {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .abt-review-card {
+    background: rgba(255,255,255,0.05);
     border: 1px solid rgba(255,255,255,0.08);
     border-radius: 10px;
-    transition: transform 0.2s, background 0.2s;
+    padding: 1.25rem;
   }
-  .value-card-dark:hover { transform: translateY(-2px); background: rgba(255,255,255,0.07); }
-  .value-card-dark h3 { font-size: var(--text-lg); margin-bottom: var(--space-sm); color: var(--color-white); text-transform: none; }
-  .value-card-dark p { font-size: var(--text-sm); color: rgba(255,255,255,0.6); line-height: var(--leading-relaxed); }
+
+  .abt-review-card__header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .abt-review-card__avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--color-primary);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.85rem;
+    flex-shrink: 0;
+  }
+
+  .abt-review-card__name {
+    font-family: var(--font-heading);
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  .abt-review-card__stars {
+    color: #fbbf24;
+    font-size: 0.8rem;
+  }
+
+  .abt-review-card__text {
+    font-family: var(--font-body);
+    font-size: 0.82rem;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  /* ===== SECTION 7: FINAL CTA ===== */
+  .abt-final-cta {
+    background: #111;
+    padding: 6rem 0;
+    text-align: center;
+  }
+
+  .abt-final-cta__h2 {
+    font-family: var(--font-heading);
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800;
+    color: #fff;
+    margin: 0 0 1rem;
+  }
+
+  .abt-final-cta__sub {
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    color: rgba(255,255,255,0.55);
+    margin: 0 0 2rem;
+  }
+
+  .abt-final-cta__phone {
+    margin-top: 1.5rem;
+  }
+
+  .abt-final-cta__phone a {
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .abt-final-cta__phone a:hover {
+    color: #fff;
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 900px) {
+    .abt-hero__grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .abt-hero {
+      padding: 3rem 0;
+    }
+
+    .abt-hero__photo {
+      order: -1;
+    }
+
+    .abt-origin__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .abt-team-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .abt-values-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .abt-reviews-layout {
+      grid-template-columns: 1fr;
+    }
+
+    .abt-reviews-left {
+      align-items: center;
+      text-align: center;
+    }
+
+    .abt-reviews-right {
+      grid-template-columns: 1fr;
+    }
+
+    .abt-stats-bar__divider {
+      display: none;
+    }
+
+    .abt-stats-bar__inner {
+      gap: 2rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .abt-hero__h1 {
+      font-size: 1.75rem;
+    }
+
+    .abt-hero__ctas {
+      flex-direction: column;
+    }
+
+    .abt-hero__ctas .abt-btn {
+      width: 100%;
+    }
+
+    .abt-team-grid {
+      grid-template-columns: 1fr;
+    }
+  }
 </style>

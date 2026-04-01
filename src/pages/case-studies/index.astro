@@ -184,7 +184,9 @@ const categories = [...new Set(config.case_studies.map(cs => cs.category))];
   }
   .page-hero h1 {
     color: var(--color-white);
-    font-size: var(--text-4xl);
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    font-weight: 800;
+    text-transform: none;
     margin-bottom: var(--space-sm);
     max-width: 700px;
   }

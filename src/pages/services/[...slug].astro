@@ -234,20 +234,23 @@ const schema = {
 <Base title={pageTitle} description={pageDescription} schema={schema}>
   <Header slot="header" />
 
-  <!-- ===== HERO — Full-Width Dark, Hook Agency Style ===== -->
+  <!-- ===== HERO — Cinematic Dark Split ===== -->
   <section class="svc-hero">
-    <div class="svc-hero-texture"></div>
-    <div class="container svc-hero-split">
-      <div class="svc-hero-inner">
-        <span class="svc-hero-eyebrow">{eyebrows[service.slug] || displayName}</span>
-        <h1>{displayName}</h1>
-        <p class="svc-hero-subtitle">{displayDesc}</p>
+    <div class="svc-hero__bg"></div>
+    <div class="container svc-hero__grid">
+      <div class="svc-hero__copy">
+        <span class="svc-eyebrow">{eyebrows[service.slug] || displayName}</span>
+        <h1 class="svc-hero__h1">{displayName}</h1>
+        <p class="svc-hero__sub">{displayDesc}</p>
         <IconBulletList items={proofPoints} variant="dark" />
-        <div class="svc-hero-ctas">
-          <a href="/contact" class="btn btn-ghost btn-lg">Get In Touch</a>
+        <div class="svc-hero__ctas">
+          <a href="/contact" class="svc-btn svc-btn--primary">Book Strategy Call</a>
+          {serviceCaseStudies.length > 0 && (
+            <a href="#results" class="svc-btn svc-btn--ghost">See Our Results</a>
+          )}
         </div>
       </div>
-      <div class="svc-hero-image">
+      <div class="svc-hero__img">
         {service.slug === 'ppc' && <img src="/media/ppc-graphic.webp" alt="No Fee Google Ads Management" width="520" height="400" />}
         {service.slug === 'local-seo' && <img src="/media/local-seo-graphic.webp" alt="Local SEO Map Pack Rankings" width="520" height="400" />}
         {service.slug === 'website-design' && <img src="/media/case-studies/Website-Design-1.webp" alt="Custom Website Design" width="520" height="400" />}
@@ -256,171 +259,199 @@ const schema = {
     </div>
   </section>
 
-  <!-- ===== TRUST STRIP ===== -->
-  <section class="svc-trust-strip">
+  <!-- ===== SOCIAL PROOF STRIP (thin, dark) ===== -->
+  <section class="svc-proof-strip">
     <div class="container">
       {serviceCaseStudies.length > 0 ? (
-        <div class="trust-proof-bar">
+        <div class="svc-proof__row">
           {serviceCaseStudies.slice(0, 3).map(cs => (
-            <div class="trust-proof-item">
-              <span class="trust-proof-val">{cs.metrics?.primary || cs.result}</span>
-              <span class="trust-proof-client">{cs.title}</span>
+            <div class="svc-proof__item">
+              <span class="svc-proof__val">{cs.metrics?.primary || cs.result}</span>
+              <span class="svc-proof__label">{cs.title}</span>
             </div>
           ))}
         </div>
       ) : (
-        <StatBar stats={[
-          { value: '5.0 \u2605', label: 'Google Rating' },
-          { value: '$10M+', label: 'Revenue Generated for Clients' },
-          { value: '2,500+', label: 'Leads Delivered' },
-        ]} variant="dark" />
+        <div class="svc-proof__row">
+          <div class="svc-proof__item">
+            <span class="svc-proof__val">5.0 ★★★★★</span>
+            <span class="svc-proof__label">Google Rating</span>
+          </div>
+          <div class="svc-proof__item">
+            <span class="svc-proof__val">Spectrum</span>
+            <span class="svc-proof__label">Reach Partner</span>
+          </div>
+          <div class="svc-proof__item">
+            <span class="svc-proof__val">Tampa</span>
+            <span class="svc-proof__label">Based &amp; Operated</span>
+          </div>
+        </div>
       )}
     </div>
   </section>
 
-  <!-- ===== VALUE PROPOSITION — Split Layout with Image ===== -->
-  {contentSections.length > 0 && (
-    <section class="svc-section">
-      <div class="container">
-        <SplitContent imageSrc={images[0]} imageAlt={`${displayName} results`} imagePosition="right">
-          <div class="prose svc-prose-short" set:html={contentSections[0].html} />
-        </SplitContent>
-      </div>
-    </section>
-  )}
-
-  <!-- ===== STAT CALLOUT BAR ===== -->
-  <StatCallout stats={statCalloutData} variant="primary" />
-
-  <!-- ===== TESTIMONIAL 1 ===== -->
-  {inlineReview && (
-    <section class="svc-section" style="background: var(--color-gray-100);">
-      <div class="container" style="max-width: 800px;">
-        <InlineTestimonial quote={inlineReview.text} author={inlineReview.author} company={inlineReview.company} rating={inlineReview.rating} />
-      </div>
-    </section>
-  )}
-
-  <!-- ===== QUALIFIER BLOCK — White ===== -->
-  {qualifier && (
-    <section class="svc-section">
-      <div class="container">
-        <QualifierBlock goodFit={qualifier.good} notFit={qualifier.not} />
-      </div>
-    </section>
-  )}
-
-  <!-- ===== KEY CAPABILITIES — Icon Card Grid ===== -->
-  <section class="svc-section svc-dark">
+  <!-- ===== STAT CALLOUT BAR (red accent) ===== -->
+  <section class="svc-stat-bar">
     <div class="container">
-      <span class="section-eyebrow" style="color: var(--color-primary);">Key Capabilities</span>
-      <h2 style="color: #ffffff; margin-bottom: var(--space-xl);">What You Get</h2>
-      <IconCardGrid cards={iconCards} columns={3} darkBg={true} />
+      <div class="svc-stat-bar__row">
+        {statCalloutData.map((stat, i) => (
+          <>
+            <div class="svc-stat-bar__item">
+              <span class="svc-stat-bar__val">{stat.value}</span>
+              <span class="svc-stat-bar__label">{stat.label}</span>
+            </div>
+            {i < statCalloutData.length - 1 && <div class="svc-stat-bar__div"></div>}
+          </>
+        ))}
+      </div>
     </div>
   </section>
+
+  <!-- ===== VALUE PROP — Split Layout (light contrast break) ===== -->
+  {contentSections.length > 0 && (
+    <section class="svc-section svc-section--light">
+      <div class="container">
+        <div class="svc-split">
+          <div class="svc-split__text">
+            <div class="svc-prose" set:html={contentSections[0].html} />
+          </div>
+          <div class="svc-split__img">
+            <img src={images[0]} alt={`${displayName} results`} loading="lazy" />
+          </div>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- ===== KEY CAPABILITIES (dark) ===== -->
+  <section class="svc-section svc-section--dark">
+    <div class="svc-section__bg"></div>
+    <div class="container" style="position:relative;z-index:1;">
+      <div class="svc-section-header svc-section-header--center">
+        <span class="svc-eyebrow">Key Capabilities</span>
+        <h2 class="svc-h2--light">What You Get</h2>
+      </div>
+      <div class="svc-cards-grid">
+        {iconCards.map(card => (
+          <div class="svc-card">
+            <div class="svc-card__icon">{card.icon === 'map' ? '📍' : card.icon === 'target' ? '🎯' : card.icon === 'bar' ? '📊' : card.icon === 'zap' ? '⚡' : card.icon === 'star' ? '⭐' : card.icon === 'chart' ? '📈' : card.icon === 'money' ? '💰' : card.icon === 'globe' ? '🌐' : card.icon === 'eye' ? '👁' : card.icon === 'phone' ? '📱' : card.icon === 'shield' ? '🛡' : card.icon === 'code' ? '💻' : card.icon === 'tv' ? '📺' : '✦'}</div>
+            <h3 class="svc-card__title">{card.title}</h3>
+            <p class="svc-card__desc">{card.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== QUALIFIER BLOCK (light contrast break) ===== -->
+  {qualifier && (
+    <section class="svc-section svc-section--light">
+      <div class="container">
+        <div class="svc-section-header svc-section-header--center">
+          <span class="svc-eyebrow svc-eyebrow--dark">Is This Right For You?</span>
+          <h2 class="svc-h2--dark">Find Out If We Are a Fit</h2>
+        </div>
+        <div class="svc-qual-grid">
+          <div class="svc-qual-col svc-qual-col--good">
+            <h3 class="svc-qual__heading svc-qual__heading--good">✓ Good Fit</h3>
+            <ul class="svc-qual__list">
+              {qualifier.good.map(item => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          </div>
+          <div class="svc-qual-col svc-qual-col--not">
+            <h3 class="svc-qual__heading svc-qual__heading--not">✕ Not For You</h3>
+            <ul class="svc-qual__list">
+              {qualifier.not.map(item => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  )}
 
   <!-- ===== VIDEO PRODUCTION — TV Only ===== -->
   {isTV && (
-    <section class="svc-section svc-dark">
-      <div class="container">
-        <div class="video-prod-grid">
-          <div class="video-prod-content">
-            <span class="section-eyebrow" style="color: var(--color-primary);">Major Differentiator</span>
-            <h2 style="color: var(--color-white); margin-bottom: var(--space-md);">Free Professional Video Production</h2>
-            <p style="color: rgba(255,255,255,0.85); line-height: 1.7; margin-bottom: var(--space-lg); max-width: 520px;">Most agencies charge $5,000 to $15,000+ for a single commercial. We include broadcast-quality video production at <strong style="color: var(--color-white);">no extra cost</strong> for Florida clients running TV & streaming campaigns.</p>
-            <div class="video-prod-highlights">
-              <div class="vp-highlight">
-                <span class="vp-highlight-val">FREE</span>
-                <span class="vp-highlight-label">For Florida Clients</span>
+    <section class="svc-section svc-section--dark">
+      <div class="svc-section__bg"></div>
+      <div class="container" style="position:relative;z-index:1;">
+        <div class="svc-video-grid">
+          <div class="svc-video__copy">
+            <span class="svc-eyebrow">Major Differentiator</span>
+            <h2 class="svc-h2--light">Free Professional Video Production</h2>
+            <p class="svc-video__desc">Most agencies charge $5,000 to $15,000+ for a single commercial. We include broadcast-quality video production at <strong>no extra cost</strong> for Florida clients running TV & streaming campaigns.</p>
+            <div class="svc-video__stats">
+              <div class="svc-video__stat">
+                <span class="svc-video__stat-val">FREE</span>
+                <span class="svc-video__stat-label">For Florida Clients</span>
               </div>
-              <div class="vp-highlight">
-                <span class="vp-highlight-val">Nationwide</span>
-                <span class="vp-highlight-label">Available at Cost</span>
+              <div class="svc-video__stat">
+                <span class="svc-video__stat-val">Nationwide</span>
+                <span class="svc-video__stat-label">Available at Cost</span>
               </div>
-              <div class="vp-highlight">
-                <span class="vp-highlight-val">Broadcast</span>
-                <span class="vp-highlight-label">Quality Production</span>
+              <div class="svc-video__stat">
+                <span class="svc-video__stat-val">Broadcast</span>
+                <span class="svc-video__stat-label">Quality Production</span>
               </div>
             </div>
-            <p style="color: rgba(255,255,255,0.5); font-size: var(--text-sm); margin-top: var(--space-lg);">Video Director: <strong style="color: rgba(255,255,255,0.8);">Cade Hansen</strong></p>
+            <p class="svc-video__credit">Video Director: <strong>Cade Hansen</strong></p>
           </div>
-          <div class="video-prod-card">
-            <div class="vp-card-inner">
-              <span class="vp-card-badge">Included Free</span>
-              <h3 style="color: var(--color-white); font-size: var(--text-xl); margin-bottom: var(--space-md); text-transform: none;">What You Get</h3>
-              <ul class="vp-card-list">
-                <li>Professional script development</li>
-                <li>On-location or studio filming</li>
-                <li>15-second and 30-second spots</li>
-                <li>Broadcast-quality editing and post-production</li>
-                <li>Platform-optimized formatting</li>
-                <li>Multiple revisions until you love it</li>
-              </ul>
-              <a href="/contact" class="btn btn-primary btn-lg" style="width: 100%; text-align: center; margin-top: var(--space-md);">Get Free Video Production</a>
-            </div>
+          <div class="svc-video__card">
+            <span class="svc-video__badge">Included Free</span>
+            <h3 class="svc-video__card-title">What You Get</h3>
+            <ul class="svc-video__list">
+              <li>Professional script development</li>
+              <li>On-location or studio filming</li>
+              <li>15-second and 30-second spots</li>
+              <li>Broadcast-quality editing and post-production</li>
+              <li>Platform-optimized formatting</li>
+              <li>Multiple revisions until you love it</li>
+            </ul>
+            <a href="/contact" class="svc-btn svc-btn--primary svc-btn--full">Get Free Video Production</a>
           </div>
         </div>
       </div>
     </section>
   )}
 
-  <!-- ===== MID-CTA ===== -->
-  <section class="svc-section svc-dark svc-cta-band">
+  <!-- ===== MID-CTA BAND (red accent) ===== -->
+  <section class="svc-cta-band">
     <div class="container">
-      <div class="svc-cta-inner">
-        <div class="svc-cta-text">
+      <div class="svc-cta-band__inner">
+        <div class="svc-cta-band__text">
           <h3>{isLocalSEO ? '10 Days Free. No Credit Card.' : isPPC ? '$0 Agency Fee on $5K+ Spend' : isTV ? 'Free Video Production Included' : 'Get Started Today'}</h3>
           <p>{isLocalSEO ? 'We boost your Google Business Profile for 10 days at zero cost.' : isPPC ? '100% of your ad budget funds your campaign.' : isTV ? 'Every campaign includes professional video production.' : 'Book a 15-minute strategy call. No pressure.'}</p>
         </div>
-        <a href="/contact" class="btn btn-primary">{isLocalSEO ? 'Apply for Free Boost' : 'Get Your Free Strategy Call'}</a>
+        <a href="/contact" class="svc-btn svc-btn--white">{isLocalSEO ? 'Apply for Free Boost' : 'Get Your Free Strategy Call'}</a>
       </div>
     </div>
   </section>
 
-  <!-- ===== COMPARISON TABLE — White ===== -->
-  {type === 'service' && (
-    <section class="svc-section">
-      <div class="container" style="max-width: 900px;">
-        <ComparisonTable />
-      </div>
-    </section>
-  )}
-
-  <!-- ===== MORE CONTENT — Alternating Split Layouts ===== -->
-  {contentSections.slice(1).map((section, i) => (
-    <section class={`svc-section ${i % 2 === 0 ? '' : 'svc-dark'}`}>
-      <div class="container">
-        <SplitContent
-          imageSrc={images[(i + 1) % images.length]}
-          imageAlt={displayName}
-          imagePosition={i % 2 === 0 ? 'left' : 'right'}
-          darkBg={i % 2 !== 0}
-        >
-          <div class="prose svc-prose-short" set:html={section.html} />
-        </SplitContent>
-      </div>
-    </section>
-  ))}
-
-  <!-- ===== CASE STUDIES — Dark ===== -->
+  <!-- ===== CASE STUDIES (dark) ===== -->
   {serviceCaseStudies.length > 0 && (
-    <section class="svc-section svc-dark">
-      <div class="container">
-        <span class="section-eyebrow" style="color: var(--color-primary);">Proven Results</span>
-        <h2 style="color: var(--color-white); margin-bottom: var(--space-xl);">Real {displayName} Results</h2>
+    <section class="svc-section svc-section--dark" id="results">
+      <div class="svc-section__bg"></div>
+      <div class="container" style="position:relative;z-index:1;">
+        <div class="svc-section-header svc-section-header--center">
+          <span class="svc-eyebrow">Proven Results</span>
+          <h2 class="svc-h2--light">Real {displayName} Results</h2>
+        </div>
         <div class="svc-cases-grid">
           {serviceCaseStudies.slice(0, 3).map(cs => (
-            <a href={`/case-studies/${cs.slug}/`} class="svc-case-card">
+            <a href={`/case-studies/${cs.slug}/`} class="svc-case">
               {cs.image && (
-                <div class="svc-case-img">
+                <div class="svc-case__img">
                   <img src={`/media/case-studies/${cs.image}`} alt={cs.title} loading="lazy" width="400" height="225" />
                 </div>
               )}
-              <div class="svc-case-body">
-                <span class="svc-case-tag">{cs.category}</span>
-                <h3>{cs.metrics?.primary || cs.result}</h3>
-                <span class="svc-case-client">{cs.title}</span>
-                <span class="card-link">Read Case Study &rarr;</span>
+              <div class="svc-case__body">
+                <span class="svc-case__tag">{cs.category}</span>
+                <h3 class="svc-case__result">{cs.metrics?.primary || cs.result}</h3>
+                <span class="svc-case__client">{cs.title}</span>
+                <span class="svc-case__link">Read Case Study →</span>
               </div>
             </a>
           ))}
@@ -429,29 +460,59 @@ const schema = {
     </section>
   )}
 
-  <!-- ===== SECOND TESTIMONIAL ===== -->
-  {config.reviews?.[1] && (
-    <section class="svc-section">
-      <div class="container" style="max-width: 800px;">
-        <InlineTestimonial quote={config.reviews[1].text} author={config.reviews[1].author} company={config.reviews[1].company} rating={config.reviews[1].rating} />
+  <!-- ===== TESTIMONIAL (light) ===== -->
+  {inlineReview && (
+    <section class="svc-section svc-section--light">
+      <div class="container" style="max-width:800px;">
+        <div class="svc-testimonial">
+          <div class="svc-testimonial__stars">★★★★★</div>
+          <blockquote class="svc-testimonial__quote">"{inlineReview.text}"</blockquote>
+          <p class="svc-testimonial__author">— {inlineReview.author}{inlineReview.company && `, ${inlineReview.company}`}</p>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- ===== MORE CONTENT — Alternating Split ===== -->
+  {contentSections.slice(1).map((section, i) => (
+    <section class={`svc-section ${i % 2 === 0 ? 'svc-section--dark' : 'svc-section--light'}`}>
+      {i % 2 === 0 && <div class="svc-section__bg"></div>}
+      <div class="container" style="position:relative;z-index:1;">
+        <div class={`svc-split ${i % 2 !== 0 ? 'svc-split--reverse' : ''}`}>
+          <div class="svc-split__text">
+            <div class={`svc-prose ${i % 2 === 0 ? 'svc-prose--light' : ''}`} set:html={section.html} />
+          </div>
+          <div class="svc-split__img">
+            <img src={images[(i + 1) % images.length]} alt={displayName} loading="lazy" />
+          </div>
+        </div>
+      </div>
+    </section>
+  ))}
+
+  <!-- ===== COMPARISON TABLE (light) ===== -->
+  {type === 'service' && (
+    <section class="svc-section svc-section--light">
+      <div class="container" style="max-width:900px;">
+        <ComparisonTable />
       </div>
     </section>
   )}
 
   <!-- ===== SUB-SERVICES ===== -->
   {type === 'service' && service.sub_services && service.sub_services.length > 0 && (
-    <section class="svc-section" style="background: var(--color-gray-100);">
+    <section class="svc-section svc-section--light" style="background:#f0f0f0;">
       <div class="container">
-        <span class="section-eyebrow">{service.name} Specializations</span>
-        <h2>{service.name} Services</h2>
+        <div class="svc-section-header">
+          <span class="svc-eyebrow svc-eyebrow--dark">{service.name} Specializations</span>
+          <h2 class="svc-h2--dark">{service.name} Services</h2>
+        </div>
         <div class="svc-sub-grid">
           {service.sub_services.map((sub: any) => (
-            <a href={`/services/${service.slug}/${sub.slug}/`} class="svc-sub-card card">
-              <div class="svc-sub-body">
-                <h3>{sub.name}</h3>
-                <p>{sub.short_description}</p>
-                <span class="card-link">Learn More &rarr;</span>
-              </div>
+            <a href={`/services/${service.slug}/${sub.slug}/`} class="svc-sub-card">
+              <h3>{sub.name}</h3>
+              <p>{sub.short_description}</p>
+              <span class="svc-sub-card__link">Learn More →</span>
             </a>
           ))}
         </div>
@@ -459,20 +520,23 @@ const schema = {
     </section>
   )}
 
-  <!-- ===== PROCESS STEPS — White ===== -->
+  <!-- ===== PROCESS STEPS (dark) ===== -->
   {processSteps.length > 0 && (
-    <section class="svc-section">
-      <div class="container">
-        <span class="section-eyebrow">How It Works</span>
-        <h2>Your {displayName} Journey</h2>
+    <section class="svc-section svc-section--dark">
+      <div class="svc-section__bg"></div>
+      <div class="container" style="position:relative;z-index:1;">
+        <div class="svc-section-header svc-section-header--center">
+          <span class="svc-eyebrow">How It Works</span>
+          <h2 class="svc-h2--light">Your {displayName} Journey</h2>
+        </div>
         <div class="svc-timeline">
           {processSteps.map((step: any, i: number) => (
-            <div class="timeline-step">
-              <div class="timeline-marker">
-                <div class="timeline-number">{i + 1}</div>
-                {i < processSteps.length - 1 && <div class="timeline-line"></div>}
+            <div class="svc-timeline__step">
+              <div class="svc-timeline__marker">
+                <div class="svc-timeline__num">{i + 1}</div>
+                {i < processSteps.length - 1 && <div class="svc-timeline__line"></div>}
               </div>
-              <div class="timeline-content">
+              <div class="svc-timeline__content">
                 <h3>{step.title}</h3>
                 <p>{step.description}</p>
               </div>
@@ -483,31 +547,75 @@ const schema = {
     </section>
   )}
 
-  <!-- ===== INDUSTRIES — Dark ===== -->
-  <section class="svc-section svc-dark">
-    <div class="container">
-      <span class="section-eyebrow" style="color: var(--color-primary);">Who We Work With</span>
-      <h2 style="color: var(--color-white); margin-bottom: var(--space-lg);">Industries We Serve with {displayName}</h2>
+  <!-- ===== 10-DAY BOOST — Local SEO Only ===== -->
+  {isLocalSEO && (
+    <section class="svc-section svc-section--dark">
+      <div class="svc-section__bg"></div>
+      <div class="container" style="position:relative;z-index:1;">
+        <div class="svc-boost-grid">
+          <div class="svc-boost__copy">
+            <span class="svc-eyebrow">Limited Offer</span>
+            <h2 class="svc-h2--light">Free 10-Day Local SEO Boost</h2>
+            <p class="svc-boost__desc">We will optimize your Google Business Profile, fix your citations, and boost your local signals for 10 days. No charge. No commitment.</p>
+            <a href="/contact?service=10-day-boost" class="svc-btn svc-btn--primary">Apply for Free Boost</a>
+          </div>
+          <div class="svc-boost__stats">
+            <div class="svc-boost__stat"><span class="svc-boost__stat-val">+47%</span><span class="svc-boost__stat-label">Search Appearances</span></div>
+            <div class="svc-boost__stat"><span class="svc-boost__stat-val">+23%</span><span class="svc-boost__stat-label">Discovery Searches</span></div>
+            <div class="svc-boost__stat"><span class="svc-boost__stat-val">+15%</span><span class="svc-boost__stat-label">Direction Requests</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- ===== SPECTRUM — PPC & TV ===== -->
+  {(isPPC || isTV) && (
+    <section class="svc-section svc-section--light">
+      <div class="container" style="text-align:center;max-width:800px;">
+        <span class="svc-eyebrow svc-eyebrow--dark">Exclusive Partnership</span>
+        <h2 class="svc-h2--dark">Powered by Spectrum Reach</h2>
+        <p style="color:rgba(0,0,0,0.55);max-width:600px;margin:0 auto var(--space-xl);">Your campaigns run across Google AND Yahoo, powered by first-party data from 30M+ households.</p>
+        <div class="svc-spectrum-stats">
+          <div class="svc-spectrum__item"><span class="svc-spectrum__val">30M+</span><span class="svc-spectrum__label">Households</span></div>
+          <div class="svc-spectrum__item"><span class="svc-spectrum__val">Google + Yahoo</span><span class="svc-spectrum__label">Multi-Platform</span></div>
+          <div class="svc-spectrum__item"><span class="svc-spectrum__val">36</span><span class="svc-spectrum__label">States</span></div>
+          <div class="svc-spectrum__item"><span class="svc-spectrum__val">$0</span><span class="svc-spectrum__label">Agency Fee</span></div>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- ===== INDUSTRIES (dark) ===== -->
+  <section class="svc-section svc-section--dark">
+    <div class="svc-section__bg"></div>
+    <div class="container" style="position:relative;z-index:1;">
+      <div class="svc-section-header svc-section-header--center">
+        <span class="svc-eyebrow">Who We Work With</span>
+        <h2 class="svc-h2--light">Industries We Serve</h2>
+      </div>
       <div class="svc-chips">
         {config.industries.slice(0, 12).map(ind => (
           <a href={`/industries/${ind.slug}/${service.slug}/`} class="svc-chip">{ind.full_name}</a>
         ))}
       </div>
-      <a href="/industries/" class="see-all-light">See All {config.industries.length} Industries &rarr;</a>
+      <a href="/industries/" class="svc-see-all">See All {config.industries.length} Industries →</a>
     </div>
   </section>
 
-  <!-- ===== FAQ — White ===== -->
+  <!-- ===== FAQ (light) ===== -->
   {faqQuestions.length > 0 && (
-    <section class="svc-section" style="background: var(--color-gray-100);">
-      <div class="container" style="max-width: 800px;">
-        <span class="section-eyebrow">Common Questions</span>
-        <h2>Frequently Asked Questions About {displayName}</h2>
+    <section class="svc-section svc-section--light" style="background:#f5f5f5;">
+      <div class="container" style="max-width:800px;">
+        <div class="svc-section-header svc-section-header--center">
+          <span class="svc-eyebrow svc-eyebrow--dark">Common Questions</span>
+          <h2 class="svc-h2--dark">Frequently Asked Questions</h2>
+        </div>
         <div class="svc-faq">
           {faqQuestions.map((q: any) => (
-            <details class="faq-item">
+            <details class="svc-faq__item">
               <summary>{q.question}</summary>
-              <div class="faq-answer" set:html={renderMarkdown(q.answer)} />
+              <div class="svc-faq__answer" set:html={renderMarkdown(q.answer)} />
             </details>
           ))}
         </div>
@@ -517,470 +625,941 @@ const schema = {
 
   <!-- ===== PRICING ===== -->
   {pricingTiers.length > 0 && (
-    <section class="svc-section">
+    <section class="svc-section svc-section--light">
       <div class="container">
-        <div style="text-align: center; margin-bottom: var(--space-xl);">
-          <span class="section-eyebrow">{isLocalSEO ? 'Map Pack Guarantee' : 'Transparent Pricing'}</span>
-          <h2>{displayName} Pricing</h2>
+        <div class="svc-section-header svc-section-header--center">
+          <span class="svc-eyebrow svc-eyebrow--dark">{isLocalSEO ? 'Map Pack Guarantee' : 'Transparent Pricing'}</span>
+          <h2 class="svc-h2--dark">{displayName} Pricing</h2>
         </div>
         <div class="svc-pricing-grid">
           {pricingTiers.map((tier: any) => (
-            <div class={`svc-pricing-card ${tier.featured ? 'svc-pricing-featured' : ''}`}>
-              {tier.featured && <div class="svc-pricing-badge">Most Popular</div>}
-              <h3>{tier.name}</h3>
-              <div class="svc-pricing-price">
+            <div class={`svc-pricing ${tier.featured ? 'svc-pricing--featured' : ''}`}>
+              {tier.featured && <div class="svc-pricing__badge">Most Popular</div>}
+              <h3 class="svc-pricing__name">{tier.name}</h3>
+              <div class="svc-pricing__price">
                 {tier.price === 0 ? (
-                  <span class="price-amount">{tier.price_label || 'Custom'}</span>
+                  <span class="svc-pricing__amount">{tier.price_label || 'Custom'}</span>
                 ) : (
                   <>
-                    {tier.price_label === 'starting at' && <span class="price-label">Starting at</span>}
-                    <span class="price-currency">$</span>
-                    <span class="price-amount">{tier.price.toLocaleString()}</span>
-                    {tier.price_label && tier.price_label !== 'starting at' && <span class="price-period">{tier.price_label}</span>}
-                    {!tier.price_label && <span class="price-period">/mo</span>}
+                    {tier.price_label === 'starting at' && <span class="svc-pricing__label">Starting at</span>}
+                    <span class="svc-pricing__currency">$</span>
+                    <span class="svc-pricing__amount">{tier.price.toLocaleString()}</span>
+                    {tier.price_label && tier.price_label !== 'starting at' && <span class="svc-pricing__period">{tier.price_label}</span>}
+                    {!tier.price_label && <span class="svc-pricing__period">/mo</span>}
                   </>
                 )}
               </div>
-              <p class="svc-pricing-desc">{tier.description}</p>
-              <ul class="svc-pricing-features">
+              <p class="svc-pricing__desc">{tier.description}</p>
+              <ul class="svc-pricing__features">
                 {tier.features.map((f: string) => <li>{f}</li>)}
               </ul>
-              <a href="/contact" class={`btn ${tier.featured ? 'btn-primary' : 'btn-outline'} btn-block`}>Get Started</a>
+              <a href="/contact" class={`svc-btn ${tier.featured ? 'svc-btn--primary' : 'svc-btn--outline'} svc-btn--full`}>Get Started</a>
             </div>
           ))}
         </div>
-        {service.pricing?.setup_fee && <p class="setup-note">One-time setup fee: ${service.pricing.setup_fee.toLocaleString()}</p>}
+        {service.pricing?.setup_fee && <p class="svc-pricing__setup">One-time setup fee: ${service.pricing.setup_fee.toLocaleString()}</p>}
       </div>
     </section>
   )}
 
   {service.pricing?.quote_based && (
-    <section class="svc-section">
-      <div class="container" style="max-width: 600px; text-align: center;">
-        <span class="section-eyebrow">Custom Pricing</span>
-        <h2>{displayName} Pricing</h2>
-        <p style="color: var(--color-text-light); margin-bottom: var(--space-xl);">{service.pricing.description}</p>
-        <a href="/contact" class="btn btn-primary btn-lg">Request a Custom Quote</a>
+    <section class="svc-section svc-section--light">
+      <div class="container" style="max-width:600px;text-align:center;">
+        <span class="svc-eyebrow svc-eyebrow--dark">Custom Pricing</span>
+        <h2 class="svc-h2--dark">{displayName} Pricing</h2>
+        <p style="color:rgba(0,0,0,0.55);margin-bottom:var(--space-xl);">{service.pricing.description}</p>
+        <a href="/contact" class="svc-btn svc-btn--primary">Request a Custom Quote</a>
       </div>
     </section>
   )}
 
-  <!-- ===== 10-DAY BOOST — Local SEO Only ===== -->
-  {isLocalSEO && (
-    <section class="svc-section svc-dark">
-      <div class="container boost-grid">
-        <div class="boost-content">
-          <span class="section-eyebrow" style="color: var(--color-primary);">Limited Offer</span>
-          <h2 style="color: var(--color-white);">Free 10-Day Local SEO Boost</h2>
-          <p style="color: rgba(255,255,255,0.65); line-height: 1.7; margin-bottom: var(--space-lg);">We will optimize your Google Business Profile, fix your citations, and boost your local signals for 10 days. No charge. No commitment.</p>
-          <a href="/contact?service=10-day-boost" class="btn btn-primary">Apply for Free Boost</a>
-        </div>
-        <div class="boost-stats">
-          <div class="boost-stat"><span class="boost-stat-val">+47%</span><span class="boost-stat-desc">Search Appearances</span></div>
-          <div class="boost-stat"><span class="boost-stat-val">+23%</span><span class="boost-stat-desc">Discovery Searches</span></div>
-          <div class="boost-stat"><span class="boost-stat-val">+15%</span><span class="boost-stat-desc">Direction Requests</span></div>
-        </div>
+  <!-- ===== FINAL CTA (dark, dramatic) ===== -->
+  <section class="svc-final-cta">
+    <div class="svc-final-cta__bg"></div>
+    <div class="container" style="position:relative;z-index:1;text-align:center;max-width:700px;">
+      <h2 class="svc-final-cta__h2">Ready to Get Started?</h2>
+      <p class="svc-final-cta__sub">Book a 15-minute strategy call. No pressure. No hard sell. Just a conversation about your goals.</p>
+      <div class="svc-final-cta__actions">
+        <a href="/contact" class="svc-btn svc-btn--primary svc-btn--lg">Schedule Your Strategy Call</a>
+        <a href="tel:8135213199" class="svc-final-cta__phone">(813) 521-3199</a>
       </div>
-    </section>
-  )}
+    </div>
+  </section>
 
-  <!-- ===== SPECTRUM — PPC & TV ===== -->
-  {(isPPC || isTV) && (
-    <section class="svc-section">
-      <div class="container" style="text-align: center;">
-        <span class="section-eyebrow">Exclusive Partnership</span>
-        <h2>Powered by Spectrum Reach</h2>
-        <p style="color: var(--color-text-light); max-width: 600px; margin: 0 auto var(--space-xl);">Your campaigns run across Google AND Yahoo, powered by first-party data from 30M+ households.</p>
-        <StatBar stats={[
-          { value: '30M+', label: 'Households' },
-          { value: 'Google + Yahoo', label: 'Multi-Platform' },
-          { value: '36', label: 'States' },
-          { value: '$0', label: 'Agency Fee' },
-        ]} variant="light" />
-      </div>
-    </section>
-  )}
-
-  <!-- ===== FINAL CTA ===== -->
-  <HandwrittenCTA
-    heading={`Ready to Get Started with ${displayName}?`}
-    buttonText="Schedule Your Strategy Call"
-    annotation="No obligation. Just a quick call."
-  />
-
-  <ReviewsSection compact={true} maxReviews={3} />
   <Footer slot="footer" />
 </Base>
 
 <style>
+  /* ===== DESIGN TOKENS ===== */
+  :root {
+    --svc-dark: #111;
+    --svc-dark-card: #1e1e1e;
+    --svc-light: #f9f9f9;
+    --svc-red: #c0392b;
+    --svc-red-hover: #a5311f;
+    --svc-text-muted: rgba(255,255,255,0.6);
+    --svc-text-body: rgba(255,255,255,0.85);
+    --svc-border-light: rgba(255,255,255,0.06);
+    --svc-border-dark: rgba(0,0,0,0.08);
+  }
+
   /* ===== HERO ===== */
   .svc-hero {
-    min-height: auto;
-    display: flex;
-    align-items: center;
-    background: var(--color-dark);
-    color: var(--color-white);
+    background: var(--svc-dark);
+    color: #fff;
     position: relative;
     overflow: hidden;
-    padding: var(--space-3xl) 0 var(--space-2xl);
+    padding: 5rem 0 4rem;
   }
-  .svc-hero-texture {
+  .svc-hero__bg {
     position: absolute; inset: 0;
     background:
-      repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.02) 10px, rgba(255,255,255,0.02) 11px),
       radial-gradient(circle at 20% 80%, rgba(192,57,43,0.15) 0%, transparent 50%),
       radial-gradient(circle at 80% 20%, rgba(192,57,43,0.08) 0%, transparent 40%);
     pointer-events: none;
   }
-  .svc-hero-inner {
-    position: relative; z-index: 1;
-    max-width: 780px;
-  }
-  .svc-hero-eyebrow {
-    display: inline-block;
-    font-family: var(--font-heading);
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    color: var(--color-primary);
-    margin-bottom: var(--space-lg);
-  }
-  .svc-hero-split {
+  .svc-hero__grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: var(--space-2xl);
+    gap: 3rem;
     align-items: center;
+    position: relative; z-index: 1;
   }
-  @media (max-width: 768px) {
-    .svc-hero-split {
-      grid-template-columns: 1fr;
-    }
-    .svc-hero-image { display: none; }
-  }
-  .svc-hero h1 {
-    color: var(--color-white);
+  .svc-hero__copy { max-width: 600px; }
+  .svc-hero__h1 {
     font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 800;
     line-height: 1.1;
-    margin-bottom: var(--space-sm);
+    color: #fff;
+    margin-bottom: 0.75rem;
   }
-  .svc-hero-subtitle {
-    color: rgba(255,255,255,0.65);
-    font-size: var(--text-lg);
-    line-height: 1.5;
-    margin-bottom: var(--space-lg);
+  .svc-hero__sub {
+    color: var(--svc-text-muted);
+    font-size: 1.125rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
     max-width: 520px;
   }
-  .svc-hero-image {
+  .svc-hero__ctas {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+  }
+  .svc-hero__img {
     display: flex;
     align-items: center;
     justify-content: center;
   }
-  .svc-hero-image img {
+  .svc-hero__img img {
     width: 100%;
     max-width: 520px;
     height: auto;
     border-radius: 12px;
     box-shadow: 0 20px 60px rgba(0,0,0,0.4);
   }
-  .svc-hero-ctas { margin-top: var(--space-xl); }
-
-  /* ===== TRUST STRIP ===== */
-  .svc-trust-strip {
-    background: var(--color-dark);
-    border-top: 1px solid rgba(255,255,255,0.06);
-    padding: var(--space-lg) 0 var(--space-xl);
+  @media (max-width: 900px) {
+    .svc-hero__grid { grid-template-columns: 1fr; }
+    .svc-hero__img { display: none; }
   }
-  .trust-proof-bar {
+
+  /* ===== EYEBROW ===== */
+  .svc-eyebrow {
+    display: inline-block;
+    font-family: var(--font-heading);
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--svc-red);
+    margin-bottom: 1rem;
+  }
+  .svc-eyebrow--dark { color: var(--svc-red); }
+
+  /* ===== BUTTONS ===== */
+  .svc-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.85rem 2rem;
+    border-radius: 8px;
+    font-family: var(--font-heading);
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.2s;
+    border: 2px solid transparent;
+    cursor: pointer;
+  }
+  .svc-btn--primary {
+    background: var(--svc-red);
+    color: #fff;
+    border-color: var(--svc-red);
+  }
+  .svc-btn--primary:hover { background: var(--svc-red-hover); border-color: var(--svc-red-hover); }
+  .svc-btn--ghost {
+    background: transparent;
+    color: #fff;
+    border-color: rgba(255,255,255,0.3);
+  }
+  .svc-btn--ghost:hover { border-color: #fff; }
+  .svc-btn--white {
+    background: #fff;
+    color: var(--svc-red);
+    border-color: #fff;
+  }
+  .svc-btn--white:hover { background: #f0f0f0; }
+  .svc-btn--outline {
+    background: transparent;
+    color: var(--svc-red);
+    border-color: var(--svc-red);
+  }
+  .svc-btn--outline:hover { background: rgba(192,57,43,0.08); }
+  .svc-btn--full { width: 100%; text-align: center; }
+  .svc-btn--lg { padding: 1rem 2.5rem; font-size: 1rem; }
+
+  /* ===== PROOF STRIP ===== */
+  .svc-proof-strip {
+    background: var(--svc-dark);
+    border-top: 1px solid var(--svc-border-light);
+    padding: 1.5rem 0;
+  }
+  .svc-proof__row {
     display: flex;
     justify-content: center;
-    gap: var(--space-3xl);
+    gap: 3rem;
     flex-wrap: wrap;
   }
-  .trust-proof-item { text-align: center; }
-  .trust-proof-val {
+  .svc-proof__item { text-align: center; }
+  .svc-proof__val {
     display: block;
     font-family: var(--font-heading);
-    font-size: var(--text-xl);
+    font-size: 1.15rem;
     font-weight: 800;
-    color: var(--color-primary);
+    color: var(--svc-red);
   }
-  .trust-proof-client {
+  .svc-proof__label {
     display: block;
-    font-size: var(--text-sm);
+    font-size: 0.75rem;
     color: rgba(255,255,255,0.4);
     margin-top: 2px;
   }
 
-  /* ===== GENERIC SECTION SPACING ===== */
-  .svc-section {
-    padding: var(--space-4xl) 0;
+  /* ===== STAT BAR (red accent) ===== */
+  .svc-stat-bar {
+    background: var(--svc-red);
+    padding: 2rem 0;
   }
-  @media (min-width: 768px) {
-    .svc-section { padding: var(--space-5xl) 0; }
-  }
-  .svc-dark {
-    background: var(--color-dark);
-    color: var(--color-white);
-    position: relative;
-  }
-  .svc-dark::before {
-    content: '';
-    position: absolute; inset: 0;
-    background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.02) 10px, rgba(255,255,255,0.02) 11px);
-    pointer-events: none;
-  }
-  .svc-dark > * { position: relative; z-index: 1; }
-  .svc-dark h2, .svc-dark h3, .svc-dark h4 { color: #ffffff; }
-  .svc-dark p, .svc-dark li { color: rgba(255,255,255,0.85); }
-  .svc-dark strong { color: #ffffff; }
-  .svc-dark a { color: var(--color-primary-light); }
-  .svc-dark .prose h2::before { background: var(--color-primary); }
-  .svc-dark h3 { text-transform: none; }
-
-  /* ===== SPLIT GRID ===== */
-  .svc-split-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: var(--space-2xl);
-    align-items: center;
-  }
-  @media (min-width: 1024px) {
-    .svc-split-grid { grid-template-columns: 1.1fr 0.9fr; }
-  }
-  .svc-split-visual img {
-    width: 100%; height: auto; border-radius: 12px;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-  }
-  .svc-split-visual { display: none; }
-  @media (min-width: 1024px) { .svc-split-visual { display: block; } }
-
-  /* ===== CTA BAND ===== */
-  .svc-cta-band { padding: var(--space-2xl) 0 !important; }
-  .svc-cta-band::after {
-    content: '';
-    position: absolute; top: 0; right: 0; width: 300px; height: 100%;
-    background: radial-gradient(circle at 100% 50%, rgba(192,57,43,0.15) 0%, transparent 70%);
-    pointer-events: none;
-  }
-  .svc-cta-inner {
-    display: flex; align-items: center; justify-content: space-between;
-    gap: var(--space-lg); flex-wrap: wrap;
-  }
-  .svc-cta-text h3 { font-size: var(--text-xl); margin-bottom: var(--space-xs); text-transform: none; }
-  .svc-cta-text h3::before { display: none; }
-  .svc-cta-text p { color: rgba(255,255,255,0.6); margin-bottom: 0; max-width: 550px; }
-
-  /* ===== CASE STUDIES ===== */
-  .svc-cases-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: var(--space-lg); }
-  .svc-case-card {
-    display: flex; flex-direction: column; overflow: hidden;
-    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px;
-    text-decoration: none; color: inherit; transition: transform 0.15s, background 0.15s;
-  }
-  .svc-case-card:hover { transform: translateY(-3px); background: rgba(255,255,255,0.08); }
-  .svc-case-img { aspect-ratio: 16/9; overflow: hidden; background: rgba(255,255,255,0.03); }
-  .svc-case-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
-  .svc-case-card:hover .svc-case-img img { transform: scale(1.04); }
-  .svc-case-body { padding: var(--space-lg); display: flex; flex-direction: column; flex: 1; }
-  .svc-case-tag { font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-primary); margin-bottom: var(--space-xs); }
-  .svc-case-card h3 { font-size: var(--text-lg); margin-bottom: var(--space-xs); color: var(--color-white); text-transform: none; }
-  .svc-case-client { font-size: var(--text-sm); color: rgba(255,255,255,0.5); }
-  .card-link { font-size: var(--text-sm); font-weight: 600; color: var(--color-primary); margin-top: auto; padding-top: var(--space-sm); }
-
-  /* ===== SUB-SERVICES ===== */
-  .svc-sub-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: var(--space-lg); margin-top: var(--space-xl); }
-  .svc-sub-card { text-decoration: none; color: inherit; }
-  .svc-sub-body { padding: var(--space-lg); }
-  .svc-sub-body h3 { font-size: var(--text-lg); margin-bottom: var(--space-sm); text-transform: none; }
-  .svc-sub-body p { font-size: var(--text-sm); color: var(--color-text-light); margin-bottom: var(--space-sm); }
-
-  /* ===== TIMELINE ===== */
-  .svc-timeline { margin-top: var(--space-xl); max-width: 700px; }
-  .timeline-step { display: flex; gap: var(--space-lg); }
-  .timeline-marker { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
-  .timeline-number {
-    width: 56px; height: 56px; border-radius: 50%;
-    background: var(--color-primary); color: var(--color-white);
-    display: flex; align-items: center; justify-content: center;
-    font-weight: 800; font-size: var(--text-xl); font-family: var(--font-heading);
-  }
-  .timeline-line { width: 2px; flex: 1; background: var(--color-gray-200); min-height: 24px; }
-  .timeline-content { padding-bottom: var(--space-xl); }
-  .timeline-content h3 { font-size: var(--text-lg); margin-bottom: var(--space-xs); text-transform: none; }
-  .timeline-content p { font-size: var(--text-sm); color: var(--color-text-light); line-height: var(--leading-relaxed); }
-
-  /* ===== CHIPS ===== */
-  .svc-chips { display: flex; flex-wrap: wrap; gap: var(--space-sm); }
-  .svc-chip {
-    display: inline-block; padding: 0.5rem 1.25rem;
-    border: 1px solid rgba(255,255,255,0.15); border-radius: 6px;
-    font-size: var(--text-sm); color: rgba(255,255,255,0.85);
-    text-decoration: none; transition: all 0.15s;
-  }
-  .svc-chip:hover { border-color: var(--color-primary); color: var(--color-white); background: rgba(192,57,43,0.15); }
-  .see-all-light { display: inline-block; margin-top: var(--space-lg); font-size: var(--text-sm); font-weight: 600; color: var(--color-primary); }
-
-  /* ===== FAQ ===== */
-  .svc-faq { margin-top: var(--space-lg); }
-  .faq-item { border: 1px solid var(--color-gray-200); border-radius: var(--radius-md); padding: var(--space-md) var(--space-lg); margin-bottom: var(--space-sm); background: var(--color-white); transition: box-shadow 0.15s; }
-  .faq-item[open] { box-shadow: var(--shadow-sm); border-color: var(--color-primary); }
-  .faq-item summary { font-weight: 600; cursor: pointer; font-size: var(--text-base); list-style: none; display: flex; justify-content: space-between; align-items: center; }
-  .faq-item summary::after { content: '+'; font-size: var(--text-xl); color: var(--color-primary); font-weight: 300; flex-shrink: 0; }
-  .faq-item[open] summary::after { content: '\2212'; }
-  .faq-item summary::-webkit-details-marker { display: none; }
-  .faq-answer { padding-top: var(--space-md); color: var(--color-text-light); border-top: 1px solid var(--color-gray-100); margin-top: var(--space-md); }
-
-  /* ===== PRICING ===== */
-  .svc-pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: var(--space-lg); }
-  .svc-pricing-card { background: var(--color-white); border: 1px solid var(--color-gray-200); border-radius: var(--radius-md); padding: var(--space-xl); position: relative; }
-  .svc-pricing-featured { border-color: var(--color-primary); box-shadow: 0 0 0 1px var(--color-primary); }
-  .svc-pricing-badge { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--color-primary); color: var(--color-white); padding: 0.25rem 1rem; border-radius: 999px; font-size: var(--text-xs); font-weight: 700; text-transform: uppercase; white-space: nowrap; }
-  .svc-pricing-card h3 { font-size: var(--text-lg); margin-bottom: var(--space-sm); text-transform: none; }
-  .svc-pricing-price { margin-bottom: var(--space-sm); }
-  .price-label { display: block; font-size: var(--text-xs); color: var(--color-text-light); text-transform: uppercase; letter-spacing: 0.05em; }
-  .price-currency { font-size: var(--text-xl); font-weight: 700; vertical-align: top; }
-  .price-amount { font-size: var(--text-3xl); font-weight: 800; line-height: 1; }
-  .price-period { font-size: var(--text-sm); color: var(--color-text-light); }
-  .svc-pricing-desc { font-size: var(--text-sm); color: var(--color-text-light); margin-bottom: var(--space-md); }
-  .svc-pricing-features { list-style: none; padding: 0; margin-bottom: var(--space-lg); }
-  .svc-pricing-features li { padding: 0.375rem 0; font-size: var(--text-sm); border-bottom: 1px solid var(--color-gray-100); }
-  .svc-pricing-features li::before { content: '\2713 '; color: var(--color-primary); font-weight: 700; }
-  .setup-note { text-align: center; color: var(--color-text-light); font-size: var(--text-sm); margin-top: var(--space-md); }
-  .btn-block { display: block; text-align: center; width: 100%; }
-
-  /* ===== BOOST ===== */
-  .boost-grid {
-    display: grid; grid-template-columns: 1fr; gap: var(--space-2xl); align-items: center;
-  }
-  @media (min-width: 1024px) { .boost-grid { grid-template-columns: 1.3fr 1fr; } }
-  .boost-stats {
-    display: flex; flex-direction: column; gap: var(--space-lg);
-    background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 12px; padding: var(--space-xl);
-  }
-  .boost-stat { text-align: center; }
-  .boost-stat-val { display: block; font-family: var(--font-heading); font-size: var(--text-2xl); font-weight: 800; color: var(--color-primary); }
-  .boost-stat-desc { font-size: var(--text-sm); color: rgba(255,255,255,0.5); }
-
-  /* ===== VIDEO PRODUCTION ===== */
-  .video-prod-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: var(--space-2xl);
-    align-items: start;
-  }
-  @media (min-width: 1024px) {
-    .video-prod-grid { grid-template-columns: 1.2fr 1fr; }
-  }
-  .video-prod-highlights {
+  .svc-stat-bar__row {
     display: flex;
-    gap: var(--space-xl);
+    justify-content: center;
+    align-items: center;
+    gap: 2.5rem;
     flex-wrap: wrap;
-    padding: var(--space-lg) 0;
-    border-top: 1px solid rgba(255,255,255,0.08);
-    border-bottom: 1px solid rgba(255,255,255,0.08);
   }
-  .vp-highlight { text-align: center; }
-  .vp-highlight-val {
+  .svc-stat-bar__item { text-align: center; }
+  .svc-stat-bar__val {
     display: block;
     font-family: var(--font-heading);
-    font-size: var(--text-xl);
+    font-size: 1.75rem;
     font-weight: 800;
-    color: var(--color-primary);
+    color: #fff;
   }
-  .vp-highlight-label {
+  .svc-stat-bar__label {
     display: block;
-    font-size: var(--text-xs);
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.7);
+    margin-top: 2px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .svc-stat-bar__div {
+    width: 1px;
+    height: 40px;
+    background: rgba(255,255,255,0.25);
+  }
+  @media (max-width: 600px) {
+    .svc-stat-bar__div { display: none; }
+    .svc-stat-bar__row { gap: 1.5rem; }
+    .svc-stat-bar__val { font-size: 1.35rem; }
+  }
+
+  /* ===== SECTIONS ===== */
+  .svc-section { padding: 5rem 0; }
+  .svc-section--dark {
+    background: var(--svc-dark);
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+  }
+  .svc-section--light {
+    background: var(--svc-light);
+    color: #1a1a1a;
+  }
+  .svc-section__bg {
+    position: absolute; inset: 0;
+    background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.015) 10px, rgba(255,255,255,0.015) 11px);
+    pointer-events: none;
+  }
+
+  /* ===== SECTION HEADERS ===== */
+  .svc-section-header { margin-bottom: 3rem; }
+  .svc-section-header--center { text-align: center; }
+  .svc-h2--light {
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.15;
+  }
+  .svc-h2--dark {
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    font-weight: 800;
+    color: #1a1a1a;
+    line-height: 1.15;
+  }
+
+  /* ===== SPLIT LAYOUT ===== */
+  .svc-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+  .svc-split--reverse { direction: rtl; }
+  .svc-split--reverse > * { direction: ltr; }
+  .svc-split__img img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 16px 48px rgba(0,0,0,0.2);
+  }
+  .svc-prose { max-width: 540px; }
+  .svc-prose :global(h2) { font-size: 1.5rem; font-weight: 800; margin-bottom: 1rem; }
+  .svc-prose :global(h3) { font-size: 1.15rem; font-weight: 700; margin-bottom: 0.75rem; }
+  .svc-prose :global(p) { font-size: 1rem; line-height: 1.7; color: rgba(0,0,0,0.65); margin-bottom: 1rem; }
+  .svc-prose :global(ul), .svc-prose :global(ol) { margin-bottom: 1rem; padding-left: 1.25rem; }
+  .svc-prose :global(li) { font-size: 0.95rem; line-height: 1.6; color: rgba(0,0,0,0.65); margin-bottom: 0.5rem; }
+  .svc-prose--light :global(h2), .svc-prose--light :global(h3) { color: #fff; }
+  .svc-prose--light :global(p), .svc-prose--light :global(li) { color: var(--svc-text-body); }
+  @media (max-width: 900px) {
+    .svc-split { grid-template-columns: 1fr; }
+    .svc-split--reverse { direction: ltr; }
+    .svc-split__img { order: -1; }
+  }
+
+  /* ===== CARDS GRID ===== */
+  .svc-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+  .svc-card {
+    background: var(--svc-dark-card);
+    border: 1px solid var(--svc-border-light);
+    border-radius: 12px;
+    padding: 2rem;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+  .svc-card:hover { transform: translateY(-3px); border-color: rgba(255,255,255,0.12); }
+  .svc-card__icon { font-size: 1.75rem; margin-bottom: 1rem; }
+  .svc-card__title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 0.5rem;
+  }
+  .svc-card__desc {
+    font-size: 0.875rem;
+    color: var(--svc-text-muted);
+    line-height: 1.6;
+  }
+  @media (max-width: 900px) {
+    .svc-cards-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 600px) {
+    .svc-cards-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ===== QUALIFIER ===== */
+  .svc-qual-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+  .svc-qual-col {
+    background: #fff;
+    border-radius: 12px;
+    padding: 2rem;
+    border: 1px solid rgba(0,0,0,0.06);
+  }
+  .svc-qual-col--good { border-top: 3px solid #27ae60; }
+  .svc-qual-col--not { border-top: 3px solid #e74c3c; }
+  .svc-qual__heading {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+  }
+  .svc-qual__heading--good { color: #27ae60; }
+  .svc-qual__heading--not { color: #e74c3c; }
+  .svc-qual__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .svc-qual__list li {
+    padding: 0.6rem 0;
+    font-size: 0.95rem;
+    color: rgba(0,0,0,0.65);
+    line-height: 1.5;
+    border-bottom: 1px solid rgba(0,0,0,0.04);
+  }
+  .svc-qual__list li:last-child { border-bottom: none; }
+  @media (max-width: 700px) {
+    .svc-qual-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ===== VIDEO PRODUCTION ===== */
+  .svc-video-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+  .svc-video__desc {
+    color: var(--svc-text-body);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+    max-width: 520px;
+  }
+  .svc-video__desc strong { color: #fff; }
+  .svc-video__stats {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    padding: 1.25rem 0;
+    border-top: 1px solid var(--svc-border-light);
+    border-bottom: 1px solid var(--svc-border-light);
+  }
+  .svc-video__stat { text-align: center; }
+  .svc-video__stat-val {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--svc-red);
+  }
+  .svc-video__stat-label {
+    display: block;
+    font-size: 0.7rem;
     color: rgba(255,255,255,0.45);
     margin-top: 2px;
   }
-  .video-prod-card {
-    position: relative;
+  .svc-video__credit {
+    color: rgba(255,255,255,0.4);
+    font-size: 0.85rem;
+    margin-top: 1.5rem;
   }
-  .vp-card-inner {
+  .svc-video__credit strong { color: rgba(255,255,255,0.7); }
+  .svc-video__card {
     background: rgba(255,255,255,0.04);
     border: 1px solid rgba(255,255,255,0.1);
     border-radius: 12px;
-    padding: var(--space-xl);
+    padding: 2rem;
   }
-  .vp-card-badge {
+  .svc-video__badge {
     display: inline-block;
     font-size: 0.65rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: var(--color-white);
-    background: var(--color-primary);
+    color: #fff;
+    background: var(--svc-red);
     padding: 0.25rem 0.75rem;
     border-radius: 4px;
-    margin-bottom: var(--space-md);
+    margin-bottom: 1rem;
   }
-  .vp-card-list {
+  .svc-video__card-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 1rem;
+  }
+  .svc-video__list {
     list-style: none;
     padding: 0;
   }
-  .vp-card-list li {
-    padding: 0.5rem 0;
-    padding-left: 1.5rem;
+  .svc-video__list li {
+    padding: 0.5rem 0 0.5rem 1.5rem;
     position: relative;
-    font-size: var(--text-sm);
-    color: rgba(255,255,255,0.85);
-    border-bottom: 1px solid rgba(255,255,255,0.06);
+    font-size: 0.9rem;
+    color: var(--svc-text-body);
+    border-bottom: 1px solid var(--svc-border-light);
   }
-  .vp-card-list li::before {
-    content: '\2713';
+  .svc-video__list li::before {
+    content: '✓';
     position: absolute;
     left: 0;
-    color: var(--color-primary);
+    color: var(--svc-red);
     font-weight: 700;
   }
+  @media (max-width: 900px) {
+    .svc-video-grid { grid-template-columns: 1fr; }
+  }
 
-  /* ===== PROSE SHORT — Collapse long content ===== */
-  .svc-prose-short {
-    max-width: 560px;
+  /* ===== CTA BAND ===== */
+  .svc-cta-band {
+    background: var(--svc-red);
+    padding: 2.5rem 0;
+    position: relative;
+    overflow: hidden;
   }
-  .svc-prose-short :global(p:nth-child(n+4)),
-  .svc-prose-short :global(ul:nth-child(n+5)),
-  .svc-prose-short :global(ol:nth-child(n+5)) {
-    display: none;
+  .svc-cta-band::after {
+    content: '';
+    position: absolute; top: 0; right: 0; width: 300px; height: 100%;
+    background: radial-gradient(circle at 100% 50%, rgba(255,255,255,0.1) 0%, transparent 70%);
+    pointer-events: none;
   }
-  .svc-prose-short.expanded :global(p:nth-child(n+4)),
-  .svc-prose-short.expanded :global(ul:nth-child(n+5)),
-  .svc-prose-short.expanded :global(ol:nth-child(n+5)) {
-    display: block;
-  }
-  .read-more-btn {
-    display: inline-flex;
+  .svc-cta-band__inner {
+    display: flex;
     align-items: center;
-    gap: 0.25rem;
-    margin-top: var(--space-md);
-    font-family: var(--font-heading);
-    font-size: var(--text-sm);
+    justify-content: space-between;
+    gap: 2rem;
+    flex-wrap: wrap;
+    position: relative; z-index: 1;
+  }
+  .svc-cta-band__text h3 {
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 0.25rem;
+  }
+  .svc-cta-band__text p {
+    color: rgba(255,255,255,0.75);
+    margin: 0;
+    max-width: 550px;
+  }
+
+  /* ===== CASE STUDIES ===== */
+  .svc-cases-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  .svc-case {
+    display: flex; flex-direction: column;
+    background: var(--svc-dark-card);
+    border: 1px solid var(--svc-border-light);
+    border-radius: 12px;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+  .svc-case:hover { transform: translateY(-3px); border-color: rgba(255,255,255,0.12); }
+  .svc-case__img {
+    aspect-ratio: 16/9;
+    overflow: hidden;
+    background: rgba(255,255,255,0.03);
+  }
+  .svc-case__img img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s;
+  }
+  .svc-case:hover .svc-case__img img { transform: scale(1.04); }
+  .svc-case__body {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  .svc-case__tag {
+    font-size: 0.6rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--svc-red);
+    margin-bottom: 0.5rem;
+  }
+  .svc-case__result {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 0.5rem;
+  }
+  .svc-case__client {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.45);
+  }
+  .svc-case__link {
+    font-size: 0.85rem;
     font-weight: 600;
-    color: var(--color-primary);
-    background: none;
-    border: none;
+    color: var(--svc-red);
+    margin-top: auto;
+    padding-top: 0.75rem;
+  }
+
+  /* ===== TESTIMONIAL ===== */
+  .svc-testimonial { text-align: center; }
+  .svc-testimonial__stars {
+    font-size: 1.5rem;
+    color: #f39c12;
+    margin-bottom: 1.25rem;
+    letter-spacing: 0.1em;
+  }
+  .svc-testimonial__quote {
+    font-size: 1.2rem;
+    font-style: italic;
+    line-height: 1.7;
+    color: rgba(0,0,0,0.7);
+    margin: 0 0 1.25rem;
+    max-width: 650px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .svc-testimonial__author {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: rgba(0,0,0,0.5);
+  }
+
+  /* ===== TIMELINE ===== */
+  .svc-timeline { max-width: 700px; margin: 0 auto; }
+  .svc-timeline__step { display: flex; gap: 1.5rem; }
+  .svc-timeline__marker {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+  }
+  .svc-timeline__num {
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    background: var(--svc-red);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 1.25rem;
+    font-family: var(--font-heading);
+  }
+  .svc-timeline__line {
+    width: 2px;
+    flex: 1;
+    background: rgba(255,255,255,0.1);
+    min-height: 24px;
+  }
+  .svc-timeline__content { padding-bottom: 2rem; }
+  .svc-timeline__content h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 0.5rem;
+  }
+  .svc-timeline__content p {
+    font-size: 0.9rem;
+    color: var(--svc-text-muted);
+    line-height: 1.6;
+  }
+
+  /* ===== BOOST ===== */
+  .svc-boost-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+  @media (min-width: 1024px) {
+    .svc-boost-grid { grid-template-columns: 1.3fr 1fr; }
+  }
+  .svc-boost__desc {
+    color: var(--svc-text-body);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+  }
+  .svc-boost__stats {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--svc-border-light);
+    border-radius: 12px;
+    padding: 2rem;
+  }
+  .svc-boost__stat { text-align: center; }
+  .svc-boost__stat-val {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: var(--svc-red);
+  }
+  .svc-boost__stat-label {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.45);
+  }
+
+  /* ===== SPECTRUM STATS ===== */
+  .svc-spectrum-stats {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+  }
+  .svc-spectrum__item { text-align: center; }
+  .svc-spectrum__val {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--svc-red);
+  }
+  .svc-spectrum__label {
+    display: block;
+    font-size: 0.75rem;
+    color: rgba(0,0,0,0.45);
+    margin-top: 2px;
+  }
+
+  /* ===== CHIPS ===== */
+  .svc-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+    justify-content: center;
+  }
+  .svc-chip {
+    display: inline-block;
+    padding: 0.5rem 1.25rem;
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 6px;
+    font-size: 0.85rem;
+    color: var(--svc-text-body);
+    text-decoration: none;
+    transition: all 0.15s;
+  }
+  .svc-chip:hover {
+    border-color: var(--svc-red);
+    color: #fff;
+    background: rgba(192,57,43,0.15);
+  }
+  .svc-see-all {
+    display: inline-block;
+    margin-top: 1.5rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--svc-red);
+    text-decoration: none;
+  }
+
+  /* ===== FAQ ===== */
+  .svc-faq { margin-top: 1rem; }
+  .svc-faq__item {
+    background: #fff;
+    border: 1px solid rgba(0,0,0,0.08);
+    border-radius: 10px;
+    padding: 1.15rem 1.5rem;
+    margin-bottom: 0.75rem;
+    transition: box-shadow 0.15s;
+  }
+  .svc-faq__item[open] {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    border-color: var(--svc-red);
+  }
+  .svc-faq__item summary {
+    font-weight: 600;
     cursor: pointer;
-    padding: 0.5rem 0;
+    font-size: 1rem;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #1a1a1a;
+  }
+  .svc-faq__item summary::after {
+    content: '+';
+    font-size: 1.25rem;
+    color: var(--svc-red);
+    font-weight: 300;
+    flex-shrink: 0;
+    margin-left: 1rem;
+  }
+  .svc-faq__item[open] summary::after { content: '\2212'; }
+  .svc-faq__item summary::-webkit-details-marker { display: none; }
+  .svc-faq__answer {
+    padding-top: 1rem;
+    color: rgba(0,0,0,0.6);
+    border-top: 1px solid rgba(0,0,0,0.06);
+    margin-top: 1rem;
+    line-height: 1.7;
+  }
+
+  /* ===== PRICING ===== */
+  .svc-pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+  }
+  .svc-pricing {
+    background: #fff;
+    border: 1px solid rgba(0,0,0,0.08);
+    border-radius: 12px;
+    padding: 2rem;
+    position: relative;
+  }
+  .svc-pricing--featured {
+    border-color: var(--svc-red);
+    box-shadow: 0 0 0 1px var(--svc-red);
+  }
+  .svc-pricing__badge {
+    position: absolute;
+    top: -12px; left: 50%;
+    transform: translateX(-50%);
+    background: var(--svc-red);
+    color: #fff;
+    padding: 0.25rem 1rem;
+    border-radius: 999px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .svc-pricing__name {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 0.75rem;
+  }
+  .svc-pricing__price { margin-bottom: 0.75rem; }
+  .svc-pricing__label {
+    display: block;
+    font-size: 0.7rem;
+    color: rgba(0,0,0,0.45);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .svc-pricing__currency {
+    font-size: 1.25rem;
+    font-weight: 700;
+    vertical-align: top;
+    color: #1a1a1a;
+  }
+  .svc-pricing__amount {
+    font-size: 2.25rem;
+    font-weight: 800;
+    line-height: 1;
+    color: #1a1a1a;
+  }
+  .svc-pricing__period {
+    font-size: 0.85rem;
+    color: rgba(0,0,0,0.45);
+  }
+  .svc-pricing__desc {
+    font-size: 0.85rem;
+    color: rgba(0,0,0,0.55);
+    margin-bottom: 1.25rem;
+  }
+  .svc-pricing__features {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 1.5rem;
+  }
+  .svc-pricing__features li {
+    padding: 0.4rem 0;
+    font-size: 0.85rem;
+    color: rgba(0,0,0,0.65);
+    border-bottom: 1px solid rgba(0,0,0,0.04);
+  }
+  .svc-pricing__features li::before {
+    content: '✓ ';
+    color: var(--svc-red);
+    font-weight: 700;
+  }
+  .svc-pricing__setup {
+    text-align: center;
+    color: rgba(0,0,0,0.45);
+    font-size: 0.85rem;
+    margin-top: 1rem;
+  }
+
+  /* ===== SUB-SERVICES ===== */
+  .svc-sub-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.25rem;
+  }
+  .svc-sub-card {
+    background: #fff;
+    border: 1px solid rgba(0,0,0,0.06);
+    border-radius: 12px;
+    padding: 1.75rem;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .svc-sub-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  }
+  .svc-sub-card h3 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 0.5rem;
+  }
+  .svc-sub-card p {
+    font-size: 0.85rem;
+    color: rgba(0,0,0,0.55);
+    line-height: 1.5;
+    margin-bottom: 0.75rem;
+  }
+  .svc-sub-card__link {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--svc-red);
+  }
+
+  /* ===== FINAL CTA ===== */
+  .svc-final-cta {
+    background: var(--svc-dark);
+    padding: 5rem 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .svc-final-cta__bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(circle at 50% 50%, rgba(192,57,43,0.2) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .svc-final-cta__h2 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 1rem;
+  }
+  .svc-final-cta__sub {
+    color: var(--svc-text-muted);
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+  }
+  .svc-final-cta__actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+  .svc-final-cta__phone {
+    color: rgba(255,255,255,0.45);
+    font-size: 1rem;
+    text-decoration: none;
+    font-weight: 600;
     transition: color 0.15s;
   }
-  .read-more-btn:hover { color: var(--color-primary-dark); }
-  .svc-dark .read-more-btn { color: var(--color-primary-light); }
+  .svc-final-cta__phone:hover { color: #fff; }
 </style>
-
-<script>
-  document.querySelectorAll('.svc-prose-short').forEach(prose => {
-    const hiddenEls = prose.querySelectorAll('p:nth-child(n+4), ul:nth-child(n+5), ol:nth-child(n+5)');
-    if (hiddenEls.length > 0) {
-      const btn = document.createElement('button');
-      btn.className = 'read-more-btn';
-      btn.textContent = 'Read More \u2193';
-      btn.addEventListener('click', () => {
-        prose.classList.toggle('expanded');
-        btn.textContent = prose.classList.contains('expanded') ? 'Show Less \u2191' : 'Read More \u2193';
-      });
-      prose.appendChild(btn);
-    }
-  });
-</script>

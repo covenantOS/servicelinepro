@@ -1,60 +1,59 @@
 ---
 import Base from '../layouts/Base.astro';
 import Header from '../components/Header.astro';
-import Breadcrumbs from '../components/Breadcrumbs.astro';
 import Footer from '../components/Footer.astro';
 import config from '../lib/config';
 
 const pageTitle = "Contact ServiceLine Pro";
 const pageDescription = "Book a free 15-minute strategy call with ServiceLine Pro. Local SEO, Google Ads, website design, and TV advertising for home service businesses.";
-
-const breadcrumbItems = [
-  { label: 'Home', href: '/' },
-  { label: 'Contact' },
-];
 ---
 
 <Base title={pageTitle} description={pageDescription}>
   <Header slot="header" />
 
-  <section class="page-hero">
-    <div class="container">
-      <Breadcrumbs items={breadcrumbItems} />
-      <h1>Let's Talk Growth</h1>
-      <p class="page-hero-desc">Book a free strategy call. We will analyze your market, your competition, and show you exactly where the opportunities are.</p>
+  <!-- ===== HERO (dark, cinematic) ===== -->
+  <section class="ct-hero">
+    <div class="ct-hero__bg"></div>
+    <div class="container ct-hero__inner">
+      <span class="ct-eyebrow">Get Started</span>
+      <h1 class="ct-hero__h1">Let's Talk Growth</h1>
+      <p class="ct-hero__sub">Book a free strategy call. We will analyze your market, your competition, and show you exactly where the opportunities are.</p>
     </div>
   </section>
 
-  <section class="contact-section section">
-    <div class="container contact-grid">
-      <div class="contact-form-wrap">
-        <h2>Book Your Free Strategy Call</h2>
-        <form class="contact-form" action={config.form.action} method="POST">
-          <div class="form-row">
-            <div class="form-group">
-              <label for="c-name">Full Name <span class="req">*</span></label>
-              <input type="text" id="c-name" name="name" required />
+  <!-- ===== MAIN CONTENT ===== -->
+  <section class="ct-main">
+    <div class="container ct-grid">
+      <!-- LEFT: Form -->
+      <div class="ct-form-wrap">
+        <h2 class="ct-form__heading">Book Your Free Strategy Call</h2>
+        <p class="ct-form__sub">Takes 60 seconds. We will reply within 24 hours.</p>
+        <form class="ct-form" action={config.form.action} method="POST">
+          <div class="ct-form__row">
+            <div class="ct-form__group">
+              <label for="c-name">Full Name <span class="ct-req">*</span></label>
+              <input type="text" id="c-name" name="name" required placeholder="John Smith" />
             </div>
-            <div class="form-group">
-              <label for="c-email">Email <span class="req">*</span></label>
-              <input type="email" id="c-email" name="email" required />
+            <div class="ct-form__group">
+              <label for="c-email">Email <span class="ct-req">*</span></label>
+              <input type="email" id="c-email" name="email" required placeholder="john@company.com" />
             </div>
           </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label for="c-phone">Phone <span class="req">*</span></label>
-              <input type="tel" id="c-phone" name="phone" required />
+          <div class="ct-form__row">
+            <div class="ct-form__group">
+              <label for="c-phone">Phone <span class="ct-req">*</span></label>
+              <input type="tel" id="c-phone" name="phone" required placeholder="(555) 123-4567" />
             </div>
-            <div class="form-group">
+            <div class="ct-form__group">
               <label for="c-website">Current Website</label>
               <input type="url" id="c-website" name="website" placeholder="yourcompany.com" />
             </div>
           </div>
-          <div class="form-group">
-            <label for="c-company">Company Name <span class="req">*</span></label>
-            <input type="text" id="c-company" name="company" required />
+          <div class="ct-form__group">
+            <label for="c-company">Company Name <span class="ct-req">*</span></label>
+            <input type="text" id="c-company" name="company" required placeholder="Your Company" />
           </div>
-          <div class="form-group">
+          <div class="ct-form__group">
             <label for="c-service">Service Interested In</label>
             <select id="c-service" name="service">
               <option value="">Select a service</option>
@@ -64,75 +63,100 @@ const breadcrumbItems = [
               <option value="other">Not Sure / Other</option>
             </select>
           </div>
-          <div class="form-group">
+          <div class="ct-form__group">
             <label for="c-message">Tell us about your business</label>
             <textarea id="c-message" name="message" rows="4" placeholder="What services do you offer? How many employees? Current monthly marketing budget?"></textarea>
           </div>
-          <div class="hp-field" aria-hidden="true">
+          <div class="ct-hp" aria-hidden="true">
             <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" />
           </div>
-          <button type="submit" class="btn btn-primary btn-lg btn-block">Book My Strategy Call</button>
+          <button type="submit" class="ct-btn ct-btn--primary ct-btn--full">Book My Strategy Call</button>
         </form>
       </div>
 
-      <aside class="contact-info">
-        <div class="contact-card">
-          <h3>Contact Info</h3>
-          <div class="contact-detail">
-            <strong>Phone</strong>
-            <a href={`tel:${config.business.phone_raw}`}>{config.business.phone}</a>
+      <!-- RIGHT: Sidebar -->
+      <aside class="ct-sidebar">
+        <div class="ct-card ct-card--dark">
+          <h3 class="ct-card__title">Contact Info</h3>
+          <div class="ct-detail">
+            <span class="ct-detail__label">Phone</span>
+            <a href={`tel:${config.business.phone_raw}`} class="ct-detail__val ct-detail__val--link">{config.business.phone}</a>
           </div>
-          <div class="contact-detail">
-            <strong>Email</strong>
-            <a href={`mailto:${config.business.email}`}>{config.business.email}</a>
+          <div class="ct-detail">
+            <span class="ct-detail__label">Email</span>
+            <a href={`mailto:${config.business.email}`} class="ct-detail__val ct-detail__val--link">{config.business.email}</a>
           </div>
-          <div class="contact-detail">
-            <strong>Location</strong>
-            <span>{config.business.address.city}, {config.business.address.state_full}</span>
+          <div class="ct-detail">
+            <span class="ct-detail__label">Location</span>
+            <span class="ct-detail__val">{config.business.address.city}, {config.business.address.state_full}</span>
           </div>
-          <div class="contact-detail">
-            <strong>Hours</strong>
-            <span>Mon-Fri, 7:00am - 7:00pm EST</span>
-            <span>Sat, 11:00am - 5:00pm EST</span>
-          </div>
-        </div>
-
-        <div class="contact-card process-card">
-          <h3>What Happens Next</h3>
-          <div class="next-step">
-            <span class="next-num">1</span>
-            <div>
-              <strong>Reach Out</strong>
-              <p>Fill out the form or call us directly.</p>
-            </div>
-          </div>
-          <div class="next-step">
-            <span class="next-num">2</span>
-            <div>
-              <strong>Strategy Call</strong>
-              <p>15-minute call to analyze your market and competition.</p>
-            </div>
-          </div>
-          <div class="next-step">
-            <span class="next-num">3</span>
-            <div>
-              <strong>Custom Plan</strong>
-              <p>We build a campaign tailored to your goals and budget.</p>
-            </div>
+          <div class="ct-detail ct-detail--last">
+            <span class="ct-detail__label">Hours</span>
+            <span class="ct-detail__val">Mon–Fri, 7am – 7pm EST</span>
+            <span class="ct-detail__val">Sat, 11am – 5pm EST</span>
           </div>
         </div>
 
-        <div class="contact-card serving-card">
-          <h3>Serving All U.S. Markets</h3>
-          <p>Based in Tampa, FL. Working with home service businesses nationwide.</p>
-          <div class="serving-industries">
+        <div class="ct-card ct-card--steps">
+          <h3 class="ct-card__title">What Happens Next</h3>
+          <div class="ct-step">
+            <span class="ct-step__num">1</span>
+            <div>
+              <strong class="ct-step__title">Reach Out</strong>
+              <p class="ct-step__desc">Fill out the form or call us directly.</p>
+            </div>
+          </div>
+          <div class="ct-step">
+            <span class="ct-step__num">2</span>
+            <div>
+              <strong class="ct-step__title">Strategy Call</strong>
+              <p class="ct-step__desc">15-minute call to analyze your market and competition.</p>
+            </div>
+          </div>
+          <div class="ct-step">
+            <span class="ct-step__num">3</span>
+            <div>
+              <strong class="ct-step__title">Custom Plan</strong>
+              <p class="ct-step__desc">We build a campaign tailored to your goals and budget.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="ct-card ct-card--industries">
+          <h3 class="ct-card__title">Serving All U.S. Markets</h3>
+          <p class="ct-card__sub">Based in Tampa, FL. Working with home service businesses nationwide.</p>
+          <div class="ct-chips">
             {config.industries.slice(0, 8).map(ind => (
-              <span class="serving-chip">{ind.name}</span>
+              <span class="ct-chip">{ind.name}</span>
             ))}
-            <span class="serving-chip">+{config.industries.length - 8} more</span>
+            <span class="ct-chip ct-chip--more">+{config.industries.length - 8} more</span>
           </div>
         </div>
       </aside>
+    </div>
+  </section>
+
+  <!-- ===== TRUST BAR (dark, thin) ===== -->
+  <section class="ct-trust">
+    <div class="container">
+      <div class="ct-trust__row">
+        <div class="ct-trust__item">
+          <span class="ct-trust__val">5.0 ★★★★★</span>
+          <span class="ct-trust__label">Google Rating</span>
+        </div>
+        <div class="ct-trust__item">
+          <span class="ct-trust__val">Since 2020</span>
+          <span class="ct-trust__label">Serving Home Services</span>
+        </div>
+        <div class="ct-trust__item">
+          <span class="ct-trust__val">Tampa, FL</span>
+          <span class="ct-trust__label">Based &amp; Operated</span>
+        </div>
+        <div class="ct-trust__item">
+          <span class="ct-trust__val">Spectrum</span>
+          <span class="ct-trust__label">Reach Partner</span>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -140,41 +164,288 @@ const breadcrumbItems = [
 </Base>
 
 <style>
-  .page-hero { background: var(--color-dark); padding: var(--space-3xl) 0 var(--space-2xl); color: var(--color-white); }
-  .page-hero h1 { color: var(--color-white); font-size: var(--text-4xl); margin-bottom: var(--space-sm); }
-  .page-hero-desc { color: rgba(255,255,255,0.75); font-size: var(--text-lg); max-width: 550px; }
+  /* ===== HERO ===== */
+  .ct-hero {
+    background: #111;
+    color: #fff;
+    padding: 5rem 0 3.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .ct-hero__bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(circle at 30% 70%, rgba(192,57,43,0.15) 0%, transparent 50%),
+      radial-gradient(circle at 70% 30%, rgba(192,57,43,0.08) 0%, transparent 40%);
+    pointer-events: none;
+  }
+  .ct-hero__inner {
+    position: relative; z-index: 1;
+    max-width: 650px;
+  }
+  .ct-eyebrow {
+    display: inline-block;
+    font-family: var(--font-heading);
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: #c0392b;
+    margin-bottom: 1rem;
+  }
+  .ct-hero__h1 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.1;
+    margin-bottom: 0.75rem;
+  }
+  .ct-hero__sub {
+    font-size: 1.125rem;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.6;
+    max-width: 550px;
+  }
 
-  .contact-grid { display: grid; grid-template-columns: 1fr; gap: var(--space-2xl); }
-  @media (min-width: 1024px) { .contact-grid { grid-template-columns: 1.5fr 1fr; } }
+  /* ===== MAIN SECTION ===== */
+  .ct-main {
+    padding: 4rem 0 5rem;
+    background: #f9f9f9;
+  }
+  .ct-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  @media (min-width: 1024px) {
+    .ct-grid { grid-template-columns: 1.5fr 1fr; }
+  }
 
-  .contact-form-wrap h2 { font-size: var(--text-2xl); margin-bottom: var(--space-xl); }
-  .contact-form { display: flex; flex-direction: column; gap: var(--space-md); }
-  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-md); }
-  @media (max-width: 480px) { .form-row { grid-template-columns: 1fr; } }
-  .form-group { display: flex; flex-direction: column; gap: 0.25rem; }
-  .form-group label { font-size: var(--text-sm); font-weight: 600; }
-  .req { color: var(--color-primary); }
-  .form-group input, .form-group select, .form-group textarea { border: 1px solid var(--color-gray-300); border-radius: var(--radius-sm); padding: 0.625rem 0.75rem; font-size: var(--text-sm); transition: border-color 0.15s; font-family: var(--font-body); }
-  .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--color-primary); }
-  .hp-field { position: absolute; left: -9999px; }
-  .btn-block { display: block; width: 100%; text-align: center; }
+  /* ===== FORM ===== */
+  .ct-form-wrap {
+    background: #fff;
+    border: 1px solid rgba(0,0,0,0.06);
+    border-radius: 12px;
+    padding: 2.5rem;
+  }
+  .ct-form__heading {
+    font-size: clamp(1.35rem, 2.5vw, 1.75rem);
+    font-weight: 800;
+    color: #1a1a1a;
+    margin-bottom: 0.35rem;
+  }
+  .ct-form__sub {
+    font-size: 0.9rem;
+    color: rgba(0,0,0,0.45);
+    margin-bottom: 2rem;
+  }
+  .ct-form { display: flex; flex-direction: column; gap: 1rem; }
+  .ct-form__row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  @media (max-width: 500px) {
+    .ct-form__row { grid-template-columns: 1fr; }
+  }
+  .ct-form__group { display: flex; flex-direction: column; gap: 0.3rem; }
+  .ct-form__group label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #1a1a1a;
+  }
+  .ct-req { color: #c0392b; }
+  .ct-form__group input,
+  .ct-form__group select,
+  .ct-form__group textarea {
+    border: 1px solid rgba(0,0,0,0.12);
+    border-radius: 8px;
+    padding: 0.7rem 0.85rem;
+    font-size: 0.9rem;
+    font-family: var(--font-body);
+    transition: border-color 0.15s, box-shadow 0.15s;
+    background: #fff;
+    color: #1a1a1a;
+  }
+  .ct-form__group input::placeholder,
+  .ct-form__group textarea::placeholder {
+    color: rgba(0,0,0,0.3);
+  }
+  .ct-form__group input:focus,
+  .ct-form__group select:focus,
+  .ct-form__group textarea:focus {
+    outline: none;
+    border-color: #c0392b;
+    box-shadow: 0 0 0 3px rgba(192,57,43,0.1);
+  }
+  .ct-hp { position: absolute; left: -9999px; }
 
-  .contact-info { display: flex; flex-direction: column; gap: var(--space-lg); }
-  .contact-card { background: var(--color-white); border: 1px solid var(--color-gray-200); border-radius: 10px; padding: var(--space-lg); }
-  .contact-card h3 { font-size: var(--text-base); margin-bottom: var(--space-md); }
-  .contact-detail { padding: 0.5rem 0; border-bottom: 1px solid var(--color-gray-100); }
-  .contact-detail:last-child { border-bottom: none; }
-  .contact-detail strong { display: block; font-size: var(--text-xs); color: var(--color-text-light); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.125rem; }
-  .contact-detail a, .contact-detail span { display: block; font-size: var(--text-sm); }
-  .contact-detail a { color: var(--color-primary); font-weight: 600; text-decoration: none; }
+  /* ===== BUTTON ===== */
+  .ct-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.9rem 2rem;
+    border-radius: 8px;
+    font-family: var(--font-heading);
+    font-size: 0.95rem;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .ct-btn--primary {
+    background: #c0392b;
+    color: #fff;
+  }
+  .ct-btn--primary:hover { background: #a5311f; }
+  .ct-btn--full { width: 100%; text-align: center; margin-top: 0.5rem; }
 
-  .next-step { display: flex; gap: var(--space-md); padding: 0.75rem 0; border-bottom: 1px solid var(--color-gray-100); }
-  .next-step:last-child { border-bottom: none; }
-  .next-num { width: 28px; height: 28px; border-radius: 50%; background: var(--color-primary); color: var(--color-white); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: var(--text-xs); flex-shrink: 0; }
-  .next-step strong { display: block; font-size: var(--text-sm); }
-  .next-step p { font-size: var(--text-xs); color: var(--color-text-light); margin: 0; }
+  /* ===== SIDEBAR ===== */
+  .ct-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
 
-  .serving-card p { font-size: var(--text-sm); color: var(--color-text-light); margin-bottom: var(--space-md); }
-  .serving-industries { display: flex; flex-wrap: wrap; gap: 0.25rem; }
-  .serving-chip { font-size: 0.6875rem; padding: 0.125rem 0.5rem; background: var(--color-gray-100); border-radius: 999px; color: var(--color-text-light); }
+  /* ===== CARDS ===== */
+  .ct-card {
+    border-radius: 12px;
+    padding: 1.75rem;
+  }
+  .ct-card--dark {
+    background: #111;
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+  .ct-card--steps {
+    background: #fff;
+    border: 1px solid rgba(0,0,0,0.06);
+  }
+  .ct-card--industries {
+    background: #fff;
+    border: 1px solid rgba(0,0,0,0.06);
+  }
+  .ct-card__title {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    color: #fff;
+  }
+  .ct-card--steps .ct-card__title,
+  .ct-card--industries .ct-card__title {
+    color: #1a1a1a;
+    border-bottom-color: rgba(0,0,0,0.06);
+  }
+  .ct-card__sub {
+    font-size: 0.85rem;
+    color: rgba(0,0,0,0.5);
+    margin-bottom: 1rem;
+  }
+
+  /* ===== CONTACT DETAILS ===== */
+  .ct-detail {
+    padding: 0.65rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .ct-detail--last { border-bottom: none; }
+  .ct-detail__label {
+    display: block;
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgba(255,255,255,0.35);
+    margin-bottom: 0.2rem;
+  }
+  .ct-detail__val {
+    display: block;
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.85);
+  }
+  .ct-detail__val--link {
+    color: #c0392b;
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .ct-detail__val--link:hover { color: #e74c3c; }
+
+  /* ===== STEPS ===== */
+  .ct-step {
+    display: flex;
+    gap: 1rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(0,0,0,0.04);
+  }
+  .ct-step:last-child { border-bottom: none; }
+  .ct-step__num {
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    background: #c0392b;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.75rem;
+    flex-shrink: 0;
+  }
+  .ct-step__title {
+    display: block;
+    font-size: 0.9rem;
+    color: #1a1a1a;
+  }
+  .ct-step__desc {
+    font-size: 0.8rem;
+    color: rgba(0,0,0,0.5);
+    margin: 0.15rem 0 0;
+  }
+
+  /* ===== INDUSTRY CHIPS ===== */
+  .ct-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+  .ct-chip {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.6rem;
+    background: #f0f0f0;
+    border-radius: 999px;
+    color: rgba(0,0,0,0.55);
+  }
+  .ct-chip--more {
+    background: rgba(192,57,43,0.08);
+    color: #c0392b;
+    font-weight: 600;
+  }
+
+  /* ===== TRUST BAR ===== */
+  .ct-trust {
+    background: #111;
+    padding: 2rem 0;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+  .ct-trust__row {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    flex-wrap: wrap;
+  }
+  .ct-trust__item { text-align: center; }
+  .ct-trust__val {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: #c0392b;
+  }
+  .ct-trust__label {
+    display: block;
+    font-size: 0.7rem;
+    color: rgba(255,255,255,0.35);
+    margin-top: 2px;
+  }
 </style>
