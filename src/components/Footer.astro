@@ -19,7 +19,7 @@ const year = new Date().getFullYear();
   <div class="container footer-grid">
     <div class="footer-brand">
       <a href="/" class="footer-logo-link">
-        <span class="footer-logo-text"><span class="logo-service">Service</span><span class="logo-line">Line</span><span class="logo-pro">Pro</span></span>
+        <img src="/media/slp-logo.png" alt={config.business.name} class="footer-logo-img" width="160" height="42" />
       </a>
       <p class="footer-tagline">{config.business.tagline}</p>
       <p class="footer-description">{config.business.description}</p>
@@ -94,9 +94,7 @@ const year = new Date().getFullYear();
 
   .footer-brand { max-width: 340px; }
   .footer-logo-link { text-decoration: none; display: inline-block; margin-bottom: var(--space-md); }
-  .footer-logo-text { font-family: var(--font-heading); font-size: 1.5rem; font-weight: 700; }
-  .footer-logo-text .logo-service, .footer-logo-text .logo-line { color: var(--color-white); }
-  .footer-logo-text .logo-pro { color: var(--color-primary); font-size: 0.6em; vertical-align: super; }
+  .footer-logo-img { width: 160px; height: auto; filter: brightness(0) invert(1); }
   .footer-tagline { font-family: var(--font-heading); font-size: var(--text-base); font-weight: 600; color: var(--color-white); margin-bottom: var(--space-sm); }
   .footer-description { font-size: var(--text-sm); line-height: var(--leading-relaxed); }
 
