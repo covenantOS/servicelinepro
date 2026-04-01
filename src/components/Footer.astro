@@ -3,17 +3,6 @@ import config from '../lib/config';
 const year = new Date().getFullYear();
 ---
 
-<div class="footer-cta-band">
-  <div class="container footer-cta-inner">
-    <h2>Stop Losing Customers to Competitors Who Found Them First</h2>
-    <p>Book a 15-minute strategy call. See if we can dominate your market. No pressure. No pitch deck. Just straight answers.</p>
-    <div class="footer-cta-buttons">
-      <a href="/contact" class="btn btn-primary btn-lg">Book Strategy Call</a>
-      <a href={`tel:${config.business.phone_raw}`} class="btn btn-outline btn-lg">Call {config.business.phone}</a>
-    </div>
-  </div>
-</div>
-
 <footer class="site-footer">
   <div class="footer-accent"></div>
   <div class="container footer-grid">
@@ -78,14 +67,6 @@ const year = new Date().getFullYear();
 </footer>
 
 <style>
-  .footer-cta-band { background: var(--color-dark); color: var(--color-white); padding: var(--space-3xl) 0; text-align: center; }
-  .footer-cta-inner h2 { color: var(--color-white); font-size: var(--text-3xl); margin-bottom: var(--space-sm); max-width: 600px; margin-left: auto; margin-right: auto; }
-  .footer-cta-inner h2::after { display: none; }
-  .footer-cta-inner p { color: var(--color-gray-400); font-size: var(--text-lg); margin-bottom: var(--space-xl); }
-  .footer-cta-buttons { display: flex; gap: var(--space-md); justify-content: center; flex-wrap: wrap; }
-  .footer-cta-buttons .btn-outline { border-color: var(--color-white); color: var(--color-white); }
-  .footer-cta-buttons .btn-outline:hover { background: var(--color-white); color: var(--color-dark); }
-
   .site-footer { background: var(--color-dark); color: var(--color-gray-400); }
   .footer-accent { height: 3px; background: var(--color-primary); }
   .footer-grid { display: grid; grid-template-columns: 1fr; gap: var(--space-2xl); padding: var(--space-3xl) 0; }

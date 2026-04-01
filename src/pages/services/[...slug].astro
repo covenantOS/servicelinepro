@@ -158,6 +158,17 @@ const schema = {
           </div>
         )}
 
+        {/* Mid-content CTA band */}
+        <div class="mid-cta-module">
+          <div class="mid-cta-inner">
+            <div class="mid-cta-text">
+              <h3>{isLocalSEO ? '10 Days Free. No Credit Card.' : isPPC ? '$0 Agency Fee on $5K+ Spend' : isTV ? 'Free Video Production Included' : 'Get Started Today'}</h3>
+              <p>{isLocalSEO ? 'We boost your Google Business Profile for 10 days at zero cost. Keep every improvement even if you walk away.' : isPPC ? '100% of your ad budget funds your campaign. We get paid through our Spectrum Reach partnership.' : isTV ? 'Every TV and streaming campaign includes professional video production at no extra charge.' : 'Book a 15-minute strategy call. No pressure, no pitch deck.'}</p>
+            </div>
+            <a href="/contact" class="btn btn-primary">{isLocalSEO ? 'Apply for Free Boost' : 'Get Your Free Strategy Call'}</a>
+          </div>
+        </div>
+
         {/* Sub-service cards */}
         {type === 'service' && service.sub_services && service.sub_services.length > 0 && (
           <div class="sub-services">
@@ -175,76 +186,6 @@ const schema = {
             </div>
           </div>
         )}
-
-        {/* Pricing */}
-        {pricingTiers.length > 0 && (
-          <div class="inline-pricing">
-            <h2>{displayName} Pricing</h2>
-            <div class="pricing-grid">
-              {pricingTiers.map((tier: any) => (
-                <div class={`pricing-card ${tier.featured ? 'pricing-featured' : ''}`}>
-                  {tier.featured && <div class="pricing-badge">Most Popular</div>}
-                  <h3>{tier.name}</h3>
-                  <div class="pricing-price">
-                    {tier.price === 0 ? (
-                      <span class="price-amount">{tier.price_label || 'Custom'}</span>
-                    ) : (
-                      <>
-                        {tier.price_label === 'starting at' && <span class="price-label">Starting at</span>}
-                        <span class="price-currency">$</span>
-                        <span class="price-amount">{tier.price.toLocaleString()}</span>
-                        {tier.price_label && tier.price_label !== 'starting at' && <span class="price-period">{tier.price_label}</span>}
-                        {!tier.price_label && <span class="price-period">/mo</span>}
-                      </>
-                    )}
-                  </div>
-                  <p class="pricing-desc">{tier.description}</p>
-                  <ul class="pricing-features">
-                    {tier.features.map((f: string) => (
-                      <li>{f}</li>
-                    ))}
-                  </ul>
-                  <a href="/contact" class={`btn ${tier.featured ? 'btn-primary' : 'btn-outline'} btn-block`}>Get Started</a>
-                </div>
-              ))}
-            </div>
-            {service.pricing?.setup_fee && (
-              <p class="setup-note">One-time setup fee: ${service.pricing.setup_fee.toLocaleString()}</p>
-            )}
-          </div>
-        )}
-
-        {/* Quote-based pricing */}
-        {service.pricing?.quote_based && (
-          <div class="quote-pricing">
-            <h2>{displayName} Pricing</h2>
-            <div class="quote-card">
-              <p>{service.pricing.description}</p>
-              <a href="/contact" class="btn btn-primary">Request a Custom Quote</a>
-            </div>
-          </div>
-        )}
-
-        {/* Process Steps */}
-        {processSteps.length > 0 && (
-          <div class="process-section">
-            <h2>How {displayName} Works</h2>
-            <div class="process-steps">
-              {processSteps.map((step: any, i: number) => (
-                <div class="process-step">
-                  <div class="step-number">{i + 1}</div>
-                  <div class="step-content">
-                    <h3>{step.title}</h3>
-                    <p>{step.description}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* Lead Magnet */}
-        <LeadMagnet service={service.slug} variant="inline" />
 
         {/* Case Studies for this service */}
         {serviceCaseStudies.length > 0 && (
@@ -272,6 +213,27 @@ const schema = {
           </div>
         )}
 
+        {/* Process Steps */}
+        {processSteps.length > 0 && (
+          <div class="process-section">
+            <h2>How {displayName} Works</h2>
+            <div class="process-steps">
+              {processSteps.map((step: any, i: number) => (
+                <div class="process-step">
+                  <div class="step-number">{i + 1}</div>
+                  <div class="step-content">
+                    <h3>{step.title}</h3>
+                    <p>{step.description}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Lead Magnet */}
+        <LeadMagnet service={service.slug} variant="inline" />
+
         {/* Industries served */}
         <div class="industries-served">
           <h2>Industries We Serve with {displayName}</h2>
@@ -286,7 +248,7 @@ const schema = {
         {/* FAQ */}
         {faqQuestions.length > 0 && (
           <div class="faq-section">
-            <h2>{displayName} FAQ</h2>
+            <h2>Frequently Asked Questions About {displayName}</h2>
             {faqQuestions.map((q: any) => (
               <details class="faq-item">
                 <summary>{q.question}</summary>
@@ -322,9 +284,69 @@ const schema = {
           <p>15 minutes. No pressure. We analyze your market and show you the gaps.</p>
           <a href="/contact" class="btn btn-primary btn-block">Book Now</a>
         </div>
+        <div class="sidebar-card sidebar-trust">
+          <div class="sidebar-trust-rating">
+            <span class="sidebar-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+            <span class="sidebar-rating-text">{config.trust_signals.rating} / 5 on {config.trust_signals.review_platform}</span>
+          </div>
+          <p class="sidebar-trust-count">{config.trust_signals.review_count} verified reviews</p>
+        </div>
       </aside>
     </div>
   </section>
+
+  {/* Pricing - full width section */}
+  {pricingTiers.length > 0 && (
+    <section class="pricing-section section section-alt">
+      <div class="container">
+        <span class="section-label">{isLocalSEO ? 'Map Pack Guarantee' : 'Transparent Pricing'}</span>
+        <h2>{displayName} Pricing</h2>
+        <div class="pricing-grid">
+          {pricingTiers.map((tier: any) => (
+            <div class={`pricing-card ${tier.featured ? 'pricing-featured' : ''}`}>
+              {tier.featured && <div class="pricing-badge">Most Popular</div>}
+              <h3>{tier.name}</h3>
+              <div class="pricing-price">
+                {tier.price === 0 ? (
+                  <span class="price-amount">{tier.price_label || 'Custom'}</span>
+                ) : (
+                  <>
+                    {tier.price_label === 'starting at' && <span class="price-label">Starting at</span>}
+                    <span class="price-currency">$</span>
+                    <span class="price-amount">{tier.price.toLocaleString()}</span>
+                    {tier.price_label && tier.price_label !== 'starting at' && <span class="price-period">{tier.price_label}</span>}
+                    {!tier.price_label && <span class="price-period">/mo</span>}
+                  </>
+                )}
+              </div>
+              <p class="pricing-desc">{tier.description}</p>
+              <ul class="pricing-features">
+                {tier.features.map((f: string) => (
+                  <li>{f}</li>
+                ))}
+              </ul>
+              <a href="/contact" class={`btn ${tier.featured ? 'btn-primary' : 'btn-outline'} btn-block`}>Get Started</a>
+            </div>
+          ))}
+        </div>
+        {service.pricing?.setup_fee && (
+          <p class="setup-note">One-time setup fee: ${service.pricing.setup_fee.toLocaleString()}</p>
+        )}
+      </div>
+    </section>
+  )}
+
+  {/* Quote-based pricing - full width */}
+  {service.pricing?.quote_based && (
+    <section class="pricing-section section section-alt">
+      <div class="container" style="max-width: 600px; text-align: center;">
+        <span class="section-label">Custom Pricing</span>
+        <h2>{displayName} Pricing</h2>
+        <p style="color: var(--color-text-light); margin-bottom: var(--space-xl);">{service.pricing.description}</p>
+        <a href="/contact" class="btn btn-primary btn-lg">Request a Custom Quote</a>
+      </div>
+    </section>
+  )}
 
   {/* Free 10-Day Boost - Local SEO only */}
   {isLocalSEO && (
@@ -589,10 +611,57 @@ const schema = {
   .sidebar-cta p { color: rgba(255, 255, 255, 0.65); margin-bottom: var(--space-md); font-size: var(--text-sm); line-height: 1.5; }
   .btn-block { display: block; text-align: center; width: 100%; padding: 0.75rem 1rem; font-weight: 700; }
 
+  /* Mid-content CTA module */
+  .mid-cta-module {
+    margin: var(--space-2xl) 0;
+    background: var(--color-dark);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl) var(--space-xl);
+    position: relative;
+    overflow: hidden;
+  }
+  .mid-cta-module::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 200px;
+    height: 100%;
+    background: radial-gradient(circle at 100% 50%, rgba(192,57,43,0.2) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .mid-cta-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-lg);
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 1;
+  }
+  .mid-cta-text h3 { color: var(--color-white); font-size: var(--text-lg); margin-bottom: var(--space-xs); }
+  .mid-cta-text h3::before { display: none; }
+  .mid-cta-text p { color: rgba(255,255,255,0.6); font-size: var(--text-sm); margin-bottom: 0; max-width: 500px; }
+
+  /* Sidebar trust card */
+  .sidebar-trust { text-align: center; background: var(--color-gray-100); border-color: transparent; }
+  .sidebar-stars { color: #f5c518; font-size: var(--text-xl); letter-spacing: 2px; }
+  .sidebar-rating-text { display: block; font-size: var(--text-sm); font-weight: 600; color: var(--color-dark); margin-top: var(--space-xs); }
+  .sidebar-trust-count { font-size: var(--text-xs); color: var(--color-text-muted); margin-top: var(--space-xs); margin-bottom: 0; }
+
   .faq-section { margin-top: var(--space-2xl); }
-  .faq-item { border-bottom: 1px solid var(--color-gray-200); padding: var(--space-md) 0; }
-  .faq-item summary { font-weight: 600; cursor: pointer; }
-  .faq-answer { padding-top: var(--space-sm); color: var(--color-text-light); }
+  .faq-item { border: 1px solid var(--color-gray-200); border-radius: var(--radius-md); padding: var(--space-md) var(--space-lg); margin-bottom: var(--space-sm); background: var(--color-white); transition: box-shadow 0.15s; }
+  .faq-item[open] { box-shadow: var(--shadow-sm); border-color: var(--color-primary); }
+  .faq-item summary { font-weight: 600; cursor: pointer; font-size: var(--text-base); list-style: none; display: flex; justify-content: space-between; align-items: center; }
+  .faq-item summary::after { content: '+'; font-size: var(--text-xl); color: var(--color-primary); font-weight: 300; flex-shrink: 0; }
+  .faq-item[open] summary::after { content: '\2212'; }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-answer { padding-top: var(--space-md); color: var(--color-text-light); border-top: 1px solid var(--color-gray-100); margin-top: var(--space-md); }
+
+  /* Pricing section (full-width) */
+  .pricing-section .section-label { text-align: center; display: block; }
+  .pricing-section h2 { text-align: center; margin-bottom: var(--space-xl); }
+  .pricing-section h2::before { display: none; }
 
   /* === 10-Day Boost Band === */
   .boost-band { padding: var(--space-3xl) 0; position: relative; overflow: hidden; }

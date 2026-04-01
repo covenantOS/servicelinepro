@@ -91,45 +91,23 @@ const schema = {
           </div>
         )}
 
-        <div class="industry-services">
-          <h2>Our Services for {industry.full_name}</h2>
-          <div class="industry-services-grid">
-            {config.services.map(service => (
-              <a href={`/industries/${industry.slug}/${service.slug}/`} class="industry-service-card card">
-                <div class="industry-service-body">
-                  <h3>{service.name} for {industry.full_name}</h3>
-                  <p>{service.short_description}</p>
-                  <span class="card-link">Learn More &rarr;</span>
-                </div>
-              </a>
-            ))}
+        {/* Mid-content CTA */}
+        <div class="mid-cta-module">
+          <div class="mid-cta-inner">
+            <div class="mid-cta-text">
+              <h3>Ready to Grow Your {industry.name} Business?</h3>
+              <p>Free 15-minute strategy call. We analyze your market, your competition, and show you where the opportunities are.</p>
+            </div>
+            <a href="/contact" class="btn btn-primary">Free Strategy Call</a>
           </div>
         </div>
-
-        {/* Case Studies for this industry */}
-        {industryCases.length > 0 && (
-          <div class="industry-cases">
-            <h2>{industry.name} Results</h2>
-            <div class="industry-cases-grid">
-              {industryCases.map(cs => (
-                <a href={`/case-studies/${cs.slug}/`} class="ind-case-card">
-                  <span class="ind-case-tag">{cs.category}</span>
-                  <h3>{cs.metrics?.primary || cs.result}</h3>
-                  <span class="ind-case-client">{cs.title}</span>
-                  <span class="card-link">Read Case Study &rarr;</span>
-                </a>
-              ))}
-            </div>
-            <a href="/case-studies/" class="see-all-link">See All {config.case_studies.length} Case Studies &rarr;</a>
-          </div>
-        )}
 
         {/* Lead Magnet */}
         <LeadMagnet variant="inline" />
 
         {/* Areas served */}
         <div class="industry-areas">
-          <h2>{industry.name} Marketing in Central Florida</h2>
+          <h2>{industry.name} Marketing Across the United States</h2>
           <div class="industry-areas-grid">
             {config.areas.slice(0, 10).map(a => (
               <a href={`/areas/${a.slug}/`} class="industry-area-link">{a.name}</a>
@@ -140,7 +118,7 @@ const schema = {
 
         {faqQuestions.length > 0 && (
           <div class="faq-section">
-            <h2>{industry.name} Marketing FAQ</h2>
+            <h2>Frequently Asked Questions About {industry.name} Marketing</h2>
             {faqQuestions.map((q: any) => (
               <details class="faq-item">
                 <summary>{q.question}</summary>
@@ -154,6 +132,50 @@ const schema = {
       <Sidebar currentIndustry={industry.slug} />
     </div>
   </section>
+
+  {/* Services for this industry - full width module */}
+  <section class="industry-services-section section section-alt">
+    <div class="container">
+      <span class="section-label">{industry.name} Solutions</span>
+      <h2>Our Services for {industry.full_name}</h2>
+      <div class="industry-services-grid-fw">
+        {config.services.map(service => (
+          <a href={`/industries/${industry.slug}/${service.slug}/`} class="industry-service-card-fw">
+            <div class="isvc-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            </div>
+            <h3>{service.name} for {industry.full_name}</h3>
+            <p>{service.short_description.split('.')[0]}.</p>
+            <span class="card-link">Learn More &rarr;</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  {/* Case Studies for this industry */}
+  {industryCases.length > 0 && (
+    <section class="industry-cases-section section section-dark">
+      <div class="container">
+        <span class="section-label section-label-light">{industry.name} Results</span>
+        <h2>Real Results for {industry.full_name}</h2>
+        <div class="industry-cases-grid-fw">
+          {industryCases.map(cs => (
+            <a href={`/case-studies/${cs.slug}/`} class="ind-case-card-fw">
+              <span class="ind-case-tag">{cs.category}</span>
+              <h3>{cs.metrics?.primary || cs.result}</h3>
+              <span class="ind-case-client">{cs.title}</span>
+              {cs.metrics?.secondary && <span class="ind-case-secondary">{cs.metrics.secondary}</span>}
+              <span class="card-link">Read Case Study &rarr;</span>
+            </a>
+          ))}
+        </div>
+        <div style="text-align: center; margin-top: var(--space-xl);">
+          <a href="/case-studies/" class="btn btn-outline-light">See All {config.case_studies.length} Case Studies &rarr;</a>
+        </div>
+      </div>
+    </section>
+  )}
 
   <CTABand heading={`Ready to Dominate ${industry.name} Marketing?`} />
   <ReviewsSection compact={true} maxReviews={3} />
@@ -222,61 +244,81 @@ const schema = {
     color: var(--color-dark);
   }
 
-  .industry-services {
-    margin-top: var(--space-2xl);
-  }
-
-  .industry-services-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: var(--space-lg);
-    margin-top: var(--space-lg);
-  }
-
-  .industry-service-card {
-    text-decoration: none;
-    color: inherit;
-    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
-  }
-
-  .industry-service-card:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-lg);
-  }
-
-  .industry-service-body {
-    padding: var(--space-lg);
-  }
-
-  .industry-service-body h3 {
-    font-size: var(--text-lg);
-    margin-bottom: var(--space-sm);
-  }
-
-  .industry-service-body p {
-    font-size: var(--text-sm);
-    color: var(--color-text-light);
-    margin-bottom: var(--space-sm);
-  }
-
   .card-link {
     font-size: var(--text-sm);
     font-weight: 600;
     color: var(--color-primary);
   }
 
-  /* Industry Case Studies */
-  .industry-cases { margin-top: var(--space-2xl); }
-  .industry-cases-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: var(--space-md); margin-top: var(--space-lg); }
-  .ind-case-card {
-    display: flex; flex-direction: column; padding: var(--space-lg);
-    background: var(--color-white); border: 1px solid var(--color-gray-200); border-radius: 10px;
-    text-decoration: none; color: inherit; transition: transform 0.15s, box-shadow 0.15s;
+  /* Mid-content CTA */
+  .mid-cta-module {
+    margin: var(--space-2xl) 0;
+    background: var(--color-dark);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+    position: relative;
+    overflow: hidden;
   }
-  .ind-case-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.1); }
+  .mid-cta-module::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 200px; height: 100%;
+    background: radial-gradient(circle at 100% 50%, rgba(192,57,43,0.2) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .mid-cta-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: var(--space-lg); flex-wrap: wrap; position: relative; z-index: 1;
+  }
+  .mid-cta-text h3 { color: var(--color-white); font-size: var(--text-lg); margin-bottom: var(--space-xs); }
+  .mid-cta-text h3::before { display: none; }
+  .mid-cta-text p { color: rgba(255,255,255,0.6); font-size: var(--text-sm); margin-bottom: 0; max-width: 500px; }
+
+  /* Full-width services section */
+  .industry-services-section h2 { margin-bottom: var(--space-xl); }
+  .industry-services-section h2::before { display: none; }
+  .industry-services-grid-fw {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: var(--space-lg);
+  }
+  .industry-service-card-fw {
+    text-decoration: none; color: inherit;
+    padding: var(--space-xl);
+    background: var(--color-white);
+    border: 1px solid var(--color-gray-200);
+    border-radius: var(--radius-card);
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .industry-service-card-fw:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+  .isvc-icon {
+    width: 48px; height: 48px;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(192,57,43,0.08); border-radius: 10px;
+    color: var(--color-primary); margin-bottom: var(--space-md);
+  }
+  .industry-service-card-fw h3 { font-size: var(--text-lg); margin-bottom: var(--space-sm); }
+  .industry-service-card-fw p { font-size: var(--text-sm); color: var(--color-text-light); margin-bottom: var(--space-md); }
+
+  /* Full-width case studies section */
+  .industry-cases-section h2 { color: var(--color-white); margin-bottom: var(--space-xl); }
+  .industry-cases-section h2::before { display: none; }
+  .section-label-light { color: rgba(255,255,255,0.4); }
+  .industry-cases-grid-fw { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: var(--space-lg); }
+  .ind-case-card-fw {
+    display: flex; flex-direction: column; padding: var(--space-lg);
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px;
+    text-decoration: none; color: inherit; transition: background 0.15s;
+  }
+  .ind-case-card-fw:hover { background: rgba(255,255,255,0.08); }
   .ind-case-tag { font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-primary); margin-bottom: var(--space-xs); }
-  .ind-case-card h3 { font-size: var(--text-lg); margin-bottom: var(--space-xs); }
-  .ind-case-client { font-size: var(--text-sm); color: var(--color-text-muted); margin-bottom: var(--space-sm); }
+  .ind-case-card-fw h3 { font-size: var(--text-xl); margin-bottom: var(--space-xs); color: var(--color-white); }
+  .ind-case-client { font-size: var(--text-sm); color: rgba(255,255,255,0.5); margin-bottom: 0.25rem; }
+  .ind-case-secondary { font-size: var(--text-sm); color: rgba(255,255,255,0.4); margin-bottom: var(--space-sm); display: block; }
+  .btn-outline-light { border: 2px solid rgba(255,255,255,0.3); color: var(--color-white); background: transparent; }
+  .btn-outline-light:hover { background: var(--color-white); color: var(--color-dark); border-color: var(--color-white); }
+
   .see-all-link { display: inline-block; margin-top: var(--space-md); font-size: var(--text-sm); font-weight: 600; color: var(--color-primary); }
 
   /* Industry Areas */
@@ -290,23 +332,12 @@ const schema = {
   }
   .industry-area-link:hover { background: var(--color-primary); color: var(--color-white); }
 
-  .faq-section {
-    margin-top: var(--space-2xl);
-  }
-
-  .faq-item {
-    border-bottom: 1px solid var(--color-gray-200);
-    padding: var(--space-md) 0;
-  }
-
-  .faq-item summary {
-    font-weight: 600;
-    cursor: pointer;
-    font-size: var(--text-base);
-  }
-
-  .faq-answer {
-    padding-top: var(--space-sm);
-    color: var(--color-text-light);
-  }
+  .faq-section { margin-top: var(--space-2xl); }
+  .faq-item { border: 1px solid var(--color-gray-200); border-radius: var(--radius-md); padding: var(--space-md) var(--space-lg); margin-bottom: var(--space-sm); background: var(--color-white); transition: box-shadow 0.15s; }
+  .faq-item[open] { box-shadow: var(--shadow-sm); border-color: var(--color-primary); }
+  .faq-item summary { font-weight: 600; cursor: pointer; font-size: var(--text-base); list-style: none; display: flex; justify-content: space-between; align-items: center; }
+  .faq-item summary::after { content: '+'; font-size: var(--text-xl); color: var(--color-primary); font-weight: 300; flex-shrink: 0; }
+  .faq-item[open] summary::after { content: '\2212'; }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-answer { padding-top: var(--space-md); color: var(--color-text-light); border-top: 1px solid var(--color-gray-100); margin-top: var(--space-md); }
 </style>
