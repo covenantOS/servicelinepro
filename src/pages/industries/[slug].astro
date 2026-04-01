@@ -1,346 +1,84 @@
 ---
 import Base from '../../layouts/Base.astro';
-import Header from '../../components/Header.astro';
-import ReviewsSection from '../../components/ReviewsSection.astro';
-import CTABand from '../../components/CTABand.astro';
-import Footer from '../../components/Footer.astro';
-import LeadMagnet from '../../components/LeadMagnet.astro';
-import IconBulletList from '../../components/IconBulletList.astro';
-import StatBar from '../../components/StatBar.astro';
-import FeatureGrid from '../../components/FeatureGrid.astro';
-import HandwrittenCTA from '../../components/HandwrittenCTA.astro';
 import config from '../../lib/config';
-import { renderMarkdown, splitMarkdownSections } from '../../lib/markdown';
-import InlineTestimonial from '../../components/InlineTestimonial.astro';
-import fs from 'node:fs';
-import path from 'node:path';
-import YAML from 'yaml';
 
 export function getStaticPaths() {
-  return config.industries.map(industry => ({
-    params: { slug: industry.slug },
-    props: { industry },
+  return config.industries.map(ind => ({
+    params: { slug: ind.slug },
+    props: { industry: ind },
   }));
 }
 
 const { industry } = Astro.props;
-
-let content = '';
-let frontmatter: any = {};
-
-const filePath = path.resolve(`./src/content/industries/${industry.slug}.md`);
-if (fs.existsSync(filePath)) {
-  const raw = fs.readFileSync(filePath, 'utf8');
-  const fmMatch = raw.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
-  if (fmMatch) {
-    frontmatter = YAML.parse(fmMatch[1]);
-    content = fmMatch[2];
-  } else {
-    content = raw;
-  }
-}
-
-const pageTitle = frontmatter.title || `Marketing for ${industry.full_name}`;
-const pageDescription = frontmatter.description || `${config.business.name} provides local SEO, Google Ads, and website design for ${industry.full_name.toLowerCase()}.`;
-
-const faqQuestions = frontmatter.faq || [];
-const contentSections = content ? splitMarkdownSections(content) : [];
-const inlineReview = config.reviews?.[0];
-
-const industryCases = config.case_studies.filter(cs =>
-  cs.industry && cs.industry.toLowerCase().includes(industry.name.toLowerCase().split('/')[0].trim().toLowerCase())
-).slice(0, 3);
-
-const schema = {
-  '@context': 'https://schema.org',
-  '@type': 'ProfessionalService',
-  name: config.business.name,
-  description: pageDescription,
-  url: `https://${config.seo.domain}/industries/${industry.slug}/`,
-};
+const relatedCaseStudies = config.case_studies.filter(cs =>
+  cs.industry?.toLowerCase().includes(industry.name.toLowerCase())
+).slice(0, 4);
 ---
 
-<Base title={pageTitle} description={pageDescription} schema={schema}>
-  <Header slot="header" />
+<Base title={`Marketing for ${industry.full_name}`} description={industry.description}>
 
-  <!-- ===== HERO — Dark, Full-Width ===== -->
-  <section class="ind-hero">
-    <div class="ind-hero-texture"></div>
-    <div class="container ind-hero-inner">
-      <span class="ind-hero-eyebrow">{industry.name} Marketing</span>
-      <h1>{pageTitle}</h1>
-      <p class="ind-hero-desc">{industry.description}</p>
-      <div class="ind-hero-ctas">
-        <a href="/contact" class="btn btn-ghost btn-lg">Get In Touch</a>
-        <a href={`tel:${config.business.phone_raw}`} class="btn btn-ghost btn-lg" style="border-color: rgba(255,255,255,0.2);">{config.business.phone}</a>
+<section class="section glow-red" style="padding-top: 6rem; position: relative; overflow: hidden;">
+  <div class="container" style="position: relative; z-index: 1;">
+    <div class="fade-in" style="max-width: 700px;">
+      <a href="/industries/" style="display: inline-flex; align-items: center; gap: 0.25rem; font-size: 0.8rem; color: var(--gray-500); margin-bottom: 1.5rem; text-decoration: none;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+        All Industries
+      </a>
+      <span class="section-label">{industry.name}</span>
+      <h1>Marketing for {industry.full_name}</h1>
+      <p style="color: var(--gray-400); font-size: 1.05rem; line-height: 1.7; margin: 1.25rem 0 2rem;">
+        {industry.description} Our strategies are built around the unique challenges of the {industry.name.toLowerCase()} industry — from seasonal demand patterns to local competition.
+      </p>
+      <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+        <a href="/contact/" class="btn btn--primary btn--lg">Get Your Free Strategy Call</a>
+        <a href={`tel:${config.business.phone_raw}`} class="btn btn--outline btn--lg">Call {config.business.phone}</a>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ===== TRUST STRIP ===== -->
-  <section class="ind-trust-strip">
-    <div class="container">
-      <StatBar stats={[
-        { value: '5.0 ★', label: 'Google Rating' },
-        { value: 'No Contracts', label: 'Month-to-Month' },
-        { value: 'Tampa, FL', label: 'Headquartered' },
-      ]} variant="dark" />
-    </div>
-  </section>
-
-  <!-- ===== CONTENT SECTIONS — Designed Rhythm ===== -->
-  {contentSections.length > 0 ? (
-    <>
-      {/* First section — Dark */}
-      <section class="ind-section ind-dark">
-        <div class="container" style="max-width: 800px;">
-          <div class="prose" set:html={contentSections[0].html} />
-        </div>
-      </section>
-
-      {/* Testimonial */}
-      {inlineReview && (
-        <section class="ind-section" style="background: var(--color-gray-100);">
-          <div class="container" style="max-width: 800px;">
-            <InlineTestimonial quote={inlineReview.text} author={inlineReview.author} company={inlineReview.company} rating={inlineReview.rating} />
-          </div>
-        </section>
-      )}
-
-      {/* Remaining sections with intentional dark/white rhythm */}
-      {contentSections.slice(1).map((section, i) => (
-        <>
-          <section class={`ind-section ${i % 2 === 0 ? '' : 'ind-dark'}`}>
-            <div class="container" style="max-width: 800px;">
-              <div class="prose" set:html={section.html} />
-            </div>
-          </section>
-
-          {i === 0 && (
-            <section class="ind-section ind-dark ind-cta-band">
-              <div class="container">
-                <div class="ind-cta-inner">
-                  <div>
-                    <h3>Ready to Grow Your {industry.name} Business?</h3>
-                    <p>15-minute strategy call. We analyze your market and show you where the money is.</p>
-                  </div>
-                  <a href="/contact" class="btn btn-primary">Free Strategy Call</a>
-                </div>
-              </div>
-            </section>
-          )}
-
-          {i === 2 && config.reviews?.[1] && (
-            <section class="ind-section">
-              <div class="container" style="max-width: 800px;">
-                <InlineTestimonial quote={config.reviews[1].text} author={config.reviews[1].author} company={config.reviews[1].company} rating={config.reviews[1].rating} />
-              </div>
-            </section>
-          )}
-        </>
+<section class="section bg-dark">
+  <div class="container">
+    <h2 style="text-align: center; margin-bottom: 2.5rem;">Services for {industry.full_name}</h2>
+    <div class="grid grid--2 stagger">
+      {config.services.map(svc => (
+        <a href={`/industries/${industry.slug}/${svc.slug}/`} class="card" style="text-decoration: none;">
+          <h3 style="font-size: 1.15rem; margin-bottom: 0.5rem; color: var(--white);">{svc.name} for {industry.full_name}</h3>
+          <p style="color: var(--gray-400); font-size: 0.9rem; line-height: 1.5;">{svc.short_description}</p>
+          <span style="display: inline-flex; align-items: center; gap: 0.25rem; color: var(--lime); font-size: 0.85rem; font-weight: 600; margin-top: 0.75rem;">
+            Learn More <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </span>
+        </a>
       ))}
-    </>
-  ) : (
-    <section class="ind-section">
-      <div class="container" style="max-width: 800px;">
-        <div class="prose">
-          <h2>Digital Marketing Built for {industry.full_name}</h2>
-          <p>{config.business.name} specializes in performance-driven marketing for {industry.full_name.toLowerCase()}.</p>
-        </div>
-      </div>
-    </section>
-  )}
+    </div>
+  </div>
+</section>
 
-  <!-- ===== SERVICES FOR THIS INDUSTRY — White ===== -->
-  <section class="ind-section" style="background: var(--color-gray-100);">
+{relatedCaseStudies.length > 0 && (
+  <section class="section">
     <div class="container">
-      <span class="section-eyebrow">{industry.name} Solutions</span>
-      <h2>Our Services for {industry.full_name}</h2>
-      <FeatureGrid items={config.services.map(svc => ({
-        icon: svc.slug === 'local-seo' ? 'map' : svc.slug === 'ppc' ? 'target' : svc.slug === 'website-design' ? 'code' : 'tv',
-        heading: `${svc.name}`,
-        description: svc.short_description.split('.')[0] + '.',
-      }))} variant="light" columns={4} />
-      <div style="text-align: center; margin-top: var(--space-xl);">
-        {config.services.map(svc => (
-          <a href={`/industries/${industry.slug}/${svc.slug}/`} class="btn btn-outline" style="margin: 0.25rem;">{svc.name}</a>
+      <h2 style="margin-bottom: 2rem;">{industry.name} Case Studies</h2>
+      <div class="grid grid--4 stagger" style="gap: 1.25rem;">
+        {relatedCaseStudies.map(cs => (
+          <a href={`/case-studies/${cs.slug}/`} style="text-decoration: none; display: flex; flex-direction: column; background: var(--dark-2); border: 1px solid var(--dark-4); border-radius: var(--radius-md); overflow: hidden; transition: all 0.3s;">
+            {cs.image && <img src={`/media/case-studies/${cs.image}`} alt={cs.title} width="400" height="250" loading="lazy" style="width: 100%; height: 160px; object-fit: cover;" />}
+            <div style="padding: 1rem;">
+              <h4 style="font-size: 0.95rem; color: var(--white); margin-bottom: 0.5rem;">{cs.title}</h4>
+              <span style="font-family: var(--font-heading); font-weight: 700; font-size: 0.9rem; color: var(--red-light);">{cs.metrics?.primary || cs.result}</span>
+            </div>
+          </a>
         ))}
       </div>
     </div>
   </section>
+)}
 
-  <!-- ===== CASE STUDIES — Dark ===== -->
-  {industryCases.length > 0 && (
-    <section class="ind-section ind-dark">
-      <div class="container">
-        <span class="section-eyebrow" style="color: var(--color-primary);">{industry.name} Results</span>
-        <h2 style="color: var(--color-white); margin-bottom: var(--space-xl);">Real Results for {industry.full_name}</h2>
-        <div class="ind-cases-grid">
-          {industryCases.map(cs => (
-            <a href={`/case-studies/${cs.slug}/`} class="ind-case-card">
-              <span class="ind-case-tag">{cs.category}</span>
-              <h3>{cs.metrics?.primary || cs.result}</h3>
-              <span class="ind-case-client">{cs.title}</span>
-              {cs.metrics?.secondary && <span class="ind-case-secondary">{cs.metrics.secondary}</span>}
-              <span class="card-link">Read Case Study &rarr;</span>
-            </a>
-          ))}
-        </div>
-        <div style="text-align: center; margin-top: var(--space-xl);">
-          <a href="/case-studies/" class="btn btn-ghost">See All {config.case_studies.length} Case Studies</a>
-        </div>
-      </div>
-    </section>
-  )}
+<section class="cta-banner">
+  <div class="container" style="position: relative; z-index: 1;">
+    <h2 style="margin-bottom: 1rem;">Ready to Grow Your {industry.name} Business?</h2>
+    <p style="margin-bottom: 2rem;">Get a free strategy session tailored to the {industry.name.toLowerCase()} industry.</p>
+    <a href="/contact/" class="btn btn--lime btn--lg">Get Your Free Strategy Call</a>
+  </div>
+</section>
 
-  <!-- ===== FAQ ===== -->
-  {faqQuestions.length > 0 && (
-    <section class="ind-section">
-      <div class="container" style="max-width: 800px;">
-        <span class="section-eyebrow">Common Questions</span>
-        <h2>FAQ About {industry.name} Marketing</h2>
-        <div class="ind-faq">
-          {faqQuestions.map((q: any) => (
-            <details class="faq-item">
-              <summary>{q.question}</summary>
-              <div class="faq-answer" set:html={renderMarkdown(q.answer)} />
-            </details>
-          ))}
-        </div>
-      </div>
-    </section>
-  )}
-
-  <!-- ===== AREAS — Dark ===== -->
-  <section class="ind-section ind-dark">
-    <div class="container">
-      <span class="section-eyebrow" style="color: var(--color-primary);">Markets We Serve</span>
-      <h2 style="color: var(--color-white); margin-bottom: var(--space-lg);">{industry.name} Marketing Across the United States</h2>
-      <div class="ind-chips">
-        {config.areas.slice(0, 10).map(a => (
-          <a href={`/areas/${a.slug}/`} class="ind-chip">{a.name}</a>
-        ))}
-      </div>
-      <a href="/areas/" class="see-all-light">See All {config.areas.length} Areas</a>
-    </div>
-  </section>
-
-  <!-- ===== FINAL CTA ===== -->
-  <HandwrittenCTA
-    heading={`Ready to Dominate ${industry.name} Marketing?`}
-    buttonText="Schedule Your Strategy Call"
-    annotation="No obligation. Just a quick call."
-  />
-
-  <ReviewsSection compact={true} maxReviews={3} />
-  <Footer slot="footer" />
 </Base>
-
-<style>
-  /* ===== HERO ===== */
-  .ind-hero {
-    min-height: auto;
-    display: flex;
-    align-items: center;
-    background: var(--color-dark);
-    color: var(--color-white);
-    position: relative;
-    overflow: hidden;
-    padding: var(--space-3xl) 0 var(--space-2xl);
-  }
-  .ind-hero-texture {
-    position: absolute; inset: 0;
-    background:
-      repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.02) 10px, rgba(255,255,255,0.02) 11px),
-      radial-gradient(circle at 15% 85%, rgba(192,57,43,0.1) 0%, transparent 40%),
-      radial-gradient(circle at 85% 15%, rgba(192,57,43,0.06) 0%, transparent 35%);
-    pointer-events: none;
-  }
-  .ind-hero-inner { position: relative; z-index: 1; max-width: 700px; }
-  .ind-hero-eyebrow {
-    display: inline-block;
-    font-family: var(--font-heading);
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    color: var(--color-primary);
-    margin-bottom: var(--space-lg);
-  }
-  .ind-hero h1 { color: var(--color-white); margin-bottom: var(--space-sm); font-size: var(--text-4xl); }
-  .ind-hero-desc { color: rgba(255,255,255,0.7); font-size: var(--text-lg); margin-bottom: var(--space-lg); line-height: 1.6; }
-  .ind-hero-ctas { display: flex; gap: var(--space-md); flex-wrap: wrap; }
-
-  /* ===== TRUST STRIP ===== */
-  .ind-trust-strip {
-    background: var(--color-dark);
-    border-top: 1px solid rgba(255,255,255,0.06);
-    padding: var(--space-md) 0 var(--space-lg);
-  }
-
-  /* ===== SECTION SYSTEM ===== */
-  .ind-section { padding: var(--space-4xl) 0; }
-  @media (min-width: 768px) { .ind-section { padding: var(--space-5xl) 0; } }
-
-  .ind-dark {
-    background: var(--color-dark); color: var(--color-white); position: relative;
-  }
-  .ind-dark::before {
-    content: ''; position: absolute; inset: 0;
-    background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.02) 10px, rgba(255,255,255,0.02) 11px);
-    pointer-events: none;
-  }
-  .ind-dark > * { position: relative; z-index: 1; }
-  .ind-dark h2, .ind-dark h3, .ind-dark h4 { color: var(--color-white); }
-  .ind-dark p, .ind-dark li { color: rgba(255,255,255,0.7); }
-  .ind-dark strong { color: var(--color-white); }
-  .ind-dark a { color: var(--color-primary-light); }
-  .ind-dark .prose h2::before { background: var(--color-primary); }
-
-  /* ===== CTA BAND ===== */
-  .ind-cta-band { padding: var(--space-2xl) 0 !important; }
-  .ind-cta-inner {
-    display: flex; align-items: center; justify-content: space-between;
-    gap: var(--space-lg); flex-wrap: wrap;
-  }
-  .ind-cta-inner h3 { font-size: var(--text-xl); margin-bottom: var(--space-xs); text-transform: none; }
-  .ind-cta-inner h3::before { display: none; }
-  .ind-cta-inner p { color: rgba(255,255,255,0.6); margin-bottom: 0; max-width: 550px; }
-
-  /* ===== CASE STUDIES ===== */
-  .ind-cases-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: var(--space-lg); }
-  .ind-case-card {
-    display: flex; flex-direction: column; padding: var(--space-lg);
-    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px;
-    text-decoration: none; color: inherit; transition: background 0.15s, transform 0.15s;
-  }
-  .ind-case-card:hover { background: rgba(255,255,255,0.08); transform: translateY(-2px); }
-  .ind-case-tag { font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-primary); margin-bottom: var(--space-xs); }
-  .ind-case-card h3 { font-size: var(--text-xl); margin-bottom: var(--space-xs); color: var(--color-white); text-transform: none; }
-  .ind-case-client { font-size: var(--text-sm); color: rgba(255,255,255,0.5); margin-bottom: 0.25rem; }
-  .ind-case-secondary { font-size: var(--text-sm); color: rgba(255,255,255,0.4); margin-bottom: var(--space-sm); display: block; }
-  .card-link { font-size: var(--text-sm); font-weight: 600; color: var(--color-primary); }
-
-  /* ===== CHIPS ===== */
-  .ind-chips { display: flex; flex-wrap: wrap; gap: var(--space-sm); }
-  .ind-chip {
-    display: inline-block; padding: 0.5rem 1.25rem;
-    border: 1px solid rgba(255,255,255,0.15); border-radius: 6px;
-    font-size: var(--text-sm); color: rgba(255,255,255,0.7);
-    text-decoration: none; transition: all 0.15s;
-  }
-  .ind-chip:hover { border-color: var(--color-primary); color: var(--color-white); background: rgba(192,57,43,0.15); }
-  .see-all-light { display: inline-block; margin-top: var(--space-lg); font-size: var(--text-sm); font-weight: 600; color: var(--color-primary); }
-
-  /* ===== FAQ ===== */
-  .ind-faq { margin-top: var(--space-lg); }
-  .faq-item { border: 1px solid var(--color-gray-200); border-radius: var(--radius-md); padding: var(--space-md) var(--space-lg); margin-bottom: var(--space-sm); background: var(--color-white); transition: box-shadow 0.15s; }
-  .faq-item[open] { box-shadow: var(--shadow-sm); border-color: var(--color-primary); }
-  .faq-item summary { font-weight: 600; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; }
-  .faq-item summary::after { content: '+'; font-size: var(--text-xl); color: var(--color-primary); font-weight: 300; flex-shrink: 0; }
-  .faq-item[open] summary::after { content: '\2212'; }
-  .faq-item summary::-webkit-details-marker { display: none; }
-  .faq-answer { padding-top: var(--space-md); color: var(--color-text-light); border-top: 1px solid var(--color-gray-100); margin-top: var(--space-md); }
-
-  .section-label-light { color: rgba(255,255,255,0.4); }
-</style>

@@ -1,338 +1,84 @@
 ---
 import Base from '../../../layouts/Base.astro';
-import Header from '../../../components/Header.astro';
-import ReviewsSection from '../../../components/ReviewsSection.astro';
-import Footer from '../../../components/Footer.astro';
-import StatBar from '../../../components/StatBar.astro';
-import HandwrittenCTA from '../../../components/HandwrittenCTA.astro';
 import config from '../../../lib/config';
-import { renderMarkdown, splitMarkdownSections } from '../../../lib/markdown';
-import InlineTestimonial from '../../../components/InlineTestimonial.astro';
-import fs from 'node:fs';
-import path from 'node:path';
-import YAML from 'yaml';
 
 export function getStaticPaths() {
   const paths: any[] = [];
-  for (const industry of config.industries) {
-    for (const service of config.services) {
+  config.industries.forEach(ind => {
+    config.services.forEach(svc => {
       paths.push({
-        params: { industry: industry.slug, service: service.slug },
-        props: { industry, service },
+        params: { industry: ind.slug, service: svc.slug },
+        props: { industry: ind, service: svc },
       });
-    }
-  }
+    });
+  });
   return paths;
 }
 
 const { industry, service } = Astro.props;
-
-let content = '';
-let frontmatter: any = {};
-
-const filePath = path.resolve(`./src/content/industry-services/${industry.slug}-${service.slug}.md`);
-if (fs.existsSync(filePath)) {
-  const raw = fs.readFileSync(filePath, 'utf8');
-  const fmMatch = raw.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
-  if (fmMatch) {
-    frontmatter = YAML.parse(fmMatch[1]);
-    content = fmMatch[2];
-  } else {
-    content = raw;
-  }
-}
-
-const pageTitle = frontmatter.title || `${service.name} for ${industry.full_name}`;
-const pageDescription = frontmatter.description || `${service.name} services designed specifically for ${industry.full_name.toLowerCase()}. ${config.business.name} delivers results-driven campaigns.`;
-
-const faqQuestions = frontmatter.faq || [];
-const contentSections = content ? splitMarkdownSections(content) : [];
-const inlineReview = config.reviews?.[0];
-
-const serviceKeyword = service.name.toLowerCase().split(' ')[0];
-const industryKeyword = industry.name.toLowerCase().split('/')[0].trim();
-const relevantCases = config.case_studies.filter(cs =>
-  cs.category.toLowerCase().includes(serviceKeyword) ||
-  (cs.industry && cs.industry.toLowerCase().includes(industryKeyword))
-).slice(0, 4);
-
-const otherServices = config.services.filter(s => s.slug !== service.slug);
-const otherIndustries = config.industries.filter(i => i.slug !== industry.slug).slice(0, 8);
-const topAreas = config.areas.slice(0, 6);
-
-const schema = {
-  '@context': 'https://schema.org',
-  '@type': 'Service',
-  name: `${service.name} for ${industry.full_name}`,
-  description: pageDescription,
-  provider: { '@type': 'ProfessionalService', name: config.business.name },
-};
 ---
 
-<Base title={pageTitle} description={pageDescription} schema={schema}>
-  <Header slot="header" />
+<Base title={`${service.name} for ${industry.full_name}`} description={`${service.name} services tailored for ${industry.full_name.toLowerCase()}. ${service.short_description}`}>
 
-  <!-- ===== HERO ===== -->
-  <section class="combo-hero">
-    <div class="combo-hero-texture"></div>
-    <div class="container combo-hero-inner">
-      <div class="combo-badges">
-        <span class="badge badge-industry">{industry.name}</span>
-        <span class="badge badge-service">{service.name}</span>
+<section class="section glow-red" style="padding-top: 6rem; position: relative; overflow: hidden;">
+  <div class="container" style="position: relative; z-index: 1;">
+    <div class="fade-in" style="max-width: 700px;">
+      <div style="display: flex; gap: 0.5rem; align-items: center; margin-bottom: 1.5rem;">
+        <a href={`/industries/${industry.slug}/`} style="font-size: 0.8rem; color: var(--gray-500); text-decoration: none;">{industry.name}</a>
+        <span style="color: var(--gray-600);">/</span>
+        <span style="font-size: 0.8rem; color: var(--gray-400);">{service.name}</span>
       </div>
-      <h1>{pageTitle}</h1>
-      <p class="combo-hero-desc">{pageDescription}</p>
-      <div class="combo-hero-ctas">
-        <a href="/contact" class="btn btn-ghost btn-lg">Get In Touch</a>
-        <a href={`tel:${config.business.phone_raw}`} class="btn btn-ghost btn-lg" style="border-color: rgba(255,255,255,0.2);">{config.business.phone}</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== TRUST ===== -->
-  <section class="combo-trust">
-    <div class="container">
-      <StatBar stats={[
-        { value: '5.0 ★', label: 'Google Rating' },
-        { value: 'No Contracts', label: 'Month-to-Month' },
-        { value: 'Tampa, FL', label: 'Headquartered' },
-      ]} variant="dark" />
-    </div>
-  </section>
-
-  <!-- ===== CONTENT ===== -->
-  {contentSections.length > 0 ? (
-    <>
-      {contentSections.map((section, i) => (
-        <>
-          <section class={`combo-section ${i % 2 === 0 ? 'combo-dark' : ''}`}>
-            <div class="container" style="max-width: 800px;">
-              <div class="prose" set:html={section.html} />
-            </div>
-          </section>
-
-          {i === 0 && inlineReview && (
-            <section class="combo-section" style="background: var(--color-gray-100);">
-              <div class="container" style="max-width: 800px;">
-                <InlineTestimonial quote={inlineReview.text} author={inlineReview.author} company={inlineReview.company} rating={inlineReview.rating} />
-              </div>
-            </section>
-          )}
-
-          {i === 1 && (
-            <section class="combo-section combo-dark combo-cta-band">
-              <div class="container">
-                <div class="combo-cta-inner">
-                  <div>
-                    <h3>Ready to Grow Your {industry.name} Business?</h3>
-                    <p>15-minute strategy call. No pitch deck. We show you where the money is.</p>
-                  </div>
-                  <a href="/contact" class="btn btn-primary">Free Strategy Call</a>
-                </div>
-              </div>
-            </section>
-          )}
-
-          {i === 3 && config.reviews?.[1] && (
-            <section class="combo-section">
-              <div class="container" style="max-width: 800px;">
-                <InlineTestimonial quote={config.reviews[1].text} author={config.reviews[1].author} company={config.reviews[1].company} rating={config.reviews[1].rating} />
-              </div>
-            </section>
-          )}
-        </>
-      ))}
-    </>
-  ) : (
-    <section class="combo-section">
-      <div class="container" style="max-width: 800px;">
-        <div class="prose">
-          <h2>{service.name} Built for the {industry.name} Industry</h2>
-          <p>{config.business.name} delivers {service.name.toLowerCase()} campaigns designed specifically for {industry.full_name.toLowerCase()}.</p>
-          <p>Your <a href={`/services/${service.slug}/`}>{service.name.toLowerCase()} strategy</a> needs to account for seasonal demand, local search patterns, and the specific language your customers use.</p>
-        </div>
-      </div>
-    </section>
-  )}
-
-  <!-- ===== CASE STUDIES ===== -->
-  {relevantCases.length > 0 && (
-    <section class="combo-section combo-dark">
-      <div class="container">
-        <span class="section-eyebrow" style="color: var(--color-primary);">Proven Results</span>
-        <h2 style="color: var(--color-white); margin-bottom: var(--space-xl);">{service.name} Results in {industry.name}</h2>
-        <div class="combo-cases-grid">
-          {relevantCases.map(cs => (
-            <a href={`/case-studies/${cs.slug}/`} class="combo-case-card">
-              <span class="combo-case-tag">{cs.category}</span>
-              <h3>{cs.metrics?.primary || cs.result}</h3>
-              <span class="combo-case-client">{cs.title}</span>
-              <span class="card-link">Read Case Study</span>
-            </a>
-          ))}
-        </div>
-      </div>
-    </section>
-  )}
-
-  <!-- ===== OTHER SERVICES ===== -->
-  <section class="combo-section" style="background: var(--color-gray-100);">
-    <div class="container">
-      <span class="section-eyebrow">More for {industry.full_name}</span>
-      <h2>Other Services for {industry.full_name}</h2>
-      <div class="combo-cross-grid">
-        {otherServices.map(svc => (
-          <a href={`/industries/${industry.slug}/${svc.slug}/`} class="combo-cross-card">
-            <h3>{svc.name}</h3>
-            <p>{svc.short_description.split('.')[0]}.</p>
-            <span class="card-link">{svc.name} for {industry.name}</span>
-          </a>
-        ))}
+      <h1>{service.name} for {industry.full_name}</h1>
+      <p style="color: var(--gray-400); font-size: 1.05rem; line-height: 1.7; margin: 1.25rem 0 2rem;">
+        {service.short_description} Our {service.name.toLowerCase()} strategies are customized for the unique challenges {industry.name.toLowerCase()} businesses face in today's competitive market.
+      </p>
+      <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+        <a href="/contact/" class="btn btn--primary btn--lg">Get a Free {industry.name} Strategy Call</a>
+        <a href={`tel:${config.business.phone_raw}`} class="btn btn--outline btn--lg">Call {config.business.phone}</a>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ===== CROSS-LINKS — Dark ===== -->
-  <section class="combo-section combo-dark">
-    <div class="container">
-      <div class="combo-links-split">
-        <div>
-          <span class="section-eyebrow" style="color: var(--color-primary);">{service.name} by Industry</span>
-          <h3 style="color: var(--color-white); margin-bottom: var(--space-md);">{service.name} for Other Industries</h3>
-          <div class="combo-chips">
-            {otherIndustries.map(ind => (
-              <a href={`/industries/${ind.slug}/${service.slug}/`} class="combo-chip">{ind.full_name}</a>
-            ))}
+<section class="section bg-dark">
+  <div class="container">
+    <div class="grid grid--2" style="gap: 3rem; align-items: flex-start;">
+      <div class="fade-in">
+        <span class="section-label">Why It Works</span>
+        <h2 style="margin-bottom: 1rem;">Why {industry.full_name} Choose ServiceLine Pro</h2>
+        <p style="color: var(--gray-400); line-height: 1.7; margin-bottom: 1rem;">
+          The {industry.name.toLowerCase()} industry has unique marketing challenges — seasonal demand, local competition, and the need for trust-building before a customer picks up the phone. Our {service.name.toLowerCase()} campaigns are designed specifically for these dynamics.
+        </p>
+        <p style="color: var(--gray-400); line-height: 1.7;">
+          We combine industry expertise with data-driven execution to deliver measurable results. No generic strategies — every campaign is built for your specific market and competitive landscape.
+        </p>
+      </div>
+      <div class="fade-in">
+        <div style="display: flex; flex-direction: column; gap: 1rem;">
+          <div style="background: var(--dark-2); border: 1px solid var(--dark-4); border-radius: var(--radius-md); padding: 1.25rem;">
+            <h4 style="font-size: 0.95rem; margin-bottom: 0.25rem;">No Long-Term Contracts</h4>
+            <p style="color: var(--gray-500); font-size: 0.85rem;">Results keep you, not paperwork.</p>
           </div>
-        </div>
-        <div>
-          <span class="section-eyebrow" style="color: var(--color-primary);">{industry.name} by Area</span>
-          <h3 style="color: var(--color-white); margin-bottom: var(--space-md);">{service.name} Near You</h3>
-          <div class="combo-chips">
-            {topAreas.map(a => (
-              <a href={`/areas/${a.slug}/`} class="combo-chip">{a.name}</a>
-            ))}
+          <div style="background: var(--dark-2); border: 1px solid var(--dark-4); border-radius: var(--radius-md); padding: 1.25rem;">
+            <h4 style="font-size: 0.95rem; margin-bottom: 0.25rem;">Industry-Specific Strategy</h4>
+            <p style="color: var(--gray-500); font-size: 0.85rem;">Custom approach for {industry.name.toLowerCase()} market dynamics.</p>
+          </div>
+          <div style="background: var(--dark-2); border: 1px solid var(--dark-4); border-radius: var(--radius-md); padding: 1.25rem;">
+            <h4 style="font-size: 0.95rem; margin-bottom: 0.25rem;">Real-Time Reporting</h4>
+            <p style="color: var(--gray-500); font-size: 0.85rem;">Live dashboards with the metrics that matter.</p>
           </div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ===== FAQ ===== -->
-  {faqQuestions.length > 0 && (
-    <section class="combo-section" style="background: var(--color-gray-100);">
-      <div class="container" style="max-width: 800px;">
-        <span class="section-eyebrow">Common Questions</span>
-        <h2>{service.name} FAQ for {industry.full_name}</h2>
-        <div class="combo-faq">
-          {faqQuestions.map((q: any) => (
-            <details class="faq-item">
-              <summary>{q.question}</summary>
-              <div class="faq-answer" set:html={renderMarkdown(q.answer)} />
-            </details>
-          ))}
-        </div>
-      </div>
-    </section>
-  )}
+<section class="cta-banner">
+  <div class="container" style="position: relative; z-index: 1;">
+    <h2 style="margin-bottom: 1rem;">Ready to Grow Your {industry.name} Business?</h2>
+    <p style="margin-bottom: 2rem;">Free strategy call — we'll analyze your market and build a custom plan.</p>
+    <a href="/contact/" class="btn btn--lime btn--lg">Get Your Free Strategy Call</a>
+  </div>
+</section>
 
-  <!-- ===== FINAL CTA ===== -->
-  <HandwrittenCTA
-    heading={`Get ${service.name} Results for Your ${industry.name} Business`}
-    buttonText="Schedule Your Strategy Call"
-    annotation="No obligation. Just a quick call."
-  />
-
-  <ReviewsSection compact={true} maxReviews={3} />
-  <Footer slot="footer" />
 </Base>
-
-<style>
-  .combo-hero {
-    min-height: auto;
-    display: flex;
-    align-items: center;
-    background: var(--color-dark);
-    color: var(--color-white);
-    position: relative;
-    overflow: hidden;
-    padding: var(--space-4xl) 0;
-  }
-  .combo-hero-texture {
-    position: absolute; inset: 0;
-    background:
-      repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.02) 10px, rgba(255,255,255,0.02) 11px),
-      radial-gradient(circle at 20% 80%, rgba(192,57,43,0.12) 0%, transparent 40%),
-      radial-gradient(circle at 80% 20%, rgba(192,57,43,0.06) 0%, transparent 35%);
-    pointer-events: none;
-  }
-  .combo-hero-inner { position: relative; z-index: 1; max-width: 700px; }
-  .combo-badges { display: flex; gap: var(--space-sm); margin-bottom: var(--space-md); }
-  .badge { display: inline-block; padding: 0.25rem 0.75rem; border-radius: 4px; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; }
-  .badge-industry { background: rgba(192,57,43,0.15); color: var(--color-primary); border: 1px solid rgba(192,57,43,0.2); }
-  .badge-service { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.8); border: 1px solid rgba(255,255,255,0.15); }
-  .combo-hero h1 { color: var(--color-white); margin-bottom: var(--space-sm); font-size: var(--text-4xl); }
-  .combo-hero-desc { color: rgba(255,255,255,0.7); font-size: var(--text-lg); margin-bottom: var(--space-lg); line-height: 1.6; }
-  .combo-hero-ctas { display: flex; gap: var(--space-md); flex-wrap: wrap; }
-
-  .combo-trust {
-    background: var(--color-dark);
-    border-top: 1px solid rgba(255,255,255,0.06);
-    padding: var(--space-md) 0 var(--space-lg);
-  }
-
-  .combo-section { padding: var(--space-4xl) 0; }
-  @media (min-width: 768px) { .combo-section { padding: var(--space-5xl) 0; } }
-
-  .combo-dark { background: var(--color-dark); color: var(--color-white); position: relative; }
-  .combo-dark::before {
-    content: ''; position: absolute; inset: 0;
-    background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.02) 10px, rgba(255,255,255,0.02) 11px);
-    pointer-events: none;
-  }
-  .combo-dark > * { position: relative; z-index: 1; }
-  .combo-dark h2, .combo-dark h3, .combo-dark h4 { color: var(--color-white); }
-  .combo-dark p, .combo-dark li { color: rgba(255,255,255,0.7); }
-  .combo-dark strong { color: var(--color-white); }
-  .combo-dark a { color: var(--color-primary-light); }
-  .combo-dark .prose h2::before { background: var(--color-primary); }
-
-  .combo-cta-band { padding: var(--space-2xl) 0 !important; }
-  .combo-cta-inner { display: flex; align-items: center; justify-content: space-between; gap: var(--space-lg); flex-wrap: wrap; }
-  .combo-cta-inner h3 { font-size: var(--text-xl); margin-bottom: var(--space-xs); text-transform: none; }
-  .combo-cta-inner h3::before { display: none; }
-  .combo-cta-inner p { color: rgba(255,255,255,0.6); margin-bottom: 0; max-width: 550px; }
-
-  .combo-cases-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: var(--space-lg); }
-  .combo-case-card {
-    display: flex; flex-direction: column; padding: var(--space-lg);
-    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px;
-    text-decoration: none; color: inherit; transition: background 0.15s, transform 0.15s;
-  }
-  .combo-case-card:hover { background: rgba(255,255,255,0.08); transform: translateY(-2px); }
-  .combo-case-tag { font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-primary); margin-bottom: var(--space-xs); }
-  .combo-case-card h3 { font-size: var(--text-lg); margin-bottom: var(--space-xs); color: var(--color-white); text-transform: none; }
-  .combo-case-client { font-size: var(--text-sm); color: rgba(255,255,255,0.5); margin-bottom: var(--space-sm); }
-  .card-link { font-size: var(--text-sm); font-weight: 600; color: var(--color-primary); }
-
-  .combo-cross-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: var(--space-lg); margin-top: var(--space-xl); }
-  .combo-cross-card { display: block; padding: var(--space-lg); background: var(--color-white); border: 1px solid var(--color-gray-200); border-radius: 10px; text-decoration: none; color: inherit; transition: transform 0.15s, border-color 0.15s; }
-  .combo-cross-card:hover { transform: translateY(-2px); border-color: var(--color-primary); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
-  .combo-cross-card h3 { font-size: var(--text-base); margin-bottom: var(--space-xs); text-transform: none; }
-  .combo-cross-card p { font-size: var(--text-sm); color: var(--color-text-light); margin-bottom: var(--space-sm); }
-
-  .combo-links-split { display: grid; grid-template-columns: 1fr; gap: var(--space-2xl); }
-  @media (min-width: 768px) { .combo-links-split { grid-template-columns: 1fr 1fr; } }
-  .combo-chips { display: flex; flex-wrap: wrap; gap: var(--space-sm); }
-  .combo-chip { display: inline-block; padding: 0.5rem 1.25rem; border: 1px solid rgba(255,255,255,0.15); border-radius: 6px; font-size: var(--text-sm); color: rgba(255,255,255,0.7); text-decoration: none; transition: all 0.15s; }
-  .combo-chip:hover { border-color: var(--color-primary); color: var(--color-white); background: rgba(192,57,43,0.15); }
-
-  .combo-faq { margin-top: var(--space-lg); }
-  .faq-item { border: 1px solid var(--color-gray-200); border-radius: var(--radius-md); padding: var(--space-md) var(--space-lg); margin-bottom: var(--space-sm); background: var(--color-white); transition: box-shadow 0.15s; }
-  .faq-item[open] { box-shadow: var(--shadow-sm); border-color: var(--color-primary); }
-  .faq-item summary { font-weight: 600; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; }
-  .faq-item summary::after { content: '+'; font-size: var(--text-xl); color: var(--color-primary); font-weight: 300; flex-shrink: 0; }
-  .faq-item[open] summary::after { content: '\2212'; }
-  .faq-item summary::-webkit-details-marker { display: none; }
-  .faq-answer { padding-top: var(--space-md); color: var(--color-text-light); border-top: 1px solid var(--color-gray-100); margin-top: var(--space-md); }
-</style>

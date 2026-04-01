@@ -1,368 +1,137 @@
 ---
 import Base from '../../layouts/Base.astro';
-import Header from '../../components/Header.astro';
-import Breadcrumbs from '../../components/Breadcrumbs.astro';
-import CTABand from '../../components/CTABand.astro';
-import Footer from '../../components/Footer.astro';
 import config from '../../lib/config';
 
-const pageTitle = "Case Studies & Results";
-const pageDescription = `${config.case_studies.length} real client case studies. See how ServiceLine Pro delivers Map Pack rankings, Google Ads leads, website conversions, and revenue growth for local businesses nationwide.`;
-
-const breadcrumbItems = [
-  { label: 'Home', href: '/' },
-  { label: 'Results' },
-];
-
-// Group case studies by category
-const categories = [...new Set(config.case_studies.map(cs => cs.category))];
+const caseStudies = config.case_studies;
+const categories = [...new Set(caseStudies.map(cs => cs.category))];
 ---
 
-<Base title={pageTitle} description={pageDescription}>
-  <Header slot="header" />
+<Base title="Case Studies" description="Real results from real clients. See how ServiceLine Pro delivers measurable ROI through SEO, PPC, web design, and reputation management.">
 
-  <section class="page-hero">
-    <div class="page-hero-bg"></div>
-    <div class="container page-hero-inner">
-      <Breadcrumbs items={breadcrumbItems} />
-      <span class="page-badge">{config.case_studies.length} Case Studies</span>
-      <h1>Real Results. Real Businesses.</h1>
-      <p class="page-hero-desc">Every number on this page comes from a real client campaign. No hypotheticals. No projections. Just what actually happened.</p>
+<section class="section" style="padding-top: 5rem;">
+  <div class="container">
+    <div class="fade-in" style="text-align: center; margin-bottom: 3.5rem;">
+      <span class="section-label">Case Studies</span>
+      <h1>Real Clients. <span class="gradient-text--red">Real Results.</span></h1>
+      <p class="section-subtitle" style="margin: 1rem auto 0;">Every number below is verified from real campaigns. No hypotheticals. No projections. Just proven outcomes.</p>
     </div>
-  </section>
 
-  <!-- HEADLINE STATS -->
-  <section class="headline-stats">
-    <div class="container">
-      <div class="stats-row">
-        <div class="headline-stat">
-          <span class="headline-stat-value">$2M+</span>
-          <span class="headline-stat-label">New Business Generated</span>
-        </div>
-        <div class="headline-stat">
-          <span class="headline-stat-value">300+</span>
-          <span class="headline-stat-label">Leads (Single Client)</span>
-        </div>
-        <div class="headline-stat">
-          <span class="headline-stat-value">2,784%</span>
-          <span class="headline-stat-label">Search Appearance Increase</span>
-        </div>
-        <div class="headline-stat">
-          <span class="headline-stat-value">1,475%</span>
-          <span class="headline-stat-label">Highest Website ROI</span>
-        </div>
-        <div class="headline-stat">
-          <span class="headline-stat-value">6 Days</span>
-          <span class="headline-stat-label">Rank 17.6 to 4.7</span>
-        </div>
-        <div class="headline-stat">
-          <span class="headline-stat-value">400%</span>
-          <span class="headline-stat-label">Revenue Growth (Reputation)</span>
-        </div>
-      </div>
+    <!-- Filter Tabs -->
+    <div class="filter-tabs fade-in" id="filter-tabs">
+      <button class="filter-tab is-active" data-filter="all">All</button>
+      {categories.map(cat => (
+        <button class="filter-tab" data-filter={cat}>{cat}</button>
+      ))}
     </div>
-  </section>
 
-  <!-- CATEGORY FILTER -->
-  <section class="filter-bar">
-    <div class="container">
-      <div class="filter-chips">
-        <button class="filter-chip active" data-filter="all">All ({config.case_studies.length})</button>
-        {categories.map(cat => (
-          <button class="filter-chip" data-filter={cat}>{cat} ({config.case_studies.filter(cs => cs.category === cat).length})</button>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- CASE STUDIES BY CATEGORY -->
-  {categories.map(category => (
-    <section class="cases-category section" data-category={category}>
-      <div class="container">
-        <span class="section-label">{category}</span>
-        <h2>{category} Results</h2>
-        <div class="cases-grid">
-          {config.case_studies.filter(cs => cs.category === category).map(cs => (
-            <a href={`/case-studies/${cs.slug}/`} class="case-card-full">
-              <div class="case-card-image">
-                {cs.image && (
-                  <img src={`/media/case-studies/${cs.image}`} alt={`${cs.title} case study results`} loading="lazy" width="600" height="340" />
-                )}
-                <div class="case-card-image-overlay">
-                  <span class="case-category-tag">{cs.category}</span>
-                  {cs.industry && <span class="case-industry-tag">{cs.industry}</span>}
-                </div>
-                <div class="case-card-metric-overlay">
-                  <span class="case-metric-big">{cs.metrics?.primary || cs.result}</span>
-                </div>
-              </div>
-              <div class="case-card-body">
-                <h3 class="case-client-name">{cs.title}</h3>
-                <div class="case-card-meta">
-                  {cs.location && <span class="case-location">{cs.location}</span>}
-                  {cs.metrics?.secondary && <span class="case-secondary">{cs.metrics.secondary}</span>}
-                </div>
-              </div>
-              <div class="case-card-footer">
-                <span class="card-link">View Case Study &rarr;</span>
-              </div>
-            </a>
-          ))}
-        </div>
-      </div>
-    </section>
-  ))}
-
-  <!-- ALL REVIEWS -->
-  <section class="reviews-full section section-alt">
-    <div class="container">
-      <span class="section-label">Testimonials</span>
-      <h2>What Our Clients Say</h2>
-      <div class="reviews-grid">
-        {config.reviews.map(review => (
-          <div class="review-card-full">
-            <div class="review-stars">{'★'.repeat(review.rating)}</div>
-            <blockquote class="review-text">{review.text}</blockquote>
-            <div class="review-meta">
-              <strong>{review.author}</strong>
-              {review.company && <span>{review.company}</span>}
+    <div class="cs-grid stagger" id="cs-grid">
+      {caseStudies.map(cs => (
+        <a href={`/case-studies/${cs.slug}/`} class="case-card" data-category={cs.category} style="text-decoration: none;">
+          {cs.image && <img src={`/media/case-studies/${cs.image}`} alt={cs.title} width="400" height="250" loading="lazy" class="case-card__img" />}
+          <div class="case-card__body">
+            <div style="display: flex; gap: 0.5rem; align-items: center; margin-bottom: 0.5rem;">
+              <span class="case-card__category">{cs.category}</span>
+              {cs.industry && <span style="font-size: 0.7rem; color: var(--gray-600);">/ {cs.industry}</span>}
+            </div>
+            <h3 class="case-card__title">{cs.title}</h3>
+            {cs.location && <p style="font-size: 0.8rem; color: var(--gray-500); margin-top: 0.25rem;">{cs.location}</p>}
+            <div class="case-card__metric">
+              <span class="case-card__metric-value">{cs.metrics?.primary || cs.result}</span>
+              {cs.metrics?.secondary && <span style="font-size: 0.8rem; color: var(--gray-500); display: block; margin-top: 0.15rem;">{cs.metrics.secondary}</span>}
             </div>
           </div>
-        ))}
-      </div>
+        </a>
+      ))}
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- SERVICES BEHIND RESULTS -->
-  <section class="services-cta section">
-    <div class="container">
-      <h2>Services Behind These Results</h2>
-      <div class="services-grid">
-        {config.services.map(service => (
-          <a href={`/services/${service.slug}/`} class="service-link-card">
-            <h3>{service.name}</h3>
-            <p>{service.short_description.split('.')[0]}.</p>
-            <span class="card-link">Learn More &rarr;</span>
-          </a>
-        ))}
-      </div>
-    </div>
-  </section>
+<section class="cta-banner">
+  <div class="container" style="position: relative; z-index: 1;">
+    <h2 style="margin-bottom: 1rem;">Want Results Like These?</h2>
+    <p style="margin-bottom: 2rem; font-size: 1.05rem;">We'll analyze your market and show you exactly what's possible. Free, no obligation.</p>
+    <a href="/contact/" class="btn btn--lime btn--lg">Get Your Free Strategy Call</a>
+  </div>
+</section>
 
-  <CTABand heading="Want Results Like These?" />
-  <Footer slot="footer" />
+<script is:inline>
+document.addEventListener('DOMContentLoaded', () => {
+  const tabs = document.querySelectorAll('.filter-tab');
+  const cards = document.querySelectorAll('#cs-grid .case-card');
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('is-active'));
+      tab.classList.add('is-active');
+      const filter = tab.dataset.filter;
+      cards.forEach(card => {
+        if (filter === 'all' || card.dataset.category === filter) {
+          card.style.display = '';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  });
+});
+</script>
+
 </Base>
 
 <style>
-  .page-hero {
-    background: var(--color-dark);
-    padding: var(--space-3xl) 0 var(--space-2xl);
-    color: var(--color-white);
-    position: relative;
-    overflow: hidden;
-  }
-  .page-hero-bg {
-    position: absolute; inset: 0;
-    background:
-      radial-gradient(circle at 20% 80%, rgba(192,57,43,0.12) 0%, transparent 45%),
-      radial-gradient(circle at 80% 20%, rgba(59,130,246,0.06) 0%, transparent 35%);
-    pointer-events: none;
-  }
-  .page-hero-inner { position: relative; z-index: 1; }
-  .page-badge {
-    display: inline-block;
-    background: rgba(192,57,43,0.15);
-    color: var(--color-primary);
-    padding: 0.25rem 0.75rem;
-    border-radius: 4px;
-    font-size: 0.65rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    margin-bottom: var(--space-md);
-    border: 1px solid rgba(192,57,43,0.2);
-  }
-  .page-hero h1 {
-    color: var(--color-white);
-    font-size: clamp(1.75rem, 3vw, 2.5rem);
-    font-weight: 800;
-    text-transform: none;
-    margin-bottom: var(--space-sm);
-    max-width: 700px;
-  }
-  .page-hero-desc {
-    color: rgba(255,255,255,0.7);
-    font-size: var(--text-lg);
-    max-width: 600px;
-    line-height: 1.6;
-  }
+.filter-tabs {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 2.5rem;
+}
+.filter-tab {
+  padding: 0.5rem 1.25rem;
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  font-weight: 600;
+  border: 1px solid var(--dark-4);
+  border-radius: var(--radius-full);
+  background: transparent;
+  color: var(--gray-400);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+.filter-tab:hover { border-color: var(--gray-600); color: var(--white); }
+.filter-tab.is-active {
+  background: var(--red);
+  border-color: var(--red);
+  color: var(--white);
+}
 
-  /* Headline stats band */
-  .headline-stats { background: var(--color-dark); padding: 0 0 var(--space-2xl); border-top: 1px solid rgba(255,255,255,0.06); }
-  .stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: var(--space-lg); text-align: center; }
-  .headline-stat-value { display: block; font-family: var(--font-heading); font-size: var(--text-2xl); font-weight: 800; color: var(--color-primary); line-height: 1; margin-bottom: 0.25rem; }
-  .headline-stat-label { display: block; font-size: 0.7rem; color: rgba(255,255,255,0.45); }
-
-  /* Filter bar */
-  .filter-bar { background: var(--color-white); border-bottom: 1px solid var(--color-gray-200); padding: var(--space-md) 0; position: sticky; top: 0; z-index: 10; }
-  .filter-chips { display: flex; gap: 0.5rem; flex-wrap: wrap; }
-  .filter-chip {
-    padding: 0.4rem 0.9rem;
-    border: 1px solid var(--color-gray-200);
-    border-radius: 20px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    background: var(--color-white);
-    color: var(--color-text-light);
-    cursor: pointer;
-    transition: all 0.15s;
-  }
-  .filter-chip:hover { border-color: var(--color-primary); color: var(--color-primary); }
-  .filter-chip.active { background: var(--color-primary); color: var(--color-white); border-color: var(--color-primary); }
-
-  /* Case study category sections */
-  .cases-category:nth-child(odd) { background: var(--color-white); }
-  .cases-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: var(--space-xl); margin-top: var(--space-xl); }
-
-  .case-card-full {
-    background: var(--color-white);
-    border: 1px solid var(--color-gray-200);
-    border-radius: 10px;
-    overflow: hidden;
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
-    text-decoration: none;
-    color: inherit;
-    display: flex;
-    flex-direction: column;
-  }
-  .case-card-full:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 16px 40px rgba(0,0,0,0.12);
-  }
-
-  /* Card image area */
-  .case-card-image {
-    position: relative;
-    aspect-ratio: 16 / 9;
-    overflow: hidden;
-    background: var(--color-dark);
-  }
-  .case-card-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.4s ease, filter 0.4s ease;
-  }
-  .case-card-full:hover .case-card-image img {
-    transform: scale(1.05);
-    filter: brightness(0.85);
-  }
-  .case-card-image-overlay {
-    position: absolute;
-    top: var(--space-sm);
-    left: var(--space-sm);
-    display: flex;
-    gap: 0.35rem;
-    z-index: 2;
-  }
-  .case-category-tag {
-    display: inline-block;
-    font-size: 0.6rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--color-white);
-    background: var(--color-primary);
-    padding: 0.25rem 0.6rem;
-    border-radius: 4px;
-    backdrop-filter: blur(4px);
-  }
-  .case-industry-tag {
-    display: inline-block;
-    font-size: 0.6rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: var(--color-white);
-    background: rgba(0,0,0,0.5);
-    padding: 0.25rem 0.6rem;
-    border-radius: 4px;
-    backdrop-filter: blur(4px);
-  }
-  .case-card-metric-overlay {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: var(--space-lg) var(--space-md) var(--space-sm);
-    background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 100%);
-    z-index: 2;
-  }
-  .case-metric-big {
-    font-family: var(--font-heading);
-    font-size: var(--text-xl);
-    font-weight: 800;
-    color: var(--color-white);
-    line-height: 1.2;
-    text-shadow: 0 1px 4px rgba(0,0,0,0.3);
-  }
-
-  /* Card body */
-  .case-card-body {
-    padding: var(--space-md) var(--space-lg);
-    flex: 1;
-  }
-  .case-client-name {
-    font-size: var(--text-base);
-    font-weight: 700;
-    color: var(--color-dark);
-    margin-bottom: 0.35rem;
-  }
-  .case-card-meta {
-    display: flex;
-    gap: 0.75rem;
-    flex-wrap: wrap;
-  }
-  .case-location {
-    font-size: 0.75rem;
-    color: var(--color-text-muted);
-  }
-  .case-secondary {
-    font-size: 0.75rem;
-    color: var(--color-text-light);
-    font-weight: 500;
-  }
-
-  .case-card-footer {
-    padding: var(--space-sm) var(--space-lg) var(--space-md);
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-  }
-  .card-link {
-    font-size: var(--text-sm);
-    font-weight: 600;
-    color: var(--color-primary);
-    white-space: nowrap;
-    transition: gap 0.2s;
-  }
-  .case-card-full:hover .card-link {
-    text-decoration: underline;
-  }
-
-  /* Reviews section */
-  .section-alt { background: #fafafa; }
-  .reviews-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: var(--space-lg); margin-top: var(--space-xl); }
-  .review-card-full { background: var(--color-white); border-left: 3px solid var(--color-primary); border-radius: 0 10px 10px 0; padding: var(--space-xl); box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
-  .review-stars { color: #f5c518; font-size: var(--text-sm); margin-bottom: var(--space-sm); }
-  .review-text { font-size: var(--text-base); line-height: 1.6; color: var(--color-text); margin: 0 0 var(--space-md) 0; padding: 0; border: none; }
-  .review-meta strong { display: block; font-size: var(--text-sm); }
-  .review-meta span { font-size: var(--text-sm); color: var(--color-text-light); }
-
-  /* Services CTA grid */
-  .services-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: var(--space-lg); margin-top: var(--space-xl); }
-  .service-link-card { display: block; padding: var(--space-lg); background: var(--color-white); border: 1px solid var(--color-gray-200); border-radius: 10px; text-decoration: none; color: inherit; transition: transform 0.15s, box-shadow 0.15s; }
-  .service-link-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.1); }
-  .service-link-card h3 { font-size: var(--text-lg); margin-bottom: var(--space-sm); }
-  .service-link-card p { font-size: var(--text-sm); color: var(--color-text-light); margin-bottom: var(--space-sm); }
+.cs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.25rem;
+}
+.case-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--dark-2);
+  border: 1px solid var(--dark-4);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  transition: all var(--transition-med);
+}
+.case-card:hover {
+  border-color: var(--gray-700);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+.case-card__img { width: 100%; height: 180px; object-fit: cover; }
+.case-card__body { padding: 1.25rem; display: flex; flex-direction: column; flex: 1; }
+.case-card__category {
+  font-size: 0.7rem; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.08em; color: var(--lime);
+}
+.case-card__title { font-size: 1rem; color: var(--white); line-height: 1.3; }
+.case-card__metric { margin-top: auto; padding-top: 0.75rem; border-top: 1px solid var(--dark-4); }
+.case-card__metric-value {
+  font-family: var(--font-heading); font-weight: 700; font-size: 0.95rem; color: var(--red-light);
+}
 </style>

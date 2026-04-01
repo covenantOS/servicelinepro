@@ -1,15 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
-import Header from '../../components/Header.astro';
-import Breadcrumbs from '../../components/Breadcrumbs.astro';
-import Sidebar from '../../components/Sidebar.astro';
-import CTABand from '../../components/CTABand.astro';
-import Footer from '../../components/Footer.astro';
 import config from '../../lib/config';
-import { renderMarkdown } from '../../lib/markdown';
-import fs from 'node:fs';
-import path from 'node:path';
-import YAML from 'yaml';
 
 export function getStaticPaths() {
   return config.case_studies.map(cs => ({
@@ -19,292 +10,150 @@ export function getStaticPaths() {
 }
 
 const { caseStudy } = Astro.props;
-
-let content = '';
-let frontmatter: any = {};
-
-const filePath = path.resolve(`./src/content/case-studies/${caseStudy.slug}.md`);
-if (fs.existsSync(filePath)) {
-  const raw = fs.readFileSync(filePath, 'utf8');
-  const fmMatch = raw.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
-  if (fmMatch) {
-    frontmatter = YAML.parse(fmMatch[1]);
-    content = fmMatch[2];
-  } else {
-    content = raw;
-  }
-}
-
-const pageTitle = frontmatter.title || `${caseStudy.title} Case Study`;
-const pageDescription = frontmatter.description || `See how ${caseStudy.title} achieved ${caseStudy.result} with ServiceLine Pro's ${caseStudy.category} services.`;
-
-const breadcrumbItems = [
-  { label: 'Home', href: '/' },
-  { label: 'Results', href: '/case-studies/' },
-  { label: caseStudy.title },
-];
-
-// Find related case studies (same category, exclude self)
-const relatedStudies = config.case_studies
-  .filter(cs => cs.category === caseStudy.category && cs.slug !== caseStudy.slug)
-  .slice(0, 3);
-
-const schema = {
-  '@context': 'https://schema.org',
-  '@type': 'Article',
-  headline: pageTitle,
-  description: pageDescription,
-  author: {
-    '@type': 'Organization',
-    name: config.business.name,
-  },
-  publisher: {
-    '@type': 'Organization',
-    name: config.business.name,
-    url: `https://${config.seo.domain}`,
-  },
-};
+const related = config.case_studies.filter(cs => cs.category === caseStudy.category && cs.slug !== caseStudy.slug).slice(0, 3);
 ---
 
-<Base title={pageTitle} description={pageDescription} schema={schema}>
-  <Header slot="header" />
+<Base title={`${caseStudy.title} — Case Study`} description={`See how ${caseStudy.title} achieved ${caseStudy.result} with ServiceLine Pro's ${caseStudy.category} services.`}>
 
-  <section class="cs-hero">
-    <div class="cs-hero-bg"></div>
+<section class="section" style="padding-top: 5rem;">
+  <div class="container container--narrow">
+    <a href="/case-studies/" class="back-link fade-in">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+      All Case Studies
+    </a>
+
+    <div class="fade-in" style="margin-top: 1.5rem;">
+      <div style="display: flex; gap: 0.75rem; align-items: center; margin-bottom: 1rem;">
+        <span class="badge">{caseStudy.category}</span>
+        {caseStudy.industry && <span class="badge" style="background: rgba(255,255,255,0.05); color: var(--gray-400); border-color: var(--dark-4);">{caseStudy.industry}</span>}
+        {caseStudy.location && <span style="font-size: 0.85rem; color: var(--gray-500);">{caseStudy.location}</span>}
+      </div>
+      <h1 style="margin-bottom: 1.5rem;">{caseStudy.title}</h1>
+    </div>
+
     {caseStudy.image && (
-      <div class="cs-hero-image-bg">
-        <img src={`/media/case-studies/${caseStudy.image}`} alt="" aria-hidden="true" />
-      </div>
+      <img src={`/media/case-studies/${caseStudy.image}`} alt={caseStudy.title} width="800" height="450" loading="eager" class="cs-hero-img fade-in" />
     )}
-    <div class="container cs-hero-inner">
-      <Breadcrumbs items={breadcrumbItems} />
-      <div class="cs-hero-tags">
-        <span class="cs-badge">{caseStudy.category}</span>
-        {caseStudy.industry && <span class="cs-badge cs-badge-industry">{caseStudy.industry}</span>}
-        {caseStudy.location && <span class="cs-badge cs-badge-location">{caseStudy.location}</span>}
-      </div>
-      <h1>{pageTitle}</h1>
-      <p class="cs-hero-desc">{pageDescription}</p>
 
-      <!-- Results Strip -->
-      <div class="cs-results-strip">
-        <div class="cs-result-item cs-result-primary">
-          <span class="cs-result-value">{caseStudy.metrics?.primary || caseStudy.result}</span>
-          <span class="cs-result-label">Primary Result</span>
+    <!-- Metrics -->
+    <div class="cs-metrics fade-in">
+      {caseStudy.metrics?.primary && (
+        <div class="cs-metric">
+          <span class="cs-metric__value">{caseStudy.metrics.primary}</span>
+          <span class="cs-metric__label">Primary Result</span>
         </div>
-        {caseStudy.metrics?.secondary && (
-          <div class="cs-result-item">
-            <span class="cs-result-value">{caseStudy.metrics.secondary}</span>
-            <span class="cs-result-label">Secondary Result</span>
-          </div>
-        )}
+      )}
+      {caseStudy.metrics?.secondary && (
+        <div class="cs-metric">
+          <span class="cs-metric__value">{caseStudy.metrics.secondary}</span>
+          <span class="cs-metric__label">Secondary Result</span>
+        </div>
+      )}
+    </div>
+
+    <div class="cs-body fade-in">
+      <h2 style="font-size: 1.5rem; margin-bottom: 1rem;">The Results</h2>
+      <p style="color: var(--gray-300); line-height: 1.7; margin-bottom: 1.5rem;">
+        {caseStudy.title} came to ServiceLine Pro looking for measurable growth through {caseStudy.category.toLowerCase()} services.
+        Our team developed and executed a custom strategy that delivered <strong style="color: var(--white);">{caseStudy.result}</strong>.
+      </p>
+
+      <div style="background: var(--dark-2); border: 1px solid var(--dark-4); border-radius: var(--radius-md); padding: 1.5rem; margin-bottom: 2rem;">
+        <h3 style="font-size: 1rem; margin-bottom: 0.75rem;">Want results like these?</h3>
+        <p style="color: var(--gray-400); font-size: 0.9rem; margin-bottom: 1rem;">Every campaign we run is custom-built for your market, your audience, and your goals.</p>
+        <a href="/contact/" class="btn btn--primary">Get Your Free Strategy Call</a>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- Featured Image -->
-  {caseStudy.image && (
-    <section class="cs-featured-image">
-      <div class="container">
-        <div class="cs-image-wrapper">
-          <img src={`/media/case-studies/${caseStudy.image}`} alt={`${caseStudy.title} case study results`} loading="eager" width="1200" height="680" />
-        </div>
-      </div>
-    </section>
-  )}
-
-  <section class="cs-content section">
-    <div class="container content-layout">
-      <div class="main-content">
-        {content ? (
-          <div class="prose" set:html={renderMarkdown(content)} />
-        ) : (
-          <div class="prose">
-            <h2>How {caseStudy.title} Achieved {caseStudy.result} with {caseStudy.category}</h2>
-            <p>ServiceLine Pro partnered with {caseStudy.title} to deliver measurable {caseStudy.category} results for their {caseStudy.industry?.toLowerCase() || 'local'} business{caseStudy.location ? ` in ${caseStudy.location}` : ''}. The campaign achieved {caseStudy.result}{caseStudy.metrics?.secondary ? ` along with ${caseStudy.metrics.secondary}` : ''}.</p>
-            <h2>What {caseStudy.category} Can Do for {caseStudy.industry || 'Your'} Businesses</h2>
-            <p>Every campaign starts with a 15-minute strategy call where William Hamilton reviews your current online presence, identifies the gaps, and maps out a plan to get results like these. No pitch deck. No pressure. <a href="/contact">Book your strategy call</a> and see what we can do for your business.</p>
-            <h2>Services Used in This Campaign</h2>
-            <ul>
-              {config.services.filter(s =>
-                (caseStudy.category === 'Local SEO' && s.slug === 'local-seo') ||
-                (caseStudy.category === 'Google Ads' && s.slug === 'ppc') ||
-                (caseStudy.category === 'Website Design' && s.slug === 'website-design') ||
-                (caseStudy.category === 'TV & Streaming' && s.slug === 'tv-streaming-advertising')
-              ).map(s => (
-                <li><a href={`/services/${s.slug}/`}>{s.name}</a>: {s.short_description}</li>
-              ))}
-            </ul>
-          </div>
-        )}
-
-        <!-- Related Case Studies -->
-        {relatedStudies.length > 0 && (
-          <div class="related-studies">
-            <h2>More {caseStudy.category} Results</h2>
-            <div class="related-grid">
-              {relatedStudies.map(cs => (
-                <a href={`/case-studies/${cs.slug}/`} class="related-card">
-                  {cs.image && (
-                    <div class="related-card-image">
-                      <img src={`/media/case-studies/${cs.image}`} alt={`${cs.title} results`} loading="lazy" width="400" height="225" />
-                    </div>
-                  )}
-                  <div class="related-card-body">
-                    <span class="related-category">{cs.category}</span>
-                    <h3>{cs.metrics?.primary || cs.result}</h3>
-                    <span class="related-client">{cs.title}</span>
-                    <span class="card-link">Read Case Study &rarr;</span>
-                  </div>
-                </a>
-              ))}
+{related.length > 0 && (
+  <section class="section bg-dark">
+    <div class="container">
+      <h2 style="margin-bottom: 2rem;">More {caseStudy.category} Results</h2>
+      <div class="grid grid--3 stagger">
+        {related.map(cs => (
+          <a href={`/case-studies/${cs.slug}/`} class="case-card" style="text-decoration: none;">
+            {cs.image && <img src={`/media/case-studies/${cs.image}`} alt={cs.title} width="400" height="250" loading="lazy" class="case-card__img" />}
+            <div class="case-card__body">
+              <span class="case-card__category">{cs.category}</span>
+              <h4 class="case-card__title">{cs.title}</h4>
+              <div class="case-card__metric">
+                <span class="case-card__metric-value">{cs.metrics?.primary || cs.result}</span>
+              </div>
             </div>
-          </div>
-        )}
+          </a>
+        ))}
       </div>
-
-      <Sidebar currentService={caseStudy.category === 'Local SEO' ? 'local-seo' : caseStudy.category === 'Google Ads' ? 'google-ads-ppc' : caseStudy.category === 'Website Design' ? 'website-design' : undefined} />
     </div>
   </section>
+)}
 
-  <CTABand heading={`Want ${caseStudy.result} for Your Business?`} />
-  <Footer slot="footer" />
+<section class="cta-banner">
+  <div class="container" style="position: relative; z-index: 1;">
+    <h2 style="margin-bottom: 1rem;">Ready for Your Success Story?</h2>
+    <p style="margin-bottom: 2rem;">Let us show you what's possible for your business.</p>
+    <a href="/contact/" class="btn btn--lime btn--lg">Get Your Free Strategy Call</a>
+  </div>
+</section>
+
 </Base>
 
 <style>
-  .cs-hero {
-    background: var(--color-dark);
-    padding: var(--space-3xl) 0 var(--space-2xl);
-    color: var(--color-white);
-    position: relative;
-    overflow: hidden;
-  }
-  .cs-hero-bg {
-    position: absolute; inset: 0;
-    background:
-      radial-gradient(circle at 15% 85%, rgba(192,57,43,0.12) 0%, transparent 45%),
-      radial-gradient(circle at 85% 15%, rgba(59,130,246,0.06) 0%, transparent 35%);
-    pointer-events: none;
-    z-index: 1;
-  }
-  .cs-hero-image-bg {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-  }
-  .cs-hero-image-bg img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0.08;
-    filter: grayscale(100%);
-  }
-  .cs-hero-inner { position: relative; z-index: 2; }
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.85rem;
+  color: var(--gray-500);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+.back-link:hover { color: var(--white); }
 
-  /* Featured image section */
-  .cs-featured-image {
-    background: var(--color-white);
-    padding: var(--space-xl) 0 0;
-  }
-  .cs-image-wrapper {
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-    border: 1px solid var(--color-gray-200);
-  }
-  .cs-image-wrapper img {
-    width: 100%;
-    height: auto;
-    display: block;
-  }
+.cs-hero-img {
+  width: 100%;
+  border-radius: var(--radius-lg);
+  margin: 2rem 0;
+  box-shadow: var(--shadow-lg);
+}
 
-  .cs-hero-tags { display: flex; gap: 0.5rem; margin-bottom: var(--space-md); flex-wrap: wrap; }
-  .cs-badge {
-    display: inline-block;
-    background: rgba(192,57,43,0.15);
-    color: var(--color-primary);
-    padding: 0.25rem 0.75rem;
-    border-radius: 4px;
-    font-size: 0.65rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    border: 1px solid rgba(192,57,43,0.2);
-  }
-  .cs-badge-industry {
-    background: rgba(59,130,246,0.12);
-    color: #60a5fa;
-    border-color: rgba(59,130,246,0.2);
-  }
-  .cs-badge-location {
-    background: rgba(34,197,94,0.12);
-    color: #4ade80;
-    border-color: rgba(34,197,94,0.2);
-  }
+.cs-metrics {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 2.5rem;
+  padding: 1.5rem;
+  background: var(--dark-2);
+  border: 1px solid var(--dark-4);
+  border-radius: var(--radius-md);
+}
+.cs-metric {
+  display: flex;
+  flex-direction: column;
+}
+.cs-metric__value {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 1.75rem;
+  color: var(--red-light);
+  line-height: 1.2;
+}
+.cs-metric__label {
+  font-size: 0.8rem;
+  color: var(--gray-500);
+  margin-top: 0.15rem;
+}
 
-  .cs-hero h1 {
-    color: var(--color-white);
-    font-size: var(--text-3xl);
-    margin-bottom: var(--space-sm);
-    max-width: 700px;
-  }
-  .cs-hero-desc {
-    color: rgba(255,255,255,0.7);
-    font-size: var(--text-lg);
-    max-width: 600px;
-    line-height: 1.6;
-    margin-bottom: var(--space-xl);
-  }
-
-  .cs-results-strip {
-    display: flex;
-    gap: var(--space-xl);
-    padding: var(--space-lg) var(--space-xl);
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 10px;
-    max-width: 500px;
-  }
-  .cs-result-item { display: flex; flex-direction: column; }
-  .cs-result-value {
-    font-family: var(--font-heading);
-    font-size: var(--text-xl);
-    font-weight: 800;
-    color: var(--color-white);
-    line-height: 1.2;
-  }
-  .cs-result-primary .cs-result-value { color: var(--color-primary); font-size: var(--text-2xl); }
-  .cs-result-label { font-size: 0.7rem; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 0.25rem; }
-
-  .related-studies { margin-top: var(--space-3xl); }
-  .related-studies h2 { margin-bottom: var(--space-lg); }
-  .related-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: var(--space-lg); }
-  .related-card {
-    display: block;
-    background: var(--color-white);
-    border: 1px solid var(--color-gray-200);
-    border-radius: 10px;
-    overflow: hidden;
-    text-decoration: none;
-    color: inherit;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-  }
-  .related-card:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(0,0,0,0.1); }
-  .related-card-image {
-    aspect-ratio: 16 / 9;
-    overflow: hidden;
-    background: var(--color-dark);
-  }
-  .related-card-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-  }
-  .related-card:hover .related-card-image img { transform: scale(1.04); }
-  .related-card-body { padding: var(--space-md) var(--space-lg) var(--space-lg); }
-  .related-category { display: inline-block; font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-primary); margin-bottom: var(--space-sm); }
-  .related-card h3 { font-size: var(--text-lg); margin-bottom: var(--space-xs); }
-  .related-client { display: block; font-size: var(--text-sm); color: var(--color-text-muted); margin-bottom: var(--space-sm); }
-  .card-link { font-size: var(--text-sm); font-weight: 600; color: var(--color-primary); }
+.case-card {
+  display: flex; flex-direction: column; background: var(--dark-2);
+  border: 1px solid var(--dark-4); border-radius: var(--radius-md); overflow: hidden;
+  transition: all var(--transition-med);
+}
+.case-card:hover { border-color: var(--gray-700); transform: translateY(-4px); box-shadow: var(--shadow-md); }
+.case-card__img { width: 100%; height: 180px; object-fit: cover; }
+.case-card__body { padding: 1.25rem; display: flex; flex-direction: column; gap: 0.5rem; flex: 1; }
+.case-card__category { font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--lime); }
+.case-card__title { font-size: 1rem; color: var(--white); line-height: 1.3; }
+.case-card__metric { margin-top: auto; padding-top: 0.75rem; border-top: 1px solid var(--dark-4); }
+.case-card__metric-value { font-family: var(--font-heading); font-weight: 700; font-size: 0.95rem; color: var(--red-light); }
 </style>

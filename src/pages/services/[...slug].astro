@@ -1,1565 +1,406 @@
 ---
 import Base from '../../layouts/Base.astro';
-import Header from '../../components/Header.astro';
-import ReviewsSection from '../../components/ReviewsSection.astro';
-import CTABand from '../../components/CTABand.astro';
-import Footer from '../../components/Footer.astro';
-import IconBulletList from '../../components/IconBulletList.astro';
-import StatBar from '../../components/StatBar.astro';
-import FeatureGrid from '../../components/FeatureGrid.astro';
-import HandwrittenCTA from '../../components/HandwrittenCTA.astro';
-import StatCallout from '../../components/StatCallout.astro';
-import SplitContent from '../../components/SplitContent.astro';
-import IconCardGrid from '../../components/IconCardGrid.astro';
 import config from '../../lib/config';
-import { renderMarkdown, splitMarkdownSections } from '../../lib/markdown';
-import InlineTestimonial from '../../components/InlineTestimonial.astro';
-import QualifierBlock from '../../components/QualifierBlock.astro';
-import ComparisonTable from '../../components/ComparisonTable.astro';
-import fs from 'node:fs';
-import path from 'node:path';
-import YAML from 'yaml';
+import reviews from '../../data/real-reviews.json';
 
 export function getStaticPaths() {
   const paths: any[] = [];
-  for (const service of config.services) {
-    paths.push({ params: { slug: service.slug }, props: { service, type: 'service' } });
+  config.services.forEach(service => {
+    paths.push({ params: { slug: service.slug }, props: { service, subService: null } });
     if (service.sub_services) {
-      for (const sub of service.sub_services) {
-        paths.push({ params: { slug: `${service.slug}/${sub.slug}` }, props: { service, subService: sub, type: 'sub-service' } });
-      }
+      service.sub_services.forEach(sub => {
+        paths.push({ params: { slug: `${service.slug}/${sub.slug}` }, props: { service, subService: sub } });
+      });
     }
-  }
+  });
   return paths;
 }
 
-const { service, subService, type } = Astro.props;
+const { service, subService } = Astro.props;
+const relatedCaseStudies = config.case_studies.filter(cs =>
+  cs.category.toLowerCase().includes(service.slug.split('-')[0]) ||
+  cs.category.toLowerCase().includes(service.name.split(' ')[0].toLowerCase())
+).slice(0, 4);
 
-let content = '';
-let frontmatter: any = {};
-
-function loadContent(dir: string, slug: string) {
-  const filePath = path.resolve(`./src/content/${dir}/${slug}.md`);
-  if (fs.existsSync(filePath)) {
-    const raw = fs.readFileSync(filePath, 'utf8');
-    const fmMatch = raw.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
-    if (fmMatch) {
-      frontmatter = YAML.parse(fmMatch[1]);
-      content = fmMatch[2];
-    } else {
-      content = raw;
-    }
-  }
-}
-
-if (type === 'sub-service' && subService) {
-  loadContent('services', `${service.slug}-${subService.slug}`);
-  if (!content) loadContent('services', subService.slug);
-} else {
-  loadContent('services', service.slug);
-}
-
-const displayName = type === 'sub-service' && subService ? subService.name : service.name;
-const displayDesc = type === 'sub-service' && subService ? (subService.short_description || service.short_description) : service.short_description;
-const pageTitle = frontmatter.title || `${displayName} for Home Service Businesses`;
-const pageDescription = frontmatter.description || `${displayDesc} ${config.business.name} delivers performance-driven results.`;
-
-const breadcrumbItems = [
-  { label: 'Home', href: '/' },
-  { label: 'Services', href: '/services/' },
-];
-if (type === 'sub-service' && subService) {
-  breadcrumbItems.push({ label: service.name, href: `/services/${service.slug}/` });
-  breadcrumbItems.push({ label: subService.name });
-} else {
-  breadcrumbItems.push({ label: service.name });
-}
-
-const pricingTiers = service.pricing?.tiers || [];
-const faqQuestions = frontmatter.faq || [];
-const processSteps = frontmatter.process_steps || [];
-const isLocalSEO = service.slug === 'local-seo';
-const isPPC = service.slug === 'ppc';
-const isTV = service.slug === 'tv-streaming-advertising';
-
-const allServiceCases = config.case_studies.filter(cs => {
-  const cat = cs.category.toLowerCase();
-  if (service.slug === 'local-seo') return cat.includes('seo');
-  if (service.slug === 'ppc') return cat.includes('ads') || cat.includes('ppc');
-  if (service.slug === 'website-design') return cat.includes('design') || cat.includes('website');
-  return false;
-});
-const serviceCaseStudies = allServiceCases.sort((a, b) => {
-  if (a.slug === 'remodeling') return -1;
-  if (b.slug === 'remodeling') return 1;
-  return 0;
-});
-
-const contentSections = content ? splitMarkdownSections(content) : [];
-const inlineReview = config.reviews?.[0];
-
-const qualifiers: Record<string, { good: string[]; not: string[] }> = {
-  'local-seo': {
-    good: ['You have a physical Google Business Profile', 'You want more phone calls from local searches', 'You have 15+ Google reviews and a 4.5+ rating', 'You generate $1M+ in annual revenue', 'You want a marketing partner, not a vendor'],
-    not: ['You need leads by tomorrow (try Google Ads instead)', 'You have no physical business location', 'You serve customers nationwide, not locally', 'You want to do it all yourself with no help'],
-  },
-  'ppc': {
-    good: ['You want leads within 48 hours of launch', 'You can invest $5K+/month in ad spend', 'You want $0 agency fees on your campaigns', 'You want ads across Google, Bing, AND Yahoo', 'You want first-party data targeting, not guesswork'],
-    not: ['Your monthly ad budget is under $2,000', 'You want to manage campaigns yourself', 'You only want organic traffic, not paid'],
-  },
-  'website-design': {
-    good: ['Your current site takes more than 3 seconds to load', 'Your site looks good but does not generate calls', 'You want a site you own, not one held hostage', 'You want sub-2-second load times and mobile-first design', 'You want to pay monthly instead of a big lump sum'],
-    not: ['You just need a basic landing page', 'You want to build it yourself on Wix or Squarespace', 'You do not have an established service business yet'],
-  },
-  'tv-streaming-advertising': {
-    good: ['You want to build brand awareness beyond search', 'You want professional video production at no extra cost', 'You are ready to reach 30M+ households across 48 states', 'You want TV, streaming, AND connected TV coverage', 'You want full attribution and reporting on every dollar'],
-    not: ['You only want search-based leads', 'Your total marketing budget is under $3,000/month', 'You already have a TV production team and media buyer'],
-  },
-};
-const qualifier = qualifiers[service.slug];
-
-const heroProofPoints: Record<string, { icon: string; text: string }[]> = {
-  'local-seo': [
-    { icon: 'map', text: '<strong>Map Pack SEO</strong> — Monthly retainer with a free 10-day boost' },
-    { icon: 'zap', text: '<strong>10 Days Free</strong> — No credit card, no commitment' },
-    { icon: 'bar', text: '<strong>Geo-Grid Tracking</strong> — See exactly where you rank' },
-  ],
-  'ppc': [
-    { icon: 'money', text: '<strong>$0 Agency Fee</strong> on $5K+ monthly ad spend' },
-    { icon: 'target', text: '<strong>First-Party Data</strong> from 30M+ households' },
-    { icon: 'bar', text: '<strong>30-50% Higher CTR</strong>, 33% lower CPC' },
-  ],
-  'website-design': [
-    { icon: 'zap', text: '<strong>Sub-2-Second Loads</strong> — Performance-first builds' },
-    { icon: 'phone', text: '<strong>Conversion-Focused</strong> — Turn visitors into booked jobs' },
-    { icon: 'shield', text: '<strong>You Own It</strong> — Your site, your data, always' },
-  ],
-  'tv-streaming-advertising': [
-    { icon: 'tv', text: '<strong>Free Video Production</strong> included with every campaign' },
-    { icon: 'globe', text: '<strong>30M+ Households</strong> across 48 states' },
-    { icon: 'eye', text: '<strong>Full Attribution</strong> — Track every dollar' },
-  ],
-};
-const proofPoints = heroProofPoints[service.slug] || heroProofPoints['local-seo'];
-
-const eyebrows: Record<string, string> = {
-  'local-seo': 'Proven Local SEO',
-  'ppc': 'Performance-Driven PPC',
-  'website-design': 'Conversion-Focused Design',
-  'tv-streaming-advertising': 'TV & Streaming Advertising',
-};
-
-const serviceIconCards: Record<string, Array<{icon: string, title: string, description: string}>> = {
-  'local-seo': [
-    { icon: 'map', title: 'Google Business Profile', description: 'Full optimization of your GBP listing with weekly updates, photo uploads, and review management.' },
-    { icon: 'target', title: 'Citation Building', description: 'Consistent NAP across 60+ directories. We fix existing errors and build authority signals.' },
-    { icon: 'bar', title: 'Geo-Grid Tracking', description: 'See exactly where you rank across your service area with visual geo-grid reports every month.' },
-    { icon: 'zap', title: '10-Day Free Boost', description: 'No credit card required. We optimize your profile and boost local signals at zero cost.' },
-    { icon: 'star', title: 'Review Strategy', description: 'Automated review request flows and reputation monitoring to build social proof.' },
-    { icon: 'chart', title: 'Monthly Reporting', description: 'Transparent dashboards showing rankings, calls, and direction requests month over month.' },
-  ],
-  'ppc': [
-    { icon: 'money', title: '$0 Agency Fee', description: 'On ad spend of $5K+/month, 100% of your budget funds your campaigns. Zero management fees.' },
-    { icon: 'target', title: 'First-Party Data', description: 'Access to 30M+ household records for precision targeting that third-party cookies cannot match.' },
-    { icon: 'globe', title: 'Multi-Platform Ads', description: 'Your campaigns run across Google, Bing, AND Yahoo simultaneously from one dashboard.' },
-    { icon: 'chart', title: '30-50% Higher CTR', description: 'First-party data targeting delivers dramatically better click-through rates than standard campaigns.' },
-    { icon: 'zap', title: '1-2 Week Launch', description: 'From strategy call to live campaigns in under two weeks. No months-long onboarding.' },
-    { icon: 'eye', title: 'Full Attribution', description: 'Track every call, form fill, and booked job back to the exact ad and keyword.' },
-  ],
-  'website-design': [
-    { icon: 'zap', title: 'Sub-2s Load Times', description: 'Performance-first architecture. Every site loads in under 2 seconds on mobile and desktop.' },
-    { icon: 'phone', title: 'Conversion Focused', description: 'Every element is designed to convert visitors into phone calls and booked appointments.' },
-    { icon: 'shield', title: 'You Own Everything', description: 'Your site, your domain, your data. No hostage situations. Leave anytime with everything.' },
-    { icon: 'code', title: 'Mobile-First Design', description: 'Built for the 70%+ of your customers who find you on their phones first.' },
-    { icon: 'chart', title: '100/100 PageSpeed', description: 'Perfect Google PageSpeed scores mean better rankings and better user experience.' },
-    { icon: 'globe', title: 'SEO Built In', description: 'Schema markup, meta tags, sitemap, and technical SEO configured from day one.' },
-  ],
-  'tv-streaming-advertising': [
-    { icon: 'tv', title: 'Free Video Production', description: 'Professional broadcast-quality commercials included at no extra cost for Florida clients.' },
-    { icon: 'globe', title: '30M+ Households', description: 'Reach audiences across 48 states through connected TV, streaming, and linear TV.' },
-    { icon: 'eye', title: 'Full Attribution', description: 'Track every impression, view, and conversion with complete campaign attribution.' },
-    { icon: 'target', title: 'Precision Targeting', description: 'Target by geography, demographics, interests, and viewing habits for maximum efficiency.' },
-    { icon: 'chart', title: 'Cross-Platform', description: 'Connected TV, streaming apps, and linear TV combined into one cohesive campaign.' },
-    { icon: 'zap', title: 'Fast Turnaround', description: 'From concept to on-air in weeks, not months. Quick iteration on creative and targeting.' },
-  ],
-};
-const iconCards = serviceIconCards[service.slug] || serviceIconCards['local-seo'];
-
-const serviceStatCallouts: Record<string, Array<{value: string, label: string}>> = {
-  'local-seo': [
-    { value: '+47%', label: 'Search Appearances' },
-    { value: 'Top 3', label: 'Map Pack Rankings' },
-    { value: '10 Days', label: 'Free SEO Boost' },
-    { value: '5.0\u2605', label: 'Google Rating' },
-  ],
-  'ppc': [
-    { value: '$0', label: 'Agency Fee' },
-    { value: '30M+', label: 'Households' },
-    { value: '33%', label: 'Lower CPC' },
-    { value: '1-2 Weeks', label: 'To Launch' },
-  ],
-  'website-design': [
-    { value: 'Sub-2s', label: 'Load Time' },
-    { value: '100/100', label: 'PageSpeed' },
-    { value: 'Mobile-First', label: 'Every Build' },
-    { value: 'You Own It', label: 'Always' },
-  ],
-  'tv-streaming-advertising': [
-    { value: 'FREE', label: 'Video Production' },
-    { value: '30M+', label: 'Households' },
-    { value: '36', label: 'States' },
-    { value: '100%', label: 'Attribution' },
-  ],
-};
-const statCalloutData = serviceStatCallouts[service.slug] || serviceStatCallouts['local-seo'];
-
-const serviceImages: Record<string, string[]> = {
-  'local-seo': ['/media/local-seo-graphic.webp', '/media/live-local-map-ranker.webp', '/media/seo-ppc-presentation.webp'],
-  'ppc': ['/media/ppc-graphic.webp', '/media/live-pay-per-result.webp', '/media/live-presentation.png'],
-  'website-design': ['/media/live-website-designs.webp', '/media/case-studies/Website-Design-1.webp', '/media/service-presentation.webp'],
-  'tv-streaming-advertising': ['/media/service-presentation.webp', '/media/live-presentation.png', '/media/seo-ppc-presentation.webp'],
-};
-const images = serviceImages[service.slug] || ['/media/service-presentation.webp', '/media/live-presentation.png', '/media/seo-ppc-presentation.webp'];
+const featuredReviews = reviews.slice(0, 3);
+const isLocalSeo = service.slug === 'local-seo';
+const isPpc = service.slug === 'ppc';
 const isWebDesign = service.slug === 'website-design';
-
-const schema = {
-  '@context': 'https://schema.org',
-  '@type': 'Service',
-  name: displayName,
-  description: pageDescription,
-  provider: { '@type': 'ProfessionalService', name: config.business.name },
-};
+const isTv = service.slug === 'tv-streaming-advertising';
 ---
 
-<Base title={pageTitle} description={pageDescription} schema={schema}>
-  <Header slot="header" />
+<Base title={subService ? `${subService.name} — ${service.name}` : service.name} description={subService?.short_description || service.short_description}>
 
-  <!-- ===== HERO — Cinematic Dark Split ===== -->
-  <section class="svc-hero">
-    <div class="svc-hero__bg"></div>
-    <div class="container svc-hero__grid">
-      <div class="svc-hero__copy">
-        <span class="svc-eyebrow">{eyebrows[service.slug] || displayName}</span>
-        <h1 class="svc-hero__h1">{displayName}</h1>
-        <p class="svc-hero__sub">{displayDesc}</p>
-        <IconBulletList items={proofPoints} variant="dark" />
-        <div class="svc-hero__ctas">
-          <a href="/contact" class="svc-btn svc-btn--primary">Book Strategy Call</a>
-          {serviceCaseStudies.length > 0 && (
-            <a href="#results" class="svc-btn svc-btn--ghost">See Our Results</a>
-          )}
-        </div>
+<!-- Hero -->
+<section class="svc-hero glow-red" style="position: relative; overflow: hidden;">
+  <div class="svc-hero__bg bg-grid"></div>
+  <div class="container" style="position: relative; z-index: 1;">
+    <div class="svc-hero__content fade-in">
+      <a href="/services/" class="svc-hero__back">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+        All Services
+      </a>
+      <h1>{subService ? subService.name : service.name}</h1>
+      <p class="svc-hero__sub">{subService?.short_description || service.short_description}</p>
+      <div class="svc-hero__ctas">
+        <a href="/contact/" class="btn btn--primary btn--lg">Get Started</a>
+        <a href={`tel:${config.business.phone_raw}`} class="btn btn--outline btn--lg">Call {config.business.phone}</a>
       </div>
-      <div class="svc-hero__img">
-        {service.slug === 'ppc' && <img src="/media/ppc-graphic.webp" alt="No Fee Google Ads Management" width="520" height="400" />}
-        {service.slug === 'local-seo' && <img src="/media/local-seo-graphic.webp" alt="Local SEO Map Pack Rankings" width="520" height="400" />}
-        {service.slug === 'website-design' && <img src="/media/case-studies/Website-Design-1.webp" alt="Custom Website Design" width="520" height="400" />}
-        {service.slug === 'tv-streaming-advertising' && <img src="/media/service-presentation.webp" alt="TV & Streaming Advertising" width="520" height="400" />}
+    </div>
+  </div>
+</section>
+
+<!-- Sub Services Navigation -->
+{service.sub_services && service.sub_services.length > 0 && (
+  <section class="section--sm bg-dark-2" style="border-bottom: 1px solid var(--dark-4);">
+    <div class="container">
+      <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; justify-content: center;">
+        <a href={`/services/${service.slug}/`} class:list={['btn btn--sm', !subService ? 'btn--primary' : 'btn--outline']}>
+          Overview
+        </a>
+        {service.sub_services.map(sub => (
+          <a href={`/services/${service.slug}/${sub.slug}/`} class:list={['btn btn--sm', subService?.slug === sub.slug ? 'btn--primary' : 'btn--outline']}>
+            {sub.name}
+          </a>
+        ))}
       </div>
     </div>
   </section>
+)}
 
-  <!-- ===== SOCIAL PROOF STRIP (thin, dark) ===== -->
-  <section class="svc-proof-strip">
-    <div class="container">
-      {serviceCaseStudies.length > 0 ? (
-        <div class="svc-proof__row">
-          {serviceCaseStudies.slice(0, 3).map(cs => (
-            <div class="svc-proof__item">
-              <span class="svc-proof__val">{cs.metrics?.primary || cs.result}</span>
-              <span class="svc-proof__label">{cs.title}</span>
-            </div>
-          ))}
-        </div>
-      ) : (
-        <div class="svc-proof__row">
-          <div class="svc-proof__item">
-            <span class="svc-proof__val">5.0 ★★★★★</span>
-            <span class="svc-proof__label">Google Rating</span>
-          </div>
-          <div class="svc-proof__item">
-            <span class="svc-proof__val">Spectrum</span>
-            <span class="svc-proof__label">Reach Partner</span>
-          </div>
-          <div class="svc-proof__item">
-            <span class="svc-proof__val">Tampa</span>
-            <span class="svc-proof__label">Based &amp; Operated</span>
-          </div>
-        </div>
-      )}
-    </div>
-  </section>
-
-  <!-- ===== STAT CALLOUT BAR (red accent) ===== -->
-  <section class="svc-stat-bar">
-    <div class="container">
-      <div class="svc-stat-bar__row">
-        {statCalloutData.map((stat, i) => (
+<!-- What You Get -->
+<section class="section">
+  <div class="container">
+    <div class="svc-grid fade-in">
+      <div>
+        <span class="section-label">What You Get</span>
+        {isLocalSeo && (
           <>
-            <div class="svc-stat-bar__item">
-              <span class="svc-stat-bar__val">{stat.value}</span>
-              <span class="svc-stat-bar__label">{stat.label}</span>
-            </div>
-            {i < statCalloutData.length - 1 && <div class="svc-stat-bar__div"></div>}
+            <h2 style="margin-bottom: 1.25rem;">Map Pack Domination That Drives Real Calls</h2>
+            <p style="color: var(--gray-400); line-height: 1.7; margin-bottom: 1rem;">When someone in your area searches for your service, you need to be in the Google Map Pack — the top 3 local results that capture 44% of all clicks. We make that happen fast.</p>
+            <p style="color: var(--gray-400); line-height: 1.7; margin-bottom: 1.5rem;">Our approach combines complete Google Business Profile optimization, strategic citation building, review generation systems, and local authority development. Most clients see measurable ranking improvements within 10 days of our free boost.</p>
           </>
-        ))}
+        )}
+        {isPpc && (
+          <>
+            <h2 style="margin-bottom: 1.25rem;">Zero-Fee PPC Through Spectrum Reach</h2>
+            <p style="color: var(--gray-400); line-height: 1.7; margin-bottom: 1rem;">Most agencies charge 15-30% of your ad spend as a management fee. Through our Spectrum Reach partnership, clients spending $5K+/month pay zero agency fees — 100% of your budget goes directly into your campaigns.</p>
+            <p style="color: var(--gray-400); line-height: 1.7; margin-bottom: 1.5rem;">You also get access to first-party data from 30M+ households across 48 states, AI-powered real-time bid optimization, and campaigns across Google, Bing, and Yahoo simultaneously.</p>
+          </>
+        )}
+        {isWebDesign && (
+          <>
+            <h2 style="margin-bottom: 1.25rem;">Websites That Convert Visitors Into Revenue</h2>
+            <p style="color: var(--gray-400); line-height: 1.7; margin-bottom: 1rem;">A beautiful website means nothing if it doesn't generate leads. We build conversion-optimized sites that load in under 2 seconds and are engineered to turn every visitor into a potential customer.</p>
+            <p style="color: var(--gray-400); line-height: 1.7; margin-bottom: 1.5rem;">Choose between our ultra-fast custom Astro builds (zero JavaScript, edge-deployed, starting at $2,500) or full-featured WordPress sites with CMS flexibility (starting at $4,000).</p>
+          </>
+        )}
+        {isTv && (
+          <>
+            <h2 style="margin-bottom: 1.25rem;">TV & Streaming Ads That Reach Your Exact Audience</h2>
+            <p style="color: var(--gray-400); line-height: 1.7; margin-bottom: 1rem;">Through Spectrum Reach, we place your brand on streaming platforms and connected TV with precision targeting — reaching specific demographics, neighborhoods, and behavioral profiles across 48 states.</p>
+            <p style="color: var(--gray-400); line-height: 1.7; margin-bottom: 1.5rem;">Every campaign includes free professional video production in Florida (paid production available nationwide). Your budget goes directly to media placement — no agency markup.</p>
+          </>
+        )}
+        <a href="/contact/" class="btn btn--primary">Get Your Free Strategy Call</a>
+      </div>
+      <div class="svc-features">
+        <div class="svc-feature-card">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--lime)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          <div>
+            <h4 style="font-size: 0.95rem; margin-bottom: 0.25rem;">No Long-Term Contracts</h4>
+            <p style="color: var(--gray-500); font-size: 0.85rem;">Our results keep you, not a contract.</p>
+          </div>
+        </div>
+        <div class="svc-feature-card">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--lime)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          <div>
+            <h4 style="font-size: 0.95rem; margin-bottom: 0.25rem;">Dedicated Account Manager</h4>
+            <p style="color: var(--gray-500); font-size: 0.85rem;">Direct access to your strategist. No middlemen.</p>
+          </div>
+        </div>
+        <div class="svc-feature-card">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--lime)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          <div>
+            <h4 style="font-size: 0.95rem; margin-bottom: 0.25rem;">Real-Time Reporting</h4>
+            <p style="color: var(--gray-500); font-size: 0.85rem;">See every metric that matters, when it matters.</p>
+          </div>
+        </div>
+        <div class="svc-feature-card">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--lime)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          <div>
+            <h4 style="font-size: 0.95rem; margin-bottom: 0.25rem;">Full Transparency</h4>
+            <p style="color: var(--gray-500); font-size: 0.85rem;">You see every dollar, every decision, every result.</p>
+          </div>
+        </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ===== VALUE PROP — Split Layout (light contrast break) ===== -->
-  {contentSections.length > 0 && (
-    <section class="svc-section svc-section--light">
-      <div class="container">
-        <div class="svc-split">
-          <div class="svc-split__text">
-            <div class="svc-prose" set:html={contentSections[0].html} />
-          </div>
-          <div class="svc-split__img">
-            <img src={images[0]} alt={`${displayName} results`} loading="lazy" />
-          </div>
-        </div>
-      </div>
-    </section>
-  )}
-
-  <!-- ===== KEY CAPABILITIES (dark) ===== -->
-  <section class="svc-section svc-section--dark">
-    <div class="svc-section__bg"></div>
-    <div class="container" style="position:relative;z-index:1;">
-      <div class="svc-section-header svc-section-header--center">
-        <span class="svc-eyebrow">Key Capabilities</span>
-        <h2 class="svc-h2--light">What You Get</h2>
-      </div>
-      <div class="svc-cards-grid">
-        {iconCards.map(card => (
-          <div class="svc-card">
-            <div class="svc-card__icon">{card.icon === 'map' ? '📍' : card.icon === 'target' ? '🎯' : card.icon === 'bar' ? '📊' : card.icon === 'zap' ? '⚡' : card.icon === 'star' ? '⭐' : card.icon === 'chart' ? '📈' : card.icon === 'money' ? '💰' : card.icon === 'globe' ? '🌐' : card.icon === 'eye' ? '👁' : card.icon === 'phone' ? '📱' : card.icon === 'shield' ? '🛡' : card.icon === 'code' ? '💻' : card.icon === 'tv' ? '📺' : '✦'}</div>
-            <h3 class="svc-card__title">{card.title}</h3>
-            <p class="svc-card__desc">{card.description}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== QUALIFIER BLOCK (light contrast break) ===== -->
-  {qualifier && (
-    <section class="svc-section svc-section--light">
-      <div class="container">
-        <div class="svc-section-header svc-section-header--center">
-          <span class="svc-eyebrow svc-eyebrow--dark">Is This Right For You?</span>
-          <h2 class="svc-h2--dark">Find Out If We Are a Fit</h2>
-        </div>
-        <div class="svc-qual-grid">
-          <div class="svc-qual-col svc-qual-col--good">
-            <h3 class="svc-qual__heading svc-qual__heading--good">✓ Good Fit</h3>
-            <ul class="svc-qual__list">
-              {qualifier.good.map(item => (
-                <li>{item}</li>
-              ))}
-            </ul>
-          </div>
-          <div class="svc-qual-col svc-qual-col--not">
-            <h3 class="svc-qual__heading svc-qual__heading--not">✕ Not For You</h3>
-            <ul class="svc-qual__list">
-              {qualifier.not.map(item => (
-                <li>{item}</li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-  )}
-
-  <!-- ===== VIDEO PRODUCTION — TV Only ===== -->
-  {isTV && (
-    <section class="svc-section svc-section--dark">
-      <div class="svc-section__bg"></div>
-      <div class="container" style="position:relative;z-index:1;">
-        <div class="svc-video-grid">
-          <div class="svc-video__copy">
-            <span class="svc-eyebrow">Major Differentiator</span>
-            <h2 class="svc-h2--light">Free Professional Video Production</h2>
-            <p class="svc-video__desc">Most agencies charge $5,000 to $15,000+ for a single commercial. We include broadcast-quality video production at <strong>no extra cost</strong> for Florida clients running TV & streaming campaigns.</p>
-            <div class="svc-video__stats">
-              <div class="svc-video__stat">
-                <span class="svc-video__stat-val">FREE</span>
-                <span class="svc-video__stat-label">For Florida Clients</span>
-              </div>
-              <div class="svc-video__stat">
-                <span class="svc-video__stat-val">Nationwide</span>
-                <span class="svc-video__stat-label">Available at Cost</span>
-              </div>
-              <div class="svc-video__stat">
-                <span class="svc-video__stat-val">Broadcast</span>
-                <span class="svc-video__stat-label">Quality Production</span>
-              </div>
-            </div>
-            <p class="svc-video__credit">Video Director: <strong>Cade Hansen</strong></p>
-          </div>
-          <div class="svc-video__card">
-            <span class="svc-video__badge">Included Free</span>
-            <h3 class="svc-video__card-title">What You Get</h3>
-            <ul class="svc-video__list">
-              <li>Professional script development</li>
-              <li>On-location or studio filming</li>
-              <li>15-second and 30-second spots</li>
-              <li>Broadcast-quality editing and post-production</li>
-              <li>Platform-optimized formatting</li>
-              <li>Multiple revisions until you love it</li>
-            </ul>
-            <a href="/contact" class="svc-btn svc-btn--primary svc-btn--full">Get Free Video Production</a>
-          </div>
-        </div>
-      </div>
-    </section>
-  )}
-
-  <!-- ===== MID-CTA BAND (red accent) ===== -->
-  <section class="svc-cta-band">
+<!-- Pricing (if available) -->
+{service.pricing && service.pricing.tiers && (
+  <section class="section bg-dark" id="pricing">
     <div class="container">
-      <div class="svc-cta-band__inner">
-        <div class="svc-cta-band__text">
-          <h3>{isLocalSEO ? '10 Days Free. No Credit Card.' : isPPC ? '$0 Agency Fee on $5K+ Spend' : isTV ? 'Free Video Production Included' : 'Get Started Today'}</h3>
-          <p>{isLocalSEO ? 'We boost your Google Business Profile for 10 days at zero cost.' : isPPC ? '100% of your ad budget funds your campaign.' : isTV ? 'Every campaign includes professional video production.' : 'Book a 15-minute strategy call. No pressure.'}</p>
-        </div>
-        <a href="/contact" class="svc-btn svc-btn--white">{isLocalSEO ? 'Apply for Free Boost' : 'Get Your Free Strategy Call'}</a>
+      <div class="fade-in" style="text-align: center; margin-bottom: 3rem;">
+        <span class="section-label">Pricing</span>
+        <h2>Transparent Pricing. No Surprises.</h2>
+        {service.pricing.setup_fee && <p style="color: var(--gray-500); font-size: 0.9rem; margin-top: 0.5rem;">One-time setup: ${service.pricing.setup_fee.toLocaleString()}</p>}
       </div>
-    </div>
-  </section>
-
-  <!-- ===== CASE STUDIES (dark) ===== -->
-  {serviceCaseStudies.length > 0 && (
-    <section class="svc-section svc-section--dark" id="results">
-      <div class="svc-section__bg"></div>
-      <div class="container" style="position:relative;z-index:1;">
-        <div class="svc-section-header svc-section-header--center">
-          <span class="svc-eyebrow">Proven Results</span>
-          <h2 class="svc-h2--light">Real {displayName} Results</h2>
-        </div>
-        <div class="svc-cases-grid">
-          {serviceCaseStudies.slice(0, 3).map(cs => (
-            <a href={`/case-studies/${cs.slug}/`} class="svc-case">
-              {cs.image && (
-                <div class="svc-case__img">
-                  <img src={`/media/case-studies/${cs.image}`} alt={cs.title} loading="lazy" width="400" height="225" />
-                </div>
+      <div class="pricing-grid stagger">
+        {service.pricing.tiers.map(tier => (
+          <div class:list={['pricing-card', { 'pricing-card--featured': tier.featured }]}>
+            {tier.featured && <div class="pricing-card__badge">Most Popular</div>}
+            <h3 style="font-size: 1.15rem; margin-bottom: 0.25rem;">{tier.name}</h3>
+            <p style="color: var(--gray-500); font-size: 0.85rem; margin-bottom: 1.25rem;">{tier.description}</p>
+            <div class="pricing-card__price">
+              {tier.price_label && tier.price === 0 ? (
+                <span class="pricing-card__amount">{tier.price_label}</span>
+              ) : (
+                <>
+                  <span class="pricing-card__amount">${tier.price.toLocaleString()}</span>
+                  <span class="pricing-card__period">{tier.price_label || '/mo'}</span>
+                </>
               )}
-              <div class="svc-case__body">
-                <span class="svc-case__tag">{cs.category}</span>
-                <h3 class="svc-case__result">{cs.metrics?.primary || cs.result}</h3>
-                <span class="svc-case__client">{cs.title}</span>
-                <span class="svc-case__link">Read Case Study →</span>
-              </div>
-            </a>
-          ))}
-        </div>
-      </div>
-    </section>
-  )}
-
-  <!-- ===== TESTIMONIAL (light) ===== -->
-  {inlineReview && (
-    <section class="svc-section svc-section--light">
-      <div class="container" style="max-width:800px;">
-        <div class="svc-testimonial">
-          <div class="svc-testimonial__stars">★★★★★</div>
-          <blockquote class="svc-testimonial__quote">"{inlineReview.text}"</blockquote>
-          <p class="svc-testimonial__author">— {inlineReview.author}{inlineReview.company && `, ${inlineReview.company}`}</p>
-        </div>
-      </div>
-    </section>
-  )}
-
-  <!-- ===== MORE CONTENT — Alternating Split ===== -->
-  {contentSections.slice(1).map((section, i) => (
-    <section class={`svc-section ${i % 2 === 0 ? 'svc-section--dark' : 'svc-section--light'}`}>
-      {i % 2 === 0 && <div class="svc-section__bg"></div>}
-      <div class="container" style="position:relative;z-index:1;">
-        <div class={`svc-split ${i % 2 !== 0 ? 'svc-split--reverse' : ''}`}>
-          <div class="svc-split__text">
-            <div class={`svc-prose ${i % 2 === 0 ? 'svc-prose--light' : ''}`} set:html={section.html} />
-          </div>
-          <div class="svc-split__img">
-            <img src={images[(i + 1) % images.length]} alt={displayName} loading="lazy" />
-          </div>
-        </div>
-      </div>
-    </section>
-  ))}
-
-  <!-- ===== COMPARISON TABLE (light) ===== -->
-  {type === 'service' && (
-    <section class="svc-section svc-section--light">
-      <div class="container" style="max-width:900px;">
-        <ComparisonTable />
-      </div>
-    </section>
-  )}
-
-  <!-- ===== SUB-SERVICES ===== -->
-  {type === 'service' && service.sub_services && service.sub_services.length > 0 && (
-    <section class="svc-section svc-section--light" style="background:#f0f0f0;">
-      <div class="container">
-        <div class="svc-section-header">
-          <span class="svc-eyebrow svc-eyebrow--dark">{service.name} Specializations</span>
-          <h2 class="svc-h2--dark">{service.name} Services</h2>
-        </div>
-        <div class="svc-sub-grid">
-          {service.sub_services.map((sub: any) => (
-            <a href={`/services/${service.slug}/${sub.slug}/`} class="svc-sub-card">
-              <h3>{sub.name}</h3>
-              <p>{sub.short_description}</p>
-              <span class="svc-sub-card__link">Learn More →</span>
-            </a>
-          ))}
-        </div>
-      </div>
-    </section>
-  )}
-
-  <!-- ===== PROCESS STEPS (dark) ===== -->
-  {processSteps.length > 0 && (
-    <section class="svc-section svc-section--dark">
-      <div class="svc-section__bg"></div>
-      <div class="container" style="position:relative;z-index:1;">
-        <div class="svc-section-header svc-section-header--center">
-          <span class="svc-eyebrow">How It Works</span>
-          <h2 class="svc-h2--light">Your {displayName} Journey</h2>
-        </div>
-        <div class="svc-timeline">
-          {processSteps.map((step: any, i: number) => (
-            <div class="svc-timeline__step">
-              <div class="svc-timeline__marker">
-                <div class="svc-timeline__num">{i + 1}</div>
-                {i < processSteps.length - 1 && <div class="svc-timeline__line"></div>}
-              </div>
-              <div class="svc-timeline__content">
-                <h3>{step.title}</h3>
-                <p>{step.description}</p>
-              </div>
             </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  )}
-
-  <!-- ===== 10-DAY BOOST — Local SEO Only ===== -->
-  {isLocalSEO && (
-    <section class="svc-section svc-section--dark">
-      <div class="svc-section__bg"></div>
-      <div class="container" style="position:relative;z-index:1;">
-        <div class="svc-boost-grid">
-          <div class="svc-boost__copy">
-            <span class="svc-eyebrow">Limited Offer</span>
-            <h2 class="svc-h2--light">Free 10-Day Local SEO Boost</h2>
-            <p class="svc-boost__desc">We will optimize your Google Business Profile, fix your citations, and boost your local signals for 10 days. No charge. No commitment.</p>
-            <a href="/contact?service=10-day-boost" class="svc-btn svc-btn--primary">Apply for Free Boost</a>
+            <ul class="pricing-card__features">
+              {tier.features.map(f => (
+                <li>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--lime)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                  {f}
+                </li>
+              ))}
+            </ul>
+            <a href="/contact/" class:list={['btn', tier.featured ? 'btn--primary' : 'btn--outline', 'btn--lg']} style="width: 100%; margin-top: auto;">
+              Get Started
+            </a>
           </div>
-          <div class="svc-boost__stats">
-            <div class="svc-boost__stat"><span class="svc-boost__stat-val">+47%</span><span class="svc-boost__stat-label">Search Appearances</span></div>
-            <div class="svc-boost__stat"><span class="svc-boost__stat-val">+23%</span><span class="svc-boost__stat-label">Discovery Searches</span></div>
-            <div class="svc-boost__stat"><span class="svc-boost__stat-val">+15%</span><span class="svc-boost__stat-label">Direction Requests</span></div>
-          </div>
-        </div>
-      </div>
-    </section>
-  )}
-
-  <!-- ===== SPECTRUM — PPC & TV ===== -->
-  {(isPPC || isTV) && (
-    <section class="svc-section svc-section--light">
-      <div class="container" style="text-align:center;max-width:800px;">
-        <span class="svc-eyebrow svc-eyebrow--dark">Exclusive Partnership</span>
-        <h2 class="svc-h2--dark">Powered by Spectrum Reach</h2>
-        <p style="color:rgba(0,0,0,0.55);max-width:600px;margin:0 auto var(--space-xl);">Your campaigns run across Google AND Yahoo, powered by first-party data from 30M+ households.</p>
-        <div class="svc-spectrum-stats">
-          <div class="svc-spectrum__item"><span class="svc-spectrum__val">30M+</span><span class="svc-spectrum__label">Households</span></div>
-          <div class="svc-spectrum__item"><span class="svc-spectrum__val">Google + Yahoo</span><span class="svc-spectrum__label">Multi-Platform</span></div>
-          <div class="svc-spectrum__item"><span class="svc-spectrum__val">36</span><span class="svc-spectrum__label">States</span></div>
-          <div class="svc-spectrum__item"><span class="svc-spectrum__val">$0</span><span class="svc-spectrum__label">Agency Fee</span></div>
-        </div>
-      </div>
-    </section>
-  )}
-
-  <!-- ===== INDUSTRIES (dark) ===== -->
-  <section class="svc-section svc-section--dark">
-    <div class="svc-section__bg"></div>
-    <div class="container" style="position:relative;z-index:1;">
-      <div class="svc-section-header svc-section-header--center">
-        <span class="svc-eyebrow">Who We Work With</span>
-        <h2 class="svc-h2--light">Industries We Serve</h2>
-      </div>
-      <div class="svc-chips">
-        {config.industries.slice(0, 12).map(ind => (
-          <a href={`/industries/${ind.slug}/${service.slug}/`} class="svc-chip">{ind.full_name}</a>
         ))}
       </div>
-      <a href="/industries/" class="svc-see-all">See All {config.industries.length} Industries →</a>
     </div>
   </section>
+)}
 
-  <!-- ===== FAQ (light) ===== -->
-  {faqQuestions.length > 0 && (
-    <section class="svc-section svc-section--light" style="background:#f5f5f5;">
-      <div class="container" style="max-width:800px;">
-        <div class="svc-section-header svc-section-header--center">
-          <span class="svc-eyebrow svc-eyebrow--dark">Common Questions</span>
-          <h2 class="svc-h2--dark">Frequently Asked Questions</h2>
-        </div>
-        <div class="svc-faq">
-          {faqQuestions.map((q: any) => (
-            <details class="svc-faq__item">
-              <summary>{q.question}</summary>
-              <div class="svc-faq__answer" set:html={renderMarkdown(q.answer)} />
-            </details>
-          ))}
-        </div>
+{service.pricing?.quote_based && (
+  <section class="section bg-dark">
+    <div class="container" style="text-align: center;">
+      <div class="fade-in">
+        <span class="section-label">Custom Pricing</span>
+        <h2 style="margin-bottom: 1rem;">Every Campaign is Custom-Built</h2>
+        <p style="color: var(--gray-400); max-width: 600px; margin: 0 auto 2rem;">{service.pricing.description}</p>
+        <a href="/contact/" class="btn btn--primary btn--lg">Request a Custom Quote</a>
       </div>
-    </section>
-  )}
+    </div>
+  </section>
+)}
 
-  <!-- ===== PRICING ===== -->
-  {pricingTiers.length > 0 && (
-    <section class="svc-section svc-section--light">
-      <div class="container">
-        <div class="svc-section-header svc-section-header--center">
-          <span class="svc-eyebrow svc-eyebrow--dark">{isLocalSEO ? 'Map Pack Guarantee' : 'Transparent Pricing'}</span>
-          <h2 class="svc-h2--dark">{displayName} Pricing</h2>
-        </div>
-        <div class="svc-pricing-grid">
-          {pricingTiers.map((tier: any) => (
-            <div class={`svc-pricing ${tier.featured ? 'svc-pricing--featured' : ''}`}>
-              {tier.featured && <div class="svc-pricing__badge">Most Popular</div>}
-              <h3 class="svc-pricing__name">{tier.name}</h3>
-              <div class="svc-pricing__price">
-                {tier.price === 0 ? (
-                  <span class="svc-pricing__amount">{tier.price_label || 'Custom'}</span>
-                ) : (
-                  <>
-                    {tier.price_label === 'starting at' && <span class="svc-pricing__label">Starting at</span>}
-                    <span class="svc-pricing__currency">$</span>
-                    <span class="svc-pricing__amount">{tier.price.toLocaleString()}</span>
-                    {tier.price_label && tier.price_label !== 'starting at' && <span class="svc-pricing__period">{tier.price_label}</span>}
-                    {!tier.price_label && <span class="svc-pricing__period">/mo</span>}
-                  </>
-                )}
-              </div>
-              <p class="svc-pricing__desc">{tier.description}</p>
-              <ul class="svc-pricing__features">
-                {tier.features.map((f: string) => <li>{f}</li>)}
-              </ul>
-              <a href="/contact" class={`svc-btn ${tier.featured ? 'svc-btn--primary' : 'svc-btn--outline'} svc-btn--full`}>Get Started</a>
+<!-- Reviews -->
+{featuredReviews.length > 0 && (
+  <section class="section">
+    <div class="container">
+      <div class="fade-in" style="text-align: center; margin-bottom: 2.5rem;">
+        <span class="section-label">Client Reviews</span>
+        <h2>What Our Clients Say</h2>
+      </div>
+      <div class="grid grid--3 stagger">
+        {featuredReviews.map(r => (
+          <div class="testimonial-card">
+            <div class="stars" style="margin-bottom: 0.75rem;">
+              {Array.from({length: r.rating}).map(() => (
+                <svg viewBox="0 0 20 20"><path d="M10 1l2.39 4.84L17.3 6.7l-3.65 3.56.86 5.03L10 13.07l-4.51 2.22.86-5.03L2.7 6.7l4.91-.86L10 1z"/></svg>
+              ))}
             </div>
-          ))}
-        </div>
-        {service.pricing?.setup_fee && <p class="svc-pricing__setup">One-time setup fee: ${service.pricing.setup_fee.toLocaleString()}</p>}
-      </div>
-    </section>
-  )}
-
-  {service.pricing?.quote_based && (
-    <section class="svc-section svc-section--light">
-      <div class="container" style="max-width:600px;text-align:center;">
-        <span class="svc-eyebrow svc-eyebrow--dark">Custom Pricing</span>
-        <h2 class="svc-h2--dark">{displayName} Pricing</h2>
-        <p style="color:rgba(0,0,0,0.55);margin-bottom:var(--space-xl);">{service.pricing.description}</p>
-        <a href="/contact" class="svc-btn svc-btn--primary">Request a Custom Quote</a>
-      </div>
-    </section>
-  )}
-
-  <!-- ===== FINAL CTA (dark, dramatic) ===== -->
-  <section class="svc-final-cta">
-    <div class="svc-final-cta__bg"></div>
-    <div class="container" style="position:relative;z-index:1;text-align:center;max-width:700px;">
-      <h2 class="svc-final-cta__h2">Ready to Get Started?</h2>
-      <p class="svc-final-cta__sub">Book a 15-minute strategy call. No pressure. No hard sell. Just a conversation about your goals.</p>
-      <div class="svc-final-cta__actions">
-        <a href="/contact" class="svc-btn svc-btn--primary svc-btn--lg">Schedule Your Strategy Call</a>
-        <a href="tel:8135213199" class="svc-final-cta__phone">(813) 521-3199</a>
+            <p class="testimonial-card__quote">{r.text}</p>
+            <span class="testimonial-card__author">{r.author}</span>
+          </div>
+        ))}
       </div>
     </div>
   </section>
+)}
 
-  <Footer slot="footer" />
+<!-- Related Case Studies -->
+{relatedCaseStudies.length > 0 && (
+  <section class="section bg-dark">
+    <div class="container">
+      <div class="fade-in" style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 1rem; margin-bottom: 2.5rem;">
+        <div>
+          <span class="section-label">Proven Results</span>
+          <h2>Related Case Studies</h2>
+        </div>
+        <a href="/case-studies/" class="btn btn--ghost">View All <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+      </div>
+      <div class="grid grid--4 stagger" style="gap: 1.25rem;">
+        {relatedCaseStudies.map(cs => (
+          <a href={`/case-studies/${cs.slug}/`} class="case-card" style="text-decoration:none;">
+            {cs.image && <img src={`/media/case-studies/${cs.image}`} alt={cs.title} width="400" height="250" loading="lazy" class="case-card__img" />}
+            <div class="case-card__body">
+              <span class="case-card__category">{cs.category}</span>
+              <h4 class="case-card__title">{cs.title}</h4>
+              <div class="case-card__metric">
+                <span class="case-card__metric-value">{cs.metrics?.primary || cs.result}</span>
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+)}
+
+<!-- CTA -->
+<section class="cta-banner">
+  <div class="container" style="position: relative; z-index: 1;">
+    <h2 style="margin-bottom: 1rem;">Ready to Get Started?</h2>
+    <p style="margin-bottom: 2rem; font-size: 1.05rem;">Book a free strategy call and we'll build a custom plan for your business.</p>
+    <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+      <a href="/contact/" class="btn btn--lime btn--lg">Book Your Free Call</a>
+      <a href={`tel:${config.business.phone_raw}`} class="btn btn--outline btn--lg" style="border-color: rgba(255,255,255,0.3); color: var(--white);">Call {config.business.phone}</a>
+    </div>
+  </div>
+</section>
+
 </Base>
 
 <style>
-  /* ===== DESIGN TOKENS ===== */
-  :root {
-    --svc-dark: #111;
-    --svc-dark-card: #1e1e1e;
-    --svc-light: #f9f9f9;
-    --svc-red: #c0392b;
-    --svc-red-hover: #a5311f;
-    --svc-text-muted: rgba(255,255,255,0.6);
-    --svc-text-body: rgba(255,255,255,0.85);
-    --svc-border-light: rgba(255,255,255,0.06);
-    --svc-border-dark: rgba(0,0,0,0.08);
-  }
+.svc-hero {
+  padding: 7rem 0 4rem;
+}
+.svc-hero__bg {
+  position: absolute;
+  inset: 0;
+}
+.svc-hero__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.8rem;
+  color: var(--gray-500);
+  margin-bottom: 1.5rem;
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+.svc-hero__back:hover { color: var(--white); }
+.svc-hero__content { max-width: 700px; }
+.svc-hero__sub {
+  font-size: 1.1rem;
+  color: var(--gray-400);
+  line-height: 1.7;
+  margin: 1.25rem 0 2rem;
+}
+.svc-hero__ctas {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
 
-  /* ===== HERO ===== */
-  .svc-hero {
-    background: var(--svc-dark);
-    color: #fff;
-    position: relative;
-    overflow: hidden;
-    padding: 5rem 0 4rem;
-  }
-  .svc-hero__bg {
-    position: absolute; inset: 0;
-    background:
-      radial-gradient(circle at 20% 80%, rgba(192,57,43,0.15) 0%, transparent 50%),
-      radial-gradient(circle at 80% 20%, rgba(192,57,43,0.08) 0%, transparent 40%);
-    pointer-events: none;
-  }
-  .svc-hero__grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 3rem;
-    align-items: center;
-    position: relative; z-index: 1;
-  }
-  .svc-hero__copy { max-width: 600px; }
-  .svc-hero__h1 {
-    font-size: clamp(2rem, 3.5vw, 3rem);
-    font-weight: 800;
-    line-height: 1.1;
-    color: #fff;
-    margin-bottom: 0.75rem;
-  }
-  .svc-hero__sub {
-    color: var(--svc-text-muted);
-    font-size: 1.125rem;
-    line-height: 1.6;
-    margin-bottom: 1.5rem;
-    max-width: 520px;
-  }
-  .svc-hero__ctas {
-    display: flex;
-    gap: 1rem;
-    margin-top: 2rem;
-    flex-wrap: wrap;
-  }
-  .svc-hero__img {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .svc-hero__img img {
-    width: 100%;
-    max-width: 520px;
-    height: auto;
-    border-radius: 12px;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
-  }
-  @media (max-width: 900px) {
-    .svc-hero__grid { grid-template-columns: 1fr; }
-    .svc-hero__img { display: none; }
-  }
+.svc-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 4rem;
+  align-items: flex-start;
+}
+@media (max-width: 1024px) {
+  .svc-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+}
 
-  /* ===== EYEBROW ===== */
-  .svc-eyebrow {
-    display: inline-block;
-    font-family: var(--font-heading);
-    font-size: 0.7rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    color: var(--svc-red);
-    margin-bottom: 1rem;
-  }
-  .svc-eyebrow--dark { color: var(--svc-red); }
+.svc-features {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.svc-feature-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  background: var(--dark-2);
+  border: 1px solid var(--dark-4);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+}
 
-  /* ===== BUTTONS ===== */
-  .svc-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0.85rem 2rem;
-    border-radius: 8px;
-    font-family: var(--font-heading);
-    font-size: 0.9rem;
-    font-weight: 700;
-    text-decoration: none;
-    transition: all 0.2s;
-    border: 2px solid transparent;
-    cursor: pointer;
-  }
-  .svc-btn--primary {
-    background: var(--svc-red);
-    color: #fff;
-    border-color: var(--svc-red);
-  }
-  .svc-btn--primary:hover { background: var(--svc-red-hover); border-color: var(--svc-red-hover); }
-  .svc-btn--ghost {
-    background: transparent;
-    color: #fff;
-    border-color: rgba(255,255,255,0.3);
-  }
-  .svc-btn--ghost:hover { border-color: #fff; }
-  .svc-btn--white {
-    background: #fff;
-    color: var(--svc-red);
-    border-color: #fff;
-  }
-  .svc-btn--white:hover { background: #f0f0f0; }
-  .svc-btn--outline {
-    background: transparent;
-    color: var(--svc-red);
-    border-color: var(--svc-red);
-  }
-  .svc-btn--outline:hover { background: rgba(192,57,43,0.08); }
-  .svc-btn--full { width: 100%; text-align: center; }
-  .svc-btn--lg { padding: 1rem 2.5rem; font-size: 1rem; }
+/* Pricing */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+.pricing-card {
+  background: var(--dark-2);
+  border: 1px solid var(--dark-4);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.pricing-card--featured {
+  border-color: var(--red);
+  background: linear-gradient(135deg, rgba(192,57,43,0.06), var(--dark-2));
+}
+.pricing-card__badge {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--red);
+  color: var(--white);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.3rem 1rem;
+  border-radius: var(--radius-full);
+}
+.pricing-card__price {
+  display: flex;
+  align-items: baseline;
+  gap: 0.25rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--dark-4);
+}
+.pricing-card__amount {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 2.25rem;
+  color: var(--white);
+}
+.pricing-card__period {
+  font-size: 0.9rem;
+  color: var(--gray-500);
+}
+.pricing-card__features {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  margin-bottom: 1.5rem;
+  flex: 1;
+}
+.pricing-card__features li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--gray-300);
+}
 
-  /* ===== PROOF STRIP ===== */
-  .svc-proof-strip {
-    background: var(--svc-dark);
-    border-top: 1px solid var(--svc-border-light);
-    padding: 1.5rem 0;
-  }
-  .svc-proof__row {
-    display: flex;
-    justify-content: center;
-    gap: 3rem;
-    flex-wrap: wrap;
-  }
-  .svc-proof__item { text-align: center; }
-  .svc-proof__val {
-    display: block;
-    font-family: var(--font-heading);
-    font-size: 1.15rem;
-    font-weight: 800;
-    color: var(--svc-red);
-  }
-  .svc-proof__label {
-    display: block;
-    font-size: 0.75rem;
-    color: rgba(255,255,255,0.4);
-    margin-top: 2px;
-  }
-
-  /* ===== STAT BAR (red accent) ===== */
-  .svc-stat-bar {
-    background: var(--svc-red);
-    padding: 2rem 0;
-  }
-  .svc-stat-bar__row {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 2.5rem;
-    flex-wrap: wrap;
-  }
-  .svc-stat-bar__item { text-align: center; }
-  .svc-stat-bar__val {
-    display: block;
-    font-family: var(--font-heading);
-    font-size: 1.75rem;
-    font-weight: 800;
-    color: #fff;
-  }
-  .svc-stat-bar__label {
-    display: block;
-    font-size: 0.75rem;
-    color: rgba(255,255,255,0.7);
-    margin-top: 2px;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-  .svc-stat-bar__div {
-    width: 1px;
-    height: 40px;
-    background: rgba(255,255,255,0.25);
-  }
-  @media (max-width: 600px) {
-    .svc-stat-bar__div { display: none; }
-    .svc-stat-bar__row { gap: 1.5rem; }
-    .svc-stat-bar__val { font-size: 1.35rem; }
-  }
-
-  /* ===== SECTIONS ===== */
-  .svc-section { padding: 5rem 0; }
-  .svc-section--dark {
-    background: var(--svc-dark);
-    color: #fff;
-    position: relative;
-    overflow: hidden;
-  }
-  .svc-section--light {
-    background: var(--svc-light);
-    color: #1a1a1a;
-  }
-  .svc-section__bg {
-    position: absolute; inset: 0;
-    background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.015) 10px, rgba(255,255,255,0.015) 11px);
-    pointer-events: none;
-  }
-
-  /* ===== SECTION HEADERS ===== */
-  .svc-section-header { margin-bottom: 3rem; }
-  .svc-section-header--center { text-align: center; }
-  .svc-h2--light {
-    font-size: clamp(1.75rem, 3vw, 2.5rem);
-    font-weight: 800;
-    color: #fff;
-    line-height: 1.15;
-  }
-  .svc-h2--dark {
-    font-size: clamp(1.75rem, 3vw, 2.5rem);
-    font-weight: 800;
-    color: #1a1a1a;
-    line-height: 1.15;
-  }
-
-  /* ===== SPLIT LAYOUT ===== */
-  .svc-split {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 3rem;
-    align-items: center;
-  }
-  .svc-split--reverse { direction: rtl; }
-  .svc-split--reverse > * { direction: ltr; }
-  .svc-split__img img {
-    width: 100%;
-    height: auto;
-    border-radius: 12px;
-    box-shadow: 0 16px 48px rgba(0,0,0,0.2);
-  }
-  .svc-prose { max-width: 540px; }
-  .svc-prose :global(h2) { font-size: 1.5rem; font-weight: 800; margin-bottom: 1rem; }
-  .svc-prose :global(h3) { font-size: 1.15rem; font-weight: 700; margin-bottom: 0.75rem; }
-  .svc-prose :global(p) { font-size: 1rem; line-height: 1.7; color: rgba(0,0,0,0.65); margin-bottom: 1rem; }
-  .svc-prose :global(ul), .svc-prose :global(ol) { margin-bottom: 1rem; padding-left: 1.25rem; }
-  .svc-prose :global(li) { font-size: 0.95rem; line-height: 1.6; color: rgba(0,0,0,0.65); margin-bottom: 0.5rem; }
-  .svc-prose--light :global(h2), .svc-prose--light :global(h3) { color: #fff; }
-  .svc-prose--light :global(p), .svc-prose--light :global(li) { color: var(--svc-text-body); }
-  @media (max-width: 900px) {
-    .svc-split { grid-template-columns: 1fr; }
-    .svc-split--reverse { direction: ltr; }
-    .svc-split__img { order: -1; }
-  }
-
-  /* ===== CARDS GRID ===== */
-  .svc-cards-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
-  }
-  .svc-card {
-    background: var(--svc-dark-card);
-    border: 1px solid var(--svc-border-light);
-    border-radius: 12px;
-    padding: 2rem;
-    transition: transform 0.2s, border-color 0.2s;
-  }
-  .svc-card:hover { transform: translateY(-3px); border-color: rgba(255,255,255,0.12); }
-  .svc-card__icon { font-size: 1.75rem; margin-bottom: 1rem; }
-  .svc-card__title {
-    font-size: 1.05rem;
-    font-weight: 700;
-    color: #fff;
-    margin-bottom: 0.5rem;
-  }
-  .svc-card__desc {
-    font-size: 0.875rem;
-    color: var(--svc-text-muted);
-    line-height: 1.6;
-  }
-  @media (max-width: 900px) {
-    .svc-cards-grid { grid-template-columns: 1fr 1fr; }
-  }
-  @media (max-width: 600px) {
-    .svc-cards-grid { grid-template-columns: 1fr; }
-  }
-
-  /* ===== QUALIFIER ===== */
-  .svc-qual-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-  }
-  .svc-qual-col {
-    background: #fff;
-    border-radius: 12px;
-    padding: 2rem;
-    border: 1px solid rgba(0,0,0,0.06);
-  }
-  .svc-qual-col--good { border-top: 3px solid #27ae60; }
-  .svc-qual-col--not { border-top: 3px solid #e74c3c; }
-  .svc-qual__heading {
-    font-size: 1.1rem;
-    font-weight: 700;
-    margin-bottom: 1.25rem;
-    padding-bottom: 0.75rem;
-    border-bottom: 1px solid rgba(0,0,0,0.06);
-  }
-  .svc-qual__heading--good { color: #27ae60; }
-  .svc-qual__heading--not { color: #e74c3c; }
-  .svc-qual__list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  .svc-qual__list li {
-    padding: 0.6rem 0;
-    font-size: 0.95rem;
-    color: rgba(0,0,0,0.65);
-    line-height: 1.5;
-    border-bottom: 1px solid rgba(0,0,0,0.04);
-  }
-  .svc-qual__list li:last-child { border-bottom: none; }
-  @media (max-width: 700px) {
-    .svc-qual-grid { grid-template-columns: 1fr; }
-  }
-
-  /* ===== VIDEO PRODUCTION ===== */
-  .svc-video-grid {
-    display: grid;
-    grid-template-columns: 1.2fr 1fr;
-    gap: 3rem;
-    align-items: start;
-  }
-  .svc-video__desc {
-    color: var(--svc-text-body);
-    line-height: 1.7;
-    margin-bottom: 1.5rem;
-    max-width: 520px;
-  }
-  .svc-video__desc strong { color: #fff; }
-  .svc-video__stats {
-    display: flex;
-    gap: 2rem;
-    flex-wrap: wrap;
-    padding: 1.25rem 0;
-    border-top: 1px solid var(--svc-border-light);
-    border-bottom: 1px solid var(--svc-border-light);
-  }
-  .svc-video__stat { text-align: center; }
-  .svc-video__stat-val {
-    display: block;
-    font-family: var(--font-heading);
-    font-size: 1.25rem;
-    font-weight: 800;
-    color: var(--svc-red);
-  }
-  .svc-video__stat-label {
-    display: block;
-    font-size: 0.7rem;
-    color: rgba(255,255,255,0.45);
-    margin-top: 2px;
-  }
-  .svc-video__credit {
-    color: rgba(255,255,255,0.4);
-    font-size: 0.85rem;
-    margin-top: 1.5rem;
-  }
-  .svc-video__credit strong { color: rgba(255,255,255,0.7); }
-  .svc-video__card {
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 12px;
-    padding: 2rem;
-  }
-  .svc-video__badge {
-    display: inline-block;
-    font-size: 0.65rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: #fff;
-    background: var(--svc-red);
-    padding: 0.25rem 0.75rem;
-    border-radius: 4px;
-    margin-bottom: 1rem;
-  }
-  .svc-video__card-title {
-    font-size: 1.15rem;
-    font-weight: 700;
-    color: #fff;
-    margin-bottom: 1rem;
-  }
-  .svc-video__list {
-    list-style: none;
-    padding: 0;
-  }
-  .svc-video__list li {
-    padding: 0.5rem 0 0.5rem 1.5rem;
-    position: relative;
-    font-size: 0.9rem;
-    color: var(--svc-text-body);
-    border-bottom: 1px solid var(--svc-border-light);
-  }
-  .svc-video__list li::before {
-    content: '✓';
-    position: absolute;
-    left: 0;
-    color: var(--svc-red);
-    font-weight: 700;
-  }
-  @media (max-width: 900px) {
-    .svc-video-grid { grid-template-columns: 1fr; }
-  }
-
-  /* ===== CTA BAND ===== */
-  .svc-cta-band {
-    background: var(--svc-red);
-    padding: 2.5rem 0;
-    position: relative;
-    overflow: hidden;
-  }
-  .svc-cta-band::after {
-    content: '';
-    position: absolute; top: 0; right: 0; width: 300px; height: 100%;
-    background: radial-gradient(circle at 100% 50%, rgba(255,255,255,0.1) 0%, transparent 70%);
-    pointer-events: none;
-  }
-  .svc-cta-band__inner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 2rem;
-    flex-wrap: wrap;
-    position: relative; z-index: 1;
-  }
-  .svc-cta-band__text h3 {
-    font-size: 1.35rem;
-    font-weight: 800;
-    color: #fff;
-    margin-bottom: 0.25rem;
-  }
-  .svc-cta-band__text p {
-    color: rgba(255,255,255,0.75);
-    margin: 0;
-    max-width: 550px;
-  }
-
-  /* ===== CASE STUDIES ===== */
-  .svc-cases-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 1.5rem;
-  }
-  .svc-case {
-    display: flex; flex-direction: column;
-    background: var(--svc-dark-card);
-    border: 1px solid var(--svc-border-light);
-    border-radius: 12px;
-    overflow: hidden;
-    text-decoration: none;
-    color: inherit;
-    transition: transform 0.2s, border-color 0.2s;
-  }
-  .svc-case:hover { transform: translateY(-3px); border-color: rgba(255,255,255,0.12); }
-  .svc-case__img {
-    aspect-ratio: 16/9;
-    overflow: hidden;
-    background: rgba(255,255,255,0.03);
-  }
-  .svc-case__img img {
-    width: 100%; height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s;
-  }
-  .svc-case:hover .svc-case__img img { transform: scale(1.04); }
-  .svc-case__body {
-    padding: 1.5rem;
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-  }
-  .svc-case__tag {
-    font-size: 0.6rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--svc-red);
-    margin-bottom: 0.5rem;
-  }
-  .svc-case__result {
-    font-size: 1.15rem;
-    font-weight: 800;
-    color: #fff;
-    margin-bottom: 0.5rem;
-  }
-  .svc-case__client {
-    font-size: 0.85rem;
-    color: rgba(255,255,255,0.45);
-  }
-  .svc-case__link {
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: var(--svc-red);
-    margin-top: auto;
-    padding-top: 0.75rem;
-  }
-
-  /* ===== TESTIMONIAL ===== */
-  .svc-testimonial { text-align: center; }
-  .svc-testimonial__stars {
-    font-size: 1.5rem;
-    color: #f39c12;
-    margin-bottom: 1.25rem;
-    letter-spacing: 0.1em;
-  }
-  .svc-testimonial__quote {
-    font-size: 1.2rem;
-    font-style: italic;
-    line-height: 1.7;
-    color: rgba(0,0,0,0.7);
-    margin: 0 0 1.25rem;
-    max-width: 650px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  .svc-testimonial__author {
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: rgba(0,0,0,0.5);
-  }
-
-  /* ===== TIMELINE ===== */
-  .svc-timeline { max-width: 700px; margin: 0 auto; }
-  .svc-timeline__step { display: flex; gap: 1.5rem; }
-  .svc-timeline__marker {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    flex-shrink: 0;
-  }
-  .svc-timeline__num {
-    width: 52px; height: 52px;
-    border-radius: 50%;
-    background: var(--svc-red);
-    color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 800;
-    font-size: 1.25rem;
-    font-family: var(--font-heading);
-  }
-  .svc-timeline__line {
-    width: 2px;
-    flex: 1;
-    background: rgba(255,255,255,0.1);
-    min-height: 24px;
-  }
-  .svc-timeline__content { padding-bottom: 2rem; }
-  .svc-timeline__content h3 {
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: #fff;
-    margin-bottom: 0.5rem;
-  }
-  .svc-timeline__content p {
-    font-size: 0.9rem;
-    color: var(--svc-text-muted);
-    line-height: 1.6;
-  }
-
-  /* ===== BOOST ===== */
-  .svc-boost-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 3rem;
-    align-items: center;
-  }
-  @media (min-width: 1024px) {
-    .svc-boost-grid { grid-template-columns: 1.3fr 1fr; }
-  }
-  .svc-boost__desc {
-    color: var(--svc-text-body);
-    line-height: 1.7;
-    margin-bottom: 1.5rem;
-  }
-  .svc-boost__stats {
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-    background: rgba(255,255,255,0.04);
-    border: 1px solid var(--svc-border-light);
-    border-radius: 12px;
-    padding: 2rem;
-  }
-  .svc-boost__stat { text-align: center; }
-  .svc-boost__stat-val {
-    display: block;
-    font-family: var(--font-heading);
-    font-size: 1.75rem;
-    font-weight: 800;
-    color: var(--svc-red);
-  }
-  .svc-boost__stat-label {
-    font-size: 0.8rem;
-    color: rgba(255,255,255,0.45);
-  }
-
-  /* ===== SPECTRUM STATS ===== */
-  .svc-spectrum-stats {
-    display: flex;
-    justify-content: center;
-    gap: 3rem;
-    flex-wrap: wrap;
-    margin-top: 2rem;
-  }
-  .svc-spectrum__item { text-align: center; }
-  .svc-spectrum__val {
-    display: block;
-    font-family: var(--font-heading);
-    font-size: 1.5rem;
-    font-weight: 800;
-    color: var(--svc-red);
-  }
-  .svc-spectrum__label {
-    display: block;
-    font-size: 0.75rem;
-    color: rgba(0,0,0,0.45);
-    margin-top: 2px;
-  }
-
-  /* ===== CHIPS ===== */
-  .svc-chips {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.65rem;
-    justify-content: center;
-  }
-  .svc-chip {
-    display: inline-block;
-    padding: 0.5rem 1.25rem;
-    border: 1px solid rgba(255,255,255,0.12);
-    border-radius: 6px;
-    font-size: 0.85rem;
-    color: var(--svc-text-body);
-    text-decoration: none;
-    transition: all 0.15s;
-  }
-  .svc-chip:hover {
-    border-color: var(--svc-red);
-    color: #fff;
-    background: rgba(192,57,43,0.15);
-  }
-  .svc-see-all {
-    display: inline-block;
-    margin-top: 1.5rem;
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: var(--svc-red);
-    text-decoration: none;
-  }
-
-  /* ===== FAQ ===== */
-  .svc-faq { margin-top: 1rem; }
-  .svc-faq__item {
-    background: #fff;
-    border: 1px solid rgba(0,0,0,0.08);
-    border-radius: 10px;
-    padding: 1.15rem 1.5rem;
-    margin-bottom: 0.75rem;
-    transition: box-shadow 0.15s;
-  }
-  .svc-faq__item[open] {
-    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-    border-color: var(--svc-red);
-  }
-  .svc-faq__item summary {
-    font-weight: 600;
-    cursor: pointer;
-    font-size: 1rem;
-    list-style: none;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: #1a1a1a;
-  }
-  .svc-faq__item summary::after {
-    content: '+';
-    font-size: 1.25rem;
-    color: var(--svc-red);
-    font-weight: 300;
-    flex-shrink: 0;
-    margin-left: 1rem;
-  }
-  .svc-faq__item[open] summary::after { content: '\2212'; }
-  .svc-faq__item summary::-webkit-details-marker { display: none; }
-  .svc-faq__answer {
-    padding-top: 1rem;
-    color: rgba(0,0,0,0.6);
-    border-top: 1px solid rgba(0,0,0,0.06);
-    margin-top: 1rem;
-    line-height: 1.7;
-  }
-
-  /* ===== PRICING ===== */
-  .svc-pricing-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 1.5rem;
-  }
-  .svc-pricing {
-    background: #fff;
-    border: 1px solid rgba(0,0,0,0.08);
-    border-radius: 12px;
-    padding: 2rem;
-    position: relative;
-  }
-  .svc-pricing--featured {
-    border-color: var(--svc-red);
-    box-shadow: 0 0 0 1px var(--svc-red);
-  }
-  .svc-pricing__badge {
-    position: absolute;
-    top: -12px; left: 50%;
-    transform: translateX(-50%);
-    background: var(--svc-red);
-    color: #fff;
-    padding: 0.25rem 1rem;
-    border-radius: 999px;
-    font-size: 0.65rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    white-space: nowrap;
-  }
-  .svc-pricing__name {
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: #1a1a1a;
-    margin-bottom: 0.75rem;
-  }
-  .svc-pricing__price { margin-bottom: 0.75rem; }
-  .svc-pricing__label {
-    display: block;
-    font-size: 0.7rem;
-    color: rgba(0,0,0,0.45);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-  .svc-pricing__currency {
-    font-size: 1.25rem;
-    font-weight: 700;
-    vertical-align: top;
-    color: #1a1a1a;
-  }
-  .svc-pricing__amount {
-    font-size: 2.25rem;
-    font-weight: 800;
-    line-height: 1;
-    color: #1a1a1a;
-  }
-  .svc-pricing__period {
-    font-size: 0.85rem;
-    color: rgba(0,0,0,0.45);
-  }
-  .svc-pricing__desc {
-    font-size: 0.85rem;
-    color: rgba(0,0,0,0.55);
-    margin-bottom: 1.25rem;
-  }
-  .svc-pricing__features {
-    list-style: none;
-    padding: 0;
-    margin-bottom: 1.5rem;
-  }
-  .svc-pricing__features li {
-    padding: 0.4rem 0;
-    font-size: 0.85rem;
-    color: rgba(0,0,0,0.65);
-    border-bottom: 1px solid rgba(0,0,0,0.04);
-  }
-  .svc-pricing__features li::before {
-    content: '✓ ';
-    color: var(--svc-red);
-    font-weight: 700;
-  }
-  .svc-pricing__setup {
-    text-align: center;
-    color: rgba(0,0,0,0.45);
-    font-size: 0.85rem;
-    margin-top: 1rem;
-  }
-
-  /* ===== SUB-SERVICES ===== */
-  .svc-sub-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 1.25rem;
-  }
-  .svc-sub-card {
-    background: #fff;
-    border: 1px solid rgba(0,0,0,0.06);
-    border-radius: 12px;
-    padding: 1.75rem;
-    text-decoration: none;
-    color: inherit;
-    transition: transform 0.2s, box-shadow 0.2s;
-  }
-  .svc-sub-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-  }
-  .svc-sub-card h3 {
-    font-size: 1.05rem;
-    font-weight: 700;
-    color: #1a1a1a;
-    margin-bottom: 0.5rem;
-  }
-  .svc-sub-card p {
-    font-size: 0.85rem;
-    color: rgba(0,0,0,0.55);
-    line-height: 1.5;
-    margin-bottom: 0.75rem;
-  }
-  .svc-sub-card__link {
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: var(--svc-red);
-  }
-
-  /* ===== FINAL CTA ===== */
-  .svc-final-cta {
-    background: var(--svc-dark);
-    padding: 5rem 0;
-    position: relative;
-    overflow: hidden;
-  }
-  .svc-final-cta__bg {
-    position: absolute; inset: 0;
-    background:
-      radial-gradient(circle at 50% 50%, rgba(192,57,43,0.2) 0%, transparent 60%);
-    pointer-events: none;
-  }
-  .svc-final-cta__h2 {
-    font-size: clamp(2rem, 4vw, 3rem);
-    font-weight: 800;
-    color: #fff;
-    margin-bottom: 1rem;
-  }
-  .svc-final-cta__sub {
-    color: var(--svc-text-muted);
-    font-size: 1.1rem;
-    line-height: 1.6;
-    margin-bottom: 2rem;
-  }
-  .svc-final-cta__actions {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-  }
-  .svc-final-cta__phone {
-    color: rgba(255,255,255,0.45);
-    font-size: 1rem;
-    text-decoration: none;
-    font-weight: 600;
-    transition: color 0.15s;
-  }
-  .svc-final-cta__phone:hover { color: #fff; }
+/* Case study cards (repeated from index for scoped) */
+.case-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--dark-2);
+  border: 1px solid var(--dark-4);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  transition: all var(--transition-med);
+}
+.case-card:hover { border-color: var(--gray-700); transform: translateY(-4px); box-shadow: var(--shadow-md); }
+.case-card__img { width: 100%; height: 180px; object-fit: cover; }
+.case-card__body { padding: 1.25rem; display: flex; flex-direction: column; gap: 0.5rem; flex: 1; }
+.case-card__category { font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--lime); }
+.case-card__title { font-size: 1rem; color: var(--white); line-height: 1.3; }
+.case-card__metric { margin-top: auto; padding-top: 0.75rem; border-top: 1px solid var(--dark-4); }
+.case-card__metric-value { font-family: var(--font-heading); font-weight: 700; font-size: 0.95rem; color: var(--red-light); }
 </style>

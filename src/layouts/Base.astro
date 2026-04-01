@@ -26,8 +26,8 @@ const fullTitle = title.includes(config.business.name)
 
 const siteUrl = `https://${config.seo.domain}`;
 const canonicalUrl = canonical || new URL(Astro.url.pathname, siteUrl).href;
+const currentPath = Astro.url.pathname;
 
-// LocalBusiness schema present on every page
 const localBusinessSchema = {
   '@context': 'https://schema.org',
   '@type': 'LocalBusiness',
@@ -65,6 +65,14 @@ const localBusinessSchema = {
     name: config.business.owner,
   },
 };
+
+const navLinks = [
+  { label: 'Services', href: '/services/' },
+  { label: 'Case Studies', href: '/case-studies/' },
+  { label: 'About', href: '/about/' },
+  { label: 'Areas', href: '/areas/' },
+  { label: 'Contact', href: '/contact/' },
+];
 ---
 
 <!doctype html>
@@ -73,14 +81,11 @@ const localBusinessSchema = {
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
-
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
-
     {noindex && <meta name="robots" content="noindex, nofollow" />}
     <link rel="canonical" href={canonicalUrl} />
 
-    <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
@@ -88,46 +93,373 @@ const localBusinessSchema = {
     <meta property="og:image" content={new URL(ogImage, siteUrl).href} />
     <meta property="og:site_name" content={config.business.name} />
 
-    <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={fullTitle} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={new URL(ogImage, siteUrl).href} />
 
-    <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-
-    <!-- Font preloads -->
     <link rel="preload" href="/fonts/Montserrat-Bold.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/Inter-Regular.woff2" as="font" type="font/woff2" crossorigin />
 
-    <!-- CSS Custom Properties from config -->
-    <style is:inline set:html={`:root {
-      --color-primary: ${config.brand.colors.primary};
-      --color-primary-dark: ${config.brand.colors.primary}dd;
-      --color-primary-light: ${config.brand.colors.accent || config.brand.colors.primary};
-      --color-secondary: ${config.brand.colors.secondary};
-      --color-accent: ${config.brand.colors.accent || config.brand.colors.primary};
-      --color-dark: ${config.brand.colors.dark};
-      --color-light: ${config.brand.colors.light};
-      --color-white: ${config.brand.colors.white};
-    }`}></style>
-
-    <!-- Schema Markup -->
     <script type="application/ld+json" set:html={JSON.stringify(localBusinessSchema)} />
     {schema && (
       <script type="application/ld+json" set:html={JSON.stringify(schema)} />
     )}
 
-    <!-- View Transitions -->
     <meta name="view-transition" content="same-origin" />
   </head>
   <body>
     <a href="#main-content" class="sr-only">Skip to main content</a>
-    <slot name="header" />
+
+    <!-- ====== HEADER ====== -->
+    <header class="site-header" id="site-header">
+      <div class="header-inner container--wide" style="max-width: var(--max-w-wide); margin: 0 auto; padding: 0 var(--gutter);">
+        <a href="/" class="header-logo" aria-label="ServiceLine Pro Home">
+          <img src="/media/live-logo-full.webp" alt="ServiceLine Pro" width="180" height="40" loading="eager" />
+        </a>
+
+        <nav class="header-nav hide-mobile" aria-label="Main navigation">
+          {navLinks.map(link => (
+            <a
+              href={link.href}
+              class:list={['header-nav__link', { 'is-active': currentPath.startsWith(link.href) }]}
+            >
+              {link.label}
+            </a>
+          ))}
+        </nav>
+
+        <div class="header-actions">
+          <a href={`tel:${config.business.phone_raw}`} class="phone-link hide-mobile">
+            {config.business.phone}
+          </a>
+          <a href="/contact/" class="btn btn--primary btn--sm hide-mobile">
+            Free Strategy Call
+          </a>
+          <!-- Mobile Hamburger -->
+          <button class="mobile-toggle hide-desktop" aria-label="Open menu" id="mobile-toggle">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Nav Drawer -->
+      <div class="mobile-drawer" id="mobile-drawer">
+        <nav class="mobile-drawer__nav">
+          {navLinks.map(link => (
+            <a href={link.href} class="mobile-drawer__link">{link.label}</a>
+          ))}
+          <div style="margin-top: 1.5rem; display: flex; flex-direction: column; gap: 1rem;">
+            <a href={`tel:${config.business.phone_raw}`} class="btn btn--outline" style="text-align:center;">
+              Call {config.business.phone}
+            </a>
+            <a href="/contact/" class="btn btn--primary" style="text-align:center;">Free Strategy Call</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
     <main id="main-content">
       <slot />
     </main>
-    <slot name="footer" />
+
+    <!-- ====== FOOTER ====== -->
+    <footer class="site-footer">
+      <div class="container">
+        <!-- Footer Top -->
+        <div class="footer-top">
+          <div class="footer-brand">
+            <img src="/media/live-logo-full.webp" alt="ServiceLine Pro" width="160" height="36" loading="lazy" />
+            <p class="footer-desc">{config.business.description}</p>
+            <div class="footer-social">
+              <a href="https://www.google.com/maps/place/ServiceLine+Pro" target="_blank" rel="noopener noreferrer" aria-label="Google Business Profile" class="footer-social__link">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+              </a>
+              <a href="https://www.facebook.com/servicelinepro" target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="footer-social__link">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+              </a>
+            </div>
+          </div>
+          <div class="footer-links-group">
+            <h4 class="footer-heading">Services</h4>
+            {config.services.map(s => (
+              <a href={`/services/${s.slug}/`} class="footer-link">{s.name}</a>
+            ))}
+          </div>
+          <div class="footer-links-group">
+            <h4 class="footer-heading">Company</h4>
+            <a href="/about/" class="footer-link">About Us</a>
+            <a href="/case-studies/" class="footer-link">Case Studies</a>
+            <a href="/contact/" class="footer-link">Contact</a>
+            <a href="/areas/" class="footer-link">Service Areas</a>
+            <a href="/industries/" class="footer-link">Industries</a>
+          </div>
+          <div class="footer-links-group">
+            <h4 class="footer-heading">Contact</h4>
+            <a href={`tel:${config.business.phone_raw}`} class="footer-link">{config.business.phone}</a>
+            <a href={`mailto:${config.business.email}`} class="footer-link">{config.business.email}</a>
+            <p class="footer-link" style="cursor:default;color:var(--gray-500);">
+              {config.business.address.city}, {config.business.address.state} {config.business.address.zip}
+            </p>
+            <p class="footer-link" style="cursor:default;color:var(--gray-500);font-size:0.8rem;">
+              {config.business.hours}
+            </p>
+          </div>
+        </div>
+
+        <div class="divider" style="margin: 2rem 0;"></div>
+
+        <!-- Footer Bottom -->
+        <div class="footer-bottom">
+          <p>&copy; {new Date().getFullYear()} {config.business.legal_name}. All rights reserved.</p>
+          <div class="footer-bottom__links">
+            <a href="/privacy-policy/">Privacy Policy</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Header/Mobile Menu Script -->
+    <script is:inline>
+    (function() {
+      const header = document.getElementById('site-header');
+      const toggle = document.getElementById('mobile-toggle');
+      const drawer = document.getElementById('mobile-drawer');
+      let lastScroll = 0;
+
+      // Scroll hide/show header
+      window.addEventListener('scroll', () => {
+        const y = window.scrollY;
+        if (y > 80) header.classList.add('header--scrolled');
+        else header.classList.remove('header--scrolled');
+
+        if (y > lastScroll && y > 400) header.classList.add('header--hidden');
+        else header.classList.remove('header--hidden');
+        lastScroll = y;
+      }, { passive: true });
+
+      // Mobile toggle
+      if (toggle && drawer) {
+        toggle.addEventListener('click', () => {
+          const open = drawer.classList.toggle('is-open');
+          toggle.classList.toggle('is-open');
+          document.body.style.overflow = open ? 'hidden' : '';
+        });
+      }
+    })();
+    </script>
+
+    <style is:global>
+    /* ====== HEADER STYLES ====== */
+    .site-header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 0.75rem 0;
+      background: rgba(10, 10, 10, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid transparent;
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                  background 0.35s,
+                  border-color 0.35s;
+    }
+    .site-header.header--scrolled {
+      background: rgba(10, 10, 10, 0.95);
+      border-bottom-color: var(--dark-4);
+    }
+    .site-header.header--hidden {
+      transform: translateY(-100%);
+    }
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+    }
+    .header-logo img {
+      height: 36px;
+      width: auto;
+    }
+    .header-nav {
+      display: flex;
+      gap: 0.25rem;
+    }
+    .header-nav__link {
+      padding: 0.5rem 0.85rem;
+      font-family: var(--font-heading);
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--gray-300);
+      text-decoration: none;
+      border-radius: var(--radius-sm);
+      transition: color var(--transition-fast), background var(--transition-fast);
+    }
+    .header-nav__link:hover,
+    .header-nav__link.is-active {
+      color: var(--white);
+      background: rgba(255,255,255,0.06);
+    }
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    /* Mobile Toggle */
+    .mobile-toggle {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .mobile-toggle span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--white);
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+    .mobile-toggle.is-open span:nth-child(1) {
+      transform: rotate(45deg) translateY(5px) translateX(5px);
+    }
+    .mobile-toggle.is-open span:nth-child(2) { opacity: 0; }
+    .mobile-toggle.is-open span:nth-child(3) {
+      transform: rotate(-45deg) translateY(-5px) translateX(5px);
+    }
+
+    /* Mobile Drawer */
+    .mobile-drawer {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(10, 10, 10, 0.98);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      z-index: 99;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .mobile-drawer.is-open {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .mobile-drawer__nav {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .mobile-drawer__link {
+      font-family: var(--font-heading);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--white);
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      transition: color var(--transition-fast);
+    }
+    .mobile-drawer__link:hover { color: var(--lime); }
+
+    /* Spacer for fixed header */
+    main { padding-top: 64px; }
+
+    /* ====== FOOTER STYLES ====== */
+    .site-footer {
+      background: var(--dark);
+      border-top: 1px solid var(--dark-4);
+      padding: clamp(3rem, 6vw, 5rem) 0 2rem;
+    }
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 2.5rem;
+    }
+    @media (max-width: 1024px) {
+      .footer-top { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 640px) {
+      .footer-top { grid-template-columns: 1fr; }
+    }
+    .footer-brand img {
+      height: 32px;
+      width: auto;
+      margin-bottom: 1rem;
+    }
+    .footer-desc {
+      font-size: 0.875rem;
+      color: var(--gray-500);
+      line-height: 1.6;
+      margin-bottom: 1.25rem;
+    }
+    .footer-social {
+      display: flex;
+      gap: 0.75rem;
+    }
+    .footer-social__link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-sm);
+      background: var(--dark-3);
+      color: var(--gray-400);
+      transition: all var(--transition-fast);
+    }
+    .footer-social__link:hover {
+      background: var(--red);
+      color: var(--white);
+    }
+    .footer-heading {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--white);
+      margin-bottom: 1rem;
+    }
+    .footer-links-group {
+      display: flex;
+      flex-direction: column;
+    }
+    .footer-link {
+      font-size: 0.875rem;
+      color: var(--gray-500);
+      text-decoration: none;
+      padding: 0.3rem 0;
+      transition: color var(--transition-fast);
+    }
+    a.footer-link:hover { color: var(--white); }
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      font-size: 0.8rem;
+      color: var(--gray-600);
+    }
+    .footer-bottom__links {
+      display: flex;
+      gap: 1.5rem;
+    }
+    .footer-bottom__links a {
+      color: var(--gray-600);
+      text-decoration: none;
+      transition: color var(--transition-fast);
+    }
+    .footer-bottom__links a:hover { color: var(--gray-300); }
+    </style>
   </body>
 </html>

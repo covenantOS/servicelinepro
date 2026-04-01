@@ -1,186 +1,69 @@
 ---
 import Base from '../../layouts/Base.astro';
-import Header from '../../components/Header.astro';
-import Breadcrumbs from '../../components/Breadcrumbs.astro';
-import CTABand from '../../components/CTABand.astro';
-import Footer from '../../components/Footer.astro';
 import config from '../../lib/config';
-
-const pageTitle = "Industries We Serve";
-const pageDescription = `${config.business.name} provides local SEO, Google Ads, website design, and TV advertising for ${config.industries.length}+ home service industries across the United States.`;
-
-const breadcrumbItems = [
-  { label: 'Home', href: '/' },
-  { label: 'Industries' },
-];
-
-// Industry-specific icons (SVG paths)
-const industryIcons: Record<string, string> = {
-  'hvac': '<path d="M12 3v18M3 12h18M7.5 7.5l9 9M16.5 7.5l-9 9"/>',
-  'plumbing': '<path d="M6 12h6m-3-3v6M14 6h4v4M14 14h4v4"/>',
-  'roofing': '<path d="M3 21h18M5 21V9l7-6 7 6v12"/>',
-  'electrical': '<path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>',
-  'painting': '<path d="M19 11h-6a2 2 0 00-2 2v6a2 2 0 002 2h6a2 2 0 002-2v-6a2 2 0 00-2-2zM5 2h9l-1 4h4l-8 8 1-4H5"/>',
-  'default': '<path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>',
-};
-
-// Featured industries (first 6) get larger cards
-const featured = config.industries.slice(0, 6);
-const remaining = config.industries.slice(6);
 ---
 
-<Base title={pageTitle} description={pageDescription}>
-  <Header slot="header" />
+<Base title="Industries We Serve" description="ServiceLine Pro specializes in marketing for home service businesses including HVAC, plumbing, roofing, electrical, and 20+ more industries.">
 
-  <section class="page-hero">
-    <div class="container">
-      <Breadcrumbs items={breadcrumbItems} />
-      <h1>Home Service Marketing for {config.industries.length}+ Industries</h1>
-      <p class="page-hero-desc">We know your customers, your seasonality, your competition, and exactly how to make your phone ring. Every strategy is built for your specific trade.</p>
+<section class="section" style="padding-top: 5rem;">
+  <div class="container">
+    <div class="fade-in" style="text-align: center; margin-bottom: 3.5rem;">
+      <span class="section-label">Industries</span>
+      <h1>Marketing Built for <span class="gradient-text--red">Your Industry</span></h1>
+      <p class="section-subtitle" style="margin: 1rem auto 0;">Every industry has unique challenges. We build strategies tailored to yours — from seasonal demand cycles to competitive dynamics.</p>
     </div>
-  </section>
 
-  <section class="featured-section section">
-    <div class="container">
-      <span class="section-label">Most Popular</span>
-      <div class="featured-grid">
-        {featured.map(industry => (
-          <a href={`/industries/${industry.slug}/`} class="featured-card">
-            <div class="featured-card-header">
-              <div class="featured-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" set:html={industryIcons[industry.slug] || industryIcons['default']} />
-              </div>
-              <span class="featured-service-count">{config.services.length} services</span>
-            </div>
-            <h2>{industry.full_name}</h2>
-            <p>{industry.description}</p>
-            <span class="card-arrow">View Solutions &rarr;</span>
-          </a>
-        ))}
-      </div>
+    <div class="ind-grid stagger">
+      {config.industries.map(ind => (
+        <a href={`/industries/${ind.slug}/`} class="ind-card fade-in" style="text-decoration: none;">
+          <h3 class="ind-card__name">{ind.full_name}</h3>
+          <p class="ind-card__desc">{ind.description}</p>
+          <span style="display: inline-flex; align-items: center; gap: 0.25rem; color: var(--lime); font-size: 0.8rem; font-weight: 600; margin-top: auto;">
+            View Services <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </span>
+        </a>
+      ))}
     </div>
-  </section>
+  </div>
+</section>
 
-  <section class="remaining-section section section-alt">
-    <div class="container">
-      <h2 class="remaining-heading">All Industries We Serve</h2>
-      <p class="remaining-intro">We specialize in home service businesses. Every industry below gets access to Local SEO, PPC, Website Design, and TV & Streaming Advertising.</p>
-      <div class="remaining-grid">
-        {remaining.map(industry => (
-          <a href={`/industries/${industry.slug}/`} class="remaining-card">
-            <div class="remaining-card-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" set:html={industryIcons[industry.slug] || industryIcons['default']} />
-            </div>
-            <div class="remaining-card-text">
-              <strong>{industry.full_name}</strong>
-              <span>{industry.description}</span>
-            </div>
-            <span class="remaining-arrow">&rarr;</span>
-          </a>
-        ))}
-      </div>
-    </div>
-  </section>
+<section class="cta-banner">
+  <div class="container" style="position: relative; z-index: 1;">
+    <h2 style="margin-bottom: 1rem;">Don't See Your Industry?</h2>
+    <p style="margin-bottom: 2rem;">We work with businesses across all service industries. Let's talk about your growth goals.</p>
+    <a href="/contact/" class="btn btn--lime btn--lg">Get Your Free Strategy Call</a>
+  </div>
+</section>
 
-  <section class="services-strip">
-    <div class="container strip-inner">
-      <h3>Every Industry Gets Access To</h3>
-      <div class="strip-items">
-        {config.services.map(svc => (
-          <a href={`/services/${svc.slug}/`} class="strip-item">{svc.name}</a>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <CTABand heading="Don't See Your Industry? We Probably Cover It." />
-  <Footer slot="footer" />
 </Base>
 
 <style>
-  .page-hero {
-    background: var(--color-dark);
-    padding: var(--space-3xl) 0 var(--space-2xl);
-    color: var(--color-white);
-  }
-  .page-hero h1 { color: var(--color-white); font-size: var(--text-3xl); margin-bottom: var(--space-sm); max-width: 700px; }
-  .page-hero-desc { color: rgba(255, 255, 255, 0.75); font-size: var(--text-lg); max-width: 600px; }
-
-  .section-label { display: block; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-primary); margin-bottom: var(--space-md); }
-
-  .featured-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: var(--space-lg);
-  }
-
-  .featured-card {
-    text-decoration: none;
-    color: inherit;
-    padding: var(--space-xl);
-    background: var(--color-white);
-    border: 1px solid var(--color-gray-200);
-    border-radius: 10px;
-    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
-    display: flex;
-    flex-direction: column;
-  }
-  .featured-card:hover { transform: translateY(-3px); box-shadow: 0 12px 36px rgba(0,0,0,0.1); border-color: var(--color-primary); }
-
-  .featured-card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-md); }
-  .featured-service-count { font-size: var(--text-xs); color: var(--color-text-muted); background: var(--color-gray-100); padding: 0.2rem 0.6rem; border-radius: 4px; }
-
-  .featured-icon {
-    width: 48px;
-    height: 48px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(192,57,43,0.08);
-    border-radius: 10px;
-    color: var(--color-primary);
-    transition: background 0.2s, color 0.2s;
-  }
-  .featured-card:hover .featured-icon { background: var(--color-primary); color: var(--color-white); }
-
-  .featured-card h2 { font-size: var(--text-lg); margin-bottom: var(--space-xs); }
-  .featured-card p { font-size: var(--text-sm); color: var(--color-text-light); margin-bottom: var(--space-md); line-height: var(--leading-relaxed); flex: 1; }
-  .card-arrow { font-size: var(--text-sm); font-weight: 600; color: var(--color-primary); }
-
-  .remaining-heading { font-size: var(--text-xl); margin-bottom: var(--space-sm); }
-  .remaining-intro { color: var(--color-text-light); margin-bottom: var(--space-xl); max-width: 600px; }
-
-  .remaining-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: var(--space-sm);
-  }
-  @media (min-width: 768px) { .remaining-grid { grid-template-columns: 1fr 1fr; } }
-
-  .remaining-card {
-    display: flex;
-    gap: var(--space-md);
-    align-items: center;
-    padding: var(--space-md) var(--space-lg);
-    text-decoration: none;
-    color: inherit;
-    background: var(--color-white);
-    border: 1px solid var(--color-gray-200);
-    border-radius: var(--radius-md);
-    transition: border-color 0.15s, box-shadow 0.15s;
-  }
-  .remaining-card:hover { border-color: var(--color-primary); box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
-  .remaining-card-icon { flex-shrink: 0; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; background: rgba(192,57,43,0.08); border-radius: 8px; color: var(--color-primary); }
-  .remaining-card-text { flex: 1; min-width: 0; }
-  .remaining-card-text strong { display: block; font-size: var(--text-sm); margin-bottom: 0.125rem; }
-  .remaining-card-text span { font-size: var(--text-xs); color: var(--color-text-light); }
-  .remaining-arrow { color: var(--color-gray-300); font-size: var(--text-lg); flex-shrink: 0; transition: color 0.15s; }
-  .remaining-card:hover .remaining-arrow { color: var(--color-primary); }
-
-  .services-strip { background: var(--color-dark); padding: var(--space-xl) 0; }
-  .strip-inner { text-align: center; }
-  .strip-inner h3 { color: var(--color-white); font-size: var(--text-base); margin-bottom: var(--space-md); }
-  .strip-items { display: flex; gap: var(--space-md); justify-content: center; flex-wrap: wrap; }
-  .strip-item { color: rgba(255,255,255,0.7); font-size: var(--text-sm); text-decoration: none; padding: 0.375rem 1rem; border: 1px solid rgba(255,255,255,0.15); border-radius: 4px; transition: all 0.15s; }
-  .strip-item:hover { color: var(--color-white); border-color: var(--color-primary); }
+.ind-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+}
+.ind-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1.5rem;
+  background: var(--dark-2);
+  border: 1px solid var(--dark-4);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-med);
+}
+.ind-card:hover {
+  border-color: var(--gray-600);
+  transform: translateY(-2px);
+}
+.ind-card__name {
+  font-size: 1.05rem;
+  color: var(--white);
+}
+.ind-card__desc {
+  font-size: 0.85rem;
+  color: var(--gray-500);
+  line-height: 1.5;
+}
 </style>

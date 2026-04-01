@@ -1,1356 +1,607 @@
 ---
 import Base from '../layouts/Base.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
 import config from '../lib/config';
 import reviews from '../data/real-reviews.json';
 
-const title = "Home Service Marketing Agency | Local SEO, Google Ads, Web Design & TV Advertising";
-const description = config.business.description;
-const topReviews = reviews.slice(0, 4);
+const caseStudies = config.case_studies.slice(0, 8);
+const services = config.services;
 ---
 
-<Base title={title} description={description}>
-  <Header slot="header" />
+<Base title={`${config.business.name} — ${config.business.tagline}`} description={config.business.description}>
 
-  <!-- ===== SECTION 1: HERO ===== -->
-  <section class="hp-hero">
-    <div class="hp-hero__bg"></div>
-    <div class="hp-container hp-hero__grid">
-      <!-- Left: Copy -->
-      <div class="hp-hero__copy">
-        <div class="hp-hero__badges">
-          <span class="hp-badge">Google Certified</span>
-          <span class="hp-badge">Spectrum Reach Partner</span>
+<!-- ====== HERO ====== -->
+<section class="hero">
+  <div class="hero__bg bg-grid"></div>
+  <div class="hero__glow"></div>
+  <div class="container hero__content">
+    <div class="hero__text">
+      <div class="badge" style="margin-bottom: 1.5rem;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        {config.trust_signals.rating} Stars — {config.trust_signals.review_count}+ Google Reviews
+      </div>
+      <h1>Dominate Local Search.<br/><span class="gradient-text--red">Own Your Market.</span></h1>
+      <p class="hero__sub">
+        We build ranking machines — Map Pack SEO, zero-fee Google Ads through Spectrum Reach,
+        conversion-focused websites, and TV/streaming campaigns that put your brand in front of
+        30M+ households across 48 states.
+      </p>
+      <div class="hero__ctas">
+        <a href="/contact/" class="btn btn--primary btn--lg">Get Your Free Strategy Call</a>
+        <a href="/case-studies/" class="btn btn--outline btn--lg">See Results</a>
+      </div>
+      <div class="hero__proof">
+        <div class="hero__proof-item">
+          <span class="hero__proof-num">25+</span>
+          <span class="hero__proof-label">Case Studies</span>
         </div>
-        <h1 class="hp-hero__h1">Local SEO & Google Ads<br/>Built to Scale You to <span class="hp-text-red">$10M</span></h1>
-        <p class="hp-hero__sub">We help home service businesses go from $1M to $10M with Map Pack SEO and $0 Fee Google Ads.</p>
-        <ul class="hp-hero__bullets">
-          <li>
-            <span class="hp-bullet-icon">✓</span>
-            <span><strong>Map Pack Rankings</strong> — rank top 3 or don't pay</span>
-          </li>
-          <li>
-            <span class="hp-bullet-icon">✓</span>
-            <span><strong>$0 Agency Fee</strong> — on $5K+ ad spend through Spectrum Reach</span>
-          </li>
-          <li>
-            <span class="hp-bullet-icon">✓</span>
-            <span><strong>Free 10-Day SEO Boost</strong> — no credit card, no commitment</span>
-          </li>
+        <div class="hero__proof-divider"></div>
+        <div class="hero__proof-item">
+          <span class="hero__proof-num">5.0</span>
+          <span class="hero__proof-label">Google Rating</span>
+        </div>
+        <div class="hero__proof-divider"></div>
+        <div class="hero__proof-item">
+          <span class="hero__proof-num">$0</span>
+          <span class="hero__proof-label">Agency Fees on $5K+</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero__visual hide-mobile">
+      <div class="hero__img-wrapper">
+        <img src="/media/live-team-photo.webp" alt="ServiceLine Pro Team" width="560" height="400" loading="eager" />
+        <div class="hero__img-badge">
+          <div class="stars">
+            <svg viewBox="0 0 20 20"><path d="M10 1l2.39 4.84L17.3 6.7l-3.65 3.56.86 5.03L10 13.07l-4.51 2.22.86-5.03L2.7 6.7l4.91-.86L10 1z"/></svg>
+            <svg viewBox="0 0 20 20"><path d="M10 1l2.39 4.84L17.3 6.7l-3.65 3.56.86 5.03L10 13.07l-4.51 2.22.86-5.03L2.7 6.7l4.91-.86L10 1z"/></svg>
+            <svg viewBox="0 0 20 20"><path d="M10 1l2.39 4.84L17.3 6.7l-3.65 3.56.86 5.03L10 13.07l-4.51 2.22.86-5.03L2.7 6.7l4.91-.86L10 1z"/></svg>
+            <svg viewBox="0 0 20 20"><path d="M10 1l2.39 4.84L17.3 6.7l-3.65 3.56.86 5.03L10 13.07l-4.51 2.22.86-5.03L2.7 6.7l4.91-.86L10 1z"/></svg>
+            <svg viewBox="0 0 20 20"><path d="M10 1l2.39 4.84L17.3 6.7l-3.65 3.56.86 5.03L10 13.07l-4.51 2.22.86-5.03L2.7 6.7l4.91-.86L10 1z"/></svg>
+          </div>
+          <span style="font-size: 0.8rem; color: var(--gray-300);">"ServiceLine Pro absolutely crushed it"</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== SERVICES ====== -->
+<section class="section bg-dark" id="services">
+  <div class="container">
+    <div class="fade-in" style="text-align: center; margin-bottom: 3rem;">
+      <span class="section-label">What We Do</span>
+      <h2 class="section-title">Services Built to<br/>Generate Revenue</h2>
+      <p class="section-subtitle" style="margin: 0 auto;">Every service is engineered for one thing — putting more money in your pocket through measurable, trackable results.</p>
+    </div>
+    <div class="grid grid--2 stagger" style="gap: 1.5rem;">
+      {services.map((service, i) => (
+        <a href={`/services/${service.slug}/`} class="service-card card" style="text-decoration: none;">
+          <div class="service-card__icon" data-icon={service.icon}>
+            {service.icon === 'map-pin' && <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>}
+            {service.icon === 'target' && <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>}
+            {service.icon === 'layout' && <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>}
+            {service.icon === 'tv' && <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="15" rx="2" ry="2"/><polyline points="17 2 12 7 7 2"/></svg>}
+          </div>
+          <h3 class="service-card__title">{service.name}</h3>
+          <p class="service-card__desc">{service.short_description}</p>
+          <span class="service-card__cta">
+            Learn More
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </span>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- ====== SOCIAL PROOF BAR ====== -->
+<section class="section--sm bg-dark-2" style="border-top: 1px solid var(--dark-4); border-bottom: 1px solid var(--dark-4);">
+  <div class="container">
+    <div class="proof-bar">
+      <div class="proof-bar__item">
+        <span class="proof-bar__num">5.0</span>
+        <span class="proof-bar__label">Google Rating</span>
+      </div>
+      <div class="proof-bar__sep"></div>
+      <div class="proof-bar__item">
+        <span class="proof-bar__num">{config.trust_signals.review_count}+</span>
+        <span class="proof-bar__label">5-Star Reviews</span>
+      </div>
+      <div class="proof-bar__sep"></div>
+      <div class="proof-bar__item">
+        <span class="proof-bar__num">25+</span>
+        <span class="proof-bar__label">Case Studies</span>
+      </div>
+      <div class="proof-bar__sep"></div>
+      <div class="proof-bar__item">
+        <span class="proof-bar__num">48</span>
+        <span class="proof-bar__label">States Served</span>
+      </div>
+      <div class="proof-bar__sep"></div>
+      <div class="proof-bar__item">
+        <span class="proof-bar__num">$0</span>
+        <span class="proof-bar__label">Agency Fee on $5K+</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== WHY US / CONCERNS vs BENEFITS ====== -->
+<section class="section glow-red" style="position: relative; overflow: hidden;">
+  <div class="container" style="position: relative; z-index: 1;">
+    <div class="fade-in" style="text-align: center; margin-bottom: 3rem;">
+      <span class="section-label">Why ServiceLine Pro</span>
+      <h2 class="section-title">Other Agencies vs. Us</h2>
+    </div>
+    <div class="comparison-grid fade-in">
+      <div class="comparison-col comparison-col--bad">
+        <h3 class="comparison-col__head comparison-col__head--bad">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          Other Agencies
+        </h3>
+        <ul class="comparison-list">
+          <li>20-30% agency fees eating your ad budget</li>
+          <li>Generic strategies copy-pasted across clients</li>
+          <li>3-6 month lock-in contracts</li>
+          <li>Monthly PDF reports you never read</li>
+          <li>Outsourced work with no accountability</li>
+          <li>Cookie-cutter template websites</li>
         </ul>
-        <div class="hp-hero__ctas">
-          <a href="/contact/" class="hp-btn hp-btn--red">Book Strategy Call</a>
-          <a href="#case-studies" class="hp-btn hp-btn--ghost">See Our Results</a>
-        </div>
       </div>
-
-      <!-- Right: Lead Form -->
-      <div class="hp-hero__form-wrap">
-        <form class="hp-lead-form" action="/contact/" method="GET">
-          <h3 class="hp-lead-form__title">Get Your Free Strategy Call</h3>
-          <p class="hp-lead-form__sub">Fill out the form and we'll reach out within 24 hours.</p>
-          <input type="text" name="name" placeholder="Full Name" required class="hp-input" />
-          <input type="email" name="email" placeholder="Email Address" required class="hp-input" />
-          <input type="tel" name="phone" placeholder="Phone Number" class="hp-input" />
-          <input type="text" name="company" placeholder="Company Name" class="hp-input" />
-          <select name="service" class="hp-input">
-            <option value="">Select a Service</option>
-            <option value="local-seo">Local SEO</option>
-            <option value="ppc">Google Ads (PPC)</option>
-            <option value="website-design">Website Design</option>
-            <option value="tv-streaming">TV & Streaming Ads</option>
-            <option value="other">Other</option>
-          </select>
-          <button type="submit" class="hp-btn hp-btn--red hp-btn--full">Let's Get Started</button>
-        </form>
+      <div class="comparison-col comparison-col--good">
+        <h3 class="comparison-col__head comparison-col__head--good">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          ServiceLine Pro
+        </h3>
+        <ul class="comparison-list">
+          <li>$0 agency fee on ad budgets over $5K/mo</li>
+          <li>Custom strategy built for your exact market</li>
+          <li>No long-term contracts — results keep you</li>
+          <li>Real-time dashboards with live metrics</li>
+          <li>In-house team, direct access to your strategist</li>
+          <li>Custom-coded, conversion-optimized websites</li>
+        </ul>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ===== SECTION 2: SOCIAL PROOF STRIP ===== -->
-  <section class="hp-proof-strip">
-    <div class="hp-container">
-      <div class="hp-proof-strip__inner">
-        <div class="hp-proof-strip__rating">
-          <svg class="hp-google-g" width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/>
-            <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
-            <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18A10.96 10.96 0 001 12c0 1.77.42 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/>
-            <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
-          </svg>
-          <span class="hp-proof-strip__score">5.0</span>
-          <span class="hp-proof-strip__stars">★★★★★</span>
-          <span class="hp-proof-strip__count">20 Reviews</span>
-        </div>
-        <div class="hp-proof-strip__divider"></div>
-        <div class="hp-proof-strip__partners">
-          <span>Spectrum Reach</span>
-          <span class="hp-dot">•</span>
-          <span>Google Partner</span>
-          <span class="hp-dot">•</span>
-          <span>Yahoo</span>
-          <span class="hp-dot">•</span>
-          <span>TAG Certified</span>
-        </div>
+<!-- ====== PROCESS ====== -->
+<section class="section bg-dark">
+  <div class="container">
+    <div class="fade-in" style="text-align: center; margin-bottom: 3.5rem;">
+      <span class="section-label">How It Works</span>
+      <h2 class="section-title">From First Call to First Results</h2>
+    </div>
+    <div class="process-grid stagger">
+      <div class="process-step fade-in">
+        <div class="process-step__number">1</div>
+        <h3 style="margin-bottom: 0.5rem;">Free Strategy Call</h3>
+        <p style="color: var(--gray-400); font-size: 0.95rem;">We audit your current presence, analyze your competitors, and identify the fastest path to more leads. No charge, no obligation.</p>
+      </div>
+      <div class="process-step fade-in">
+        <div class="process-step__number">2</div>
+        <h3 style="margin-bottom: 0.5rem;">Custom Game Plan</h3>
+        <p style="color: var(--gray-400); font-size: 0.95rem;">We build a strategy tailored to your market, budget, and growth goals — whether that's Map Pack domination, PPC at scale, or a full website rebuild.</p>
+      </div>
+      <div class="process-step fade-in">
+        <div class="process-step__number">3</div>
+        <h3 style="margin-bottom: 0.5rem;">Launch & Optimize</h3>
+        <p style="color: var(--gray-400); font-size: 0.95rem;">Our in-house team executes everything — from campaign setup to website deployment. You get real-time access to every metric that matters.</p>
+      </div>
+      <div class="process-step fade-in">
+        <div class="process-step__number">4</div>
+        <h3 style="margin-bottom: 0.5rem;">Scale What Works</h3>
+        <p style="color: var(--gray-400); font-size: 0.95rem;">As leads flow in, we double down on what's working and expand into new channels and markets. The goal is always more revenue, not more busywork.</p>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ===== SECTION 3: PROBLEM SECTION ===== -->
-  <section class="hp-section hp-section--dark-alt">
-    <div class="hp-container">
-      <span class="hp-eyebrow">The Problem</span>
-      <h2 class="hp-h2">Why Your Current Marketing Isn't Working</h2>
-      <div class="hp-card-grid hp-card-grid--3">
-        <div class="hp-card">
-          <div class="hp-card__icon">🎯</div>
-          <h3 class="hp-card__title">Invisible to Customers</h3>
-          <p class="hp-card__text">Your competitors are booking the jobs you should have. If you're not in the Map Pack, you don't exist.</p>
-        </div>
-        <div class="hp-card">
-          <div class="hp-card__icon">📞</div>
-          <h3 class="hp-card__title">Clicks ≠ Calls</h3>
-          <p class="hp-card__text">Traffic is useless if it doesn't turn into booked jobs. Most agencies optimize for vanity metrics, not revenue.</p>
-        </div>
-        <div class="hp-card">
-          <div class="hp-card__icon">📅</div>
-          <h3 class="hp-card__title">Inconsistent Lead Flow</h3>
-          <p class="hp-card__text">You can't scale on a feast-or-famine schedule. Your pipeline should be predictable, not a rollercoaster.</p>
-        </div>
+<!-- ====== CASE STUDIES ====== -->
+<section class="section" id="results">
+  <div class="container">
+    <div class="fade-in" style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 1rem; margin-bottom: 3rem;">
+      <div>
+        <span class="section-label">Proven Results</span>
+        <h2 class="section-title" style="margin-bottom: 0.5rem;">Real Numbers. Real Clients.</h2>
+        <p class="section-subtitle">Every case study is verified with real data from real campaigns.</p>
       </div>
-      <p class="hp-transition-text">Two Services. One Mission. Fill Your Calendar.</p>
+      <a href="/case-studies/" class="btn btn--ghost">
+        View All Case Studies
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
     </div>
-  </section>
-
-  <!-- ===== SECTION 4: SERVICES ===== -->
-  <section class="hp-section hp-section--dark">
-    <div class="hp-container">
-      <span class="hp-eyebrow">The Solution</span>
-      <h2 class="hp-h2">Two Weapons to Dominate Your Market</h2>
-      <div class="hp-services-grid">
-        <!-- SEO Card -->
-        <div class="hp-service-card hp-service-card--main">
-          <div class="hp-service-card__img-wrap">
-            <img src="/media/local-seo-graphic.webp" alt="Local SEO Rankings" loading="lazy" />
-          </div>
-          <div class="hp-service-card__body">
-            <h3>Local Ranking SEO</h3>
-            <p class="hp-service-card__tagline">Rank Top 3 in 90 Days or Don't Pay</p>
-            <ul class="hp-check-list">
-              <li>Full GBP Optimization</li>
-              <li>Targeted Keyword Ranking</li>
-              <li>Geo-Grid Tracking</li>
-              <li>Free 10-Day Boost</li>
-            </ul>
-            <a href="/services/local-seo/" class="hp-link-arrow">Learn About Local SEO →</a>
-          </div>
-        </div>
-        <!-- PPC Card -->
-        <div class="hp-service-card hp-service-card--main">
-          <div class="hp-service-card__img-wrap">
-            <img src="/media/ppc-graphic.webp" alt="Google Ads PPC" loading="lazy" />
-          </div>
-          <div class="hp-service-card__body">
-            <h3>Google, Bing & Yahoo Ads</h3>
-            <p class="hp-service-card__tagline">$0 Agency Fee on $5K+ Spend</p>
-            <ul class="hp-check-list">
-              <li>First-Party Data from 30M+ Households</li>
-              <li>Multi-Platform Coverage</li>
-              <li>30-50% Higher CTR</li>
-              <li>Real-Time Optimization</li>
-            </ul>
-            <a href="/services/ppc/" class="hp-link-arrow">Learn About Google Ads →</a>
-          </div>
-        </div>
-      </div>
-      <!-- Secondary services -->
-      <div class="hp-services-secondary">
-        <a href="/services/website-design/" class="hp-service-mini">
-          <div class="hp-service-mini__icon">🖥</div>
-          <div>
-            <h4>Website Design</h4>
-            <p>Sub-2-second loads. Conversion-focused. You own it.</p>
+    <div class="grid grid--4 stagger" style="gap: 1.25rem;">
+      {caseStudies.map(cs => (
+        <a href={`/case-studies/${cs.slug}/`} class="case-card" style="text-decoration: none;">
+          {cs.image && <img src={`/media/case-studies/${cs.image}`} alt={cs.title} width="400" height="250" loading="lazy" class="case-card__img" />}
+          <div class="case-card__body">
+            <span class="case-card__category">{cs.category}</span>
+            <h4 class="case-card__title">{cs.title}</h4>
+            <div class="case-card__metric">
+              <span class="case-card__metric-value">{cs.metrics?.primary || cs.result}</span>
+            </div>
           </div>
         </a>
-        <a href="/services/tv-streaming/" class="hp-service-mini">
-          <div class="hp-service-mini__icon">📺</div>
-          <div>
-            <h4>TV & Streaming Ads</h4>
-            <p>Free video production with every FL campaign.</p>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- ====== REVIEWS ====== -->
+<section class="section bg-dark" id="reviews">
+  <div class="container">
+    <div class="fade-in" style="text-align: center; margin-bottom: 3rem;">
+      <span class="section-label">Client Reviews</span>
+      <h2 class="section-title">What Our Clients Say</h2>
+      <div style="display: flex; justify-content: center; align-items: center; gap: 0.75rem; margin-top: 0.75rem;">
+        <div class="stars">
+          <svg viewBox="0 0 20 20"><path d="M10 1l2.39 4.84L17.3 6.7l-3.65 3.56.86 5.03L10 13.07l-4.51 2.22.86-5.03L2.7 6.7l4.91-.86L10 1z"/></svg>
+          <svg viewBox="0 0 20 20"><path d="M10 1l2.39 4.84L17.3 6.7l-3.65 3.56.86 5.03L10 13.07l-4.51 2.22.86-5.03L2.7 6.7l4.91-.86L10 1z"/></svg>
+          <svg viewBox="0 0 20 20"><path d="M10 1l2.39 4.84L17.3 6.7l-3.65 3.56.86 5.03L10 13.07l-4.51 2.22.86-5.03L2.7 6.7l4.91-.86L10 1z"/></svg>
+          <svg viewBox="0 0 20 20"><path d="M10 1l2.39 4.84L17.3 6.7l-3.65 3.56.86 5.03L10 13.07l-4.51 2.22.86-5.03L2.7 6.7l4.91-.86L10 1z"/></svg>
+          <svg viewBox="0 0 20 20"><path d="M10 1l2.39 4.84L17.3 6.7l-3.65 3.56.86 5.03L10 13.07l-4.51 2.22.86-5.03L2.7 6.7l4.91-.86L10 1z"/></svg>
+        </div>
+        <span style="color: var(--gray-400); font-size: 0.9rem;">{config.trust_signals.rating} out of 5 on Google</span>
+      </div>
+    </div>
+    <div class="reviews-grid stagger">
+      {reviews.map(review => (
+        <div class="testimonial-card">
+          <div class="stars" style="margin-bottom: 0.75rem;">
+            {Array.from({length: review.rating}).map(() => (
+              <svg viewBox="0 0 20 20"><path d="M10 1l2.39 4.84L17.3 6.7l-3.65 3.56.86 5.03L10 13.07l-4.51 2.22.86-5.03L2.7 6.7l4.91-.86L10 1z"/></svg>
+            ))}
           </div>
+          <p class="testimonial-card__quote">{review.text}</p>
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span class="testimonial-card__author">{review.author}</span>
+            <span class="testimonial-card__date">{review.date}</span>
+          </div>
+        </div>
+      ))}
+    </div>
+    <div style="text-align: center; margin-top: 2.5rem;" class="fade-in">
+      <a href="https://www.google.com/maps/place/ServiceLine+Pro" target="_blank" rel="noopener noreferrer" class="btn btn--outline">
+        Read All Reviews on Google
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ====== CTA BANNER ====== -->
+<section class="cta-banner">
+  <div class="container" style="position: relative; z-index: 1;">
+    <div class="fade-in">
+      <h2 style="margin-bottom: 1rem;">Ready to Dominate Your Market?</h2>
+      <p style="margin-bottom: 2rem; font-size: 1.1rem;">
+        Get a free strategy call with our team. We'll audit your market, show you exactly where the opportunities are, and build a plan to get you there.
+      </p>
+      <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+        <a href="/contact/" class="btn btn--lime btn--lg">Book Your Free Call</a>
+        <a href={`tel:${config.business.phone_raw}`} class="btn btn--outline btn--lg" style="border-color: rgba(255,255,255,0.3); color: var(--white);">
+          Call {config.business.phone}
         </a>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ===== SECTION 5: REAL GOOGLE REVIEWS ===== -->
-  <section class="hp-section hp-section--light" id="reviews">
-    <div class="hp-container">
-      <span class="hp-eyebrow hp-eyebrow--dark">What Our Clients Say</span>
-      <div class="hp-reviews-layout">
-        <div class="hp-reviews-left">
-          <svg class="hp-google-g-lg" width="48" height="48" viewBox="0 0 24 24" fill="none">
-            <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/>
-            <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
-            <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18A10.96 10.96 0 001 12c0 1.77.42 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/>
-            <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
-          </svg>
-          <div class="hp-reviews-left__rating">5.0</div>
-          <div class="hp-reviews-left__stars">★★★★★</div>
-          <p class="hp-reviews-left__count">20 reviews on Google</p>
-          <a href="https://www.google.com/maps/place/ServiceLine+Pro" target="_blank" rel="noopener" class="hp-link-arrow hp-link-arrow--dark">Read All Reviews on Google →</a>
-        </div>
-        <div class="hp-reviews-right">
-          {topReviews.map((review) => (
-            <div class="hp-review-card">
-              <div class="hp-review-card__header">
-                <div class="hp-review-card__avatar">{review.author.charAt(0)}</div>
-                <div>
-                  <div class="hp-review-card__name">{review.author}</div>
-                  <div class="hp-review-card__stars">★★★★★</div>
-                </div>
-              </div>
-              <p class="hp-review-card__text">{review.text.length > 160 ? review.text.slice(0, 160) + '…' : review.text}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== SECTION 6: CASE STUDIES ===== -->
-  <section class="hp-section hp-section--dark" id="case-studies">
-    <div class="hp-container">
-      <span class="hp-eyebrow">Real Results</span>
-      <h2 class="hp-h2">The ServiceLine Effect</h2>
-      <div class="hp-card-grid hp-card-grid--3">
-        <div class="hp-case-card">
-          <div class="hp-case-card__img">
-            <img src="/media/case-studies/True-Corp-Work-Trucks.webp" alt="True Corp Construction" loading="lazy" />
-            <div class="hp-case-card__overlay">
-              <span class="hp-case-card__label">True Corp Construction</span>
-              <span class="hp-case-card__result">Full Digital Transformation</span>
-            </div>
-          </div>
-        </div>
-        <div class="hp-case-card">
-          <div class="hp-case-card__img">
-            <img src="/media/case-studies/Website-Designs-Presentation.webp" alt="Website Portfolio" loading="lazy" />
-            <div class="hp-case-card__overlay">
-              <span class="hp-case-card__label">Website Portfolio</span>
-              <span class="hp-case-card__result">20+ Websites Delivered</span>
-            </div>
-          </div>
-        </div>
-        <div class="hp-case-card">
-          <div class="hp-case-card__img">
-            <img src="/media/case-studies/Job-Revenue-Total.webp" alt="Revenue Tracking" loading="lazy" />
-            <div class="hp-case-card__overlay">
-              <span class="hp-case-card__label">Revenue Tracking</span>
-              <span class="hp-case-card__result">Real-Time ROI Dashboard</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="hp-section-cta">
-        <a href="/case-studies/" class="hp-btn hp-btn--ghost">See All Case Studies →</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== SECTION 7: HOW IT WORKS ===== -->
-  <section class="hp-section hp-section--dark-alt">
-    <div class="hp-container">
-      <span class="hp-eyebrow">Next Steps</span>
-      <h2 class="hp-h2">How We Take You From Invisible to Unavoidable</h2>
-      <div class="hp-steps">
-        <div class="hp-step">
-          <span class="hp-step__num">01</span>
-          <h3 class="hp-step__title">Free Strategy Call</h3>
-          <p class="hp-step__text">15-minute no-pressure call. We analyze your market and competition.</p>
-        </div>
-        <div class="hp-step">
-          <span class="hp-step__num">02</span>
-          <h3 class="hp-step__title">Custom Battle Plan</h3>
-          <p class="hp-step__text">You see exactly what we're doing, when, and how we measure success.</p>
-        </div>
-        <div class="hp-step">
-          <span class="hp-step__num">03</span>
-          <h3 class="hp-step__title">Launch & Dominate</h3>
-          <p class="hp-step__text">We execute. Your phone rings. You track every lead in real time.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== SECTION 8: MEET THE TEAM ===== -->
-  <section class="hp-section hp-section--light" id="team">
-    <div class="hp-container hp-team-section">
-      <span class="hp-eyebrow hp-eyebrow--dark">Our Team</span>
-      <h2 class="hp-h2 hp-h2--dark">Meet the Team Behind Your Growth</h2>
-      <div class="hp-team-photo-wrap">
-        <img src="/media/team-photo-gbp.jpg" alt="ServiceLine Pro Team" class="hp-team-photo" loading="lazy" />
-      </div>
-      <p class="hp-team-copy">We started ServiceLine Pro with a simple belief: home service businesses deserve marketing that actually works. Every team member is invested in your growth — from strategy to execution.</p>
-      <div class="hp-team-grid">
-        {config.business.team.map((member: { name: string; role: string }) => (
-          <div class="hp-team-member">
-            <span class="hp-team-member__name">{member.name}</span>
-            <span class="hp-team-member__role">{member.role}</span>
-          </div>
-        ))}
-      </div>
-      <div class="hp-section-cta">
-        <a href="/about/" class="hp-btn hp-btn--dark">About Our Team →</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== SECTION 9: WHY SERVICELINE ===== -->
-  <section class="hp-section hp-section--dark">
-    <div class="hp-container">
-      <span class="hp-eyebrow">Why ServiceLine</span>
-      <h2 class="hp-h2">Built Different. Built for You.</h2>
-      <div class="hp-card-grid hp-card-grid--3">
-        <div class="hp-card">
-          <div class="hp-card__icon">🏠</div>
-          <h3 class="hp-card__title">Built for Home Services</h3>
-          <p class="hp-card__text">We know your industry. Our strategies drive real growth for painting, HVAC, plumbing, contracting, and more.</p>
-        </div>
-        <div class="hp-card">
-          <div class="hp-card__icon">📈</div>
-          <h3 class="hp-card__title">Growth Without Burnout</h3>
-          <p class="hp-card__text">We scale at a pace your team can handle. No wasted leads, no overwhelmed staff.</p>
-        </div>
-        <div class="hp-card">
-          <div class="hp-card__icon">🤝</div>
-          <h3 class="hp-card__title">Personal Service, Real Results</h3>
-          <p class="hp-card__text">Dedicated team, direct communication, strategy built for your goals. No call centers.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== SECTION 10: FAQ ===== -->
-  <section class="hp-section hp-section--light" id="faq">
-    <div class="hp-container hp-faq-section">
-      <span class="hp-eyebrow hp-eyebrow--dark">FAQ</span>
-      <h2 class="hp-h2 hp-h2--dark">Frequently Asked Questions</h2>
-      <div class="hp-faq-list">
-        <details class="hp-faq">
-          <summary>How fast will I see results?</summary>
-          <p>SEO typically shows measurable improvements within 30-60 days. PPC campaigns can generate leads within the first week of launch. Every market is different, and we'll set clear expectations during your strategy call.</p>
-        </details>
-        <details class="hp-faq">
-          <summary>How much time will this take from me or my team?</summary>
-          <p>Very little. After an initial strategy call, we handle everything. You'll get regular updates and reports without lifting a finger.</p>
-        </details>
-        <details class="hp-faq">
-          <summary>What experience do you have with businesses like mine?</summary>
-          <p>We specialize exclusively in home service businesses — HVAC, plumbing, painting, roofing, electrical, contracting, and more. Every strategy is built for your industry.</p>
-        </details>
-        <details class="hp-faq">
-          <summary>Can I pause or stop services if I need to?</summary>
-          <p>Absolutely. We don't believe in trapping clients. You can adjust or pause services based on your business needs.</p>
-        </details>
-        <details class="hp-faq">
-          <summary>Who will be my main point of contact?</summary>
-          <p>You'll have a dedicated team with direct access. No call centers, no ticket systems — just real people who know your account.</p>
-        </details>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== SECTION 11: FINAL CTA ===== -->
-  <section class="hp-final-cta">
-    <div class="hp-container">
-      <h2 class="hp-final-cta__h2">Ready to Fill Your Calendar?</h2>
-      <p class="hp-final-cta__sub">Book a free 15-minute strategy call. No pressure, no obligation.</p>
-      <a href="/contact/" class="hp-btn hp-btn--red hp-btn--lg">Book Your Strategy Call</a>
-      <p class="hp-final-cta__phone"><a href="tel:+18135213199">(813) 521-3199</a></p>
-      <div class="hp-final-cta__social">
-        <a href="https://www.facebook.com/servicelinepro" target="_blank" rel="noopener" aria-label="Facebook">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-        </a>
-        <a href="https://www.google.com/maps/place/ServiceLine+Pro" target="_blank" rel="noopener" aria-label="Google Business">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="currentColor"/>
-            <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="currentColor"/>
-            <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18A10.96 10.96 0 001 12c0 1.77.42 3.45 1.18 4.93l3.66-2.84z" fill="currentColor"/>
-            <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="currentColor"/>
-          </svg>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <Footer slot="footer" />
 </Base>
 
 <style>
-  /* ============================================
-     HOMEPAGE — Complete Rebuild
-     Inspired by Hook Agency + Scorpion
-     Dark, cinematic, conversion-focused
-     ============================================ */
-
-  /* --- Shared Utilities --- */
-  .hp-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 1.5rem;
-  }
-
-  .hp-text-red { color: var(--color-primary); }
-
-  .hp-eyebrow {
-    display: inline-block;
-    font-family: var(--font-heading);
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--color-primary);
-    margin-bottom: 1rem;
-  }
-
-  .hp-eyebrow--dark {
-    color: var(--color-primary);
-  }
-
-  .hp-h2 {
-    font-family: var(--font-heading);
-    font-size: clamp(1.75rem, 3vw, 2.5rem);
-    font-weight: 800;
-    color: #fff;
-    margin: 0 0 2.5rem;
-    line-height: 1.15;
-  }
-
-  .hp-h2--dark {
-    color: var(--color-dark);
-  }
-
-  .hp-section {
-    padding: 5rem 0;
-  }
-
-  .hp-section--dark {
-    background: var(--color-dark);
-  }
-
-  .hp-section--dark-alt {
-    background: #151515;
-  }
-
-  .hp-section--light {
-    background: #f9f9f9;
-  }
-
-  .hp-section-cta {
-    text-align: center;
-    margin-top: 2.5rem;
-  }
-
-  /* --- Buttons --- */
-  .hp-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-family: var(--font-heading);
-    font-weight: 700;
-    font-size: 0.9rem;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    text-decoration: none;
-    padding: 0.85rem 2rem;
-    border-radius: 6px;
-    transition: all 0.2s ease;
-    cursor: pointer;
-    border: 2px solid transparent;
-  }
-
-  .hp-btn--red {
-    background: var(--color-primary);
-    color: #fff;
-    border-color: var(--color-primary);
-  }
-
-  .hp-btn--red:hover {
-    background: #a5311f;
-    border-color: #a5311f;
-  }
-
-  .hp-btn--ghost {
-    background: transparent;
-    color: #fff;
-    border-color: rgba(255,255,255,0.3);
-  }
-
-  .hp-btn--ghost:hover {
-    border-color: #fff;
-    color: #fff;
-  }
-
-  .hp-btn--dark {
-    background: var(--color-dark);
-    color: #fff;
-    border-color: var(--color-dark);
-  }
-
-  .hp-btn--dark:hover {
-    background: #333;
-  }
-
-  .hp-btn--full {
-    width: 100%;
-  }
-
-  .hp-btn--lg {
-    padding: 1.1rem 2.8rem;
-    font-size: 1rem;
-  }
-
-  /* --- Link arrows --- */
-  .hp-link-arrow {
-    font-family: var(--font-heading);
-    font-size: 0.85rem;
-    font-weight: 700;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    color: var(--color-primary);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-
-  .hp-link-arrow:hover {
-    color: #e74c3c;
-  }
-
-  .hp-link-arrow--dark {
-    color: var(--color-primary);
-  }
-
-  /* ===== SECTION 1: HERO ===== */
-  .hp-hero {
-    position: relative;
-    background: #111;
-    padding: 6rem 0 5rem;
-    overflow: hidden;
-  }
-
-  .hp-hero__bg {
-    position: absolute;
-    inset: 0;
-    background:
-      repeating-linear-gradient(
-        135deg,
-        transparent,
-        transparent 40px,
-        rgba(255,255,255,0.015) 40px,
-        rgba(255,255,255,0.015) 41px
-      );
-    pointer-events: none;
-  }
-
-  .hp-hero__grid {
-    display: grid;
-    grid-template-columns: 1fr 420px;
-    gap: 3rem;
-    align-items: center;
-    position: relative;
-    z-index: 1;
-  }
-
-  .hp-hero__badges {
-    display: flex;
-    gap: 0.75rem;
-    margin-bottom: 1.5rem;
-    flex-wrap: wrap;
-  }
-
-  .hp-badge {
-    display: inline-block;
-    font-family: var(--font-heading);
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--color-primary);
-    border: 1.5px solid var(--color-primary);
-    padding: 0.35rem 0.85rem;
-    border-radius: 100px;
-  }
-
-  .hp-hero__h1 {
-    font-family: var(--font-heading);
-    font-size: clamp(2rem, 4vw, 3.2rem);
-    font-weight: 800;
-    color: #fff;
-    line-height: 1.1;
-    margin: 0 0 1.25rem;
-  }
-
-  .hp-hero__sub {
-    font-family: var(--font-body);
-    font-size: 1.1rem;
-    color: rgba(255,255,255,0.65);
-    line-height: 1.6;
-    margin: 0 0 1.75rem;
-    max-width: 540px;
-  }
-
-  .hp-hero__bullets {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 2rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-  }
-
-  .hp-hero__bullets li {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.75rem;
-    font-family: var(--font-body);
-    font-size: 0.95rem;
-    color: rgba(255,255,255,0.85);
-    line-height: 1.5;
-  }
-
-  .hp-bullet-icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    background: var(--color-primary);
-    color: #fff;
-    font-size: 0.75rem;
-    font-weight: 700;
-    flex-shrink: 0;
-    margin-top: 0.1rem;
-  }
-
-  .hp-hero__ctas {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-  }
-
-  /* Lead Form */
-  .hp-hero__form-wrap {
-    position: relative;
-    z-index: 1;
-  }
-
-  .hp-lead-form {
-    background: #fff;
-    border-radius: 12px;
-    padding: 2rem;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
-  }
-
-  .hp-lead-form__title {
-    font-family: var(--font-heading);
-    font-size: 1.25rem;
-    font-weight: 800;
-    color: var(--color-dark);
-    margin: 0 0 0.5rem;
-  }
-
-  .hp-lead-form__sub {
-    font-family: var(--font-body);
-    font-size: 0.85rem;
-    color: #666;
-    margin: 0 0 1.25rem;
-  }
-
-  .hp-input {
-    display: block;
-    width: 100%;
-    font-family: var(--font-body);
-    font-size: 0.9rem;
-    padding: 0.75rem 1rem;
-    border: 1.5px solid #ddd;
-    border-radius: 6px;
-    margin-bottom: 0.75rem;
-    background: #fff;
-    color: var(--color-dark);
-    transition: border-color 0.2s;
-    box-sizing: border-box;
-  }
-
-  .hp-input:focus {
-    outline: none;
-    border-color: var(--color-primary);
-    box-shadow: 0 0 0 3px rgba(192,57,43,0.1);
-  }
-
-  .hp-input::placeholder {
-    color: #999;
-  }
-
-  select.hp-input {
-    appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M6 8L1 3h10z' fill='%23999'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 1rem center;
-    padding-right: 2.5rem;
-  }
-
-  /* ===== SECTION 2: PROOF STRIP ===== */
-  .hp-proof-strip {
-    background: #0d0d0d;
-    padding: 1.25rem 0;
-    border-top: 1px solid rgba(255,255,255,0.06);
-    border-bottom: 1px solid rgba(255,255,255,0.06);
-  }
-
-  .hp-proof-strip__inner {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 2rem;
-    flex-wrap: wrap;
-  }
-
-  .hp-proof-strip__rating {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
-  .hp-google-g {
-    flex-shrink: 0;
-  }
-
-  .hp-proof-strip__score {
-    font-family: var(--font-heading);
-    font-weight: 800;
-    font-size: 1.25rem;
-    color: #fff;
-  }
-
-  .hp-proof-strip__stars {
-    color: #fbbf24;
-    font-size: 1rem;
-    letter-spacing: 0.05em;
-  }
-
-  .hp-proof-strip__count {
-    font-family: var(--font-body);
-    font-size: 0.85rem;
-    color: rgba(255,255,255,0.5);
-  }
-
-  .hp-proof-strip__divider {
-    width: 1px;
-    height: 24px;
-    background: rgba(255,255,255,0.15);
-  }
-
-  .hp-proof-strip__partners {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-family: var(--font-body);
-    font-size: 0.8rem;
-    color: rgba(255,255,255,0.45);
-    letter-spacing: 0.02em;
-    flex-wrap: wrap;
-  }
-
-  .hp-dot {
-    color: rgba(255,255,255,0.2);
-  }
-
-  /* ===== SECTION 3: PROBLEM + SECTION 9: WHY ===== */
-  .hp-card-grid {
-    display: grid;
-    gap: 1.5rem;
-  }
-
-  .hp-card-grid--3 {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  .hp-card {
-    background: #1e1e1e;
-    border: 1px solid rgba(255,255,255,0.06);
-    border-radius: 12px;
-    padding: 2rem;
-    transition: border-color 0.2s;
-  }
-
-  .hp-card:hover {
-    border-color: rgba(255,255,255,0.12);
-  }
-
-  .hp-card__icon {
-    font-size: 2rem;
-    margin-bottom: 1rem;
-  }
-
-  .hp-card__title {
-    font-family: var(--font-heading);
-    font-size: 1.15rem;
-    font-weight: 700;
-    color: #fff;
-    margin: 0 0 0.75rem;
-  }
-
-  .hp-card__text {
-    font-family: var(--font-body);
-    font-size: 0.9rem;
-    color: rgba(255,255,255,0.6);
-    line-height: 1.6;
-    margin: 0;
-  }
-
-  .hp-transition-text {
-    text-align: center;
-    font-family: var(--font-body);
-    font-size: 1rem;
-    color: rgba(255,255,255,0.4);
-    margin-top: 2.5rem;
-    letter-spacing: 0.02em;
-  }
-
-  /* ===== SECTION 4: SERVICES ===== */
-  .hp-services-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.5rem;
-    margin-bottom: 1.5rem;
-  }
-
-  .hp-service-card {
-    background: #1e1e1e;
-    border: 1px solid rgba(255,255,255,0.06);
-    border-radius: 12px;
-    overflow: hidden;
-    transition: border-color 0.2s;
-  }
-
-  .hp-service-card:hover {
-    border-color: rgba(255,255,255,0.12);
-  }
-
-  .hp-service-card__img-wrap {
-    width: 100%;
-    height: 220px;
-    overflow: hidden;
-    background: #151515;
-  }
-
-  .hp-service-card__img-wrap img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .hp-service-card__body {
-    padding: 1.75rem;
-  }
-
-  .hp-service-card__body h3 {
-    font-family: var(--font-heading);
-    font-size: 1.35rem;
-    font-weight: 800;
-    color: #fff;
-    margin: 0 0 0.5rem;
-  }
-
-  .hp-service-card__tagline {
-    font-family: var(--font-body);
-    font-size: 0.95rem;
-    color: var(--color-primary);
-    font-weight: 600;
-    margin: 0 0 1.25rem;
-  }
-
-  .hp-check-list {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 1.5rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .hp-check-list li {
-    font-family: var(--font-body);
-    font-size: 0.88rem;
-    color: rgba(255,255,255,0.7);
-    padding-left: 1.5rem;
-    position: relative;
-  }
-
-  .hp-check-list li::before {
-    content: '✓';
-    position: absolute;
-    left: 0;
-    color: var(--color-primary);
-    font-weight: 700;
-  }
-
-  .hp-services-secondary {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.5rem;
-  }
-
-  .hp-service-mini {
-    display: flex;
-    align-items: flex-start;
-    gap: 1rem;
-    background: #1e1e1e;
-    border: 1px solid rgba(255,255,255,0.06);
-    border-radius: 12px;
-    padding: 1.5rem;
-    text-decoration: none;
-    transition: border-color 0.2s;
-  }
-
-  .hp-service-mini:hover {
-    border-color: rgba(255,255,255,0.12);
-  }
-
-  .hp-service-mini__icon {
-    font-size: 1.75rem;
-    flex-shrink: 0;
-  }
-
-  .hp-service-mini h4 {
-    font-family: var(--font-heading);
-    font-size: 1rem;
-    font-weight: 700;
-    color: #fff;
-    margin: 0 0 0.35rem;
-  }
-
-  .hp-service-mini p {
-    font-family: var(--font-body);
-    font-size: 0.85rem;
-    color: rgba(255,255,255,0.55);
-    margin: 0;
-    line-height: 1.5;
-  }
-
-  /* ===== SECTION 5: REVIEWS ===== */
-  .hp-reviews-layout {
-    display: grid;
-    grid-template-columns: 280px 1fr;
-    gap: 3rem;
-    align-items: start;
-  }
-
-  .hp-reviews-left {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.5rem;
-  }
-
-  .hp-google-g-lg {
-    margin-bottom: 0.5rem;
-  }
-
-  .hp-reviews-left__rating {
-    font-family: var(--font-heading);
-    font-size: 4rem;
-    font-weight: 800;
-    color: var(--color-dark);
-    line-height: 1;
-  }
-
-  .hp-reviews-left__stars {
-    color: #fbbf24;
-    font-size: 1.5rem;
-    letter-spacing: 0.05em;
-  }
-
-  .hp-reviews-left__count {
-    font-family: var(--font-body);
-    font-size: 0.9rem;
-    color: #666;
-    margin: 0.25rem 0 1rem;
-  }
-
-  .hp-reviews-right {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-  }
-
-  .hp-review-card {
-    background: #fff;
-    border: 1px solid #e8e8e8;
-    border-radius: 10px;
-    padding: 1.25rem;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-  }
-
-  .hp-review-card__header {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    margin-bottom: 0.75rem;
-  }
-
-  .hp-review-card__avatar {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    background: var(--color-primary);
-    color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: var(--font-heading);
-    font-weight: 700;
-    font-size: 0.85rem;
-  }
-
-  .hp-review-card__name {
-    font-family: var(--font-heading);
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: var(--color-dark);
-  }
-
-  .hp-review-card__stars {
-    color: #fbbf24;
-    font-size: 0.8rem;
-  }
-
-  .hp-review-card__text {
-    font-family: var(--font-body);
-    font-size: 0.82rem;
-    color: #555;
-    line-height: 1.55;
-    margin: 0;
-  }
-
-  /* ===== SECTION 6: CASE STUDIES ===== */
-  .hp-case-card {
-    border-radius: 12px;
-    overflow: hidden;
-  }
-
-  .hp-case-card__img {
-    position: relative;
-    width: 100%;
-    height: 260px;
-    overflow: hidden;
-  }
-
-  .hp-case-card__img img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-  }
-
-  .hp-case-card:hover .hp-case-card__img img {
-    transform: scale(1.05);
-  }
-
-  .hp-case-card__overlay {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: linear-gradient(to top, rgba(0,0,0,0.85), transparent);
-    padding: 2rem 1.5rem 1.25rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-  }
-
-  .hp-case-card__label {
-    font-family: var(--font-heading);
-    font-size: 0.7rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--color-primary);
-  }
-
-  .hp-case-card__result {
-    font-family: var(--font-heading);
-    font-size: 1.1rem;
-    font-weight: 800;
-    color: #fff;
-  }
-
-  /* ===== SECTION 7: STEPS ===== */
-  .hp-steps {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
-  }
-
-  .hp-step {
-    background: #1e1e1e;
-    border: 1px solid rgba(255,255,255,0.06);
-    border-radius: 12px;
-    padding: 2rem;
-    text-align: center;
-  }
-
-  .hp-step__num {
-    display: block;
-    font-family: var(--font-heading);
-    font-size: 3rem;
-    font-weight: 800;
-    color: var(--color-primary);
-    line-height: 1;
-    margin-bottom: 1rem;
-  }
-
-  .hp-step__title {
-    font-family: var(--font-heading);
-    font-size: 1.15rem;
-    font-weight: 700;
-    color: #fff;
-    margin: 0 0 0.75rem;
-  }
-
-  .hp-step__text {
-    font-family: var(--font-body);
-    font-size: 0.88rem;
-    color: rgba(255,255,255,0.6);
-    line-height: 1.6;
-    margin: 0;
-  }
-
-  /* ===== SECTION 8: TEAM ===== */
-  .hp-team-section {
-    text-align: center;
-  }
-
-  .hp-team-photo-wrap {
-    max-width: 800px;
-    margin: 0 auto 2rem;
-  }
-
-  .hp-team-photo {
-    width: 100%;
-    border-radius: 12px;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.12);
-  }
-
-  .hp-team-copy {
-    font-family: var(--font-body);
-    font-size: 1.05rem;
-    color: #555;
-    line-height: 1.7;
-    max-width: 640px;
-    margin: 0 auto 2.5rem;
-  }
-
-  .hp-team-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 1rem;
-    max-width: 900px;
-    margin: 0 auto;
-  }
-
-  .hp-team-member {
-    text-align: center;
-    padding: 1rem;
-  }
-
-  .hp-team-member__name {
-    display: block;
-    font-family: var(--font-heading);
-    font-size: 0.9rem;
-    font-weight: 700;
-    color: var(--color-dark);
-    margin-bottom: 0.2rem;
-  }
-
-  .hp-team-member__role {
-    display: block;
-    font-family: var(--font-body);
-    font-size: 0.78rem;
-    color: #888;
-  }
-
-  /* ===== SECTION 10: FAQ ===== */
-  .hp-faq-section {
-    max-width: 800px;
-  }
-
-  .hp-faq-list {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-  }
-
-  .hp-faq {
-    border-bottom: 1px solid #ddd;
-  }
-
-  .hp-faq summary {
-    font-family: var(--font-heading);
-    font-size: 1rem;
-    font-weight: 700;
-    color: var(--color-dark);
-    padding: 1.25rem 0;
-    cursor: pointer;
-    list-style: none;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .hp-faq summary::-webkit-details-marker {
-    display: none;
-  }
-
-  .hp-faq summary::after {
-    content: '+';
-    font-size: 1.5rem;
-    font-weight: 300;
-    color: #999;
-    transition: transform 0.2s;
-  }
-
-  .hp-faq[open] summary::after {
-    content: '−';
-  }
-
-  .hp-faq p {
-    font-family: var(--font-body);
-    font-size: 0.9rem;
-    color: #555;
-    line-height: 1.7;
-    padding: 0 0 1.25rem;
-    margin: 0;
-  }
-
-  /* ===== SECTION 11: FINAL CTA ===== */
-  .hp-final-cta {
-    background: #111;
-    padding: 6rem 0;
-    text-align: center;
-  }
-
-  .hp-final-cta__h2 {
-    font-family: var(--font-heading);
-    font-size: clamp(2rem, 4vw, 3rem);
-    font-weight: 800;
-    color: #fff;
-    margin: 0 0 1rem;
-  }
-
-  .hp-final-cta__sub {
-    font-family: var(--font-body);
-    font-size: 1.1rem;
-    color: rgba(255,255,255,0.55);
-    margin: 0 0 2rem;
-  }
-
-  .hp-final-cta__phone {
-    margin-top: 1.5rem;
-  }
-
-  .hp-final-cta__phone a {
-    font-family: var(--font-heading);
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: rgba(255,255,255,0.7);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-
-  .hp-final-cta__phone a:hover {
-    color: #fff;
-  }
-
-  .hp-final-cta__social {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    margin-top: 1.5rem;
-  }
-
-  .hp-final-cta__social a {
-    color: rgba(255,255,255,0.4);
-    transition: color 0.2s;
-  }
-
-  .hp-final-cta__social a:hover {
-    color: #fff;
-  }
-
-  /* ===== RESPONSIVE ===== */
-  @media (max-width: 900px) {
-    .hp-hero__grid {
-      grid-template-columns: 1fr;
-      gap: 2rem;
-    }
-
-    .hp-hero {
-      padding: 3rem 0;
-    }
-
-    .hp-card-grid--3 {
-      grid-template-columns: 1fr;
-    }
-
-    .hp-services-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .hp-services-secondary {
-      grid-template-columns: 1fr;
-    }
-
-    .hp-reviews-layout {
-      grid-template-columns: 1fr;
-    }
-
-    .hp-reviews-left {
-      align-items: center;
-      text-align: center;
-    }
-
-    .hp-reviews-right {
-      grid-template-columns: 1fr;
-    }
-
-    .hp-steps {
-      grid-template-columns: 1fr;
-    }
-
-    .hp-team-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  @media (max-width: 480px) {
-    .hp-hero__h1 {
-      font-size: 1.75rem;
-    }
-
-    .hp-hero__ctas {
-      flex-direction: column;
-    }
-
-    .hp-hero__ctas .hp-btn {
-      width: 100%;
-    }
-
-    .hp-team-grid {
-      grid-template-columns: 1fr;
-    }
-  }
+/* ====== HERO ====== */
+.hero {
+  position: relative;
+  min-height: 90vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  padding: 6rem 0 4rem;
+}
+.hero__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.hero__glow {
+  position: absolute;
+  top: -300px;
+  right: -200px;
+  width: 800px;
+  height: 800px;
+  background: radial-gradient(circle, rgba(192, 57, 43, 0.12) 0%, transparent 65%);
+  z-index: 0;
+  pointer-events: none;
+}
+.hero__content {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 4rem;
+  align-items: center;
+}
+.hero__text h1 {
+  margin-bottom: 1.25rem;
+}
+.hero__sub {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: var(--gray-400);
+  margin-bottom: 2rem;
+  max-width: 540px;
+}
+.hero__ctas {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 2.5rem;
+}
+.hero__proof {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+.hero__proof-divider {
+  width: 1px;
+  height: 40px;
+  background: var(--dark-4);
+}
+.hero__proof-num {
+  display: block;
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 1.75rem;
+  color: var(--white);
+  line-height: 1;
+}
+.hero__proof-label {
+  font-size: 0.8rem;
+  color: var(--gray-500);
+}
+.hero__visual {
+  display: flex;
+  justify-content: flex-end;
+}
+.hero__img-wrapper {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+.hero__img-wrapper img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.hero__img-badge {
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+  right: 1rem;
+  background: rgba(10, 10, 10, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: var(--radius-md);
+  padding: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+@media (max-width: 1024px) {
+  .hero__content { grid-template-columns: 1fr; }
+  .hero { min-height: auto; padding: 5rem 0 3rem; }
+}
+@media (max-width: 640px) {
+  .hero__proof { flex-direction: column; align-items: flex-start; gap: 1rem; }
+  .hero__proof-divider { display: none; }
+}
+
+/* ====== SERVICES CARDS ====== */
+.service-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.service-card__icon {
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-md);
+  background: rgba(192, 57, 43, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.service-card__title {
+  font-size: 1.25rem;
+  color: var(--white);
+}
+.service-card__desc {
+  font-size: 0.9rem;
+  color: var(--gray-400);
+  line-height: 1.6;
+  flex: 1;
+}
+.service-card__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--lime);
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-top: auto;
+  transition: gap var(--transition-fast);
+}
+.service-card:hover .service-card__cta { gap: 0.6rem; }
+
+/* ====== COMPARISON ====== */
+.comparison-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+@media (max-width: 768px) {
+  .comparison-grid { grid-template-columns: 1fr; }
+}
+.comparison-col {
+  border-radius: var(--radius-md);
+  padding: var(--space-xl);
+}
+.comparison-col--bad {
+  background: var(--dark-2);
+  border: 1px solid var(--dark-4);
+}
+.comparison-col--good {
+  background: linear-gradient(135deg, rgba(192,57,43,0.08), rgba(192,57,43,0.03));
+  border: 1px solid rgba(192,57,43,0.25);
+}
+.comparison-col__head {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.1rem;
+  margin-bottom: 1.25rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--dark-4);
+}
+.comparison-col__head--bad { color: var(--gray-400); }
+.comparison-col__head--bad svg { color: var(--gray-500); }
+.comparison-col__head--good { color: var(--lime); }
+.comparison-col__head--good svg { color: var(--lime); }
+.comparison-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.comparison-list li {
+  font-size: 0.95rem;
+  color: var(--gray-300);
+  padding-left: 1.5rem;
+  position: relative;
+  line-height: 1.5;
+}
+.comparison-col--bad .comparison-list li::before {
+  content: '✕';
+  position: absolute;
+  left: 0;
+  color: var(--gray-600);
+  font-size: 0.8rem;
+}
+.comparison-col--good .comparison-list li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--lime);
+  font-weight: 700;
+}
+
+/* ====== PROCESS ====== */
+.process-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2.5rem 3rem;
+}
+@media (max-width: 768px) {
+  .process-grid { grid-template-columns: 1fr; gap: 2rem; }
+}
+
+/* ====== CASE STUDY CARDS ====== */
+.case-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--dark-2);
+  border: 1px solid var(--dark-4);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  transition: all var(--transition-med);
+}
+.case-card:hover {
+  border-color: var(--gray-700);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+.case-card__img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+.case-card__body {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1;
+}
+.case-card__category {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--lime);
+}
+.case-card__title {
+  font-size: 1rem;
+  color: var(--white);
+  line-height: 1.3;
+}
+.case-card__metric {
+  margin-top: auto;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--dark-4);
+}
+.case-card__metric-value {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--red-light);
+}
+
+/* ====== PROOF BAR ====== */
+.proof-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  padding: 1.5rem 0;
+}
+.proof-bar__item {
+  text-align: center;
+}
+.proof-bar__num {
+  display: block;
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 1.75rem;
+  color: var(--white);
+  line-height: 1;
+}
+.proof-bar__label {
+  font-size: 0.75rem;
+  color: var(--gray-500);
+  margin-top: 0.15rem;
+  display: block;
+}
+.proof-bar__sep {
+  width: 1px;
+  height: 36px;
+  background: var(--dark-4);
+}
+@media (max-width: 640px) {
+  .proof-bar__sep { display: none; }
+  .proof-bar { gap: 1.25rem; }
+}
+
+/* ====== REVIEWS GRID ====== */
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 1.25rem;
+}
+@media (max-width: 768px) {
+  .reviews-grid { grid-template-columns: 1fr; }
+}
 </style>

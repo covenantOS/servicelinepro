@@ -702,7 +702,7 @@ spectrum_partnership:
   name: "Spectrum Reach"
   parent: "Charter Communications"
   households: "30M+"
-  states: 36
+  states: 48
   certifications:
     - "Google Certified"
     - "TAG Certified (Fraud, Malware, Brand Safety, Transparency)"
