@@ -114,7 +114,7 @@ const schema = {
         {contentSections.length > 0 ? (
           contentSections.map((section, i) => (
             <>
-              <div class={`prose content-section ${i > 0 && i % 2 === 0 ? 'section-highlighted' : ''}`} set:html={section.html} />
+              <div class="prose content-section" set:html={section.html} />
               {i === 1 && inlineReview && (
                 <InlineTestimonial quote={inlineReview.text} author={inlineReview.author} company={inlineReview.company} rating={inlineReview.rating} />
               )}

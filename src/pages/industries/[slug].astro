@@ -90,7 +90,7 @@ const schema = {
         {contentSections.length > 0 ? (
           contentSections.map((section, i) => (
             <>
-              <div class={`prose content-section ${i > 0 && i % 2 === 0 ? 'section-highlighted' : ''}`} set:html={section.html} />
+              <div class="prose content-section" set:html={section.html} />
 
               {/* After first section: Mid-content CTA */}
               {i === 0 && (

@@ -545,18 +545,16 @@ strong {
   font-weight: 600;
 }
 
-/* Bold text in first paragraph position = highlight callout */
-.prose p > strong:first-child:last-child,
-.prose p > strong:only-child {
-  display: block;
-  background: var(--color-gray-100);
-  color: var(--color-dark);
-  padding: var(--space-md) var(--space-lg);
-  border-left: 3px solid var(--color-primary);
-  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-  font-size: var(--text-base);
-  line-height: 1.6;
-  margin-bottom: var(--space-md);
+/* Feature grids and callout boxes inside prose need no extra prose margins */
+.prose .feature-grid,
+.prose .callout-box,
+.prose .visual-list {
+  max-width: none;
+}
+
+.prose .feature-grid + p,
+.prose .callout-box + p {
+  margin-top: var(--space-lg);
 }
 
 .prose a {
@@ -671,6 +669,268 @@ strong {
 .prose pre code {
   background: none;
   padding: 0;
+}
+
+/* --- Feature Card Grid (transformed from bold-lead paragraphs) --- */
+.feature-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-md);
+  margin: var(--space-xl) 0;
+}
+
+@media (min-width: 768px) {
+  .feature-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.feature-card {
+  background: var(--color-white);
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.feature-card:hover {
+  border-color: var(--color-primary);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+}
+
+.feature-card-title {
+  font-family: var(--font-heading);
+  font-size: var(--text-base);
+  font-weight: 700;
+  color: var(--color-dark);
+  margin-bottom: var(--space-sm);
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-sm);
+}
+
+.feature-card-title::before {
+  content: '';
+  flex-shrink: 0;
+  width: 8px;
+  height: 8px;
+  background: var(--color-primary);
+  border-radius: 2px;
+  margin-top: 0.45em;
+}
+
+.feature-card-desc {
+  font-size: var(--text-sm);
+  color: var(--color-text-light);
+  line-height: var(--leading-relaxed);
+  margin-bottom: 0;
+}
+
+/* --- Callout Box (single bold-lead paragraph) --- */
+.callout-box {
+  background: var(--color-gray-100);
+  border-left: 3px solid var(--color-primary);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  padding: var(--space-md) var(--space-lg);
+  margin: var(--space-lg) 0;
+}
+
+.callout-title {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: var(--text-base);
+  font-weight: 700;
+  color: var(--color-dark);
+  margin-bottom: var(--space-xs);
+}
+
+.callout-desc {
+  font-size: var(--text-sm);
+  color: var(--color-text-light);
+  line-height: var(--leading-relaxed);
+  margin-bottom: 0;
+}
+
+/* --- Visual List (4+ items grid) --- */
+.visual-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  list-style: none;
+  padding: 0;
+  margin: var(--space-lg) 0;
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  .visual-list {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.visual-list li {
+  padding: var(--space-md) var(--space-lg);
+  border-bottom: 1px solid var(--color-gray-100);
+  font-size: var(--text-sm);
+  color: var(--color-text-light);
+  line-height: 1.5;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-sm);
+  margin-bottom: 0;
+  padding-left: var(--space-lg);
+  position: relative;
+}
+
+@media (min-width: 768px) {
+  .visual-list li:nth-child(odd) {
+    border-right: 1px solid var(--color-gray-100);
+  }
+}
+
+.visual-list li::before {
+  content: '\\2713';
+  color: var(--color-primary);
+  font-weight: 700;
+  font-size: 0.75rem;
+  position: absolute;
+  left: var(--space-md);
+  top: var(--space-md);
+  width: auto;
+  height: auto;
+  background: none;
+  border-radius: 0;
+}
+
+.visual-list li:last-child {
+  border-bottom: none;
+}
+
+/* --- Content Section Visual Variety ---
+   Each H2 section gets a distinct visual treatment
+   to create dynamism and prevent wall-of-text feel. */
+
+/* Alternating section backgrounds */
+.content-section:nth-child(4n+3) {
+  background: var(--color-gray-100);
+  margin-left: calc(-1 * var(--space-xl));
+  margin-right: calc(-1 * var(--space-xl));
+  padding: var(--space-xl);
+  border-radius: var(--radius-lg);
+}
+
+/* Dark accent sections every 5th */
+.content-section:nth-child(5n+4) {
+  background: var(--color-dark);
+  color: rgba(255,255,255,0.85);
+  margin-left: calc(-1 * var(--space-xl));
+  margin-right: calc(-1 * var(--space-xl));
+  padding: var(--space-xl);
+  border-radius: var(--radius-lg);
+}
+
+.content-section:nth-child(5n+4) h2,
+.content-section:nth-child(5n+4) h3,
+.content-section:nth-child(5n+4) h4 {
+  color: var(--color-white);
+}
+
+.content-section:nth-child(5n+4) h2::before {
+  background: var(--color-primary);
+}
+
+.content-section:nth-child(5n+4) p,
+.content-section:nth-child(5n+4) li {
+  color: rgba(255,255,255,0.7);
+}
+
+.content-section:nth-child(5n+4) strong {
+  color: var(--color-white);
+}
+
+.content-section:nth-child(5n+4) a {
+  color: var(--color-primary-light);
+}
+
+.content-section:nth-child(5n+4) .feature-card {
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(255,255,255,0.1);
+}
+
+.content-section:nth-child(5n+4) .feature-card:hover {
+  border-color: var(--color-primary);
+  background: rgba(255,255,255,0.1);
+}
+
+.content-section:nth-child(5n+4) .feature-card-title {
+  color: var(--color-white);
+}
+
+.content-section:nth-child(5n+4) .feature-card-desc {
+  color: rgba(255,255,255,0.6);
+}
+
+.content-section:nth-child(5n+4) .callout-box {
+  background: rgba(255,255,255,0.06);
+  border-left-color: var(--color-primary);
+}
+
+.content-section:nth-child(5n+4) .callout-title {
+  color: var(--color-white);
+}
+
+.content-section:nth-child(5n+4) .callout-desc {
+  color: rgba(255,255,255,0.6);
+}
+
+.content-section:nth-child(5n+4) .visual-list {
+  border-color: rgba(255,255,255,0.1);
+}
+
+.content-section:nth-child(5n+4) .visual-list li {
+  border-color: rgba(255,255,255,0.06);
+  color: rgba(255,255,255,0.7);
+}
+
+/* Bordered accent sections */
+.content-section:nth-child(6n+5) {
+  border: 2px solid var(--color-gray-200);
+  margin-left: calc(-1 * var(--space-xl));
+  margin-right: calc(-1 * var(--space-xl));
+  padding: var(--space-xl);
+  border-radius: var(--radius-lg);
+  border-left: 4px solid var(--color-primary);
+}
+
+/* Stats-like pull quote for specific section patterns */
+.content-section p:first-of-type:has(+ .feature-grid) {
+  font-size: 1.1rem;
+  color: var(--color-text);
+  font-weight: 500;
+  line-height: 1.7;
+}
+
+/* --- Section Spacers Between Content Sections --- */
+.content-section + .content-section {
+  margin-top: var(--space-2xl);
+}
+
+.content-section + .qualifier-block,
+.content-section + .inline-testimonial,
+.content-section + .mid-cta-module,
+.content-section + .inline-case-studies,
+.content-section + .comparison-wrapper {
+  margin-top: var(--space-xl);
+}
+
+.qualifier-block + .content-section,
+.inline-testimonial + .content-section,
+.mid-cta-module + .content-section,
+.inline-case-studies + .content-section,
+.comparison-wrapper + .content-section {
+  margin-top: var(--space-xl);
 }
 
 /* --- Focus Styles for Accessibility --- */
