@@ -26,13 +26,13 @@ const pageTitle = service
 <section class="section glow-red" style="padding-top: 6rem; position: relative; overflow: hidden;">
   <div class="container" style="position: relative; z-index: 1;">
     <div class="fade-in" style="max-width: 700px;">
-      <a href="/areas/" style="display: inline-flex; align-items: center; gap: 0.25rem; font-size: 0.8rem; color: var(--gray-500); margin-bottom: 1.5rem; text-decoration: none;">
+      <a href="/areas/" style="display: inline-flex; align-items: center; gap: 0.25rem; font-size: 0.8rem; color: #888888; margin-bottom: 1.5rem; text-decoration: none;">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
         All Areas
       </a>
       <span class="section-label">{area.name}{service ? ` / ${service.name}` : ''}</span>
       <h1>{pageTitle}</h1>
-      <p style="color: var(--gray-400); font-size: 1.05rem; line-height: 1.7; margin: 1.25rem 0 2rem;">
+      <p style="color: #666666; font-size: 1.05rem; line-height: 1.7; margin: 1.25rem 0 2rem;">
         {service
           ? `Looking for ${service.name.toLowerCase()} in ${area.name}? ServiceLine Pro delivers measurable results through data-driven ${service.name.toLowerCase()} strategies built specifically for businesses in the ${area.name} market.`
           : `ServiceLine Pro helps businesses in ${area.name} dominate local search, generate more leads, and grow revenue through SEO, PPC, web design, and streaming advertising.`
@@ -53,8 +53,8 @@ const pageTitle = service
       <div class="grid grid--2 stagger">
         {config.services.map(svc => (
           <a href={config.area_service_combos.includes(area.slug) ? `/areas/${area.slug}/${svc.slug}/` : `/services/${svc.slug}/`} class="card" style="text-decoration: none;">
-            <h3 style="font-size: 1.15rem; margin-bottom: 0.5rem; color: var(--white);">{svc.name}</h3>
-            <p style="color: var(--gray-400); font-size: 0.9rem; line-height: 1.5;">{svc.short_description}</p>
+            <h3 style="font-size: 1.15rem; margin-bottom: 0.5rem; color: #1a1a1a;">{svc.name}</h3>
+            <p style="color: #666666; font-size: 0.9rem; line-height: 1.5;">{svc.short_description}</p>
             <span style="display: inline-flex; align-items: center; gap: 0.25rem; color: var(--red-light); font-size: 0.85rem; font-weight: 600; margin-top: 0.75rem;">
               Learn More <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
             </span>

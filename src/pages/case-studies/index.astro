@@ -3,135 +3,452 @@ import Base from '../../layouts/Base.astro';
 import config from '../../lib/config';
 
 const caseStudies = config.case_studies;
-const categories = [...new Set(caseStudies.map(cs => cs.category))];
+
+// Get unique categories
+const allCategories = ['All', ...Array.from(new Set(caseStudies.map(cs => cs.category)))];
+
+// Category color map
+const categoryColors: Record<string, string> = {
+  'Local SEO': '#c0392b',
+  'Website Design': '#2c3e50',
+  'Google Ads': '#e67e22',
+  'TV Advertising': '#8e44ad',
+  'AI Automation': '#16a085',
+};
+
+function getCategoryColor(cat: string): string {
+  return categoryColors[cat] || '#555555';
+}
 ---
 
-<Base title="Case Studies" description="Real results from real clients. See how ServiceLine Pro delivers measurable ROI through SEO, PPC, web design, and reputation management.">
-
-<section class="section" style="padding-top: 5rem;">
-  <div class="container">
-    <div class="fade-in" style="text-align: center; margin-bottom: 3.5rem;">
-      <span class="section-label">Case Studies</span>
-      <h1>Real Clients. <span class="gradient-text--red">Real Results.</span></h1>
-      <p class="section-subtitle" style="margin: 1rem auto 0;">Every number below is verified from real campaigns. No hypotheticals. No projections. Just proven outcomes.</p>
-    </div>
-
-    <!-- Filter Tabs -->
-    <div class="filter-tabs fade-in" id="filter-tabs">
-      <button class="filter-tab is-active" data-filter="all">All</button>
-      {categories.map(cat => (
-        <button class="filter-tab" data-filter={cat}>{cat}</button>
-      ))}
-    </div>
-
-    <div class="cs-grid stagger" id="cs-grid">
-      {caseStudies.map(cs => (
-        <a href={`/case-studies/${cs.slug}/`} class="case-card" data-category={cs.category} style="text-decoration: none;">
-          {cs.image && <img src={`/media/case-studies/${cs.image}`} alt={cs.title} width="400" height="250" loading="lazy" class="case-card__img" />}
-          <div class="case-card__body">
-            <div style="display: flex; gap: 0.5rem; align-items: center; margin-bottom: 0.5rem;">
-              <span class="case-card__category">{cs.category}</span>
-              {cs.industry && <span style="font-size: 0.7rem; color: var(--gray-600);">/ {cs.industry}</span>}
-            </div>
-            <h3 class="case-card__title">{cs.title}</h3>
-            {cs.location && <p style="font-size: 0.8rem; color: var(--gray-500); margin-top: 0.25rem;">{cs.location}</p>}
-            <div class="case-card__metric">
-              <span class="case-card__metric-value">{cs.metrics?.primary || cs.result}</span>
-              {cs.metrics?.secondary && <span style="font-size: 0.8rem; color: var(--gray-500); display: block; margin-top: 0.15rem;">{cs.metrics.secondary}</span>}
-            </div>
+<Base
+  title="50+ Client Results | Case Studies | ServiceLine Pro"
+  description="Real results from real campaigns. 50+ case studies from ServiceLine Pro clients across Local SEO, Google Ads, Website Design, and TV Advertising."
+>
+  <!-- ===== HERO ===== -->
+  <section class="cs-hero">
+    <div class="container">
+      <div class="cs-hero__inner">
+        <span class="section-label">Proven Results</span>
+        <h1 class="cs-hero__title">50+ Client Results</h1>
+        <p class="cs-hero__sub">
+          Every number is from a real campaign. No hypotheticals.
+        </p>
+        <div class="cs-hero__stats">
+          <div class="hero-stat">
+            <span class="hero-stat__num">50+</span>
+            <span class="hero-stat__label">Documented Results</span>
           </div>
-        </a>
-      ))}
+          <div class="hero-stat__divider"></div>
+          <div class="hero-stat">
+            <span class="hero-stat__num">5.0</span>
+            <span class="hero-stat__label">Google Rating</span>
+          </div>
+          <div class="hero-stat__divider"></div>
+          <div class="hero-stat">
+            <span class="hero-stat__num">4</span>
+            <span class="hero-stat__label">Service Lines</span>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<section class="cta-banner">
-  <div class="container" style="position: relative; z-index: 1;">
-    <h2 style="margin-bottom: 1rem;">Want Results Like These?</h2>
-    <p style="margin-bottom: 2rem; font-size: 1.05rem;">We'll analyze your market and show you exactly what's possible. Free, no obligation.</p>
-    <a href="/contact/" class="btn btn--primary btn--lg">Get Your Free Strategy Call</a>
-  </div>
-</section>
+  <!-- ===== FILTER + GRID ===== -->
+  <section class="cs-grid-section">
+    <div class="container">
 
-<script is:inline>
-document.addEventListener('DOMContentLoaded', () => {
-  const tabs = document.querySelectorAll('.filter-tab');
-  const cards = document.querySelectorAll('#cs-grid .case-card');
-  tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      tabs.forEach(t => t.classList.remove('is-active'));
-      tab.classList.add('is-active');
-      const filter = tab.dataset.filter;
-      cards.forEach(card => {
-        if (filter === 'all' || card.dataset.category === filter) {
-          card.style.display = '';
-        } else {
-          card.style.display = 'none';
-        }
-      });
-    });
-  });
-});
-</script>
+      <!-- Filter Tabs -->
+      <div class="filter-tabs" role="tablist" aria-label="Filter case studies by category">
+        {allCategories.map((cat, i) => (
+          <button
+            class:list={['filter-tab', { 'filter-tab--active': i === 0 }]}
+            data-filter={cat}
+            role="tab"
+            aria-selected={i === 0 ? 'true' : 'false'}
+            type="button"
+          >
+            {cat}
+            {cat !== 'All' && (
+              <span class="filter-tab__count">
+                {caseStudies.filter(cs => cs.category === cat).length}
+              </span>
+            )}
+            {cat === 'All' && (
+              <span class="filter-tab__count">{caseStudies.length}</span>
+            )}
+          </button>
+        ))}
+      </div>
 
+      <!-- Cards Grid -->
+      <div class="cs-grid" id="cs-grid">
+        {caseStudies.map(cs => (
+          <article
+            class="cs-card"
+            data-category={cs.category}
+          >
+            <div class="cs-card__header">
+              <span
+                class="cs-card__category"
+                style={`background: ${getCategoryColor(cs.category)}15; color: ${getCategoryColor(cs.category)};`}
+              >
+                {cs.category}
+              </span>
+              {cs.industry && <span class="cs-card__industry">{cs.industry}</span>}
+            </div>
+
+            <div class="cs-card__metrics">
+              <div class="metric-primary">{cs.metrics?.primary ?? cs.result}</div>
+              {cs.metrics?.secondary && (
+                <div class="metric-secondary">{cs.metrics.secondary}</div>
+              )}
+            </div>
+
+            <div class="cs-card__body">
+              <h2 class="cs-card__title">{cs.title}</h2>
+              {cs.location && (
+                <div class="cs-card__location">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                  {cs.location}
+                </div>
+              )}
+            </div>
+
+            <a href={`/case-studies/${cs.slug}/`} class="cs-card__cta">
+              View Full Results
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
+          </article>
+        ))}
+      </div>
+
+      <!-- Empty state (hidden by default) -->
+      <div class="cs-empty" id="cs-empty" style="display:none;">
+        <p>No case studies found for this filter.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== BOTTOM CTA ===== -->
+  <section class="cs-cta">
+    <div class="container">
+      <div class="cs-cta__inner">
+        <span class="section-label">Get Started</span>
+        <h2 class="cs-cta__title">Want Results Like These?</h2>
+        <p class="cs-cta__sub">
+          Book a free strategy call and we'll tell you exactly what it would take to get
+          your business into the results above.
+        </p>
+        <div class="cs-cta__actions">
+          <a href="/contact/" class="btn btn--primary btn--lg">Book a Free Strategy Call</a>
+          <a href={`tel:${config.business.phone_raw}`} class="btn btn--outline btn--lg">
+            Call {config.business.phone}
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
 </Base>
 
+<script>
+  const tabs = document.querySelectorAll<HTMLButtonElement>('.filter-tab');
+  const cards = document.querySelectorAll<HTMLElement>('.cs-card');
+  const emptyState = document.getElementById('cs-empty');
+
+  function filterCards(category: string) {
+    let visible = 0;
+    cards.forEach(card => {
+      const cat = card.dataset.category;
+      const show = category === 'All' || cat === category;
+      card.style.display = show ? '' : 'none';
+      if (show) visible++;
+    });
+    if (emptyState) emptyState.style.display = visible === 0 ? 'block' : 'none';
+  }
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => {
+        t.classList.remove('filter-tab--active');
+        t.setAttribute('aria-selected', 'false');
+      });
+      tab.classList.add('filter-tab--active');
+      tab.setAttribute('aria-selected', 'true');
+      filterCards(tab.dataset.filter || 'All');
+    });
+  });
+</script>
+
 <style>
+/* ===== HERO ===== */
+.cs-hero {
+  background: #ffffff;
+  padding: clamp(4rem, 8vw, 6rem) 0 clamp(2.5rem, 5vw, 4rem);
+  border-bottom: 1px solid var(--gray-200);
+}
+.cs-hero__inner {
+  max-width: 640px;
+}
+.section-label {
+  display: inline-block;
+  font-family: var(--font-heading);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 1rem;
+}
+.cs-hero__title {
+  font-family: var(--font-heading);
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  font-weight: 800;
+  color: var(--gray-900);
+  line-height: 1.05;
+  margin-bottom: 1rem;
+}
+.cs-hero__sub {
+  font-size: 1.15rem;
+  color: var(--gray-600);
+  margin-bottom: 2.5rem;
+}
+.cs-hero__stats {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+.hero-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+.hero-stat__num {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--red);
+  line-height: 1;
+}
+.hero-stat__label {
+  font-size: 0.75rem;
+  color: var(--gray-500);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.hero-stat__divider {
+  width: 1px;
+  height: 44px;
+  background: var(--gray-200);
+}
+
+/* ===== GRID SECTION ===== */
+.cs-grid-section {
+  background: var(--gray-100);
+  padding: clamp(3rem, 6vw, 5rem) 0;
+}
+
+/* ===== FILTER TABS ===== */
 .filter-tabs {
   display: flex;
-  gap: 0.5rem;
   flex-wrap: wrap;
-  justify-content: center;
+  gap: 0.5rem;
   margin-bottom: 2.5rem;
 }
 .filter-tab {
-  padding: 0.5rem 1.25rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1.1rem;
   font-family: var(--font-heading);
   font-size: 0.8rem;
-  font-weight: 600;
-  border: 1px solid var(--dark-4);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--gray-600);
+  background: #ffffff;
+  border: 1.5px solid var(--gray-200);
   border-radius: var(--radius-full);
-  background: transparent;
-  color: var(--gray-400);
   cursor: pointer;
   transition: all var(--transition-fast);
 }
-.filter-tab:hover { border-color: var(--gray-600); color: var(--white); }
-.filter-tab.is-active {
+.filter-tab:hover {
+  border-color: var(--gray-400);
+  color: var(--gray-900);
+}
+.filter-tab--active {
   background: var(--red);
   border-color: var(--red);
-  color: var(--white);
+  color: #ffffff;
+}
+.filter-tab--active:hover {
+  background: var(--red-dark);
+  border-color: var(--red-dark);
+  color: #ffffff;
+}
+.filter-tab__count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 5px;
+  border-radius: var(--radius-full);
+  font-size: 0.7rem;
+  font-weight: 800;
+  background: rgba(0,0,0,0.08);
+  color: inherit;
+}
+.filter-tab--active .filter-tab__count {
+  background: rgba(255,255,255,0.25);
+  color: #ffffff;
 }
 
+/* ===== CARDS GRID ===== */
 .cs-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1.25rem;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
 }
-.case-card {
+.cs-card {
+  background: #ffffff;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
   display: flex;
   flex-direction: column;
-  background: var(--dark-2);
-  border: 1px solid var(--dark-4);
-  border-radius: var(--radius-md);
-  overflow: hidden;
-  transition: all var(--transition-med);
+  gap: 1.25rem;
+  transition: box-shadow var(--transition-med), transform var(--transition-med), border-color var(--transition-med);
 }
-.case-card:hover {
-  border-color: var(--gray-700);
+.cs-card:hover {
+  box-shadow: var(--shadow-lg);
   transform: translateY(-4px);
-  box-shadow: var(--shadow-md);
+  border-color: var(--gray-300);
 }
-.case-card__img { width: 100%; height: 180px; object-fit: cover; }
-.case-card__body { padding: 1.25rem; display: flex; flex-direction: column; flex: 1; }
-.case-card__category {
-  font-size: 0.7rem; font-weight: 600; text-transform: uppercase;
-  letter-spacing: 0.08em; color: var(--red-light);
+.cs-card__header {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
 }
-.case-card__title { font-size: 1rem; color: var(--white); line-height: 1.3; }
-.case-card__metric { margin-top: auto; padding-top: 0.75rem; border-top: 1px solid var(--dark-4); }
-.case-card__metric-value {
-  font-family: var(--font-heading); font-weight: 700; font-size: 0.95rem; color: var(--red-light);
+.cs-card__category {
+  font-family: var(--font-heading);
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0.25rem 0.65rem;
+  border-radius: var(--radius-full);
+}
+.cs-card__industry {
+  font-size: 0.75rem;
+  color: var(--gray-500);
+  font-weight: 500;
+}
+.cs-card__metrics {
+  background: var(--gray-100);
+  border-radius: var(--radius-sm);
+  padding: 1rem 1.25rem;
+}
+.metric-primary {
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--red);
+  line-height: 1.2;
+  margin-bottom: 0.3rem;
+}
+.metric-secondary {
+  font-size: 0.82rem;
+  color: var(--gray-600);
+  font-weight: 500;
+}
+.cs-card__body {
+  flex: 1;
+}
+.cs-card__title {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--gray-900);
+  line-height: 1.3;
+  margin-bottom: 0.5rem;
+}
+.cs-card__location {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.78rem;
+  color: var(--gray-500);
+}
+.cs-card__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-heading);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--red);
+  text-decoration: none;
+  transition: gap var(--transition-fast), color var(--transition-fast);
+  border-top: 1px solid var(--gray-200);
+  padding-top: 1rem;
+  margin-top: auto;
+}
+.cs-card__cta:hover {
+  color: var(--red-dark);
+  gap: 0.65rem;
+}
+
+/* ===== EMPTY STATE ===== */
+.cs-empty {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: var(--gray-500);
+  font-size: 1rem;
+}
+
+/* ===== CTA SECTION ===== */
+.cs-cta {
+  background: var(--gray-900);
+  padding: clamp(4rem, 7vw, 6rem) 0;
+}
+.cs-cta__inner {
+  text-align: center;
+  max-width: 580px;
+  margin: 0 auto;
+}
+.cs-cta__title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 1rem;
+}
+.cs-cta__sub {
+  font-size: 1.05rem;
+  color: var(--gray-400);
+  line-height: 1.65;
+  margin-bottom: 2.5rem;
+}
+.cs-cta__actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+  .cs-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 640px) {
+  .cs-grid { grid-template-columns: 1fr; }
+  .cs-hero__stats { flex-wrap: wrap; }
+  .hero-stat__divider { display: none; }
 }
 </style>

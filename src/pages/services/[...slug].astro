@@ -27,14 +27,28 @@ const isLocalSeo = service.slug === 'local-seo';
 const isPpc = service.slug === 'ppc';
 const isWebDesign = service.slug === 'website-design';
 const isTv = service.slug === 'tv-streaming-advertising';
+
+// Hero image mapping by slug
+const heroImages: Record<string, string> = {
+  'local-seo': '/media/seo-hero.webp',
+  'ppc': '/media/ppc-hero.webp',
+  'website-design': '/media/webdesign-hero.webp',
+  'tv-streaming-advertising': '/media/tv-streaming-hero.webp',
+};
+const heroImage = heroImages[service.slug] || null;
 ---
 
 <Base title={subService ? `${subService.name} — ${service.name}` : service.name} description={subService?.short_description || service.short_description}>
 
 <!-- Hero -->
-<section class="svc-hero glow-red" style="position: relative; overflow: hidden;">
-  <div class="svc-hero__bg bg-grid"></div>
-  <div class="container" style="position: relative; z-index: 1;">
+<section class="svc-hero">
+  {heroImage && (
+    <div class="svc-hero__img-wrap">
+      <img src={heroImage} alt={service.name} class="svc-hero__img" width="1400" height="600" loading="eager" />
+      <div class="svc-hero__img-overlay"></div>
+    </div>
+  )}
+  <div class="container svc-hero__inner">
     <div class="svc-hero__content fade-in">
       <a href="/services/" class="svc-hero__back">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
@@ -43,8 +57,8 @@ const isTv = service.slug === 'tv-streaming-advertising';
       <h1>{subService ? subService.name : service.name}</h1>
       <p class="svc-hero__sub">{subService?.short_description || service.short_description}</p>
       <div class="svc-hero__ctas">
-        <a href="/contact/" class="btn btn--primary btn--lg">Get Started</a>
-        <a href={`tel:${config.business.phone_raw}`} class="btn btn--outline btn--lg">Call {config.business.phone}</a>
+        <a href="/contact/" class="btn btn--primary btn--lg">Get Started Today</a>
+        <a href={`tel:${config.business.phone_raw}`} class="btn btn--outline-dark btn--lg">Call {config.business.phone}</a>
       </div>
     </div>
   </div>
@@ -52,14 +66,14 @@ const isTv = service.slug === 'tv-streaming-advertising';
 
 <!-- Sub Services Navigation -->
 {service.sub_services && service.sub_services.length > 0 && (
-  <section class="section--sm bg-dark-2" style="border-bottom: 1px solid var(--dark-4);">
+  <section class="section--sm sub-nav-bar">
     <div class="container">
       <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; justify-content: center;">
-        <a href={`/services/${service.slug}/`} class:list={['btn btn--sm', !subService ? 'btn--primary' : 'btn--outline']}>
+        <a href={`/services/${service.slug}/`} class:list={['btn btn--sm', !subService ? 'btn--primary' : 'btn--outline-dark']}>
           Overview
         </a>
         {service.sub_services.map(sub => (
-          <a href={`/services/${service.slug}/${sub.slug}/`} class:list={['btn btn--sm', subService?.slug === sub.slug ? 'btn--primary' : 'btn--outline']}>
+          <a href={`/services/${service.slug}/${sub.slug}/`} class:list={['btn btn--sm', subService?.slug === sub.slug ? 'btn--primary' : 'btn--outline-dark']}>
             {sub.name}
           </a>
         ))}
@@ -69,68 +83,74 @@ const isTv = service.slug === 'tv-streaming-advertising';
 )}
 
 <!-- What You Get -->
-<section class="section">
+<section class="section section--white">
   <div class="container">
     <div class="svc-grid fade-in">
       <div>
         <span class="section-label">What You Get</span>
         {isLocalSeo && (
           <>
-            <h2 style="margin-bottom: 1.25rem;">Map Pack Domination That Drives Real Calls</h2>
-            <p style="color: var(--gray-400); line-height: 1.7; margin-bottom: 1rem;">When someone in your area searches for your service, you need to be in the Google Map Pack — the top 3 local results that capture 44% of all clicks. We make that happen fast.</p>
-            <p style="color: var(--gray-400); line-height: 1.7; margin-bottom: 1.5rem;">Our approach combines complete Google Business Profile optimization, strategic citation building, review generation systems, and local authority development. Most clients see measurable ranking improvements within 10 days of our free boost.</p>
+            <h2 style="margin-bottom: 1.25rem;">Rank in the Map Pack. Capture More Local Customers.</h2>
+            <p style="color: var(--gray-600); line-height: 1.7; margin-bottom: 1rem;">When someone nearby searches for your service, the top 3 Google Map Pack results capture 44% of all clicks. We get your business there — fast, with results you can see within 10 days of our free boost.</p>
+            <p style="color: var(--gray-600); line-height: 1.7; margin-bottom: 1.5rem;">We combine full Google Business Profile optimization, strategic citation building, automated review generation, and local authority development to drive more calls from your community straight to your phone.</p>
           </>
         )}
         {isPpc && (
           <>
-            <h2 style="margin-bottom: 1.25rem;">Zero-Fee PPC Through Spectrum Reach</h2>
-            <p style="color: var(--gray-400); line-height: 1.7; margin-bottom: 1rem;">Most agencies charge 15-30% of your ad spend as a management fee. Through our Spectrum Reach partnership, clients spending $5K+/month pay zero agency fees — 100% of your budget goes directly into your campaigns.</p>
-            <p style="color: var(--gray-400); line-height: 1.7; margin-bottom: 1.5rem;">You also get access to first-party data from 30M+ households across 48 states, AI-powered real-time bid optimization, and campaigns across Google, Bing, and Yahoo simultaneously.</p>
+            <h2 style="margin-bottom: 1.25rem;">Every Dollar Goes to Ads — Not Agency Fees.</h2>
+            <p style="color: var(--gray-600); line-height: 1.7; margin-bottom: 1rem;">Most agencies quietly pocket 15–30% of your ad spend. Through our Spectrum Reach partnership, clients spending $5K+/month pay zero management fees — your entire budget works for your business, not ours.</p>
+            <p style="color: var(--gray-600); line-height: 1.7; margin-bottom: 1.5rem;">You also gain access to first-party data from 30M+ households across 48 states, AI-powered real-time bid optimization, and campaigns deployed across Google, Bing, and Yahoo simultaneously.</p>
           </>
         )}
         {isWebDesign && (
           <>
-            <h2 style="margin-bottom: 1.25rem;">Websites That Convert Visitors Into Revenue</h2>
-            <p style="color: var(--gray-400); line-height: 1.7; margin-bottom: 1rem;">A beautiful website means nothing if it doesn't generate leads. We build conversion-optimized sites that load in under 2 seconds and are engineered to turn every visitor into a potential customer.</p>
-            <p style="color: var(--gray-400); line-height: 1.7; margin-bottom: 1.5rem;">Choose between our ultra-fast custom Astro builds (zero JavaScript, edge-deployed, starting at $2,500) or full-featured WordPress sites with CMS flexibility (starting at $4,000).</p>
+            <h2 style="margin-bottom: 1.25rem;">A Website That Turns Visitors Into Paying Customers.</h2>
+            <p style="color: var(--gray-600); line-height: 1.7; margin-bottom: 1rem;">A beautiful site that doesn't convert is just an expensive brochure. We build conversion-engineered websites that load in under 2 seconds and are purpose-built to turn every visitor into a potential lead.</p>
+            <p style="color: var(--gray-600); line-height: 1.7; margin-bottom: 1.5rem;">Choose from our ultra-fast custom Astro builds (zero JavaScript bloat, edge-deployed, from $2,500) or full-featured WordPress sites with CMS flexibility (from $4,000). Both include SEO foundations built in from day one.</p>
           </>
         )}
         {isTv && (
           <>
-            <h2 style="margin-bottom: 1.25rem;">TV & Streaming Ads That Reach Your Exact Audience</h2>
-            <p style="color: var(--gray-400); line-height: 1.7; margin-bottom: 1rem;">Through Spectrum Reach, we place your brand on streaming platforms and connected TV with precision targeting — reaching specific demographics, neighborhoods, and behavioral profiles across 48 states.</p>
-            <p style="color: var(--gray-400); line-height: 1.7; margin-bottom: 1.5rem;">Every campaign includes free professional video production in Florida (paid production available nationwide). Your budget goes directly to media placement — no agency markup.</p>
+            <h2 style="margin-bottom: 1.25rem;">Put Your Brand in Front of the Right Households — Not Just Any Households.</h2>
+            <p style="color: var(--gray-600); line-height: 1.7; margin-bottom: 1rem;">Through Spectrum Reach, we place your ads on streaming platforms and connected TV targeting specific demographics, neighborhoods, and behavioral profiles across 48 states — so your message reaches buyers, not browsers.</p>
+            <p style="color: var(--gray-600); line-height: 1.7; margin-bottom: 1.5rem;">Every campaign includes free professional video production in Florida (paid production available nationwide). Your full budget goes to media placement — zero agency markup.</p>
+          </>
+        )}
+        {!isLocalSeo && !isPpc && !isWebDesign && !isTv && (
+          <>
+            <h2 style="margin-bottom: 1.25rem;">{service.name} — Built Around Your Revenue Goals</h2>
+            <p style="color: var(--gray-600); line-height: 1.7; margin-bottom: 1.5rem;">{service.short_description}</p>
           </>
         )}
         <a href="/contact/" class="btn btn--primary">Get Your Free Strategy Call</a>
       </div>
       <div class="svc-features">
         <div class="svc-feature-card">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--red-light)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
           <div>
-            <h4 style="font-size: 0.95rem; margin-bottom: 0.25rem;">No Long-Term Contracts</h4>
-            <p style="color: var(--gray-500); font-size: 0.85rem;">Our results keep you, not a contract.</p>
+            <h4 style="font-size: 0.95rem; margin-bottom: 0.25rem; color: var(--gray-900);">No Long-Term Contracts</h4>
+            <p style="color: var(--gray-500); font-size: 0.85rem;">Our results keep you. Not a contract.</p>
           </div>
         </div>
         <div class="svc-feature-card">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--red-light)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
           <div>
-            <h4 style="font-size: 0.95rem; margin-bottom: 0.25rem;">Dedicated Account Manager</h4>
+            <h4 style="font-size: 0.95rem; margin-bottom: 0.25rem; color: var(--gray-900);">Dedicated Account Manager</h4>
             <p style="color: var(--gray-500); font-size: 0.85rem;">Direct access to your strategist. No middlemen.</p>
           </div>
         </div>
         <div class="svc-feature-card">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--red-light)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
           <div>
-            <h4 style="font-size: 0.95rem; margin-bottom: 0.25rem;">Real-Time Reporting</h4>
-            <p style="color: var(--gray-500); font-size: 0.85rem;">See every metric that matters, when it matters.</p>
+            <h4 style="font-size: 0.95rem; margin-bottom: 0.25rem; color: var(--gray-900);">Real-Time Reporting</h4>
+            <p style="color: var(--gray-500); font-size: 0.85rem;">See every metric that moves the needle, when it matters.</p>
           </div>
         </div>
         <div class="svc-feature-card">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--red-light)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
           <div>
-            <h4 style="font-size: 0.95rem; margin-bottom: 0.25rem;">Full Transparency</h4>
-            <p style="color: var(--gray-500); font-size: 0.85rem;">You see every dollar, every decision, every result.</p>
+            <h4 style="font-size: 0.95rem; margin-bottom: 0.25rem; color: var(--gray-900);">Full Transparency</h4>
+            <p style="color: var(--gray-500); font-size: 0.85rem;">Every dollar. Every decision. Every result — yours to see.</p>
           </div>
         </div>
       </div>
@@ -138,9 +158,41 @@ const isTv = service.slug === 'tv-streaming-advertising';
   </div>
 </section>
 
+<!-- How It Works -->
+<section class="section section--gray">
+  <div class="container">
+    <div class="fade-in" style="text-align: center; margin-bottom: 3rem;">
+      <span class="section-label">The Process</span>
+      <h2>How We Deliver Results</h2>
+    </div>
+    <div class="how-grid stagger">
+      <div class="how-step">
+        <div class="how-step__num">01</div>
+        <h3 class="how-step__title">Free Strategy Audit</h3>
+        <p class="how-step__desc">We analyze your current presence, competitors, and market opportunities to identify exactly where revenue is being left on the table.</p>
+      </div>
+      <div class="how-step">
+        <div class="how-step__num">02</div>
+        <h3 class="how-step__title">Custom Campaign Build</h3>
+        <p class="how-step__desc">Your dedicated strategist builds a campaign tailored to your goals, budget, and target customers — no copy-paste templates.</p>
+      </div>
+      <div class="how-step">
+        <div class="how-step__num">03</div>
+        <h3 class="how-step__title">Launch & Optimize</h3>
+        <p class="how-step__desc">We go live and immediately begin optimizing based on real performance data. Most clients see measurable traction within the first 30 days.</p>
+      </div>
+      <div class="how-step">
+        <div class="how-step__num">04</div>
+        <h3 class="how-step__title">Report & Scale</h3>
+        <p class="how-step__desc">Transparent monthly reporting shows exactly what's working. We reinvest wins and scale the strategies driving the most revenue for your business.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- Pricing (if available) -->
 {service.pricing && service.pricing.tiers && (
-  <section class="section bg-dark" id="pricing">
+  <section class="section section--white" id="pricing">
     <div class="container">
       <div class="fade-in" style="text-align: center; margin-bottom: 3rem;">
         <span class="section-label">Pricing</span>
@@ -151,7 +203,7 @@ const isTv = service.slug === 'tv-streaming-advertising';
         {service.pricing.tiers.map(tier => (
           <div class:list={['pricing-card', { 'pricing-card--featured': tier.featured }]}>
             {tier.featured && <div class="pricing-card__badge">Most Popular</div>}
-            <h3 style="font-size: 1.15rem; margin-bottom: 0.25rem;">{tier.name}</h3>
+            <h3 style="font-size: 1.15rem; margin-bottom: 0.25rem; color: var(--gray-900);">{tier.name}</h3>
             <p style="color: var(--gray-500); font-size: 0.85rem; margin-bottom: 1.25rem;">{tier.description}</p>
             <div class="pricing-card__price">
               {tier.price_label && tier.price === 0 ? (
@@ -166,12 +218,12 @@ const isTv = service.slug === 'tv-streaming-advertising';
             <ul class="pricing-card__features">
               {tier.features.map(f => (
                 <li>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--red-light)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
                   {f}
                 </li>
               ))}
             </ul>
-            <a href="/contact/" class:list={['btn', tier.featured ? 'btn--primary' : 'btn--outline', 'btn--lg']} style="width: 100%; margin-top: auto;">
+            <a href="/contact/" class:list={['btn', tier.featured ? 'btn--primary' : 'btn--outline-dark', 'btn--lg']} style="width: 100%; margin-top: auto;">
               Get Started
             </a>
           </div>
@@ -182,12 +234,12 @@ const isTv = service.slug === 'tv-streaming-advertising';
 )}
 
 {service.pricing?.quote_based && (
-  <section class="section bg-dark">
+  <section class="section section--gray">
     <div class="container" style="text-align: center;">
       <div class="fade-in">
         <span class="section-label">Custom Pricing</span>
         <h2 style="margin-bottom: 1rem;">Every Campaign is Custom-Built</h2>
-        <p style="color: var(--gray-400); max-width: 600px; margin: 0 auto 2rem;">{service.pricing.description}</p>
+        <p style="color: var(--gray-600); max-width: 600px; margin: 0 auto 2rem;">{service.pricing.description}</p>
         <a href="/contact/" class="btn btn--primary btn--lg">Request a Custom Quote</a>
       </div>
     </div>
@@ -196,15 +248,15 @@ const isTv = service.slug === 'tv-streaming-advertising';
 
 <!-- Reviews -->
 {featuredReviews.length > 0 && (
-  <section class="section">
+  <section class="section section--gray">
     <div class="container">
       <div class="fade-in" style="text-align: center; margin-bottom: 2.5rem;">
         <span class="section-label">Client Reviews</span>
-        <h2>What Our Clients Say</h2>
+        <h2>Real Results From Real Clients</h2>
       </div>
       <div class="grid grid--3 stagger">
         {featuredReviews.map(r => (
-          <div class="testimonial-card">
+          <div class="testimonial-card testimonial-card--light">
             <div class="stars" style="margin-bottom: 0.75rem;">
               {Array.from({length: r.rating}).map(() => (
                 <svg viewBox="0 0 20 20"><path d="M10 1l2.39 4.84L17.3 6.7l-3.65 3.56.86 5.03L10 13.07l-4.51 2.22.86-5.03L2.7 6.7l4.91-.86L10 1z"/></svg>
@@ -221,14 +273,14 @@ const isTv = service.slug === 'tv-streaming-advertising';
 
 <!-- Related Case Studies -->
 {relatedCaseStudies.length > 0 && (
-  <section class="section bg-dark">
+  <section class="section section--white">
     <div class="container">
       <div class="fade-in" style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 1rem; margin-bottom: 2.5rem;">
         <div>
           <span class="section-label">Proven Results</span>
           <h2>Related Case Studies</h2>
         </div>
-        <a href="/case-studies/" class="btn btn--ghost">View All <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+        <a href="/case-studies/" class="btn btn--outline-dark btn--sm">View All <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
       </div>
       <div class="grid grid--4 stagger" style="gap: 1.25rem;">
         {relatedCaseStudies.map(cs => (
@@ -248,14 +300,16 @@ const isTv = service.slug === 'tv-streaming-advertising';
   </section>
 )}
 
-<!-- CTA -->
-<section class="cta-banner">
-  <div class="container" style="position: relative; z-index: 1;">
-    <h2 style="margin-bottom: 1rem;">Ready to Get Started?</h2>
-    <p style="margin-bottom: 2rem; font-size: 1.05rem;">Book a free strategy call and we'll build a custom plan for your business.</p>
-    <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-      <a href="/contact/" class="btn btn--primary btn--lg">Book Your Free Call</a>
-      <a href={`tel:${config.business.phone_raw}`} class="btn btn--outline btn--lg" style="border-color: rgba(255,255,255,0.3); color: var(--white);">Call {config.business.phone}</a>
+<!-- CTA Banner -->
+<section class="cta-banner-light">
+  <div class="container cta-banner-light__inner">
+    <div class="cta-banner-light__text">
+      <h2>Ready to Grow Your Revenue?</h2>
+      <p>Book a free strategy call and we'll build a custom plan that targets your actual business goals — not vanity metrics.</p>
+    </div>
+    <div class="cta-banner-light__actions">
+      <a href="/contact/" class="btn btn--primary btn--lg">Get Your Free Strategy Call</a>
+      <a href={`tel:${config.business.phone_raw}`} class="btn btn--outline-dark btn--lg">Call {config.business.phone}</a>
     </div>
   </div>
 </section>
@@ -263,28 +317,62 @@ const isTv = service.slug === 'tv-streaming-advertising';
 </Base>
 
 <style>
+/* ── Hero ──────────────────────────────────────────────── */
 .svc-hero {
-  padding: 7rem 0 4rem;
+  position: relative;
+  overflow: hidden;
+  min-height: 520px;
+  display: flex;
+  align-items: center;
+  background: #1a1a1a;
 }
-.svc-hero__bg {
+.svc-hero__img-wrap {
   position: absolute;
   inset: 0;
+}
+.svc-hero__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+.svc-hero__img-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(0,0,0,0.72) 0%,
+    rgba(0,0,0,0.45) 60%,
+    rgba(0,0,0,0.2) 100%
+  );
+}
+.svc-hero__inner {
+  position: relative;
+  z-index: 1;
+  padding-top: 6rem;
+  padding-bottom: 5rem;
 }
 .svc-hero__back {
   display: inline-flex;
   align-items: center;
   gap: 0.25rem;
   font-size: 0.8rem;
-  color: var(--gray-500);
+  color: rgba(255,255,255,0.6);
   margin-bottom: 1.5rem;
   text-decoration: none;
-  transition: color var(--transition-fast);
+  transition: color 0.2s;
 }
-.svc-hero__back:hover { color: var(--white); }
-.svc-hero__content { max-width: 700px; }
+.svc-hero__back:hover { color: #fff; }
+.svc-hero__content { max-width: 640px; }
+.svc-hero__content h1 {
+  color: #fff;
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.15;
+}
 .svc-hero__sub {
   font-size: 1.1rem;
-  color: var(--gray-400);
+  color: rgba(255,255,255,0.75);
   line-height: 1.7;
   margin: 1.25rem 0 2rem;
 }
@@ -294,6 +382,17 @@ const isTv = service.slug === 'tv-streaming-advertising';
   flex-wrap: wrap;
 }
 
+/* ── Sub-service nav ───────────────────────────────────── */
+.sub-nav-bar {
+  background: #f8f8f8;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+/* ── Section backgrounds ───────────────────────────────── */
+.section--white { background: #ffffff; }
+.section--gray  { background: #f8f9fa; }
+
+/* ── What You Get grid ─────────────────────────────────── */
 .svc-grid {
   display: grid;
   grid-template-columns: 1.2fr 0.8fr;
@@ -313,44 +412,82 @@ const isTv = service.slug === 'tv-streaming-advertising';
   display: flex;
   align-items: flex-start;
   gap: 1rem;
-  background: var(--dark-2);
-  border: 1px solid var(--dark-4);
-  border-radius: var(--radius-md);
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: var(--radius-md, 10px);
   padding: 1.25rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
 }
 
-/* Pricing */
+/* ── How It Works grid ─────────────────────────────────── */
+.how-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+}
+.how-step {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: var(--radius-md, 10px);
+  padding: 2rem 1.5rem;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+.how-step__num {
+  font-family: var(--font-heading);
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #e5e7eb;
+  line-height: 1;
+  margin-bottom: 1rem;
+}
+.how-step__title {
+  font-size: 1.05rem;
+  color: #111827;
+  margin-bottom: 0.5rem;
+}
+.how-step__desc {
+  font-size: 0.88rem;
+  color: #6b7280;
+  line-height: 1.6;
+}
+
+/* ── Pricing ───────────────────────────────────────────── */
 .pricing-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1.5rem;
 }
 .pricing-card {
-  background: var(--dark-2);
-  border: 1px solid var(--dark-4);
-  border-radius: var(--radius-lg);
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: var(--radius-lg, 14px);
   padding: 2rem;
   display: flex;
   flex-direction: column;
   position: relative;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  transition: box-shadow 0.2s;
+}
+.pricing-card:hover {
+  box-shadow: 0 6px 24px rgba(0,0,0,0.1);
 }
 .pricing-card--featured {
-  border-color: var(--red);
-  background: linear-gradient(135deg, rgba(192,57,43,0.06), var(--dark-2));
+  border-color: var(--red, #c0392b);
+  box-shadow: 0 4px 20px rgba(192,57,43,0.12);
 }
 .pricing-card__badge {
   position: absolute;
   top: -12px;
   left: 50%;
   transform: translateX(-50%);
-  background: var(--red);
-  color: var(--white);
+  background: var(--red, #c0392b);
+  color: #fff;
   font-size: 0.7rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   padding: 0.3rem 1rem;
-  border-radius: var(--radius-full);
+  border-radius: 9999px;
 }
 .pricing-card__price {
   display: flex;
@@ -358,17 +495,17 @@ const isTv = service.slug === 'tv-streaming-advertising';
   gap: 0.25rem;
   margin-bottom: 1.5rem;
   padding-bottom: 1.5rem;
-  border-bottom: 1px solid var(--dark-4);
+  border-bottom: 1px solid #f3f4f6;
 }
 .pricing-card__amount {
   font-family: var(--font-heading);
   font-weight: 800;
   font-size: 2.25rem;
-  color: var(--white);
+  color: #111827;
 }
 .pricing-card__period {
   font-size: 0.9rem;
-  color: var(--gray-500);
+  color: #9ca3af;
 }
 .pricing-card__features {
   list-style: none;
@@ -383,24 +520,99 @@ const isTv = service.slug === 'tv-streaming-advertising';
   align-items: center;
   gap: 0.5rem;
   font-size: 0.9rem;
-  color: var(--gray-300);
+  color: #374151;
 }
 
-/* Case study cards (repeated from index for scoped) */
+/* ── Testimonials (light override) ────────────────────── */
+.testimonial-card--light {
+  background: #fff !important;
+  border: 1px solid #e5e7eb !important;
+  color: #111827;
+}
+.testimonial-card--light .testimonial-card__quote {
+  color: #374151;
+}
+.testimonial-card--light .testimonial-card__author {
+  color: #6b7280;
+}
+
+/* ── Case study cards ──────────────────────────────────── */
 .case-card {
   display: flex;
   flex-direction: column;
-  background: var(--dark-2);
-  border: 1px solid var(--dark-4);
-  border-radius: var(--radius-md);
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: var(--radius-md, 10px);
   overflow: hidden;
-  transition: all var(--transition-med);
+  transition: all 0.2s;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
 }
-.case-card:hover { border-color: var(--gray-700); transform: translateY(-4px); box-shadow: var(--shadow-md); }
+.case-card:hover {
+  border-color: #d1d5db;
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+}
 .case-card__img { width: 100%; height: 180px; object-fit: cover; }
 .case-card__body { padding: 1.25rem; display: flex; flex-direction: column; gap: 0.5rem; flex: 1; }
-.case-card__category { font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--red-light); }
-.case-card__title { font-size: 1rem; color: var(--white); line-height: 1.3; }
-.case-card__metric { margin-top: auto; padding-top: 0.75rem; border-top: 1px solid var(--dark-4); }
-.case-card__metric-value { font-family: var(--font-heading); font-weight: 700; font-size: 0.95rem; color: var(--red-light); }
+.case-card__category { font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--red, #c0392b); }
+.case-card__title { font-size: 1rem; color: #111827; line-height: 1.3; }
+.case-card__metric { margin-top: auto; padding-top: 0.75rem; border-top: 1px solid #f3f4f6; }
+.case-card__metric-value { font-family: var(--font-heading); font-weight: 700; font-size: 0.95rem; color: var(--red, #c0392b); }
+
+/* ── CTA Banner (light theme version) ─────────────────── */
+.cta-banner-light {
+  background: #111827;
+  padding: 5rem 0;
+}
+.cta-banner-light__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2.5rem;
+  flex-wrap: wrap;
+}
+.cta-banner-light__text h2 {
+  color: #fff;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  margin-bottom: 0.75rem;
+}
+.cta-banner-light__text p {
+  color: rgba(255,255,255,0.65);
+  font-size: 1rem;
+  max-width: 520px;
+  line-height: 1.6;
+}
+.cta-banner-light__actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  flex-shrink: 0;
+}
+@media (max-width: 768px) {
+  .cta-banner-light__inner { flex-direction: column; text-align: center; }
+  .cta-banner-light__actions { justify-content: center; }
+}
+
+/* ── Outline-dark button variant ──────────────────────── */
+.btn--outline-dark {
+  background: transparent;
+  border: 2px solid #d1d5db;
+  color: #374151;
+  transition: border-color 0.2s, color 0.2s;
+}
+.btn--outline-dark:hover {
+  border-color: var(--red, #c0392b);
+  color: var(--red, #c0392b);
+}
+/* When outline-dark is on a dark background (hero, CTA) */
+.svc-hero .btn--outline-dark,
+.cta-banner-light .btn--outline-dark {
+  border-color: rgba(255,255,255,0.4);
+  color: #fff;
+}
+.svc-hero .btn--outline-dark:hover,
+.cta-banner-light .btn--outline-dark:hover {
+  border-color: #fff;
+  color: #fff;
+}
 </style>

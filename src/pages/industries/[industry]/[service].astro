@@ -24,12 +24,12 @@ const { industry, service } = Astro.props;
   <div class="container" style="position: relative; z-index: 1;">
     <div class="fade-in" style="max-width: 700px;">
       <div style="display: flex; gap: 0.5rem; align-items: center; margin-bottom: 1.5rem;">
-        <a href={`/industries/${industry.slug}/`} style="font-size: 0.8rem; color: var(--gray-500); text-decoration: none;">{industry.name}</a>
+        <a href={`/industries/${industry.slug}/`} style="font-size: 0.8rem; color: #888888; text-decoration: none;">{industry.name}</a>
         <span style="color: var(--gray-600);">/</span>
-        <span style="font-size: 0.8rem; color: var(--gray-400);">{service.name}</span>
+        <span style="font-size: 0.8rem; color: #666666;">{service.name}</span>
       </div>
       <h1>{service.name} for {industry.full_name}</h1>
-      <p style="color: var(--gray-400); font-size: 1.05rem; line-height: 1.7; margin: 1.25rem 0 2rem;">
+      <p style="color: #666666; font-size: 1.05rem; line-height: 1.7; margin: 1.25rem 0 2rem;">
         {service.short_description} Our {service.name.toLowerCase()} strategies are customized for the unique challenges {industry.name.toLowerCase()} businesses face in today's competitive market.
       </p>
       <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
@@ -46,26 +46,26 @@ const { industry, service } = Astro.props;
       <div class="fade-in">
         <span class="section-label">Why It Works</span>
         <h2 style="margin-bottom: 1rem;">Why {industry.full_name} Choose ServiceLine Pro</h2>
-        <p style="color: var(--gray-400); line-height: 1.7; margin-bottom: 1rem;">
+        <p style="color: #666666; line-height: 1.7; margin-bottom: 1rem;">
           The {industry.name.toLowerCase()} industry has unique marketing challenges — seasonal demand, local competition, and the need for trust-building before a customer picks up the phone. Our {service.name.toLowerCase()} campaigns are designed specifically for these dynamics.
         </p>
-        <p style="color: var(--gray-400); line-height: 1.7;">
+        <p style="color: #666666; line-height: 1.7;">
           We combine industry expertise with data-driven execution to deliver measurable results. No generic strategies — every campaign is built for your specific market and competitive landscape.
         </p>
       </div>
       <div class="fade-in">
         <div style="display: flex; flex-direction: column; gap: 1rem;">
-          <div style="background: var(--dark-2); border: 1px solid var(--dark-4); border-radius: var(--radius-md); padding: 1.25rem;">
+          <div style="background: #f8f9fa; border: 1px solid #e5e7eb; border-radius: var(--radius-md); padding: 1.25rem;">
             <h4 style="font-size: 0.95rem; margin-bottom: 0.25rem;">No Long-Term Contracts</h4>
-            <p style="color: var(--gray-500); font-size: 0.85rem;">Results keep you, not paperwork.</p>
+            <p style="color: #888888; font-size: 0.85rem;">Results keep you, not paperwork.</p>
           </div>
-          <div style="background: var(--dark-2); border: 1px solid var(--dark-4); border-radius: var(--radius-md); padding: 1.25rem;">
+          <div style="background: #f8f9fa; border: 1px solid #e5e7eb; border-radius: var(--radius-md); padding: 1.25rem;">
             <h4 style="font-size: 0.95rem; margin-bottom: 0.25rem;">Industry-Specific Strategy</h4>
-            <p style="color: var(--gray-500); font-size: 0.85rem;">Custom approach for {industry.name.toLowerCase()} market dynamics.</p>
+            <p style="color: #888888; font-size: 0.85rem;">Custom approach for {industry.name.toLowerCase()} market dynamics.</p>
           </div>
-          <div style="background: var(--dark-2); border: 1px solid var(--dark-4); border-radius: var(--radius-md); padding: 1.25rem;">
+          <div style="background: #f8f9fa; border: 1px solid #e5e7eb; border-radius: var(--radius-md); padding: 1.25rem;">
             <h4 style="font-size: 0.95rem; margin-bottom: 0.25rem;">Real-Time Reporting</h4>
-            <p style="color: var(--gray-500); font-size: 0.85rem;">Live dashboards with the metrics that matter.</p>
+            <p style="color: #888888; font-size: 0.85rem;">Live dashboards with the metrics that matter.</p>
           </div>
         </div>
       </div>

@@ -20,13 +20,13 @@ const relatedCaseStudies = config.case_studies.filter(cs =>
 <section class="section glow-red" style="padding-top: 6rem; position: relative; overflow: hidden;">
   <div class="container" style="position: relative; z-index: 1;">
     <div class="fade-in" style="max-width: 700px;">
-      <a href="/industries/" style="display: inline-flex; align-items: center; gap: 0.25rem; font-size: 0.8rem; color: var(--gray-500); margin-bottom: 1.5rem; text-decoration: none;">
+      <a href="/industries/" style="display: inline-flex; align-items: center; gap: 0.25rem; font-size: 0.8rem; color: #888888; margin-bottom: 1.5rem; text-decoration: none;">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
         All Industries
       </a>
       <span class="section-label">{industry.name}</span>
       <h1>Marketing for {industry.full_name}</h1>
-      <p style="color: var(--gray-400); font-size: 1.05rem; line-height: 1.7; margin: 1.25rem 0 2rem;">
+      <p style="color: #666666; font-size: 1.05rem; line-height: 1.7; margin: 1.25rem 0 2rem;">
         {industry.description} Our strategies are built around the unique challenges of the {industry.name.toLowerCase()} industry — from seasonal demand patterns to local competition.
       </p>
       <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
@@ -43,8 +43,8 @@ const relatedCaseStudies = config.case_studies.filter(cs =>
     <div class="grid grid--2 stagger">
       {config.services.map(svc => (
         <a href={`/industries/${industry.slug}/${svc.slug}/`} class="card" style="text-decoration: none;">
-          <h3 style="font-size: 1.15rem; margin-bottom: 0.5rem; color: var(--white);">{svc.name} for {industry.full_name}</h3>
-          <p style="color: var(--gray-400); font-size: 0.9rem; line-height: 1.5;">{svc.short_description}</p>
+          <h3 style="font-size: 1.15rem; margin-bottom: 0.5rem; color: #1a1a1a;">{svc.name} for {industry.full_name}</h3>
+          <p style="color: #666666; font-size: 0.9rem; line-height: 1.5;">{svc.short_description}</p>
           <span style="display: inline-flex; align-items: center; gap: 0.25rem; color: var(--red-light); font-size: 0.85rem; font-weight: 600; margin-top: 0.75rem;">
             Learn More <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
           </span>
@@ -60,10 +60,10 @@ const relatedCaseStudies = config.case_studies.filter(cs =>
       <h2 style="margin-bottom: 2rem;">{industry.name} Case Studies</h2>
       <div class="grid grid--4 stagger" style="gap: 1.25rem;">
         {relatedCaseStudies.map(cs => (
-          <a href={`/case-studies/${cs.slug}/`} style="text-decoration: none; display: flex; flex-direction: column; background: var(--dark-2); border: 1px solid var(--dark-4); border-radius: var(--radius-md); overflow: hidden; transition: all 0.3s;">
+          <a href={`/case-studies/${cs.slug}/`} style="text-decoration: none; display: flex; flex-direction: column; background: #f8f9fa; border: 1px solid #e5e7eb; border-radius: var(--radius-md); overflow: hidden; transition: all 0.3s;">
             {cs.image && <img src={`/media/case-studies/${cs.image}`} alt={cs.title} width="400" height="250" loading="lazy" style="width: 100%; height: 160px; object-fit: cover;" />}
             <div style="padding: 1rem;">
-              <h4 style="font-size: 0.95rem; color: var(--white); margin-bottom: 0.5rem;">{cs.title}</h4>
+              <h4 style="font-size: 0.95rem; color: #1a1a1a; margin-bottom: 0.5rem;">{cs.title}</h4>
               <span style="font-family: var(--font-heading); font-weight: 700; font-size: 0.9rem; color: var(--red-light);">{cs.metrics?.primary || cs.result}</span>
             </div>
           </a>

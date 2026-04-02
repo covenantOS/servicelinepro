@@ -3,184 +3,660 @@ import Base from '../layouts/Base.astro';
 import config from '../lib/config';
 
 const team = config.business.team || [];
-const teamImages: Record<string, string> = {
-  'William Hamilton': '/media/team-will-opt.webp',
-  'Victoria Hamilton': '/media/team-member-2-opt.webp',
-  'Daniel Gomez': '/media/team-member-3-opt.webp',
-  'Kevin Morales': '/media/team-member-4-opt.webp',
-};
+
+const coreTeam = [
+  {
+    name: 'William Hamilton',
+    role: 'CEO & Founder',
+    photo: '/media/will-hamilton.webp',
+    bio: 'William started ServiceLine Pro after seeing home service businesses get burned by agencies that promised rankings and delivered excuses. He built the system he wished existed — transparent, performance-backed, and actually focused on revenue.',
+  },
+  {
+    name: 'Victoria Hamilton',
+    role: 'Director of Operations',
+    photo: '/media/team-member-2-opt.webp',
+    bio: 'Victoria keeps every client account running like clockwork. She built our reporting systems, client onboarding process, and the internal workflows that let us scale without dropping quality.',
+  },
+  {
+    name: 'Daniel Gomez',
+    role: 'Director of Fulfillment',
+    photo: '/media/team-member-3-opt.webp',
+    bio: "Daniel owns every deliverable that goes out the door. From GBP optimizations to campaign launches, he's the reason clients see results instead of just reports.",
+  },
+];
+
+const values = [
+  {
+    label: 'Transparency',
+    text: 'You see every number, every ranking, every result. No smoke and mirrors.',
+  },
+  {
+    label: 'Accountability',
+    text: "We guarantee results or we work for free. That's not a slogan — it's in writing.",
+  },
+  {
+    label: 'Focus',
+    text: 'We work exclusively with home service businesses. That depth is your advantage.',
+  },
+  {
+    label: 'Speed',
+    text: "Most clients see measurable movement in 10 days. We don't do slow ramp-ups.",
+  },
+];
+
+const milestones = [
+  { year: '2020', event: 'Founded as Paradigm in Tampa, FL' },
+  { year: '2021', event: 'First 10 home service clients signed' },
+  { year: '2022', event: 'Achieved Google Certified Partner status' },
+  { year: '2023', event: 'Spectrum Reach partnership — first in region' },
+  { year: '2024', event: 'Rebranded to ServiceLine Pro, 50+ client results' },
+  { year: '2025', event: 'Expanded team, launched AI-driven ranking tools' },
+];
 ---
 
-<Base title="About Us" description={`Meet the team behind ${config.business.name}. A performance-first marketing agency based in Tampa, Florida.`}>
-
-<section class="section" style="padding-top: 5rem;">
-  <div class="container">
-    <div class="about-hero fade-in">
-      <div class="about-hero__text">
-        <span class="section-label">About Us</span>
-        <h1>Built Different.<br/><span class="gradient-text--red">On Purpose.</span></h1>
-        <p style="color: var(--gray-400); font-size: 1.05rem; line-height: 1.7; margin-top: 1.25rem;">
-          ServiceLine Pro started in 2020 as Paradigm — a small agency with one mission: prove that marketing should generate measurable revenue, not just impressions. We rebranded to focus exclusively on what we do best — helping businesses dominate their local markets.
-        </p>
-        <p style="color: var(--gray-400); font-size: 1.05rem; line-height: 1.7; margin-top: 1rem;">
-          Today, we're a full-service performance marketing agency based in Tampa, Florida. Our clients span industries from HVAC to legal, plumbing to real estate — and every one of them shares the same experience: real results, delivered fast, with complete transparency.
-        </p>
-      </div>
-      <div class="about-hero__img hide-mobile">
-        <img src="/media/live-team-photo.webp" alt="ServiceLine Pro team" width="480" height="360" loading="eager" style="border-radius: var(--radius-lg); box-shadow: var(--shadow-lg);" />
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Values -->
-<section class="section bg-dark">
-  <div class="container">
-    <div class="fade-in" style="text-align: center; margin-bottom: 3rem;">
-      <span class="section-label">What Drives Us</span>
-      <h2>Our Core Values</h2>
-    </div>
-    <div class="grid grid--3 stagger">
-      <div class="card fade-in" style="text-align: center;">
-        <div style="font-size: 2.5rem; margin-bottom: 1rem;">📊</div>
-        <h3 style="font-size: 1.15rem; margin-bottom: 0.5rem;">Results Over Vanity</h3>
-        <p style="color: var(--gray-400); font-size: 0.9rem;">We measure success in revenue generated, leads booked, and phones ringing — not impressions or clicks.</p>
-      </div>
-      <div class="card fade-in" style="text-align: center;">
-        <div style="font-size: 2.5rem; margin-bottom: 1rem;">🤝</div>
-        <h3 style="font-size: 1.15rem; margin-bottom: 0.5rem;">Radical Transparency</h3>
-        <p style="color: var(--gray-400); font-size: 0.9rem;">No hidden fees, no black-box strategies. You see every dollar spent, every metric tracked, every decision made.</p>
-      </div>
-      <div class="card fade-in" style="text-align: center;">
-        <div style="font-size: 2.5rem; margin-bottom: 1rem;">🚀</div>
-        <h3 style="font-size: 1.15rem; margin-bottom: 0.5rem;">Speed to Impact</h3>
-        <p style="color: var(--gray-400); font-size: 0.9rem;">Our Local SEO clients see ranking movement in days, not months. We move fast because your revenue depends on it.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Team -->
-<section class="section">
-  <div class="container">
-    <div class="fade-in" style="text-align: center; margin-bottom: 3rem;">
-      <span class="section-label">The Team</span>
-      <h2>Meet the People Behind the Results</h2>
-    </div>
-    <div class="team-grid stagger">
-      {team.map(member => (
-        <div class="team-card fade-in">
-          {teamImages[member.name] ? (
-            <img src={teamImages[member.name]} alt={member.name} width="280" height="280" loading="lazy" class="team-card__img" />
-          ) : (
-            <div class="team-card__placeholder">
-              <span>{member.name.split(' ').map(n => n[0]).join('')}</span>
+<Base
+  title="The People Behind Your Results | ServiceLine Pro"
+  description="ServiceLine Pro was founded in Tampa, FL in 2020 by William Hamilton. Learn about the team behind 50+ client results in home service marketing."
+>
+  <!-- ===== HERO ===== -->
+  <section class="about-hero">
+    <div class="container">
+      <div class="about-hero__inner">
+        <div class="about-hero__content">
+          <span class="section-label">About Us</span>
+          <h1 class="about-hero__title">The People Behind<br />Your Results</h1>
+          <p class="about-hero__sub">
+            We're a Tampa-based team that works exclusively with home service businesses.
+            No generalist agency fluff — just focused execution and results you can measure.
+          </p>
+          <div class="about-hero__stats">
+            <div class="stat-item">
+              <span class="stat-num">50+</span>
+              <span class="stat-label">Client Results</span>
             </div>
-          )}
-          <h3 class="team-card__name">{member.name}</h3>
-          <p class="team-card__role">{member.role}</p>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+              <span class="stat-num">2020</span>
+              <span class="stat-label">Founded Tampa, FL</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+              <span class="stat-num">5.0</span>
+              <span class="stat-label">Google Rating</span>
+            </div>
+          </div>
         </div>
-      ))}
-    </div>
-  </div>
-</section>
-
-<!-- Spectrum Partnership -->
-<section class="section bg-dark">
-  <div class="container">
-    <div class="spectrum-row fade-in">
-      <div>
-        <span class="section-label">Strategic Partnership</span>
-        <h2 style="margin-bottom: 1rem;">Spectrum Reach Certified Partner</h2>
-        <p style="color: var(--gray-400); font-size: 1rem; line-height: 1.7;">
-          Our partnership with Spectrum Reach — the advertising arm of Charter Communications — gives our clients access to first-party data from 30M+ households across 48 states. This means precision-targeted ad campaigns on Google, Bing, Yahoo, streaming platforms, and traditional TV — all with zero agency fees on qualifying budgets.
-        </p>
-        <div style="display: flex; gap: 2rem; margin-top: 1.5rem; flex-wrap: wrap;">
-          <div>
-            <span class="stat-number" style="font-size: 2rem;">30M+</span>
-            <span class="stat-label">Households</span>
-          </div>
-          <div>
-            <span class="stat-number" style="font-size: 2rem;">48</span>
-            <span class="stat-label">States</span>
-          </div>
-          <div>
-            <span class="stat-number" style="font-size: 2rem;">$0</span>
-            <span class="stat-label">Agency Fee</span>
+        <div class="about-hero__image-wrap">
+          <img
+            src="/media/will-hamilton.webp"
+            alt="William Hamilton, CEO of ServiceLine Pro"
+            width="520"
+            height="600"
+            loading="eager"
+            class="about-hero__photo"
+          />
+          <div class="about-hero__badge">
+            <span class="badge-icon">📍</span>
+            <span>Tampa, FL</span>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<section class="cta-banner">
-  <div class="container" style="position: relative; z-index: 1;">
-    <h2 style="margin-bottom: 1rem;">Let's Build Something Together</h2>
-    <p style="margin-bottom: 2rem; font-size: 1.05rem;">We're always looking for businesses ready to grow. Let's talk about what that looks like for you.</p>
-    <a href="/contact/" class="btn btn--primary btn--lg">Get Your Free Strategy Call</a>
-  </div>
-</section>
+  <!-- ===== ORIGIN STORY ===== -->
+  <section class="origin-section">
+    <div class="container--narrow">
+      <span class="section-label">Our Story</span>
+      <h2 class="origin-title">Started as Paradigm. Built for Home Services.</h2>
+      <div class="origin-body">
+        <p>
+          ServiceLine Pro started in 2020 under the name Paradigm. We were doing digital marketing
+          for all kinds of businesses — restaurants, retail, professionals. We were good at it, but
+          we kept seeing the same pattern: home service contractors were getting the worst deal.
+        </p>
+        <p>
+          They were paying high retainers for agencies that treated them like an afterthought.
+          Generic SEO strategies. Google Ads running to the wrong keywords. Websites that looked
+          pretty but didn't ring the phone.
+        </p>
+        <p>
+          So we made a decision. We rebranded to ServiceLine Pro and went all-in on one vertical —
+          home service businesses. That focus changed everything. We got sharper, our results got
+          better, and our clients stopped feeling like they were taking a gamble.
+        </p>
+        <p>
+          Today we work with HVAC companies, plumbers, electricians, roofers, pest control operators,
+          and dozens of other trades across the country. Every tool we build, every campaign we run,
+          every ranking strategy we deploy is built specifically for the home service industry.
+        </p>
+      </div>
+    </div>
+  </section>
 
+  <!-- ===== TEAM ===== -->
+  <section class="team-section">
+    <div class="container">
+      <div class="team-header">
+        <span class="section-label">The Team</span>
+        <h2 class="team-title">Real People. Real Accountability.</h2>
+        <p class="team-sub">
+          When you work with us, you know exactly who's touching your account.
+        </p>
+      </div>
+      <div class="team-grid">
+        {coreTeam.map(member => (
+          <div class="team-card">
+            <div class="team-card__photo-wrap">
+              <img
+                src={member.photo}
+                alt={member.name}
+                width="400"
+                height="400"
+                loading="lazy"
+                class="team-card__photo"
+              />
+            </div>
+            <div class="team-card__body">
+              <h3 class="team-card__name">{member.name}</h3>
+              <span class="team-card__role">{member.role}</span>
+              <p class="team-card__bio">{member.bio}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== VALUES ===== -->
+  <section class="values-section">
+    <div class="container">
+      <div class="values-header">
+        <span class="section-label">How We Work</span>
+        <h2 class="values-title">What Drives Every Decision</h2>
+      </div>
+      <div class="values-grid">
+        {values.map((v, i) => (
+          <div class="value-card">
+            <span class="value-number">0{i + 1}</span>
+            <h3 class="value-label">{v.label}</h3>
+            <p class="value-text">{v.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TIMELINE ===== -->
+  <section class="timeline-section">
+    <div class="container">
+      <div class="timeline-header">
+        <span class="section-label">History</span>
+        <h2 class="timeline-title">Five Years of Building</h2>
+      </div>
+      <div class="timeline">
+        {milestones.map(m => (
+          <div class="timeline-item">
+            <div class="timeline-year">{m.year}</div>
+            <div class="timeline-dot"></div>
+            <div class="timeline-event">{m.event}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TAMPA PHOTO ===== -->
+  <section class="tampa-section">
+    <div class="container">
+      <div class="tampa-inner">
+        <div class="tampa-image-wrap">
+          <img
+            src="/media/tampa-skyline-hero.webp"
+            alt="Tampa, Florida skyline — home of ServiceLine Pro"
+            width="720"
+            height="420"
+            loading="lazy"
+            class="tampa-image"
+          />
+        </div>
+        <div class="tampa-content">
+          <span class="section-label">Based in Tampa, FL</span>
+          <h2 class="tampa-title">Serving Home Service Businesses Nationwide</h2>
+          <p class="tampa-text">
+            We're based in Tampa, FL, but our clients are across the country — from Chicago to
+            Beverly Hills to Indianapolis. Location has never been a barrier when results are the
+            product.
+          </p>
+          <p class="tampa-text">
+            Tampa is a fast-growing market and a perfect testbed for home service strategy. What
+            works here works everywhere.
+          </p>
+          <a href="/contact/" class="btn btn--primary">Work With Our Team</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA BAND ===== -->
+  <section class="about-cta">
+    <div class="container">
+      <div class="about-cta__inner">
+        <h2 class="about-cta__title">Ready to see what we can do for your business?</h2>
+        <p class="about-cta__sub">
+          Free strategy call. No pressure. We'll tell you exactly where you stand and what it would take to get results.
+        </p>
+        <div class="about-cta__actions">
+          <a href="/contact/" class="btn btn--primary btn--lg">Book a Free Strategy Call</a>
+          <a href={`tel:${config.business.phone_raw}`} class="btn btn--outline btn--lg">
+            Call {config.business.phone}
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
 </Base>
 
 <style>
+/* ===== HERO ===== */
 .about-hero {
+  background: #ffffff;
+  padding: clamp(4rem, 8vw, 7rem) 0 clamp(3rem, 6vw, 5rem);
+}
+.about-hero__inner {
   display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
-  gap: 3rem;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 5vw, 5rem);
   align-items: center;
 }
-@media (max-width: 1024px) {
-  .about-hero { grid-template-columns: 1fr; }
-}
-
-.team-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 1.5rem;
-}
-.team-card {
-  text-align: center;
-}
-.team-card__img {
-  width: 100%;
-  aspect-ratio: 1;
-  object-fit: cover;
-  border-radius: var(--radius-md);
+.section-label {
+  display: inline-block;
+  font-family: var(--font-heading);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--red);
   margin-bottom: 1rem;
-  background: var(--dark-2);
 }
-.team-card__placeholder {
-  width: 100%;
-  aspect-ratio: 1;
-  background: var(--dark-2);
-  border: 1px solid var(--dark-4);
-  border-radius: var(--radius-md);
+.about-hero__title {
+  font-family: var(--font-heading);
+  font-size: clamp(2.2rem, 4.5vw, 3.6rem);
+  font-weight: 800;
+  color: var(--gray-900);
+  line-height: 1.1;
+  margin-bottom: 1.25rem;
+}
+.about-hero__sub {
+  font-size: 1.1rem;
+  color: var(--gray-700);
+  line-height: 1.65;
+  margin-bottom: 2rem;
+  max-width: 480px;
+}
+.about-hero__stats {
   display: flex;
   align-items: center;
-  justify-content: center;
-  margin-bottom: 1rem;
+  gap: 1.5rem;
 }
-.team-card__placeholder span {
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+.stat-num {
   font-family: var(--font-heading);
-  font-size: 2rem;
-  font-weight: 700;
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--red);
+  line-height: 1;
+}
+.stat-label {
+  font-size: 0.75rem;
   color: var(--gray-600);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
-.team-card__name {
-  font-size: 1rem;
-  margin-bottom: 0.15rem;
+.stat-divider {
+  width: 1px;
+  height: 40px;
+  background: var(--gray-200);
 }
-.team-card__role {
+.about-hero__image-wrap {
+  position: relative;
+}
+.about-hero__photo {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-lg);
+  object-fit: cover;
+  display: block;
+  box-shadow: var(--shadow-xl);
+  aspect-ratio: 4 / 5;
+  max-height: 560px;
+  object-position: top center;
+}
+.about-hero__badge {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 1.5rem;
+  background: #ffffff;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-full);
+  padding: 0.5rem 1rem;
+  font-family: var(--font-heading);
   font-size: 0.8rem;
-  color: var(--gray-500);
+  font-weight: 700;
+  color: var(--gray-900);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  box-shadow: var(--shadow-md);
 }
 
-.spectrum-row {
-  background: linear-gradient(135deg, rgba(192,57,43,0.06), transparent);
-  border: 1px solid rgba(192,57,43,0.15);
+/* ===== ORIGIN ===== */
+.origin-section {
+  background: var(--gray-100);
+  padding: clamp(4rem, 7vw, 6rem) 0;
+}
+.origin-title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  font-weight: 800;
+  color: var(--gray-900);
+  line-height: 1.2;
+  margin-bottom: 2rem;
+}
+.origin-body {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+.origin-body p {
+  font-size: 1.05rem;
+  color: var(--gray-700);
+  line-height: 1.7;
+}
+
+/* ===== TEAM ===== */
+.team-section {
+  background: #ffffff;
+  padding: clamp(4rem, 7vw, 6rem) 0;
+}
+.team-header {
+  text-align: center;
+  margin-bottom: 3.5rem;
+}
+.team-title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  font-weight: 800;
+  color: var(--gray-900);
+  margin-bottom: 0.75rem;
+}
+.team-sub {
+  font-size: 1.1rem;
+  color: var(--gray-600);
+}
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+.team-card {
+  background: #ffffff;
+  border: 1px solid var(--gray-200);
   border-radius: var(--radius-lg);
-  padding: var(--space-3xl);
+  overflow: hidden;
+  transition: box-shadow var(--transition-med), transform var(--transition-med);
+}
+.team-card:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-4px);
+}
+.team-card__photo-wrap {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  background: var(--gray-100);
+}
+.team-card__photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+  transition: transform 0.5s var(--ease-out);
+}
+.team-card:hover .team-card__photo {
+  transform: scale(1.04);
+}
+.team-card__body {
+  padding: 1.5rem;
+}
+.team-card__name {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--gray-900);
+  margin-bottom: 0.25rem;
+}
+.team-card__role {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--red);
+  display: block;
+  margin-bottom: 0.85rem;
+}
+.team-card__bio {
+  font-size: 0.9rem;
+  color: var(--gray-600);
+  line-height: 1.65;
+}
+
+/* ===== VALUES ===== */
+.values-section {
+  background: var(--gray-100);
+  padding: clamp(4rem, 7vw, 6rem) 0;
+}
+.values-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+.values-title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  font-weight: 800;
+  color: var(--gray-900);
+}
+.values-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+.value-card {
+  background: #ffffff;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-md);
+  padding: 2rem 1.5rem;
+}
+.value-number {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: var(--red);
+  letter-spacing: 0.1em;
+  margin-bottom: 0.75rem;
+}
+.value-label {
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--gray-900);
+  margin-bottom: 0.6rem;
+}
+.value-text {
+  font-size: 0.9rem;
+  color: var(--gray-600);
+  line-height: 1.6;
+}
+
+/* ===== TIMELINE ===== */
+.timeline-section {
+  background: #ffffff;
+  padding: clamp(4rem, 7vw, 6rem) 0;
+}
+.timeline-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+.timeline-title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  font-weight: 800;
+  color: var(--gray-900);
+}
+.timeline {
+  max-width: 680px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  position: relative;
+}
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 5rem;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--gray-200);
+}
+.timeline-item {
+  display: grid;
+  grid-template-columns: 5rem 1.5rem 1fr;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1.1rem 0;
+  position: relative;
+}
+.timeline-year {
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: var(--red);
+  text-align: right;
+}
+.timeline-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--red);
+  border: 2px solid #ffffff;
+  box-shadow: 0 0 0 2px var(--red);
+  position: relative;
+  z-index: 1;
+  margin: 0 auto;
+}
+.timeline-event {
+  font-size: 0.95rem;
+  color: var(--gray-700);
+  font-weight: 500;
+}
+
+/* ===== TAMPA SECTION ===== */
+.tampa-section {
+  background: var(--gray-100);
+  padding: clamp(4rem, 7vw, 6rem) 0;
+}
+.tampa-inner {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: clamp(2rem, 5vw, 5rem);
+  align-items: center;
+}
+.tampa-image-wrap {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-xl);
+}
+.tampa-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+.tampa-title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  font-weight: 800;
+  color: var(--gray-900);
+  line-height: 1.2;
+  margin-bottom: 1.25rem;
+}
+.tampa-text {
+  font-size: 1rem;
+  color: var(--gray-700);
+  line-height: 1.7;
+  margin-bottom: 1rem;
+}
+.tampa-text:last-of-type {
+  margin-bottom: 2rem;
+}
+
+/* ===== CTA ===== */
+.about-cta {
+  background: var(--gray-900);
+  padding: clamp(4rem, 7vw, 6rem) 0;
+}
+.about-cta__inner {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+}
+.about-cta__title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+.about-cta__sub {
+  font-size: 1.05rem;
+  color: var(--gray-400);
+  line-height: 1.6;
+  margin-bottom: 2.5rem;
+}
+.about-cta__actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+  .values-grid { grid-template-columns: repeat(2, 1fr); }
+  .team-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 768px) {
+  .about-hero__inner { grid-template-columns: 1fr; }
+  .about-hero__image-wrap { order: -1; }
+  .about-hero__photo { max-height: 360px; aspect-ratio: 4/3; }
+  .tampa-inner { grid-template-columns: 1fr; }
+  .about-hero__stats { flex-wrap: wrap; }
+}
+@media (max-width: 640px) {
+  .team-grid { grid-template-columns: 1fr; }
+  .values-grid { grid-template-columns: 1fr; }
+  .timeline::before { left: 4rem; }
+  .timeline-item { grid-template-columns: 4rem 1.5rem 1fr; }
 }
 </style>

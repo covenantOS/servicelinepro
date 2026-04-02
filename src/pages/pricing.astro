@@ -1,69 +1,594 @@
 ---
 import Base from '../layouts/Base.astro';
 import config from '../lib/config';
+
+const services = config.services;
+
+function formatPrice(price: number): string {
+  if (price === 0) return '$0';
+  return '$' + price.toLocaleString('en-US');
+}
+
+const faqs = [
+  {
+    q: 'Are there any hidden fees?',
+    a: 'No. The prices you see are the prices you pay. For Google Ads budgets over $5K/month, our management fee is literally $0 through our Spectrum Reach partnership.',
+  },
+  {
+    q: 'What is the setup fee for?',
+    a: 'Setup fees cover initial audits, account configuration, citation cleanup, GBP full optimization, and the first round of deliverables. It\'s one-time and goes directly toward your campaign.',
+  },
+  {
+    q: 'Do you require long-term contracts?',
+    a: 'We offer month-to-month agreements after the initial term. Most clients stay because of results, not contracts.',
+  },
+  {
+    q: 'How quickly will I see results?',
+    a: 'Local SEO clients typically see measurable ranking movement in 10 days with our free ranking boost. Google Ads campaigns launch within 5-7 business days.',
+  },
+  {
+    q: 'Can I combine multiple services?',
+    a: 'Yes. Many clients run SEO and Google Ads simultaneously for maximum coverage. We\'ll tell you which combination makes the most sense for your market.',
+  },
+];
 ---
 
-<Base title="Pricing" description="Transparent pricing for ServiceLine Pro's SEO, PPC, web design, and TV/streaming services. No hidden fees.">
-
-<section class="section" style="padding-top: 5rem;">
-  <div class="container">
-    <div class="fade-in" style="text-align: center; margin-bottom: 3.5rem;">
-      <span class="section-label">Pricing</span>
-      <h1>Transparent Pricing. <span class="gradient-text--red">No Surprises.</span></h1>
-      <p class="section-subtitle" style="margin: 1rem auto 0;">Every dollar accounted for. No hidden fees, no surprise charges. What you see is what you pay.</p>
-    </div>
-
-    {config.services.filter(s => s.pricing?.tiers).map(service => (
-      <div class="fade-in" style="margin-bottom: 4rem;">
-        <h2 style="font-size: 1.5rem; margin-bottom: 0.5rem;">{service.name}</h2>
-        {service.pricing?.setup_fee && <p style="color: var(--gray-500); font-size: 0.85rem; margin-bottom: 1.5rem;">One-time setup: ${service.pricing.setup_fee.toLocaleString()}</p>}
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
-          {service.pricing?.tiers?.map(tier => (
-            <div style={`background: var(--dark-2); border: 1px solid ${tier.featured ? 'var(--red)' : 'var(--dark-4)'}; border-radius: var(--radius-lg); padding: 2rem; display: flex; flex-direction: column; position: relative;`}>
-              {tier.featured && <div style="position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--red); color: var(--white); font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; padding: 0.3rem 1rem; border-radius: var(--radius-full);">Most Popular</div>}
-              <h3 style="font-size: 1.1rem; margin-bottom: 0.25rem;">{tier.name}</h3>
-              <p style="color: var(--gray-500); font-size: 0.8rem; margin-bottom: 1rem;">{tier.description}</p>
-              <div style="display: flex; align-items: baseline; gap: 0.25rem; margin-bottom: 1.25rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--dark-4);">
-                {tier.price === 0 ? (
-                  <span style="font-family: var(--font-heading); font-weight: 800; font-size: 2rem; color: var(--white);">{tier.price_label}</span>
-                ) : (
-                  <>
-                    <span style="font-family: var(--font-heading); font-weight: 800; font-size: 2rem; color: var(--white);">${tier.price.toLocaleString()}</span>
-                    <span style="font-size: 0.85rem; color: var(--gray-500);">{tier.price_label || '/mo'}</span>
-                  </>
-                )}
-              </div>
-              <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.5rem; flex: 1;">
-                {tier.features.map(f => (
-                  <li style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; color: var(--gray-300);">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--red-light)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                    {f}
-                  </li>
-                ))}
-              </ul>
-              <a href="/contact/" class={`btn ${tier.featured ? 'btn--primary' : 'btn--outline'} btn--lg`} style="width: 100%;">Get Started</a>
-            </div>
-          ))}
+<Base
+  title="Transparent Pricing | ServiceLine Pro"
+  description="Clear, upfront pricing for Google SEO, Google Ads, Website Design, and TV Advertising. No hidden fees. ServiceLine Pro Tampa FL."
+>
+  <!-- ===== HERO ===== -->
+  <section class="pricing-hero">
+    <div class="container">
+      <div class="pricing-hero__inner">
+        <span class="section-label">Pricing</span>
+        <h1 class="pricing-hero__title">Transparent Pricing</h1>
+        <p class="pricing-hero__sub">
+          No bait-and-switch. No hidden fees. No "call for pricing" games.
+          What you see here is what you pay.
+        </p>
+        <div class="pricing-hero__trust">
+          <div class="trust-pill">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            No Hidden Fees
+          </div>
+          <div class="trust-pill">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            Month-to-Month Available
+          </div>
+          <div class="trust-pill">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            Results Guaranteed
+          </div>
         </div>
       </div>
-    ))}
+    </div>
+  </section>
 
-    {config.services.filter(s => s.pricing?.quote_based).map(service => (
-      <div class="fade-in" style="margin-bottom: 3rem; text-align: center; background: var(--dark-2); border: 1px solid var(--dark-4); border-radius: var(--radius-lg); padding: 3rem;">
-        <h2 style="font-size: 1.5rem; margin-bottom: 0.75rem;">{service.name}</h2>
-        <p style="color: var(--gray-400); max-width: 600px; margin: 0 auto 1.5rem;">{service.pricing?.description}</p>
-        <a href="/contact/" class="btn btn--primary btn--lg">Request a Quote</a>
+  <!-- ===== SERVICES ===== -->
+  {services.map((service, si) => (
+    <section class:list={['service-pricing-section', { 'service-pricing-section--alt': si % 2 !== 0 }]}>
+      <div class="container">
+        <div class="service-pricing-header">
+          <div class="service-pricing-meta">
+            <span class="section-label">{service.name}</span>
+            <h2 class="service-pricing-title">{service.name} Pricing</h2>
+            <p class="service-pricing-desc">{service.short_description}</p>
+          </div>
+          {service.pricing?.setup_fee && (
+            <div class="setup-fee-badge">
+              <span class="setup-fee-label">One-Time Setup Fee</span>
+              <span class="setup-fee-amount">{formatPrice(service.pricing.setup_fee)}</span>
+            </div>
+          )}
+        </div>
+
+        {service.pricing?.quote_based ? (
+          <div class="quote-card">
+            <div class="quote-card__icon">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            </div>
+            <div class="quote-card__content">
+              <h3 class="quote-card__title">Custom Campaign Pricing</h3>
+              <p class="quote-card__desc">{service.pricing.description}</p>
+              <div class="quote-card__features">
+                <div class="quote-feature">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                  No Agency Fee
+                </div>
+                <div class="quote-feature">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                  Free Professional Video Production
+                </div>
+                <div class="quote-feature">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                  Budget Goes Directly to Media Placement
+                </div>
+              </div>
+            </div>
+            <a href="/contact/" class="btn btn--primary btn--lg">Get a Custom Quote</a>
+          </div>
+        ) : service.pricing?.tiers && service.pricing.tiers.length > 0 ? (
+          <div class:list={['tiers-grid', `tiers-grid--${service.pricing.tiers.length}`]}>
+            {service.pricing.tiers.map(tier => (
+              <div class:list={['tier-card', { 'tier-card--featured': tier.featured }]}>
+                {tier.featured && (
+                  <div class="tier-badge">Most Popular</div>
+                )}
+                <div class="tier-card__header">
+                  <h3 class="tier-name">{tier.name}</h3>
+                  <p class="tier-desc">{tier.description}</p>
+                </div>
+                <div class="tier-price">
+                  {tier.price === 0 ? (
+                    <span class="price-main price-zero">{tier.price_label}</span>
+                  ) : (
+                    <>
+                      <span class="price-main">{formatPrice(tier.price)}</span>
+                      <span class="price-label">{tier.price_label ?? '/mo'}</span>
+                    </>
+                  )}
+                </div>
+                <ul class="tier-features">
+                  {tier.features.map(f => (
+                    <li class="tier-feature">
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                      {f}
+                    </li>
+                  ))}
+                </ul>
+                <a
+                  href="/contact/"
+                  class:list={['btn', 'tier-cta', tier.featured ? 'btn--primary' : 'btn--outline']}
+                >
+                  Get Started
+                </a>
+              </div>
+            ))}
+          </div>
+        ) : null}
       </div>
-    ))}
-  </div>
-</section>
+    </section>
+  ))}
 
-<section class="cta-banner">
-  <div class="container" style="position: relative; z-index: 1;">
-    <h2 style="margin-bottom: 1rem;">Questions About Pricing?</h2>
-    <p style="margin-bottom: 2rem;">We'll walk you through everything on a free strategy call.</p>
-    <a href="/contact/" class="btn btn--primary btn--lg">Get Your Free Strategy Call</a>
-  </div>
-</section>
+  <!-- ===== FAQ ===== -->
+  <section class="pricing-faq">
+    <div class="container--narrow">
+      <div class="faq-header">
+        <span class="section-label">Common Questions</span>
+        <h2 class="faq-title">Pricing FAQ</h2>
+      </div>
+      <div class="faq-list">
+        {faqs.map((faq, i) => (
+          <details class="faq-item" open={i === 0}>
+            <summary class="faq-question">
+              {faq.q}
+              <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </summary>
+            <div class="faq-answer">
+              <p>{faq.a}</p>
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
 
+  <!-- ===== CTA ===== -->
+  <section class="pricing-cta">
+    <div class="container">
+      <div class="pricing-cta__inner">
+        <span class="section-label">Free Strategy Call</span>
+        <h2 class="pricing-cta__title">Not Sure Which Plan Fits?</h2>
+        <p class="pricing-cta__sub">
+          Book a free 20-minute strategy call. We'll look at your market, your competition,
+          and tell you exactly which service and tier will move the needle fastest.
+        </p>
+        <div class="pricing-cta__actions">
+          <a href="/contact/" class="btn btn--primary btn--lg">Book a Free Strategy Call</a>
+          <a href={`tel:${config.business.phone_raw}`} class="btn btn--outline btn--lg">
+            Call {config.business.phone}
+          </a>
+        </div>
+        <p class="pricing-cta__note">No pressure. No sales script. Just an honest conversation.</p>
+      </div>
+    </div>
+  </section>
 </Base>
+
+<style>
+/* ===== HERO ===== */
+.pricing-hero {
+  background: #ffffff;
+  padding: clamp(4rem, 8vw, 6rem) 0 clamp(3rem, 5vw, 4rem);
+  border-bottom: 1px solid var(--gray-200);
+}
+.pricing-hero__inner {
+  max-width: 640px;
+}
+.section-label {
+  display: inline-block;
+  font-family: var(--font-heading);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 1rem;
+}
+.pricing-hero__title {
+  font-family: var(--font-heading);
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  font-weight: 800;
+  color: var(--gray-900);
+  line-height: 1.05;
+  margin-bottom: 1rem;
+}
+.pricing-hero__sub {
+  font-size: 1.1rem;
+  color: var(--gray-700);
+  line-height: 1.65;
+  margin-bottom: 2rem;
+}
+.pricing-hero__trust {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+.trust-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--gray-700);
+  background: var(--gray-100);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-full);
+  padding: 0.35rem 0.85rem;
+}
+.trust-pill svg { color: var(--red); }
+
+/* ===== SERVICE SECTIONS ===== */
+.service-pricing-section {
+  background: #ffffff;
+  padding: clamp(4rem, 7vw, 6rem) 0;
+  border-bottom: 1px solid var(--gray-200);
+}
+.service-pricing-section--alt {
+  background: var(--gray-100);
+}
+.service-pricing-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 2.5rem;
+  flex-wrap: wrap;
+}
+.service-pricing-meta {
+  max-width: 600px;
+}
+.service-pricing-title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  font-weight: 800;
+  color: var(--gray-900);
+  margin-bottom: 0.75rem;
+}
+.service-pricing-desc {
+  font-size: 1rem;
+  color: var(--gray-600);
+  line-height: 1.65;
+}
+.setup-fee-badge {
+  flex-shrink: 0;
+  background: #ffffff;
+  border: 1.5px solid var(--gray-200);
+  border-radius: var(--radius-md);
+  padding: 1rem 1.5rem;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+}
+.setup-fee-label {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--gray-500);
+  margin-bottom: 0.3rem;
+}
+.setup-fee-amount {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--gray-900);
+}
+
+/* ===== TIERS GRID ===== */
+.tiers-grid {
+  display: grid;
+  gap: 1.5rem;
+}
+.tiers-grid--2 { grid-template-columns: repeat(2, 1fr); }
+.tiers-grid--3 { grid-template-columns: repeat(3, 1fr); }
+.tiers-grid--4 { grid-template-columns: repeat(4, 1fr); }
+
+.tier-card {
+  background: #ffffff;
+  border: 1.5px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  position: relative;
+  transition: box-shadow var(--transition-med), transform var(--transition-med);
+}
+.tier-card:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-4px);
+}
+.tier-card--featured {
+  border-color: var(--red);
+  border-width: 2px;
+}
+.tier-badge {
+  position: absolute;
+  top: -13px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--red);
+  color: #ffffff;
+  font-family: var(--font-heading);
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0.3rem 1rem;
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+}
+.tier-card__header {
+  padding-top: 0.5rem;
+}
+.tier-name {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--gray-900);
+  margin-bottom: 0.4rem;
+}
+.tier-desc {
+  font-size: 0.875rem;
+  color: var(--gray-600);
+  line-height: 1.5;
+}
+.tier-price {
+  display: flex;
+  align-items: baseline;
+  gap: 0.35rem;
+  border-top: 1px solid var(--gray-200);
+  border-bottom: 1px solid var(--gray-200);
+  padding: 1.25rem 0;
+}
+.price-main {
+  font-family: var(--font-heading);
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--gray-900);
+  line-height: 1;
+}
+.price-zero {
+  font-size: 1.4rem;
+  color: var(--red);
+}
+.price-label {
+  font-size: 0.85rem;
+  color: var(--gray-500);
+  font-weight: 500;
+}
+.tier-features {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  flex: 1;
+}
+.tier-feature {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  font-size: 0.875rem;
+  color: var(--gray-700);
+  line-height: 1.4;
+}
+.tier-feature svg {
+  flex-shrink: 0;
+  color: var(--red);
+  margin-top: 1px;
+}
+.tier-cta {
+  width: 100%;
+  text-align: center;
+  justify-content: center;
+}
+
+/* ===== QUOTE CARD ===== */
+.quote-card {
+  background: #ffffff;
+  border: 1.5px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+.service-pricing-section--alt .quote-card {
+  background: #ffffff;
+}
+.quote-card__icon {
+  flex-shrink: 0;
+  width: 64px;
+  height: 64px;
+  background: var(--red-bg);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--red);
+}
+.quote-card__content {
+  flex: 1;
+  min-width: 200px;
+}
+.quote-card__title {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--gray-900);
+  margin-bottom: 0.75rem;
+}
+.quote-card__desc {
+  font-size: 1rem;
+  color: var(--gray-600);
+  line-height: 1.6;
+  margin-bottom: 1.25rem;
+}
+.quote-card__features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+.quote-feature {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--gray-700);
+  background: var(--gray-100);
+  padding: 0.3rem 0.75rem;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--gray-200);
+}
+.quote-feature svg { color: var(--red); }
+
+/* ===== FAQ ===== */
+.pricing-faq {
+  background: var(--gray-100);
+  padding: clamp(4rem, 7vw, 6rem) 0;
+}
+.faq-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+.faq-title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+  font-weight: 800;
+  color: var(--gray-900);
+}
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: #ffffff;
+}
+.faq-item {
+  border-bottom: 1px solid var(--gray-200);
+}
+.faq-item:last-child {
+  border-bottom: none;
+}
+.faq-question {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.4rem 1.75rem;
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--gray-900);
+  cursor: pointer;
+  list-style: none;
+  transition: background var(--transition-fast);
+}
+.faq-question::-webkit-details-marker { display: none; }
+.faq-question:hover { background: var(--gray-100); }
+.faq-chevron {
+  flex-shrink: 0;
+  color: var(--red);
+  transition: transform var(--transition-fast);
+}
+details[open] .faq-chevron {
+  transform: rotate(180deg);
+}
+.faq-answer {
+  padding: 0 1.75rem 1.5rem;
+}
+.faq-answer p {
+  font-size: 0.95rem;
+  color: var(--gray-600);
+  line-height: 1.7;
+}
+
+/* ===== CTA ===== */
+.pricing-cta {
+  background: #ffffff;
+  padding: clamp(4rem, 7vw, 6rem) 0;
+  border-top: 1px solid var(--gray-200);
+}
+.pricing-cta__inner {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+}
+.pricing-cta__title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  font-weight: 800;
+  color: var(--gray-900);
+  margin-bottom: 1rem;
+}
+.pricing-cta__sub {
+  font-size: 1.05rem;
+  color: var(--gray-600);
+  line-height: 1.65;
+  margin-bottom: 2.5rem;
+}
+.pricing-cta__actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 1.25rem;
+}
+.pricing-cta__note {
+  font-size: 0.825rem;
+  color: var(--gray-500);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+  .tiers-grid--3 { grid-template-columns: repeat(2, 1fr); }
+  .tiers-grid--4 { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 768px) {
+  .tiers-grid--2,
+  .tiers-grid--3,
+  .tiers-grid--4 { grid-template-columns: 1fr; }
+  .service-pricing-header { flex-direction: column; }
+  .setup-fee-badge { align-self: flex-start; }
+  .quote-card { flex-direction: column; gap: 1.5rem; }
+}
+</style>
