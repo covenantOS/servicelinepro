@@ -55,7 +55,7 @@ const pageTitle = service
           <a href={config.area_service_combos.includes(area.slug) ? `/areas/${area.slug}/${svc.slug}/` : `/services/${svc.slug}/`} class="card" style="text-decoration: none;">
             <h3 style="font-size: 1.15rem; margin-bottom: 0.5rem; color: var(--white);">{svc.name}</h3>
             <p style="color: var(--gray-400); font-size: 0.9rem; line-height: 1.5;">{svc.short_description}</p>
-            <span style="display: inline-flex; align-items: center; gap: 0.25rem; color: var(--lime); font-size: 0.85rem; font-weight: 600; margin-top: 0.75rem;">
+            <span style="display: inline-flex; align-items: center; gap: 0.25rem; color: var(--red-light); font-size: 0.85rem; font-weight: 600; margin-top: 0.75rem;">
               Learn More <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
             </span>
           </a>
@@ -69,7 +69,7 @@ const pageTitle = service
   <div class="container" style="position: relative; z-index: 1;">
     <h2 style="margin-bottom: 1rem;">Ready to Dominate {area.name}?</h2>
     <p style="margin-bottom: 2rem;">Get a free market analysis and custom growth plan for your {area.name} business.</p>
-    <a href="/contact/" class="btn btn--lime btn--lg">Get Your Free Strategy Call</a>
+    <a href="/contact/" class="btn btn--primary btn--lg">Get Your Free Strategy Call</a>
   </div>
 </section>
 

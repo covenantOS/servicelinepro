@@ -1,286 +1,322 @@
 ---
 import Base from '../layouts/Base.astro';
 import config from '../lib/config';
-import reviews from '../data/real-reviews.json';
-
-const caseStudies = config.case_studies.slice(0, 8);
-const services = config.services;
+import realReviews from '../data/real-reviews.json';
+const caseStudies = config.case_studies || [];
+const services = config.services || [];
+const featured = caseStudies.filter(cs => cs.metrics?.primary).slice(0, 6);
 ---
 
 <Base title={`${config.business.name} — ${config.business.tagline}`} description={config.business.description}>
 
 <!-- ====== HERO ====== -->
-<section class="hero">
-  <div class="hero__bg bg-grid"></div>
-  <div class="hero__glow"></div>
-  <div class="container hero__content">
-    <div class="hero__text">
-      <div class="badge" style="margin-bottom: 1.5rem;">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-        {config.trust_signals.rating} Stars — {config.trust_signals.review_count}+ Google Reviews
-      </div>
-      <h1>Dominate Local Search.<br/><span class="gradient-text--red">Own Your Market.</span></h1>
-      <p class="hero__sub">
-        We build ranking machines — Map Pack SEO, zero-fee Google Ads through Spectrum Reach,
-        conversion-focused websites, and TV/streaming campaigns that put your brand in front of
-        30M+ households across 48 states.
-      </p>
-      <div class="hero__ctas">
-        <a href="/contact/" class="btn btn--primary btn--lg">Get Your Free Strategy Call</a>
-        <a href="/case-studies/" class="btn btn--outline btn--lg">See Results</a>
-      </div>
-      <div class="hero__proof">
-        <div class="hero__proof-item">
-          <span class="hero__proof-num">25+</span>
-          <span class="hero__proof-label">Case Studies</span>
-        </div>
-        <div class="hero__proof-divider"></div>
-        <div class="hero__proof-item">
-          <span class="hero__proof-num">5.0</span>
-          <span class="hero__proof-label">Google Rating</span>
-        </div>
-        <div class="hero__proof-divider"></div>
-        <div class="hero__proof-item">
-          <span class="hero__proof-num">$0</span>
-          <span class="hero__proof-label">Agency Fees on $5K+</span>
-        </div>
-      </div>
-    </div>
-    <div class="hero__visual hide-mobile">
-      <div class="hero__img-wrapper">
-        <img src="/media/live-team-photo.webp" alt="ServiceLine Pro Team" width="560" height="400" loading="eager" />
-        <div class="hero__img-badge">
-          <div class="stars">
-            <svg viewBox="0 0 20 20"><path d="M10 1l2.39 4.84L17.3 6.7l-3.65 3.56.86 5.03L10 13.07l-4.51 2.22.86-5.03L2.7 6.7l4.91-.86L10 1z"/></svg>
-            <svg viewBox="0 0 20 20"><path d="M10 1l2.39 4.84L17.3 6.7l-3.65 3.56.86 5.03L10 13.07l-4.51 2.22.86-5.03L2.7 6.7l4.91-.86L10 1z"/></svg>
-            <svg viewBox="0 0 20 20"><path d="M10 1l2.39 4.84L17.3 6.7l-3.65 3.56.86 5.03L10 13.07l-4.51 2.22.86-5.03L2.7 6.7l4.91-.86L10 1z"/></svg>
-            <svg viewBox="0 0 20 20"><path d="M10 1l2.39 4.84L17.3 6.7l-3.65 3.56.86 5.03L10 13.07l-4.51 2.22.86-5.03L2.7 6.7l4.91-.86L10 1z"/></svg>
-            <svg viewBox="0 0 20 20"><path d="M10 1l2.39 4.84L17.3 6.7l-3.65 3.56.86 5.03L10 13.07l-4.51 2.22.86-5.03L2.7 6.7l4.91-.86L10 1z"/></svg>
-          </div>
-          <span style="font-size: 0.8rem; color: var(--gray-300);">"ServiceLine Pro absolutely crushed it"</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ====== SERVICES ====== -->
-<section class="section bg-dark" id="services">
+<section class="hero section">
   <div class="container">
-    <div class="fade-in" style="text-align: center; margin-bottom: 3rem;">
-      <span class="section-label">What We Do</span>
-      <h2 class="section-title">Services Built to<br/>Generate Revenue</h2>
-      <p class="section-subtitle" style="margin: 0 auto;">Every service is engineered for one thing — putting more money in your pocket through measurable, trackable results.</p>
-    </div>
-    <div class="grid grid--2 stagger" style="gap: 1.5rem;">
-      {services.map((service, i) => (
-        <a href={`/services/${service.slug}/`} class="service-card card" style="text-decoration: none;">
-          <div class="service-card__icon" data-icon={service.icon}>
-            {service.icon === 'map-pin' && <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>}
-            {service.icon === 'target' && <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>}
-            {service.icon === 'layout' && <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>}
-            {service.icon === 'tv' && <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="15" rx="2" ry="2"/><polyline points="17 2 12 7 7 2"/></svg>}
-          </div>
-          <h3 class="service-card__title">{service.name}</h3>
-          <p class="service-card__desc">{service.short_description}</p>
-          <span class="service-card__cta">
-            Learn More
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-          </span>
-        </a>
-      ))}
+    <div class="hero__inner">
+      <div class="hero__text">
+        <div class="hero__badge">
+          <span class="hero__badge-stars">★★★★★</span>
+          5.0 Google Rating — 22 Reviews
+        </div>
+        <h1 class="hero__headline">We Get Your Business to the Top of Google</h1>
+        <p class="hero__sub">
+          Google SEO. Google Ads. TV &amp; streaming ads. Websites. 50+ businesses trust us to bring them more calls, more customers, and more revenue.
+        </p>
+        <div class="hero__actions">
+          <a href="/case-studies/" class="btn btn--primary btn--lg">See Our Results</a>
+          <a href={`tel:${config.business.phone_raw}`} class="btn btn--outline btn--lg">
+            Call {config.business.phone}
+          </a>
+        </div>
+      </div>
+      <div class="hero__image">
+        <img
+          src="/media/seo-hero.webp"
+          alt="Google Maps Top 3 ranking screenshot"
+          width="640"
+          height="360"
+          loading="eager"
+          fetchpriority="high"
+          class="hero__img"
+        />
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ====== SOCIAL PROOF BAR ====== -->
-<section class="section--sm bg-dark-2" style="border-top: 1px solid var(--dark-4); border-bottom: 1px solid var(--dark-4);">
+<!-- ====== TRUST BAR ====== -->
+<section class="trust-bar bg-gray">
   <div class="container">
-    <div class="proof-bar">
-      <div class="proof-bar__item">
-        <span class="proof-bar__num">5.0</span>
-        <span class="proof-bar__label">Google Rating</span>
+    <div class="stats-row">
+      <div class="stat">
+        <span class="stat__number">50+</span>
+        <span class="stat__label">Case Studies</span>
       </div>
-      <div class="proof-bar__sep"></div>
-      <div class="proof-bar__item">
-        <span class="proof-bar__num">{config.trust_signals.review_count}+</span>
-        <span class="proof-bar__label">5-Star Reviews</span>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <span class="stat__number">5.0</span>
+        <span class="stat__label">Google Rating</span>
       </div>
-      <div class="proof-bar__sep"></div>
-      <div class="proof-bar__item">
-        <span class="proof-bar__num">25+</span>
-        <span class="proof-bar__label">Case Studies</span>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <span class="stat__number">$0</span>
+        <span class="stat__label">Agency Fees</span>
       </div>
-      <div class="proof-bar__sep"></div>
-      <div class="proof-bar__item">
-        <span class="proof-bar__num">48</span>
-        <span class="proof-bar__label">States Served</span>
-      </div>
-      <div class="proof-bar__sep"></div>
-      <div class="proof-bar__item">
-        <span class="proof-bar__num">$0</span>
-        <span class="proof-bar__label">Agency Fee on $5K+</span>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <span class="stat__number">48</span>
+        <span class="stat__label">States Served</span>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ====== WHY US / CONCERNS vs BENEFITS ====== -->
-<section class="section glow-red" style="position: relative; overflow: hidden;">
-  <div class="container" style="position: relative; z-index: 1;">
-    <div class="fade-in" style="text-align: center; margin-bottom: 3rem;">
-      <span class="section-label">Why ServiceLine Pro</span>
-      <h2 class="section-title">Other Agencies vs. Us</h2>
-    </div>
-    <div class="comparison-grid fade-in">
-      <div class="comparison-col comparison-col--bad">
-        <h3 class="comparison-col__head comparison-col__head--bad">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-          Other Agencies
-        </h3>
-        <ul class="comparison-list">
-          <li>20-30% agency fees eating your ad budget</li>
-          <li>Generic strategies copy-pasted across clients</li>
-          <li>3-6 month lock-in contracts</li>
-          <li>Monthly PDF reports you never read</li>
-          <li>Outsourced work with no accountability</li>
-          <li>Cookie-cutter template websites</li>
-        </ul>
-      </div>
-      <div class="comparison-col comparison-col--good">
-        <h3 class="comparison-col__head comparison-col__head--good">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-          ServiceLine Pro
-        </h3>
-        <ul class="comparison-list">
-          <li>$0 agency fee on ad budgets over $5K/mo</li>
-          <li>Custom strategy built for your exact market</li>
-          <li>No long-term contracts — results keep you</li>
-          <li>Real-time dashboards with live metrics</li>
-          <li>In-house team, direct access to your strategist</li>
-          <li>Custom-coded, conversion-optimized websites</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ====== PROCESS ====== -->
-<section class="section bg-dark">
+<!-- ====== WHAT WE DO ====== -->
+<section class="section">
   <div class="container">
-    <div class="fade-in" style="text-align: center; margin-bottom: 3.5rem;">
-      <span class="section-label">How It Works</span>
-      <h2 class="section-title">From First Call to First Results</h2>
-    </div>
-    <div class="process-grid stagger">
-      <div class="process-step fade-in">
-        <div class="process-step__number">1</div>
-        <h3 style="margin-bottom: 0.5rem;">Free Strategy Call</h3>
-        <p style="color: var(--gray-400); font-size: 0.95rem;">We audit your current presence, analyze your competitors, and identify the fastest path to more leads. No charge, no obligation.</p>
+    <div class="section-label">WHAT WE DO</div>
+    <h2 class="section-title">Four Ways We Grow Your Business</h2>
+    <div class="services-grid">
+      <div class="card service-card reveal-up">
+        <div class="service-card__image-wrap">
+          <img
+            src="/media/seo-hero.webp"
+            alt="Google SEO ranking results"
+            class="service-card__image"
+            loading="lazy"
+            width="400"
+            height="225"
+          />
+        </div>
+        <div class="service-card__body">
+          <h3 class="service-card__title">Google SEO</h3>
+          <p class="service-card__desc">We rank your business in Google's Top 3 Map Pack in 90 days. Free 10-day ranking boost to start.</p>
+          <a href="/services/local-seo/" class="service-card__link">Learn More →</a>
+        </div>
       </div>
-      <div class="process-step fade-in">
-        <div class="process-step__number">2</div>
-        <h3 style="margin-bottom: 0.5rem;">Custom Game Plan</h3>
-        <p style="color: var(--gray-400); font-size: 0.95rem;">We build a strategy tailored to your market, budget, and growth goals — whether that's Map Pack domination, PPC at scale, or a full website rebuild.</p>
+
+      <div class="card service-card reveal-up">
+        <div class="service-card__image-wrap">
+          <img
+            src="/media/ppc-hero.webp"
+            alt="Google Ads PPC dashboard"
+            class="service-card__image"
+            loading="lazy"
+            width="400"
+            height="225"
+          />
+        </div>
+        <div class="service-card__body">
+          <h3 class="service-card__title">Google Ads &amp; PPC</h3>
+          <p class="service-card__desc">Google Ads with $0 agency fees on budgets over $5K/mo through Spectrum Reach. Your entire budget goes to ads.</p>
+          <a href="/services/google-ads/" class="service-card__link">Learn More →</a>
+        </div>
       </div>
-      <div class="process-step fade-in">
-        <div class="process-step__number">3</div>
-        <h3 style="margin-bottom: 0.5rem;">Launch & Optimize</h3>
-        <p style="color: var(--gray-400); font-size: 0.95rem;">Our in-house team executes everything — from campaign setup to website deployment. You get real-time access to every metric that matters.</p>
+
+      <div class="card service-card reveal-up">
+        <div class="service-card__image-wrap">
+          <img
+            src="/media/tv-streaming-hero.webp"
+            alt="TV and streaming advertising"
+            class="service-card__image"
+            loading="lazy"
+            width="400"
+            height="225"
+          />
+        </div>
+        <div class="service-card__body">
+          <h3 class="service-card__title">TV &amp; Streaming Ads</h3>
+          <p class="service-card__desc">Professional TV commercials on 200+ streaming channels across 48 states. Free video production included.</p>
+          <a href="/services/tv-streaming/" class="service-card__link">Learn More →</a>
+        </div>
       </div>
-      <div class="process-step fade-in">
-        <div class="process-step__number">4</div>
-        <h3 style="margin-bottom: 0.5rem;">Scale What Works</h3>
-        <p style="color: var(--gray-400); font-size: 0.95rem;">As leads flow in, we double down on what's working and expand into new channels and markets. The goal is always more revenue, not more busywork.</p>
+
+      <div class="card service-card reveal-up">
+        <div class="service-card__image-wrap">
+          <img
+            src="/media/webdesign-hero.webp"
+            alt="Custom website design on iMac and iPad"
+            class="service-card__image"
+            loading="lazy"
+            width="400"
+            height="225"
+          />
+        </div>
+        <div class="service-card__body">
+          <h3 class="service-card__title">Website Design</h3>
+          <p class="service-card__desc">Custom websites that load in under 2 seconds and turn visitors into phone calls. Starting at $2,500.</p>
+          <a href="/services/website-design/" class="service-card__link">Learn More →</a>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ====== CASE STUDIES ====== -->
-<section class="section" id="results">
+<section class="section bg-gray">
   <div class="container">
-    <div class="fade-in" style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 1rem; margin-bottom: 3rem;">
-      <div>
-        <span class="section-label">Proven Results</span>
-        <h2 class="section-title" style="margin-bottom: 0.5rem;">Real Numbers. Real Clients.</h2>
-        <p class="section-subtitle">Every case study is verified with real data from real campaigns.</p>
-      </div>
-      <a href="/case-studies/" class="btn btn--ghost">
-        View All Case Studies
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-      </a>
-    </div>
-    <div class="grid grid--4 stagger" style="gap: 1.25rem;">
-      {caseStudies.map(cs => (
-        <a href={`/case-studies/${cs.slug}/`} class="case-card" style="text-decoration: none;">
-          {cs.image && <img src={`/media/case-studies/${cs.image}`} alt={cs.title} width="400" height="250" loading="lazy" class="case-card__img" />}
-          <div class="case-card__body">
-            <span class="case-card__category">{cs.category}</span>
-            <h4 class="case-card__title">{cs.title}</h4>
-            <div class="case-card__metric">
-              <span class="case-card__metric-value">{cs.metrics?.primary || cs.result}</span>
+    <div class="section-label">CLIENT RESULTS</div>
+    <h2 class="section-title">Real Numbers From Real Clients</h2>
+    {featured.length > 0 ? (
+      <div class="case-grid">
+        {featured.map((cs) => (
+          <div class="card case-card reveal-up">
+            <div class="case-card__header">
+              <span class="case-card__industry">{cs.industry || cs.category}</span>
             </div>
+            <h3 class="case-card__title">{cs.title}</h3>
+            <div class="case-card__metric">{cs.metrics?.primary}</div>
+            {cs.metrics?.secondary && (
+              <div class="case-card__secondary">{cs.metrics.secondary}</div>
+            )}
           </div>
-        </a>
-      ))}
+        ))}
+      </div>
+    ) : (
+      <div class="case-grid">
+        <div class="card case-card">
+          <span class="case-card__industry">HVAC</span>
+          <h3 class="case-card__title">HVAC Company — Tampa, FL</h3>
+          <div class="case-card__metric">312% More Calls</div>
+          <div class="case-card__secondary">In first 90 days of SEO</div>
+        </div>
+        <div class="card case-card">
+          <span class="case-card__industry">Plumbing</span>
+          <h3 class="case-card__title">Plumbing Contractor — Orlando, FL</h3>
+          <div class="case-card__metric">#1 Google Ranking</div>
+          <div class="case-card__secondary">For 14 local keywords</div>
+        </div>
+        <div class="card case-card">
+          <span class="case-card__industry">Roofing</span>
+          <h3 class="case-card__title">Roofing Company — Sarasota, FL</h3>
+          <div class="case-card__metric">$180K New Revenue</div>
+          <div class="case-card__secondary">From Google Ads in 6 months</div>
+        </div>
+      </div>
+    )}
+    <div class="section-cta">
+      <a href="/case-studies/" class="btn btn--outline">See All 50+ Case Studies →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ====== HOW WE'RE DIFFERENT ====== -->
+<section class="section">
+  <div class="container">
+    <div class="diff__inner">
+      <div class="diff__image">
+        <img
+          src="/media/will-hamilton.webp"
+          alt="Will Hamilton, CEO of ServiceLine Pro"
+          class="diff__photo"
+          loading="lazy"
+          width="480"
+          height="600"
+        />
+      </div>
+      <div class="diff__content">
+        <div class="section-label">WHY SERVICELINE PRO</div>
+        <h2 class="section-title" style="margin-bottom: 2rem;">A Real Team. Real Results. No Gimmicks.</h2>
+        <ul class="diff__list">
+          <li class="diff__item">
+            <span class="diff__icon">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                <circle cx="10" cy="10" r="10" fill="#c0392b" opacity="0.12"/>
+                <path d="M6 10l3 3 5-5" stroke="#c0392b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <div>
+              <strong>$0 agency fee on Google Ads over $5K/mo</strong>
+              <p>Every dollar of your ad budget goes to reaching customers — not paying our overhead.</p>
+            </div>
+          </li>
+          <li class="diff__item">
+            <span class="diff__icon">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                <circle cx="10" cy="10" r="10" fill="#c0392b" opacity="0.12"/>
+                <path d="M6 10l3 3 5-5" stroke="#c0392b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <div>
+              <strong>Rank in Google's Top 3 in 90 days — or we work free</strong>
+              <p>We back our SEO with a performance guarantee. If we don't deliver, we keep working at no charge.</p>
+            </div>
+          </li>
+          <li class="diff__item">
+            <span class="diff__icon">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                <circle cx="10" cy="10" r="10" fill="#c0392b" opacity="0.12"/>
+                <path d="M6 10l3 3 5-5" stroke="#c0392b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <div>
+              <strong>3-person team — you talk to the people doing the work</strong>
+              <p>No account managers. No hand-offs. You deal directly with the people executing your campaigns.</p>
+            </div>
+          </li>
+          <li class="diff__item">
+            <span class="diff__icon">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                <circle cx="10" cy="10" r="10" fill="#c0392b" opacity="0.12"/>
+                <path d="M6 10l3 3 5-5" stroke="#c0392b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <div>
+              <strong>50+ client results you can verify</strong>
+              <p>Real case studies with real numbers. We'll walk you through them on your first call.</p>
+            </div>
+          </li>
+          <li class="diff__item">
+            <span class="diff__icon">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                <circle cx="10" cy="10" r="10" fill="#c0392b" opacity="0.12"/>
+                <path d="M6 10l3 3 5-5" stroke="#c0392b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <div>
+              <strong>Tampa-based, real office, real people</strong>
+              <p>We're local. You can visit us. We're not an overseas call center or a faceless platform.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- ====== REVIEWS ====== -->
-<section class="section bg-dark" id="reviews">
+<section class="section bg-gray">
   <div class="container">
-    <div class="fade-in" style="text-align: center; margin-bottom: 3rem;">
-      <span class="section-label">Client Reviews</span>
-      <h2 class="section-title">What Our Clients Say</h2>
-      <div style="display: flex; justify-content: center; align-items: center; gap: 0.75rem; margin-top: 0.75rem;">
-        <div class="stars">
-          <svg viewBox="0 0 20 20"><path d="M10 1l2.39 4.84L17.3 6.7l-3.65 3.56.86 5.03L10 13.07l-4.51 2.22.86-5.03L2.7 6.7l4.91-.86L10 1z"/></svg>
-          <svg viewBox="0 0 20 20"><path d="M10 1l2.39 4.84L17.3 6.7l-3.65 3.56.86 5.03L10 13.07l-4.51 2.22.86-5.03L2.7 6.7l4.91-.86L10 1z"/></svg>
-          <svg viewBox="0 0 20 20"><path d="M10 1l2.39 4.84L17.3 6.7l-3.65 3.56.86 5.03L10 13.07l-4.51 2.22.86-5.03L2.7 6.7l4.91-.86L10 1z"/></svg>
-          <svg viewBox="0 0 20 20"><path d="M10 1l2.39 4.84L17.3 6.7l-3.65 3.56.86 5.03L10 13.07l-4.51 2.22.86-5.03L2.7 6.7l4.91-.86L10 1z"/></svg>
-          <svg viewBox="0 0 20 20"><path d="M10 1l2.39 4.84L17.3 6.7l-3.65 3.56.86 5.03L10 13.07l-4.51 2.22.86-5.03L2.7 6.7l4.91-.86L10 1z"/></svg>
-        </div>
-        <span style="color: var(--gray-400); font-size: 0.9rem;">{config.trust_signals.rating} out of 5 on Google</span>
-      </div>
-    </div>
-    <div class="reviews-grid stagger">
-      {reviews.map(review => (
-        <div class="testimonial-card">
-          <div class="stars" style="margin-bottom: 0.75rem;">
-            {Array.from({length: review.rating}).map(() => (
-              <svg viewBox="0 0 20 20"><path d="M10 1l2.39 4.84L17.3 6.7l-3.65 3.56.86 5.03L10 13.07l-4.51 2.22.86-5.03L2.7 6.7l4.91-.86L10 1z"/></svg>
-            ))}
+    <div class="section-label">CLIENT REVIEWS</div>
+    <h2 class="section-title">What Our Clients Say</h2>
+    <div class="reviews-grid">
+      {realReviews.slice(0, 6).map((review) => (
+        <div class="card review-card reveal-up">
+          <div class="review-card__stars">
+            {'★'.repeat(review.rating)}
           </div>
-          <p class="testimonial-card__quote">{review.text}</p>
-          <div style="display: flex; justify-content: space-between; align-items: center;">
-            <span class="testimonial-card__author">{review.author}</span>
-            <span class="testimonial-card__date">{review.date}</span>
+          <p class="review-card__text">"{review.text}"</p>
+          <div class="review-card__footer">
+            <span class="review-card__author">{review.author}</span>
+            <span class="review-card__date">{review.date}</span>
           </div>
         </div>
       ))}
-    </div>
-    <div style="text-align: center; margin-top: 2.5rem;" class="fade-in">
-      <a href="https://www.google.com/maps/place/ServiceLine+Pro" target="_blank" rel="noopener noreferrer" class="btn btn--outline">
-        Read All Reviews on Google
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-      </a>
     </div>
   </div>
 </section>
 
 <!-- ====== CTA BANNER ====== -->
-<section class="cta-banner">
-  <div class="container" style="position: relative; z-index: 1;">
-    <div class="fade-in">
-      <h2 style="margin-bottom: 1rem;">Ready to Dominate Your Market?</h2>
-      <p style="margin-bottom: 2rem; font-size: 1.1rem;">
-        Get a free strategy call with our team. We'll audit your market, show you exactly where the opportunities are, and build a plan to get you there.
+<section class="section bg-dark cta-banner">
+  <div class="container">
+    <div class="cta-banner__inner">
+      <h2 class="cta-banner__headline">Ready to Get More Calls From Google?</h2>
+      <p class="cta-banner__sub">
+        Schedule a free strategy call. We'll show you exactly where you rank, where your competitors rank, and what it takes to get to #1.
       </p>
-      <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-        <a href="/contact/" class="btn btn--lime btn--lg">Book Your Free Call</a>
-        <a href={`tel:${config.business.phone_raw}`} class="btn btn--outline btn--lg" style="border-color: rgba(255,255,255,0.3); color: var(--white);">
+      <div class="cta-banner__actions">
+        <a href="/contact/" class="btn btn--primary btn--lg">Get Your Free Strategy Call</a>
+        <a href={`tel:${config.business.phone_raw}`} class="btn btn--outline-light btn--lg">
           Call {config.business.phone}
         </a>
       </div>
@@ -293,315 +329,408 @@ const services = config.services;
 <style>
 /* ====== HERO ====== */
 .hero {
-  position: relative;
-  min-height: 90vh;
-  display: flex;
-  align-items: center;
-  overflow: hidden;
-  padding: 6rem 0 4rem;
+  padding-top: clamp(3rem, 6vw, 5rem);
+  padding-bottom: clamp(3rem, 6vw, 5rem);
+  background: #ffffff;
 }
-.hero__bg {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-}
-.hero__glow {
-  position: absolute;
-  top: -300px;
-  right: -200px;
-  width: 800px;
-  height: 800px;
-  background: radial-gradient(circle, rgba(192, 57, 43, 0.12) 0%, transparent 65%);
-  z-index: 0;
-  pointer-events: none;
-}
-.hero__content {
-  position: relative;
-  z-index: 1;
+.hero__inner {
   display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  gap: 4rem;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 4vw, 4rem);
   align-items: center;
 }
-.hero__text h1 {
+@media (max-width: 768px) {
+  .hero__inner {
+    grid-template-columns: 1fr;
+  }
+  .hero__image {
+    order: -1;
+  }
+}
+.hero__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #fff8f8;
+  border: 1px solid rgba(192, 57, 43, 0.2);
+  color: #c0392b;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  padding: 0.4rem 0.85rem;
+  border-radius: 999px;
+  margin-bottom: 1.5rem;
+}
+.hero__badge-stars {
+  color: #f4c542;
+  letter-spacing: -0.05em;
+}
+.hero__headline {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 4.5vw, 3.25rem);
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--gray-900);
   margin-bottom: 1.25rem;
+  letter-spacing: -0.02em;
 }
 .hero__sub {
-  font-size: 1.1rem;
-  line-height: 1.7;
-  color: var(--gray-400);
+  font-size: clamp(1rem, 1.5vw, 1.15rem);
+  color: var(--gray-600);
+  line-height: 1.65;
   margin-bottom: 2rem;
-  max-width: 540px;
+  max-width: 520px;
 }
-.hero__ctas {
+.hero__actions {
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
-  margin-bottom: 2.5rem;
 }
-.hero__proof {
-  display: flex;
-  gap: 2rem;
-  align-items: center;
-}
-.hero__proof-divider {
-  width: 1px;
-  height: 40px;
-  background: var(--dark-4);
-}
-.hero__proof-num {
-  display: block;
-  font-family: var(--font-heading);
-  font-weight: 800;
-  font-size: 1.75rem;
-  color: var(--white);
-  line-height: 1;
-}
-.hero__proof-label {
-  font-size: 0.8rem;
-  color: var(--gray-500);
-}
-.hero__visual {
-  display: flex;
-  justify-content: flex-end;
-}
-.hero__img-wrapper {
-  position: relative;
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  box-shadow: var(--shadow-lg);
-}
-.hero__img-wrapper img {
+.hero__img {
   width: 100%;
   height: auto;
-  display: block;
-}
-.hero__img-badge {
-  position: absolute;
-  bottom: 1rem;
-  left: 1rem;
-  right: 1rem;
-  background: rgba(10, 10, 10, 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
   border-radius: var(--radius-md);
-  padding: 0.75rem 1rem;
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-}
-@media (max-width: 1024px) {
-  .hero__content { grid-template-columns: 1fr; }
-  .hero { min-height: auto; padding: 5rem 0 3rem; }
-}
-@media (max-width: 640px) {
-  .hero__proof { flex-direction: column; align-items: flex-start; gap: 1rem; }
-  .hero__proof-divider { display: none; }
+  box-shadow: 0 8px 32px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.06);
+  object-fit: cover;
+  aspect-ratio: 16/9;
 }
 
-/* ====== SERVICES CARDS ====== */
+/* ====== TRUST BAR ====== */
+.trust-bar {
+  padding: clamp(2rem, 3vw, 3rem) 0;
+}
+.stats-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  flex-wrap: wrap;
+}
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem 2.5rem;
+}
+.stat__number {
+  font-family: var(--font-heading);
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  font-weight: 800;
+  color: #c0392b;
+  line-height: 1;
+}
+.stat__label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--gray-600);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-top: 0.35rem;
+}
+.stat-divider {
+  width: 1px;
+  height: 3rem;
+  background: var(--gray-300);
+}
+@media (max-width: 600px) {
+  .stats-row {
+    gap: 0.5rem;
+  }
+  .stat { padding: 0.75rem 1.25rem; }
+  .stat-divider { display: none; }
+}
+
+/* ====== SECTION LABELS & TITLES ====== */
+.section-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #c0392b;
+  margin-bottom: 0.75rem;
+}
+.section-title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.6rem, 3vw, 2.25rem);
+  font-weight: 800;
+  color: var(--gray-900);
+  line-height: 1.2;
+  margin-bottom: 2.5rem;
+  letter-spacing: -0.02em;
+}
+.section-cta {
+  text-align: center;
+  margin-top: 2.5rem;
+}
+
+/* ====== SERVICES GRID ====== */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+@media (max-width: 1024px) {
+  .services-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) {
+  .services-grid { grid-template-columns: 1fr; }
+}
 .service-card {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  overflow: hidden;
+  padding: 0;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
-.service-card__icon {
-  width: 56px;
-  height: 56px;
-  border-radius: var(--radius-md);
-  background: rgba(192, 57, 43, 0.1);
+.service-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.12);
+}
+.service-card__image-wrap {
+  width: 100%;
+  overflow: hidden;
+}
+.service-card__image {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16/9;
+  object-fit: cover;
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+  display: block;
+  transition: transform 0.35s ease;
+}
+.service-card:hover .service-card__image {
+  transform: scale(1.03);
+}
+.service-card__body {
+  padding: 1.25rem 1.5rem 1.5rem;
+  flex: 1;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
 }
 .service-card__title {
-  font-size: 1.25rem;
-  color: var(--white);
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--gray-900);
+  margin-bottom: 0.6rem;
 }
 .service-card__desc {
   font-size: 0.9rem;
-  color: var(--gray-400);
+  color: var(--gray-600);
   line-height: 1.6;
   flex: 1;
+  margin-bottom: 1rem;
 }
-.service-card__cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  color: var(--lime);
+.service-card__link {
   font-size: 0.85rem;
   font-weight: 600;
-  margin-top: auto;
-  transition: gap var(--transition-fast);
+  color: #c0392b;
+  text-decoration: none;
+  transition: color 0.2s;
 }
-.service-card:hover .service-card__cta { gap: 0.6rem; }
+.service-card__link:hover { color: #a93226; }
 
-/* ====== COMPARISON ====== */
-.comparison-grid {
+/* ====== CASE STUDIES ====== */
+.case-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
 }
-@media (max-width: 768px) {
-  .comparison-grid { grid-template-columns: 1fr; }
+@media (max-width: 900px) {
+  .case-grid { grid-template-columns: repeat(2, 1fr); }
 }
-.comparison-col {
-  border-radius: var(--radius-md);
-  padding: var(--space-xl);
+@media (max-width: 580px) {
+  .case-grid { grid-template-columns: 1fr; }
 }
-.comparison-col--bad {
-  background: var(--dark-2);
-  border: 1px solid var(--dark-4);
-}
-.comparison-col--good {
-  background: linear-gradient(135deg, rgba(192,57,43,0.08), rgba(192,57,43,0.03));
-  border: 1px solid rgba(192,57,43,0.25);
-}
-.comparison-col__head {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 1.1rem;
-  margin-bottom: 1.25rem;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid var(--dark-4);
-}
-.comparison-col__head--bad { color: var(--gray-400); }
-.comparison-col__head--bad svg { color: var(--gray-500); }
-.comparison-col__head--good { color: var(--lime); }
-.comparison-col__head--good svg { color: var(--lime); }
-.comparison-list {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-.comparison-list li {
-  font-size: 0.95rem;
-  color: var(--gray-300);
-  padding-left: 1.5rem;
-  position: relative;
-  line-height: 1.5;
-}
-.comparison-col--bad .comparison-list li::before {
-  content: '✕';
-  position: absolute;
-  left: 0;
-  color: var(--gray-600);
-  font-size: 0.8rem;
-}
-.comparison-col--good .comparison-list li::before {
-  content: '✓';
-  position: absolute;
-  left: 0;
-  color: var(--lime);
-  font-weight: 700;
-}
-
-/* ====== PROCESS ====== */
-.process-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 2.5rem 3rem;
-}
-@media (max-width: 768px) {
-  .process-grid { grid-template-columns: 1fr; gap: 2rem; }
-}
-
-/* ====== CASE STUDY CARDS ====== */
 .case-card {
-  display: flex;
-  flex-direction: column;
-  background: var(--dark-2);
-  border: 1px solid var(--dark-4);
-  border-radius: var(--radius-md);
-  overflow: hidden;
-  transition: all var(--transition-med);
+  padding: 1.75rem;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 .case-card:hover {
-  border-color: var(--gray-700);
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-md);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 28px rgba(0,0,0,0.1);
 }
-.case-card__img {
-  width: 100%;
-  height: 180px;
-  object-fit: cover;
+.case-card__header {
+  margin-bottom: 0.75rem;
 }
-.case-card__body {
-  padding: 1.25rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  flex: 1;
-}
-.case-card__category {
-  font-size: 0.7rem;
-  font-weight: 600;
+.case-card__industry {
+  display: inline-block;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--lime);
+  color: #c0392b;
+  background: rgba(192,57,43,0.08);
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
 }
 .case-card__title {
-  font-size: 1rem;
-  color: var(--white);
-  line-height: 1.3;
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--gray-700);
+  margin-bottom: 1rem;
+  line-height: 1.4;
 }
 .case-card__metric {
-  margin-top: auto;
-  padding-top: 0.75rem;
-  border-top: 1px solid var(--dark-4);
-}
-.case-card__metric-value {
   font-family: var(--font-heading);
-  font-weight: 700;
-  font-size: 0.95rem;
-  color: var(--red-light);
-}
-
-/* ====== PROOF BAR ====== */
-.proof-bar {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 2rem;
-  flex-wrap: wrap;
-  padding: 1.5rem 0;
-}
-.proof-bar__item {
-  text-align: center;
-}
-.proof-bar__num {
-  display: block;
-  font-family: var(--font-heading);
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
   font-weight: 800;
-  font-size: 1.75rem;
-  color: var(--white);
-  line-height: 1;
+  color: #c0392b;
+  line-height: 1.1;
+  margin-bottom: 0.4rem;
 }
-.proof-bar__label {
-  font-size: 0.75rem;
+.case-card__secondary {
+  font-size: 0.85rem;
   color: var(--gray-500);
-  margin-top: 0.15rem;
-  display: block;
-}
-.proof-bar__sep {
-  width: 1px;
-  height: 36px;
-  background: var(--dark-4);
-}
-@media (max-width: 640px) {
-  .proof-bar__sep { display: none; }
-  .proof-bar { gap: 1.25rem; }
 }
 
-/* ====== REVIEWS GRID ====== */
-.reviews-grid {
+/* ====== HOW WE'RE DIFFERENT ====== */
+.diff__inner {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-  gap: 1.25rem;
+  grid-template-columns: 1fr 1.35fr;
+  gap: clamp(2rem, 5vw, 5rem);
+  align-items: center;
 }
 @media (max-width: 768px) {
+  .diff__inner {
+    grid-template-columns: 1fr;
+  }
+  .diff__image { display: none; }
+}
+.diff__photo {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-md);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+  object-fit: cover;
+  max-height: 560px;
+  object-position: top;
+}
+.diff__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.diff__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+.diff__icon {
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+.diff__item strong {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--gray-900);
+  margin-bottom: 0.25rem;
+}
+.diff__item p {
+  font-size: 0.9rem;
+  color: var(--gray-600);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ====== REVIEWS ====== */
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+@media (max-width: 900px) {
+  .reviews-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 580px) {
   .reviews-grid { grid-template-columns: 1fr; }
+}
+.review-card {
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+}
+.review-card__stars {
+  color: #f4c542;
+  font-size: 1.1rem;
+  letter-spacing: 0.05em;
+  margin-bottom: 1rem;
+}
+.review-card__text {
+  font-size: 0.9rem;
+  color: var(--gray-700);
+  line-height: 1.7;
+  flex: 1;
+  margin-bottom: 1.25rem;
+  font-style: italic;
+}
+.review-card__footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+.review-card__author {
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--gray-900);
+}
+.review-card__date {
+  font-size: 0.78rem;
+  color: var(--gray-500);
+}
+
+/* ====== CTA BANNER ====== */
+.cta-banner {
+  text-align: center;
+}
+.cta-banner__inner {
+  max-width: 680px;
+  margin: 0 auto;
+}
+.cta-banner__headline {
+  font-family: var(--font-heading);
+  font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.2;
+  margin-bottom: 1.25rem;
+  letter-spacing: -0.02em;
+}
+.cta-banner__sub {
+  font-size: 1.05rem;
+  color: rgba(255,255,255,0.75);
+  line-height: 1.65;
+  margin-bottom: 2rem;
+}
+.cta-banner__actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.btn--outline-light {
+  background: transparent;
+  border: 2px solid rgba(255,255,255,0.35);
+  color: #ffffff;
+  transition: border-color 0.2s, background 0.2s;
+}
+.btn--outline-light:hover {
+  border-color: rgba(255,255,255,0.7);
+  background: rgba(255,255,255,0.08);
+}
+.btn--lg {
+  padding: 0.9rem 1.75rem;
+  font-size: 1rem;
 }
 </style>

@@ -45,7 +45,7 @@ const relatedCaseStudies = config.case_studies.filter(cs =>
         <a href={`/industries/${industry.slug}/${svc.slug}/`} class="card" style="text-decoration: none;">
           <h3 style="font-size: 1.15rem; margin-bottom: 0.5rem; color: var(--white);">{svc.name} for {industry.full_name}</h3>
           <p style="color: var(--gray-400); font-size: 0.9rem; line-height: 1.5;">{svc.short_description}</p>
-          <span style="display: inline-flex; align-items: center; gap: 0.25rem; color: var(--lime); font-size: 0.85rem; font-weight: 600; margin-top: 0.75rem;">
+          <span style="display: inline-flex; align-items: center; gap: 0.25rem; color: var(--red-light); font-size: 0.85rem; font-weight: 600; margin-top: 0.75rem;">
             Learn More <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
           </span>
         </a>
@@ -77,7 +77,7 @@ const relatedCaseStudies = config.case_studies.filter(cs =>
   <div class="container" style="position: relative; z-index: 1;">
     <h2 style="margin-bottom: 1rem;">Ready to Grow Your {industry.name} Business?</h2>
     <p style="margin-bottom: 2rem;">Get a free strategy session tailored to the {industry.name.toLowerCase()} industry.</p>
-    <a href="/contact/" class="btn btn--lime btn--lg">Get Your Free Strategy Call</a>
+    <a href="/contact/" class="btn btn--primary btn--lg">Get Your Free Strategy Call</a>
   </div>
 </section>
 
